@@ -2,27 +2,23 @@
 
 This document covers all **integration and end-to-end (E2E)** tests for Stencil, which are located under the `test` folder. These tests validate Stencil from the outside by importing it as a dependency, simulating real-world usage, and testing integration, E2E scenarios, and feature behaviors. They are loosely coupled and focus on user-facing features, build outputs, and application-level scenarios.
 
-## Test Locations & Purpose
+## Test Groupings & Purpose
 
-### 1. `test/end-to-end/`
-- **Type:** End-to-End (E2E)
-- **Purpose:** Full application scenarios, hydration, and build output validation.
+### 1. Sample Apps & Demos
+- Example Stencil apps and usage demos.
+  - `hello-world`, `hello-vdom`, `todo-app`, `ionic-app`, `storybook`
 
-### 2. `test/wdio/`
-- **Type:** E2E & Feature
-- **Purpose:** WebdriverIO-based browser automation tests for DOM, shadow DOM, slots, events, and more. Each subfolder targets a specific feature or scenario.
+### 2. Feature/Functionality-Specific Tests
+- Tests focused on specific Stencil features or outputs.
+  - `docs-json`, `docs-readme`, `copy-task`, `style-modes`, `browser-compile`, `bundler`, `performance`, `prerender-shadow`, `type-tests`
 
-### 3. `test/prerender-shadow/`
-- **Type:** Feature
-- **Purpose:** Prerendering and shadow DOM feature tests.
+### 3. Integration & E2E Test Suites
+- Automated E2E and integration test suites.
+  - `end-to-end`, `wdio`
 
-### 4. `test/performance/`
-- **Type:** Performance
-- **Purpose:** Build and runtime performance measurement and validation.
-
-### 5. `test/browser-compile/`, `test/bundler/`, `test/docs-json/`, `test/docs-readme/`, `test/style-modes/`, `test/storybook/`, etc.
-- **Type:** Feature
-- **Purpose:** Feature-specific tests and sample apps for documentation, style, bundling, and storybook integration.
+### 4. Infrastructure & Utilities
+- Test/build support scripts and runners.
+  - `.scripts`, `jest-spec-runner`
 
 ---
 
