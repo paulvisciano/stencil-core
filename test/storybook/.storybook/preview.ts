@@ -8,6 +8,11 @@ const preview: Preview = {
        date: /Date$/i,
       },
     },
+    options: {
+      storySort: {
+        order: ['Testing',['Overview', 'Core', 'Integration-e2e']],
+      },
+    },
   },
 };
 
