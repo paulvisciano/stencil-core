@@ -4,7 +4,7 @@ This document covers all **core (source/implementation)** tests for Stencil, whi
 
 ## Test Locations & Purpose
 
-### 1. `src/cli/test/`
+### CLI (`src/cli/test/`)
 - **Type:** Unit & Integration
 - **Purpose:** Test CLI commands, flag parsing, config management, and task execution.
 - **Examples:**
@@ -13,7 +13,7 @@ This document covers all **core (source/implementation)** tests for Stencil, whi
   - `run.spec.ts`: Running CLI commands and task execution.
   - `task-generate.spec.ts`: CLI task generation and file creation.
 
-### 2. `src/compiler/*/test/`
+### Compiler (`src/compiler/*/test/`)
 - **Type:** Unit & Integration
 - **Purpose:** Test core compiler logic, output targets, build processes, and configuration validation.
 - **Examples:**
@@ -25,33 +25,33 @@ This document covers all **core (source/implementation)** tests for Stencil, whi
   - `generate-app-types.spec.ts`, `generate-component-types.spec.ts`, `generate-event-detail-types.spec.ts`: Type generation for components and events.
   - `markdown-overview.spec.ts`, `style-docs.spec.ts`, `docs-util.spec.ts`: Documentation generation and parsing.
 
-### 3. `src/compiler/sys/tests/`, `src/utils/test/`, etc.
+### System Utilities (`src/compiler/sys/tests/`, `src/utils/test/`, etc.)
 - **Type:** Unit
 - **Purpose:** System utilities, file system mocks, and helper functions.
 - **Examples:**
   - `in-memory-fs.spec.ts`, `stencil-sys.spec.ts`, `fetch-module.spec.ts`: System and file system utilities.
   - `util.spec.ts`, `scope-css.spec.ts`, `output-target.spec.ts`: Utility and helper functions for CSS, output targets, and general logic.
 
-### 4. `src/runtime/test/`
+### Runtime (`src/runtime/test/`)
 - **Type:** Unit & Integration
 - **Purpose:** Runtime behavior, JSX rendering, style encapsulation, and virtual DOM utilities.
 - **Examples:**
   - `jsx.spec.tsx`, `style.spec.tsx`: Runtime rendering, style encapsulation, and DOM behavior.
   - `vdom/test/util.spec.ts`: Virtual DOM utility tests.
 
-### 5. `src/dev-server/test/`
+### Dev Server (`src/dev-server/test/`)
 - **Type:** Unit
 - **Purpose:** Dev server utilities and SSR data path handling.
 - **Examples:**
   - `dev-server-utils.spec.ts`, `util.spec.ts`: Dev server and SSR utilities.
 
-### 6. `src/testing/jest/jest-28/test/`
+### Testing Platform (`src/testing/jest/jest-28/test/`)
 - **Type:** Unit
 - **Purpose:** Jest integration and platform-specific testing helpers.
 - **Examples:**
   - `jest-preprocessor.spec.ts`: Jest preprocessor integration tests.
 
-### 7. `scripts/utils/test/`
+### Scripts (`scripts/utils/test/`)
 - **Type:** Unit
 - **Purpose:** Build/release script utilities and options parsing.
 - **Examples:**
