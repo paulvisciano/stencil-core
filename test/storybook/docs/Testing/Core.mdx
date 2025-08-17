@@ -1,0 +1,72 @@
+# Core Testing in the Stencil Project
+
+This document covers all **core (source/implementation)** tests for Stencil, which are located under the `src` folder. These tests directly exercise Stencil's source code, validating its core logic, compiler internals, CLI utilities, and system utilities. They are tightly coupled to the implementation and often use internal APIs and mocks.
+
+## Test Locations & Purpose
+
+### 1. `src/cli/test/`
+- **Type:** Unit & Integration
+- **Purpose:** Test CLI commands, flag parsing, config management, and task execution.
+- **Examples:**
+  - `ionic-config.spec.ts`: Reading, writing, and updating CLI config files.
+  - `parse-flags.spec.ts`: CLI flag parsing.
+  - `run.spec.ts`: Running CLI commands and task execution.
+  - `task-generate.spec.ts`: CLI task generation and file creation.
+
+### 2. `src/compiler/*/test/`
+- **Type:** Unit & Integration
+- **Purpose:** Test core compiler logic, output targets, build processes, and configuration validation.
+- **Examples:**
+  - `output-targets-dist.spec.ts`, `output-targets-www.spec.ts`, `custom-elements-types.spec.ts`: Output generation for different targets.
+  - `prerender-optimize.spec.ts`, `prerendered-write-path.spec.ts`, `crawl-urls.spec.ts`: Prerendering logic and optimizations.
+  - `build-stats.spec.ts`, `write-export-maps.spec.ts`: Build stats and export map generation.
+  - `run-program.spec.ts`, `create-watch-program.spec.ts`: TypeScript program creation and transpilation.
+  - `validate-output-dist.spec.ts`, `validate-testing.spec.ts`: Config validation for output and testing.
+  - `generate-app-types.spec.ts`, `generate-component-types.spec.ts`, `generate-event-detail-types.spec.ts`: Type generation for components and events.
+  - `markdown-overview.spec.ts`, `style-docs.spec.ts`, `docs-util.spec.ts`: Documentation generation and parsing.
+
+### 3. `src/compiler/sys/tests/`, `src/utils/test/`, etc.
+- **Type:** Unit
+- **Purpose:** System utilities, file system mocks, and helper functions.
+- **Examples:**
+  - `in-memory-fs.spec.ts`, `stencil-sys.spec.ts`, `fetch-module.spec.ts`: System and file system utilities.
+  - `util.spec.ts`, `scope-css.spec.ts`, `output-target.spec.ts`: Utility and helper functions for CSS, output targets, and general logic.
+
+### 4. `src/runtime/test/`
+- **Type:** Unit & Integration
+- **Purpose:** Runtime behavior, JSX rendering, style encapsulation, and virtual DOM utilities.
+- **Examples:**
+  - `jsx.spec.tsx`, `style.spec.tsx`: Runtime rendering, style encapsulation, and DOM behavior.
+  - `vdom/test/util.spec.ts`: Virtual DOM utility tests.
+
+### 5. `src/dev-server/test/`
+- **Type:** Unit
+- **Purpose:** Dev server utilities and SSR data path handling.
+- **Examples:**
+  - `dev-server-utils.spec.ts`, `util.spec.ts`: Dev server and SSR utilities.
+
+### 6. `src/testing/jest/jest-28/test/`
+- **Type:** Unit
+- **Purpose:** Jest integration and platform-specific testing helpers.
+- **Examples:**
+  - `jest-preprocessor.spec.ts`: Jest preprocessor integration tests.
+
+### 7. `scripts/utils/test/`
+- **Type:** Unit
+- **Purpose:** Build/release script utilities and options parsing.
+- **Examples:**
+  - `options.spec.ts`, `release-utils.spec.ts`: Build/release script and options tests.
+
+---
+
+## Test Types
+- **Unit Tests:** Validate individual functions, classes, or modules in isolation.
+- **Integration Tests:** Test interactions between multiple modules or systems.
+- **Config/Validation Tests:** Ensure configuration options and validation logic work as expected.
+- **Type Generation Tests:** Ensure correct TypeScript type output for Stencil components.
+- **Build/Output Tests:** Validate build artifacts and output file correctness.
+- **Runtime/JSX Tests:** Test runtime rendering, style encapsulation, and DOM behavior.
+
+---
+
+For more details, see individual test files and folder READMEs.

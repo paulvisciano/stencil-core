@@ -1,0 +1,41 @@
+# Integration & E2E Testing in the Stencil Project
+
+This document covers all **integration and end-to-end (E2E)** tests for Stencil, which are located under the `test` folder. These tests validate Stencil from the outside by importing it as a dependency, simulating real-world usage, and testing integration, E2E scenarios, and feature behaviors. They are loosely coupled and focus on user-facing features, build outputs, and application-level scenarios.
+
+## Test Locations & Purpose
+
+### 1. `test/end-to-end/`
+- **Type:** End-to-End (E2E)
+- **Purpose:** Full application scenarios, hydration, and build output validation.
+
+### 2. `test/wdio/`
+- **Type:** E2E & Feature
+- **Purpose:** WebdriverIO-based browser automation tests for DOM, shadow DOM, slots, events, and more. Each subfolder targets a specific feature or scenario.
+
+### 3. `test/prerender-shadow/`
+- **Type:** Feature
+- **Purpose:** Prerendering and shadow DOM feature tests.
+
+### 4. `test/performance/`
+- **Type:** Performance
+- **Purpose:** Build and runtime performance measurement and validation.
+
+### 5. `test/browser-compile/`, `test/bundler/`, `test/docs-json/`, `test/docs-readme/`, `test/style-modes/`, `test/storybook/`, etc.
+- **Type:** Feature
+- **Purpose:** Feature-specific tests and sample apps for documentation, style, bundling, and storybook integration.
+
+---
+
+## Test Types
+- **End-to-End (E2E) Tests:** Simulate real user scenarios, browser interactions, and full builds.
+- **Feature-Specific Tests:** Target specific Stencil features, optimizations, or edge cases.
+- **Performance Tests:** Measure and validate build/runtime performance.
+- **Integration Tests:** Test interactions between Stencil and external systems or user projects.
+
+---
+
+## How to Add or Run Tests
+- **E2E/Wdio:** Use WebdriverIO for browser-based tests. See `test/wdio/README.md` for setup and commands.
+- **Feature/Performance:** Refer to the respective folder's README or config files for instructions.
+
+For more details, see individual test files and folder READMEs.
