@@ -1,0 +1,76 @@
+# Decorator Test Coverage Overview
+
+This section tracks test coverage for all Stencil decorators. Each decorator has its own matrix and coverage notes. Use this as a reference for contributors and maintainers.
+
+## What Are Decorators in Stencil?
+Stencil decorators are special TypeScript annotations that add metadata and behavior to component classes, properties, methods, and events. They enable features like reactive state, property reflection, event emission, and lifecycle hooks. Decorators are a core part of Stencil's API and are used to define how components interact with the DOM and with each other.
+
+### Example Stencil Component Using Decorators
+```tsx
+import { Component, Prop, State, Event, EventEmitter, Method, Listen } from '@stencil/core';
+
+@Component({
+  tag: 'example-cmp',
+})
+export class ExampleCmp {
+  @Prop({ reflect: true }) label: string;
+  @State() count: number = 0;
+  @Event() valueChanged: EventEmitter<number>;
+
+  @Method()
+  async increment() {
+    this.count++;
+    this.valueChanged.emit(this.count);
+  }
+
+  @Listen('click', { target: 'window' })
+  handleWindowClick() {
+    // handle global click
+  }
+
+  render() {
+    return <button onClick={() => this.increment()}>{this.label}: {this.count}</button>;
+  }
+}
+```
+
+## Decorators
+
+Below are all the decorators provided by Stencil, each with a description, usage example, and a link to its dedicated test coverage matrix:
+
+- [`@Component`](?path=/docs/testing-decorators-component): Defines a custom element and its metadata, such as tag name, style, encapsulation, and shadow DOM options.
+  ```tsx
+  @Component({ tag: 'example-cmp' })
+  export class ExampleCmp { /* ... */ }
+  ```
+
+- [`@Prop`](?path=/docs/testing-decorators-prop): Exposes a property to consumers and can reflect it to an attribute.
+  ```tsx
+  @Prop({ reflect: true }) label: string;
+  ```
+
+- [`@State`](?path=/docs/testing-decorators-state): Creates internal reactive state.
+  ```tsx
+  @State() count: number = 0;
+  ```
+
+- [`@Event`](?path=/docs/testing-decorators-event): Allows the component to emit custom events.
+  ```tsx
+  @Event() valueChanged: EventEmitter<number>;
+  ```
+
+- [`@Method`](?path=/docs/testing-decorators-method): Exposes public methods to consumers.
+  ```tsx
+  @Method()
+  async increment() { /* ... */ }
+  ```
+
+- [`@Listen`](?path=/docs/testing-decorators-listen): Attaches event listeners to the host, window, or document.
+  ```tsx
+  @Listen('click', { target: 'window' })
+  handleWindowClick() { /* ... */ }
+  ```
+
+---
+
+Add new decorator coverage documents here as needed.
