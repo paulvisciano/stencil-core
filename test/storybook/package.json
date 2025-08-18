@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "coverage": "node docs/Testing/Decorators/run-all-coverage.js"
   },
   "dependencies": {
     "react": "^19.1.1",
