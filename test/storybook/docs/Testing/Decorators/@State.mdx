@@ -1,0 +1,95 @@
+import data from './state-coverage-data.json';
+
+# @State Testing Matrix
+
+The `@State` decorator is used to manage internal state for a component. When a state property changes, the component will re-render. This matrix tracks the test coverage for different types and configurations of the `@State` decorator.
+
+## State Characteristics
+
+The `@State` decorator is used for managing internal data that can change over time. Unlike `@Prop`, state is not meant to be passed in from a parent component.
+
+- **Type**: `@State` can be used with any standard data type, such as `string`, `number`, `boolean`, `array`, or `object`. The type can be explicitly annotated or inferred from the initial value.
+
+- **Default Value**: A state property can be initialized with a default value. If no default value is provided, it will be `undefined`. Tests should cover both scenarios to ensure the component behaves correctly.
+
+## Covered Permutations
+
+<div>
+  <strong>Permutation Coverage:</strong> {data.coverage.covered}/{data.coverage.total} permutations covered (
+  <strong>{data.coverage.percent}%</strong>)
+</div>
+
+<div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+    <colgroup>
+      <col style={{ width: '33%' }} />
+      <col style={{ width: '33%' }} />
+      <col style={{ width: '34%' }} />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Has Default Value</th>
+        <th>Number of Occurrences</th>
+      </tr>
+    </thead>
+  </table>
+  <div style={{ maxHeight: 400, overflowY: 'auto', width: '100%' }}>
+    <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+      <colgroup>
+        <col style={{ width: '33%' }} />
+        <col style={{ width: '33%' }} />
+        <col style={{ width: '34%' }} />
+      </colgroup>
+      <tbody>
+        {data.coveredPermutations.map((p, i) => (
+          <tr key={i}>
+            {p.options.map((opt, j) => (
+              <td key={j}>{opt}</td>
+            ))}
+            <td>{p.count}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+## Missing Permutations
+
+<div style={{ marginTop: '2rem', maxWidth: '100%', width: '100%', background: '#fff' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+    <colgroup>
+      <col style={{ width: '33%' }} />
+      <col style={{ width: '33%' }} />
+      <col style={{ width: '34%' }} />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Has Default Value</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+  </table>
+  <div style={{ maxHeight: 600, overflowY: 'auto', width: '100%' }}>
+    <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+      <colgroup>
+        <col style={{ width: '33%' }} />
+        <col style={{ width: '33%' }} />
+        <col style={{ width: '34%' }} />
+      </colgroup>
+      <tbody>
+        {data.missingPermutations.map((p, i) => (
+          <tr key={i} style={{ background: '#fff3cd', fontStyle: 'italic' }}>
+            {p.options.map((opt, j) => (
+              <td key={j}>{opt}</td>
+            ))}
+            <td>Missing</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
