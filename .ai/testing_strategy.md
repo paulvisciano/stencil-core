@@ -14,8 +14,9 @@ A groundbreaking aspect of our testing strategy is its reliance on a GenAI-power
 
 1.  **Study & Document Permutations**: For a given feature, like a decorator, we first study all its possible variations and options. These are documented in a human- and machine-readable permutation matrix within an `.mdx` file. This matrix serves as the single source of truth for what needs to be tested.
 2.  **AI-Driven Test Generation**: A generative AI assistant uses the permutation matrix as a blueprint to generate the necessary tests. It creates a combination of isolated component-level tests (`test/wdio`) and integration tests (`test/end-to-end`) to exercise every permutation defined in the matrix.
-3.  **Coverage Analysis & Matrix Update**: After the tests are generated and run, a custom coverage script analyzes the results. It updates the permutation matrix `.mdx` file with the latest coverage statistics, clearly marking which permutations are successfully tested and which are missing.
-4.  **Iterate and Refine**: The AI reviews the updated matrix. If any permutations are uncovered, it refines the existing tests or generates new ones to cover the gaps. This loop continues until all permutations in the matrix are covered, ensuring our test suite is as comprehensive as possible.
+3.  **Test Execution and Validation**: Before checking coverage, the newly generated `wdio` tests are run to ensure they pass. This step is critical to confirm that the generated components and tests are functionally correct and adhere to the established patterns in the `wdio` directory.
+4.  **Coverage Analysis & Matrix Update**: After the tests are generated and pass, a custom coverage script analyzes the results. It updates the permutation matrix `.mdx` file with the latest coverage statistics, clearly marking which permutations are successfully tested and which are missing.
+5.  **Iterate and Refine**: The AI reviews the updated matrix. If any permutations are uncovered, it refines the existing tests or generates new ones to cover the gaps. This loop continues until all permutations in the matrix are covered, ensuring our test suite is as comprehensive as possible.
 
 This iterative process allows us to not only achieve but also maintain high test coverage over time, adapting as new features and variations are introduced.
 
@@ -92,6 +93,28 @@ This approach allows us to harness the collective intelligence and diverse capab
 | --------------------- | ----------------- | ---------------------------------------------------- | ----------------------------------------------------------------- |
 | **Component Tests**   | `test/wdio/`      | WebdriverIO (`@wdio/browser-runner/stencil`)         | Verify individual features in isolation and satisfy static analysis.    |
 | **Integration Tests** | `test/end-to-end/` | Stencil's `newE2EPage()` (Puppeteer)                 | Verify that multiple features work correctly when used together. |
+
+### Running Component Tests
+
+To run the component-level tests located in the `test/wdio` directory, follow these steps:
+
+1.  **Navigate to the `wdio` test directory**:
+    ```bash
+    cd test/wdio
+    ```
+2.  **Update the test configuration**: Open the `wdio.conf.ts` file.
+3.  **Specify the test file**: Locate the `specs` array within the configuration file and update it to point to the specific test file(s) you want to run. For example:
+    ```typescript
+    // ...
+    specs: [['./prop-mutable/**/*.test.tsx']],
+    // ...
+    ```
+4.  **Run the tests**: Execute the following command in your terminal:
+    ```bash
+    npm run wdio
+    ```
+
+This will launch the WebdriverIO test runner and execute the specified tests.
 
 ## Continuous Improvement
 
