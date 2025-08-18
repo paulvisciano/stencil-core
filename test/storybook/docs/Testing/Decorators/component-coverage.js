@@ -119,9 +119,12 @@ function main() {
 
   // Read MDX and replace table body and coverage block
   let mdx = fs.readFileSync(mdxPath, 'utf8');
-  mdx = mdx.replace(/<div style=\"background:#ffeeba[\s\S]*?<\/div>/m, ''); // Remove old block if present
-  mdx = mdx.replace(/(<table>)/m, coverageBlock + '\n$1');
-  mdx = mdx.replace(/(<tbody>[\s\S]*?<\/tbody>)/m, `<tbody>\n${rows}  </tbody>`);
+  // Remove old coverage block if present
+  mdx = mdx.replace(/<div><strong> Coverage:[\s\S]*?<\/div>/m, '');
+  // Insert coverage block above the matrix container
+  mdx = mdx.replace(/(<div style=\{ maxWidth: '100%', width: '100%', background: '#fff' \}>)/m, coverageBlock + '\n$1');
+  // Replace only the tbody content inside the scrollable table
+  mdx = mdx.replace(/(<tbody>[\s\S]*?<\/tbody>)/m, `<tbody>\n${rows}      </tbody>`);
   fs.writeFileSync(mdxPath, mdx);
   console.log('Component.mdx matrix and coverage updated.');
 }
