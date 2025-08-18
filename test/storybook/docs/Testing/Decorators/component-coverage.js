@@ -33,16 +33,8 @@ function extractComponentOptions(file) {
   if (!match) return null;
   const options = {};
   OPTIONS.forEach(opt => {
-    // Allow optional spaces around colon
-    const optMatch = match[1].match(new RegExp(`${opt}\s*:\s*([^,\n]+)`));
-    if (!optMatch) {
-      // Try with extra spaces before/after colon
-      const optMatchAlt = match[1].match(new RegExp(`${opt}\s*\s*:\s*\s*([^,\n]+)`));
-      if (optMatchAlt) {
-        options[opt] = optMatchAlt[1].replace(/['"`]/g, '').trim();
-        return;
-      }
-    }
+    // Allow optional spaces around the property name and colon
+    const optMatch = match[1].match(new RegExp(`\\s*${opt}\\s*:\\s*([^,\\n]+)`));
     if (optMatch) {
       options[opt] = optMatch[1].replace(/['"`]/g, '').trim();
     }
