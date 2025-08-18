@@ -1,6 +1,13 @@
 # Stencil.js Testing Strategy
 
-This document outlines the testing strategy for the Stencil.js codebase, focusing on a robust and maintainable approach to ensure the quality and stability of the framework.
+This document outlines the testing strategy for the Stencil.js codebase, centered around a GenAI-powered loop. This iterative process involves:
+1. Defining all feature permutations in a machine and human-readable format.
+2. Using AI to generate tests that cover these permutations.
+3. Running the generated tests to ensure they are functionally correct.
+4. Analyzing the code to update a coverage matrix, identifying any gaps.
+5. Refining and regenerating tests to address any uncovered permutations until 100% coverage is achieved.
+
+This ensures a comprehensive and robust testing suite that is both maintainable and scalable.
 
 ## Philosophy
 
