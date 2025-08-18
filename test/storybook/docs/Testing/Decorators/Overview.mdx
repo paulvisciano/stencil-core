@@ -1,6 +1,15 @@
+import componentData from './component-coverage-data.json';
+import propData from './prop-coverage-data.json';
+import stateData from './state-coverage-data.json';
+import eventData from './event-coverage-data.json';
+import listenData from './listen-coverage-data.json';
+import methodData from './method-coverage-data.json';
+
 # Decorator Test Coverage Overview
 
 This section tracks test coverage for all Stencil decorators. Each decorator has its own matrix and coverage notes. Use this as a reference for contributors and maintainers.
+
+
 
 ## What Are Decorators in Stencil?
 Stencil decorators are special TypeScript annotations that add metadata and behavior to component classes, properties, methods, and events. They enable features like reactive state, property reflection, event emission, and lifecycle hooks. Decorators are a core part of Stencil's API and are used to define how components interact with the DOM and with each other.
@@ -70,3 +79,47 @@ Below are all the decorators provided by Stencil. Each decorator has a dedicated
   @Listen('click', { target: 'window' })
   handleWindowClick() { /* ... */ }
   ```
+
+
+## Coverage Summary
+
+<div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+    <colgroup>
+      <col style={{ width: '50%' }} />
+      <col style={{ width: '50%' }} />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Decorator</th>
+        <th style={{ textAlign: 'center' }}>Coverage Percentage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>@Component</td>
+        <td style={{ textAlign: 'center' }}>{componentData.coverage.percent}%</td>
+      </tr>
+      <tr>
+        <td>@Prop</td>
+        <td style={{ textAlign: 'center' }}>{propData.coverage.percent}%</td>
+      </tr>
+      <tr>
+        <td>@State</td>
+        <td style={{ textAlign: 'center' }}>{stateData.coverage.percent}%</td>
+      </tr>
+      <tr>
+        <td>@Event</td>
+        <td style={{ textAlign: 'center' }}>{eventData.coverage.percent}%</td>
+      </tr>
+      <tr>
+        <td>@Listen</td>
+        <td style={{ textAlign: 'center' }}>{listenData.coverage.percent}%</td>
+      </tr>
+      <tr>
+        <td>@Method</td>
+        <td style={{ textAlign: 'center' }}>{methodData.coverage.percent}%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
