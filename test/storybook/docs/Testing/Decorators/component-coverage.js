@@ -11,7 +11,6 @@ const TEST_DIRS = [
   path.resolve(__dirname, '../../../../../test/wdio'),
 ];
 const OPTIONS = ['shadow', 'scoped', 'assetsDirs', 'formAssociated', 'styleUrl', 'styleUrls', 'styles'];
-const mdxPath = path.resolve(__dirname, '@Component.mdx');
 
 function findFiles(dir, ext = '.tsx', excludeDirs = ['node_modules', '.cache']) {
   let results = [];
@@ -62,39 +61,55 @@ function normalizeValue(val, opt) {
   return val !== undefined && val !== 'false' ? '✓' : '-';
 }
 
-function getTotalPermutations() {
-  // For booleans: 3 states (true, false, unset), for string/array: 2 (set, unset)
-  // shadow, scoped, formAssociated: 3 each
-  // assetsDirs, styleUrl, styleUrls, styles: 2 each
-  return 3 * 3 * 2 * 3 * 2 * 2 * 2; // = 1296
-}
-
-function getCoverageBlock(covered, total) {
-  const percent = ((covered / total) * 100).toFixed(1);
-  return `<div><strong>Permutation Coverage:</strong> ${covered}/${total} permutations covered (<strong>${percent}%</strong>)</div>`;
-}
-
 function getAllPermutationKeys() {
-  // Generate all possible combinations for the OPTIONS
-  const states = {
+  const baseOptions = {
     shadow: ['✓', '✗', '-'],
     scoped: ['✓', '✗', '-'],
     assetsDirs: ['✓', '-'],
     formAssociated: ['✓', '✗', '-'],
-    styleUrl: ['✓', '-'],
-    styleUrls: ['✓', '-'],
-    styles: ['✓', '-'],
   };
-  const keys = [];
-  function build(current, idx) {
-    if (idx === OPTIONS.length) {
-      keys.push(current.join('|'));
+
+  // There are 4 valid states for the style properties
+  const stylePermutations = [
+    ['✓', '-', '-'], // styleUrl set
+    ['-', '✓', '-'], // styleUrls set
+    ['-', '-', '✓'], // styles set
+    ['-', '-', '-'], // none set
+  ];
+
+  const baseKeys = Object.keys(baseOptions);
+  const allPermutations = [];
+
+  function buildPermutations(current, index) {
+    if (index === baseKeys.length) {
+      // Once a base permutation is built, combine it with each valid style permutation
+      stylePermutations.forEach(stylePerm => {
+        allPermutations.push([...current, ...stylePerm].join('|'));
+      });
       return;
     }
-    states[OPTIONS[idx]].forEach(val => build([...current, val], idx + 1));
+
+    const key = baseKeys[index];
+    baseOptions[key].forEach(value => {
+      buildPermutations([...current, value], index + 1);
+    });
   }
-  build([], 0);
-  return keys;
+
+  buildPermutations([], 0);
+  return allPermutations;
+}
+
+function getCoverageData(coveredCount, totalCount, coveredPermutations, missingPermutations) {
+  const percent = totalCount > 0 ? ((coveredCount / totalCount) * 100).toFixed(1) : '0.0';
+  return {
+    coverage: {
+      covered: coveredCount,
+      total: totalCount,
+      percent: percent,
+    },
+    coveredPermutations: coveredPermutations.map(p => ({ options: p.options, count: p.count })),
+    missingPermutations: missingPermutations.map(p => ({ options: p.split('|') })),
+  };
 }
 
 function main() {
@@ -113,74 +128,46 @@ function main() {
   // Group by unique permutation
   const permutationMap = {};
   results.forEach(entry => {
-    const key = OPTIONS.map(opt => normalizeValue(entry[opt], opt)).join('|');
-    if (!permutationMap[key]) permutationMap[key] = { count: 0 };
+    const keyArr = OPTIONS.map(opt => normalizeValue(entry[opt], opt));
+    // Enforce mutual exclusivity for styleUrl, styleUrls, styles in covered permutations
+    const styleIdx = OPTIONS.indexOf('styleUrl');
+    const styleUrlsIdx = OPTIONS.indexOf('styleUrls');
+    const stylesIdx = OPTIONS.indexOf('styles');
+    const styleSetCount = [keyArr[styleIdx], keyArr[styleUrlsIdx], keyArr[stylesIdx]].filter(v => v === '✓').length;
+    if (styleSetCount > 1) {
+      console.warn(`Skipping invalid permutation found in ${entry.file}: ${keyArr.join('|')}`);
+      return; // skip invalid covered permutation
+    }
+    const key = keyArr.join('|');
+    if (!permutationMap[key]) {
+      permutationMap[key] = { count: 0, files: [] };
+    }
     permutationMap[key].count++;
+    permutationMap[key].files.push(path.basename(entry.file));
   });
 
   const uniquePermutations = Object.entries(permutationMap).map(([key, val]) => {
     const opts = key.split('|');
-    return { options: opts, count: val.count };
-  });
-
-  // Generate table rows for MDX (covered)
-  let rows = '';
-  uniquePermutations.forEach((entry, idx) => {
-    rows += '    <tr>\n';
-    rows += `      <td>${idx + 1}</td>\n`;
-    entry.options.forEach(val => {
-      rows += `      <td>${val}</td>\n`;
-    });
-    rows += `      <td>${entry.count}</td>\n`;
-    rows += '    </tr>\n';
+    return { options: opts, count: val.count, files: val.files };
   });
 
   // Find missing permutations
   const allKeys = getAllPermutationKeys();
   const coveredKeys = new Set(Object.keys(permutationMap));
-  let missingRows = '';
-  let missingIdx = 1;
-  allKeys.forEach(key => {
-    if (!coveredKeys.has(key)) {
-      const opts = key.split('|');
-      missingRows += '        <tr style={{ background: `#fff3cd`, fontStyle: `italic` }}>';
-      missingRows += `\n          <td>${missingIdx++}</td>`;
-      opts.forEach(val => {
-        missingRows += `\n          <td>${val}</td>`;
-      });
-      missingRows += '\n          <td>Missing</td>\n        </tr>\n';
-    }
-  });
+  const missingKeys = allKeys.filter(key => !coveredKeys.has(key));
 
   // Calculate coverage
-  const totalPermutations = getTotalPermutations();
-  const covered = uniquePermutations.length;
-  const coverageBlock = getCoverageBlock(covered, totalPermutations);
+  const totalPermutations = allKeys.length;
+  const coveredCount = uniquePermutations.length;
 
-  // Read MDX and insert coverage block, table body, and missing permutations section
-  let mdx = fs.readFileSync(mdxPath, 'utf8');
+  // Generate JSON data
+  const jsonData = getCoverageData(coveredCount, totalPermutations, uniquePermutations, missingKeys);
 
-  // Insert coverage block if not present
-  if (!mdx.includes(coverageBlock)) {
-    // Insert after the intro paragraph and before the matrix container
-    mdx = mdx.replace(/(The `@Component` decorator[\s\S]*?\n\n)/, `$1${coverageBlock}\n`);
-  }
+  // Write data to JSON file
+  const jsonPath = path.resolve(__dirname, 'component-coverage-data.json');
+  fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 2));
 
-  // Replace only the tbody content for covered permutations
-  mdx = mdx.replace(/(<tbody>[\s\S]*?<\/tbody>)/m, `<tbody>\n${rows}      </tbody>`);
-
-  // Insert missing permutations rows into the missing section
-  const missingSectionRegex = /(\{\/\* The script should insert missing permutations here[\s\S]*?\*\/\})/m;
-  if (mdx.match(missingSectionRegex)) {
-    mdx = mdx.replace(missingSectionRegex, missingRows);
-  } else {
-    // If the placeholder is missing, try to find the missing table and insert rows
-    const missingTableBodyRegex = /(<table[^>]*Missing Permutations[\s\S]*?<tbody>)([\s\S]*?)(<\/tbody>)/m;
-    mdx = mdx.replace(missingTableBodyRegex, `$1\n${missingRows}$3`);
-  }
-
-  fs.writeFileSync(mdxPath, mdx);
-  console.log('Component.mdx matrix, coverage, and missing permutations updated.');
+  console.log(`Coverage data written to ${jsonPath}`);
 }
 
 main();
