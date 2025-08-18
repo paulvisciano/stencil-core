@@ -4,12 +4,25 @@ import data from './component-coverage-data.json';
 
 The `@Component` decorator is used to define a Stencil custom element, specifying its tag name, style, encapsulation, shadow DOM options, and other metadata. It is the entry point for all Stencil components and controls how they are registered and rendered.
 
+## Component Properties
+
+The `@Component` decorator accepts an object with the following properties:
+
+-   **`shadow`** (`boolean`): When `true`, the component will use native Shadow DOM encapsulation. This provides style isolation and prevents styles from leaking in or out of the component. Defaults to `false`.
+-   **`scoped`** (`boolean`): When `true`, the component's styles will be scoped to the component. This is a lighter form of style encapsulation than shadow DOM and is useful when shadow DOM is not desired. Defaults to `false`.
+-   **`assetsDirs`** (`string[]`): An array of strings specifying directories that contain assets, such as images or fonts, that should be copied to the output directory.
+-   **`formAssociated`** (`boolean`): When `true`, the component can be associated with a form, allowing it to participate in form submission and validation.
+-   **`styleUrl`** (`string`): The URL of a single stylesheet to be applied to the component. This is mutually exclusive with `styleUrls` and `styles`.
+-   **`styleUrls`** (`string[]`): An array of URLs for multiple stylesheets to be applied to the component. This is mutually exclusive with `styleUrl` and `styles`.
+-   **`styles`** (`string`): A string containing the CSS text to be applied directly to the component. This is mutually exclusive with `styleUrl` and `styleUrls`.
+
+
+## Covered Permutations
+
 <div>
   <strong>Permutation Coverage:</strong> {data.coverage.covered}/{data.coverage.total} permutations covered (
   <strong>{data.coverage.percent}%</strong>)
 </div>
-
-## Covered Permutations
 
 <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
   <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>

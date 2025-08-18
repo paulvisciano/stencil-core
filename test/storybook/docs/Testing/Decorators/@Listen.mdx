@@ -1,17 +1,16 @@
-import data from './prop-coverage-data.json';
+import data from './listen-coverage-data.json';
 
-# @Prop Testing Matrix
+# @Listen Testing Matrix
 
-The `@Prop` decorator is used to declare a public property on a Stencil component. This matrix tracks the test coverage for different types and configurations of the `@Prop` decorator.
+The `@Listen` decorator attaches an event listener to a DOM element. This matrix tracks the test coverage for the different options available to the `@Listen` decorator.
 
+## Listen Properties
 
-## Prop Properties
+Below is a detailed explanation of each property available in the `@Listen` decorator. These properties allow you to configure how the event listener behaves, including where it's attached and how it captures events.
 
-Below is a detailed explanation of each property available in the `@Prop` decorator. These properties allow you to configure how a component's properties behave, including how they are reflected to the DOM and whether they can be modified from within the component.
+- **`target`**: A string that specifies where the event listener is attached. It can be `'parent'`, `'body'`, `'document'`, or `'window'`. By default, the listener is attached to the component's host element.
 
-- **`reflect`**: A boolean that, when `true`, reflects the property's value to a corresponding HTML attribute. This is useful for styling based on the property's state or for interoperability with other frameworks.
-
-- **`mutable`**: A boolean that, when `true`, allows the property to be modified from within the component. By default, props are immutable. This is useful for properties that need to be updated by the component itself, such as a `value` property in an input component.
+- **`capture`**: A boolean that, when `true`, specifies that events for this listener will be dispatched to this listener before being dispatched to any `EventTarget` beneath it in the DOM tree. This is useful for intercepting events before they reach their intended target.
 
 ## Covered Permutations
 
@@ -19,7 +18,6 @@ Below is a detailed explanation of each property available in the `@Prop` decora
   <strong>Permutation Coverage:</strong> {data.coverage.covered}/{data.coverage.total} permutations covered (
   <strong>{data.coverage.percent}%</strong>)
 </div>
-
 
 <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
   <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
@@ -30,8 +28,8 @@ Below is a detailed explanation of each property available in the `@Prop` decora
     </colgroup>
     <thead>
       <tr>
-        <th>Type</th>
-        <th>reflect</th>
+        <th>target</th>
+        <th>capture</th>
         <th>Number of Occurrences</th>
       </tr>
     </thead>
@@ -68,8 +66,8 @@ Below is a detailed explanation of each property available in the `@Prop` decora
     </colgroup>
     <thead>
       <tr>
-        <th>Type</th>
-        <th>reflect</th>
+        <th>target</th>
+        <th>capture</th>
         <th>Status</th>
       </tr>
     </thead>
@@ -94,3 +92,4 @@ Below is a detailed explanation of each property available in the `@Prop` decora
     </table>
   </div>
 </div>
+

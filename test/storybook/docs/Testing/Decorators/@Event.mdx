@@ -4,11 +4,6 @@ import data from './event-coverage-data.json';
 
 The `@Event` decorator allows a component to emit custom events. This matrix tracks the test coverage for the different options available to the `@Event` decorator.
 
-<div>
-  <strong>Permutation Coverage:</strong> {data.coverage.covered}/{data.coverage.total} permutations covered (
-  <strong>{data.coverage.percent}%</strong>)
-</div>
-
 ## Event Properties
 
 The `@Event` decorator can be configured with the following properties in its options object:
@@ -18,6 +13,11 @@ The `@Event` decorator can be configured with the following properties in its op
 -   **`composed`** (`boolean`): When set to `true` (the default), the event can propagate across the shadow DOM boundary into the standard DOM. This is important for components that use shadow DOM.
 
 ## Covered Permutations
+
+<div>
+  <strong>Permutation Coverage:</strong> {data.coverage.covered}/{data.coverage.total} permutations covered (
+  <strong>{data.coverage.percent}%</strong>)
+</div>
 
 <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
   <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
