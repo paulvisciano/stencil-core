@@ -28,7 +28,7 @@ The `@Component` decorator is used to define a Stencil custom element, specifyin
       <td>-</td>
       <td>-</td>
       <td>-</td>
-      <td>99</td>
+      <td>98</td>
     </tr>
     <tr>
       <td>2</td>
@@ -61,7 +61,7 @@ The `@Component` decorator is used to define a Stencil custom element, specifyin
       <td>✓</td>
       <td>-</td>
       <td>-</td>
-      <td>23</td>
+      <td>22</td>
     </tr>
     <tr>
       <td>5</td>
@@ -72,7 +72,7 @@ The `@Component` decorator is used to define a Stencil custom element, specifyin
       <td>-</td>
       <td>-</td>
       <td>-</td>
-      <td>62</td>
+      <td>42</td>
     </tr>
     <tr>
       <td>6</td>
@@ -87,14 +87,14 @@ The `@Component` decorator is used to define a Stencil custom element, specifyin
     </tr>
     <tr>
       <td>7</td>
-      <td>✓</td>
-      <td>✓</td>
+      <td>✗</td>
+      <td>✗</td>
       <td>-</td>
       <td>-</td>
       <td>-</td>
       <td>-</td>
       <td>-</td>
-      <td>8</td>
+      <td>2</td>
     </tr>
     <tr>
       <td>8</td>
@@ -115,19 +115,19 @@ The `@Component` decorator is used to define a Stencil custom element, specifyin
       <td>-</td>
       <td>-</td>
       <td>-</td>
-      <td>-</td>
-      <td>40</td>
+      <td>✓</td>
+      <td>12</td>
     </tr>
     <tr>
       <td>10</td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
       <td>✓</td>
-      <td>1</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>29</td>
     </tr>
     <tr>
       <td>11</td>
@@ -138,10 +138,21 @@ The `@Component` decorator is used to define a Stencil custom element, specifyin
       <td>-</td>
       <td>-</td>
       <td>✓</td>
-      <td>1</td>
+      <td>17</td>
     </tr>
     <tr>
       <td>12</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>✓</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>13</td>
       <td>-</td>
       <td>-</td>
       <td>-</td>
@@ -152,7 +163,7 @@ The `@Component` decorator is used to define a Stencil custom element, specifyin
       <td>9</td>
     </tr>
     <tr>
-      <td>13</td>
+      <td>14</td>
       <td>-</td>
       <td>-</td>
       <td>-</td>
@@ -163,7 +174,7 @@ The `@Component` decorator is used to define a Stencil custom element, specifyin
       <td>1</td>
     </tr>
     <tr>
-      <td>14</td>
+      <td>15</td>
       <td>✓</td>
       <td>-</td>
       <td>-</td>
@@ -172,17 +183,6 @@ The `@Component` decorator is used to define a Stencil custom element, specifyin
       <td>-</td>
       <td>-</td>
       <td>2</td>
-    </tr>
-    <tr>
-      <td>15</td>
-      <td>-</td>
-      <td>✓</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>✓</td>
-      <td>1</td>
     </tr>
     <tr>
       <td>16</td>
@@ -197,7 +197,7 @@ The `@Component` decorator is used to define a Stencil custom element, specifyin
     </tr>
     <tr>
       <td>17</td>
-      <td>✓</td>
+      <td>✗</td>
       <td>✓</td>
       <td>-</td>
       <td>-</td>
@@ -206,12 +206,47 @@ The `@Component` decorator is used to define a Stencil custom element, specifyin
       <td>-</td>
       <td>3</td>
     </tr>
+    <tr>
+      <td>18</td>
+      <td>✗</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>✓</td>
+      <td>-</td>
+      <td>-</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>✗</td>
+      <td>✓</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>✗</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>4</td>
+    </tr>
   </tbody>
 </table>
 
 <p>
-  <strong>✓</strong> = Option is set in the @Component decorator<br/>
+  <strong>✓</strong> = Option is set to <code>true</code> in the @Component decorator<br/>
+  <strong>✗</strong> = Option is set to <code>false</code> in the @Component decorator<br/>
   <strong>-</strong> = Option is not set in the @Component decorator<br/>
+  For string/array options, <strong>✓</strong> means a value is set, <strong>-</strong> means unset.<br/>
   Each row is a unique scenario. The last column shows how many test files exercise that scenario.
 </p>
 
