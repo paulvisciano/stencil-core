@@ -19,6 +19,20 @@ A groundbreaking aspect of our testing strategy is its reliance on a GenAI-power
 
 This iterative process allows us to not only achieve but also maintain high test coverage over time, adapting as new features and variations are introduced.
 
+### A Real-World Example: The `@Prop` Decorator
+
+Our first application of this strategy to the `@Prop` decorator provides a perfect case study of the iterative process in action and highlights the exponential cost of comprehensive testing.
+
+1.  **Initial Coverage Push**: We began by identifying the primary permutations for `@Prop`, focusing on its `type` (e.g., `string`, `number`, `boolean`) and the `reflect` option. The AI assistant generated a suite of isolated component tests in `test/wdio/prop-reflect/` to cover these cases. After this initial push, our coverage script reported **100% coverage** for the known permutations.
+
+2.  **Discovering a Blind Spot**: Upon review, we realized we had completely overlooked the `mutable` property. It was not being tracked by our coverage script, giving us a false sense of security.
+
+3.  **The Cost of a New Permutation**: We updated the `prop-coverage.js` script to recognize the `mutable` property. The impact was immediate and dramatic. The total number of testable permutations doubled, and our coverage plummeted from **100% to 62.5%**. This demonstrated a critical lesson: each new property added to a feature doesn't just add a few more tests; it can exponentially increase the testing matrix.
+
+4.  **The Next Iteration**: We are now back at the beginning of the testing loop, but we are not starting from scratch. With a more accurate permutation matrix, we will now use the same strategy—and the lessons learned from the first iteration—to generate the tests required to cover the new `mutable` permutations and bring our coverage back to 100%.
+
+This experience validates our strategy. The loop is designed to be self-correcting. It allows us to uncover our own blind spots, systematically address them, and continuously improve the robustness of our test suite.
+
 ## An Open, Community-Driven Framework
 
 While the concept of a GenAI-powered testing loop is powerful, its true potential is unlocked through community collaboration. We envision this testing strategy as a public project, open to contributions from everyone.
