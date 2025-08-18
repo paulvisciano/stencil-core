@@ -1,0 +1,99 @@
+# @Component Testing Matrix
+
+The `@Component` decorator is used to define a Stencil custom element, specifying its tag name, style, encapsulation, shadow DOM options, and other metadata. It is the entry point for all Stencil components and controls how they are registered and rendered.
+
+## Component Decorator Permutation Matrix
+
+<table>
+  <thead>
+    <tr>
+      <th>shadow</th>
+      <th>scoped</th>
+      <th>styleUrl</th>
+      <th>styleUrls</th>
+      <th>styles</th>
+      <th>assetsDirs</th>
+      <th>formAssociated</th>
+      <th>Covered by Test</th>
+      <th>Test File(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>true</td>
+      <td>false</td>
+      <td>-</td>
+      <td>-</td>
+      <td>✓</td>
+      <td>-</td>
+      <td>-</td>
+      <td>✓</td>
+      <td><a href="/test/end-to-end/src/scoped-hydration/shadow.tsx">scoped-hydration/shadow.tsx</a></td>
+    </tr>
+    <tr>
+      <td>false</td>
+      <td>true</td>
+      <td>-</td>
+      <td>-</td>
+      <td>✓</td>
+      <td>-</td>
+      <td>-</td>
+      <td>✓</td>
+      <td><a href="/test/end-to-end/src/scoped-hydration/non-shadow-wrapper.tsx">non-shadow-wrapper.tsx</a>, <a href="/test/wdio/slot-conditional-rendering/cmp.tsx">slot-conditional-rendering/cmp.tsx</a>, <a href="/test/wdio/scoped-basic/cmp.tsx">scoped-basic/cmp.tsx</a></td>
+    </tr>
+    <tr>
+      <td>false</td>
+      <td>true</td>
+      <td>-</td>
+      <td>✓</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>✓</td>
+      <td><a href="/test/wdio/scoped-basic/cmp-root.tsx">scoped-basic/cmp-root.tsx</a></td>
+    </tr>
+    <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>✓</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>✓</td>
+      <td><a href="/test/end-to-end/src/app-root/app-root.e2e.ts">app-root.e2e.ts</a></td>
+    </tr>
+    <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>✓</td>
+      <td>-</td>
+      <td>✓</td>
+      <td><a href="/test/end-to-end/src/import-assets/import-assets.tsx">import-assets.tsx</a></td>
+    </tr>
+    <tr>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>✓</td>
+      <td>-</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  <strong>✓</strong> = Option present/covered<br/>
+  <strong>-</strong> = Option not present/covered<br/>
+  Add links to actual test files and notes as you audit coverage
+</p>
+
+## Next Steps
+- Audit your integration and E2E tests for each @Component permutation.
+- Update the matrix with links and notes for missing permutations.
