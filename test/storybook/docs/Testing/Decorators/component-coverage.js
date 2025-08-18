@@ -62,6 +62,18 @@ function normalizeValue(val, opt) {
   return val !== undefined && val !== 'false' ? '✓' : '-';
 }
 
+function getTotalPermutations() {
+  // For booleans: 3 states (true, false, unset), for string/array: 2 (set, unset)
+  // shadow, scoped, formAssociated: 3 each
+  // assetsDirs, styleUrl, styleUrls, styles: 2 each
+  return 3 * 3 * 2 * 3 * 2 * 2 * 2; // = 1296
+}
+
+function getCoverageBlock(covered, total) {
+  const percent = ((covered / total) * 100).toFixed(1);
+  return `<div><strong>Permutation Coverage:</strong> ${covered}/${total} permutations covered (<strong>${percent}%</strong>)</div>`;
+}
+
 function main() {
   // Scan for permutations
   const results = [];
@@ -83,7 +95,6 @@ function main() {
     permutationMap[key].count++;
   });
 
-  // Output as array of unique permutations with count
   const uniquePermutations = Object.entries(permutationMap).map(([key, val]) => {
     const opts = key.split('|');
     return { options: opts, count: val.count };
@@ -101,12 +112,18 @@ function main() {
     rows += '    </tr>\n';
   });
 
-  // Read MDX and replace table body and header
+  // Calculate coverage
+  const totalPermutations = getTotalPermutations();
+  const covered = uniquePermutations.length;
+  const coverageBlock = getCoverageBlock(covered, totalPermutations);
+
+  // Read MDX and replace table body and coverage block
   let mdx = fs.readFileSync(mdxPath, 'utf8');
+  mdx = mdx.replace(/<div style=\"background:#ffeeba[\s\S]*?<\/div>/m, ''); // Remove old block if present
+  mdx = mdx.replace(/(<table>)/m, coverageBlock + '\n$1');
   mdx = mdx.replace(/(<tbody>[\s\S]*?<\/tbody>)/m, `<tbody>\n${rows}  </tbody>`);
-  mdx = mdx.replace(/(<thead>[\s\S]*?<\/thead>)/m, `<thead>\n    <tr>\n      <th>#</th>\n      <th>shadow</th>\n      <th>scoped</th>\n      <th>assetsDirs</th>\n      <th>formAssociated</th>\n      <th>styleUrl</th>\n      <th>styleUrls</th>\n      <th>styles</th>\n      <th>Number of Test Files</th>\n    </tr>\n  </thead>`);
   fs.writeFileSync(mdxPath, mdx);
-  console.log('Component.mdx matrix updated.');
+  console.log('Component.mdx matrix and coverage updated.');
 }
 
 main();
