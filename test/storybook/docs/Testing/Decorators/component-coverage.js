@@ -74,6 +74,29 @@ function getCoverageBlock(covered, total) {
   return `<div><strong>Permutation Coverage:</strong> ${covered}/${total} permutations covered (<strong>${percent}%</strong>)</div>`;
 }
 
+function getAllPermutationKeys() {
+  // Generate all possible combinations for the OPTIONS
+  const states = {
+    shadow: ['✓', '✗', '-'],
+    scoped: ['✓', '✗', '-'],
+    assetsDirs: ['✓', '-'],
+    formAssociated: ['✓', '✗', '-'],
+    styleUrl: ['✓', '-'],
+    styleUrls: ['✓', '-'],
+    styles: ['✓', '-'],
+  };
+  const keys = [];
+  function build(current, idx) {
+    if (idx === OPTIONS.length) {
+      keys.push(current.join('|'));
+      return;
+    }
+    states[OPTIONS[idx]].forEach(val => build([...current, val], idx + 1));
+  }
+  build([], 0);
+  return keys;
+}
+
 function main() {
   // Scan for permutations
   const results = [];
@@ -100,7 +123,7 @@ function main() {
     return { options: opts, count: val.count };
   });
 
-  // Generate table rows for MDX
+  // Generate table rows for MDX (covered)
   let rows = '';
   uniquePermutations.forEach((entry, idx) => {
     rows += '    <tr>\n';
@@ -112,21 +135,52 @@ function main() {
     rows += '    </tr>\n';
   });
 
+  // Find missing permutations
+  const allKeys = getAllPermutationKeys();
+  const coveredKeys = new Set(Object.keys(permutationMap));
+  let missingRows = '';
+  let missingIdx = 1;
+  allKeys.forEach(key => {
+    if (!coveredKeys.has(key)) {
+      const opts = key.split('|');
+      missingRows += '        <tr style={{ background: `#fff3cd`, fontStyle: `italic` }}>';
+      missingRows += `\n          <td>${missingIdx++}</td>`;
+      opts.forEach(val => {
+        missingRows += `\n          <td>${val}</td>`;
+      });
+      missingRows += '\n          <td>Missing</td>\n        </tr>\n';
+    }
+  });
+
   // Calculate coverage
   const totalPermutations = getTotalPermutations();
   const covered = uniquePermutations.length;
   const coverageBlock = getCoverageBlock(covered, totalPermutations);
 
-  // Read MDX and replace table body and coverage block
+  // Read MDX and insert coverage block, table body, and missing permutations section
   let mdx = fs.readFileSync(mdxPath, 'utf8');
-  // Remove old coverage block if present
-  mdx = mdx.replace(/<div><strong> Coverage:[\s\S]*?<\/div>/m, '');
-  // Insert coverage block above the matrix container
-  mdx = mdx.replace(/(<div style=\{ maxWidth: '100%', width: '100%', background: '#fff' \}>)/m, coverageBlock + '\n$1');
-  // Replace only the tbody content inside the scrollable table
+
+  // Insert coverage block if not present
+  if (!mdx.includes(coverageBlock)) {
+    // Insert after the intro paragraph and before the matrix container
+    mdx = mdx.replace(/(The `@Component` decorator[\s\S]*?\n\n)/, `$1${coverageBlock}\n`);
+  }
+
+  // Replace only the tbody content for covered permutations
   mdx = mdx.replace(/(<tbody>[\s\S]*?<\/tbody>)/m, `<tbody>\n${rows}      </tbody>`);
+
+  // Insert missing permutations rows into the missing section
+  const missingSectionRegex = /(\{\/\* The script should insert missing permutations here[\s\S]*?\*\/\})/m;
+  if (mdx.match(missingSectionRegex)) {
+    mdx = mdx.replace(missingSectionRegex, missingRows);
+  } else {
+    // If the placeholder is missing, try to find the missing table and insert rows
+    const missingTableBodyRegex = /(<table[^>]*Missing Permutations[\s\S]*?<tbody>)([\s\S]*?)(<\/tbody>)/m;
+    mdx = mdx.replace(missingTableBodyRegex, `$1\n${missingRows}$3`);
+  }
+
   fs.writeFileSync(mdxPath, mdx);
-  console.log('Component.mdx matrix and coverage updated.');
+  console.log('Component.mdx matrix, coverage, and missing permutations updated.');
 }
 
 main();
