@@ -9,6 +9,14 @@ The `@Event` decorator allows a component to emit custom events. This matrix tra
   <strong>{data.coverage.percent}%</strong>)
 </div>
 
+## Event Properties
+
+The `@Event` decorator can be configured with the following properties in its options object:
+
+-   **`bubbles`** (`boolean`): When set to `true` (the default), the event will bubble up through the DOM tree. This means that parent elements can also listen for the event.
+-   **`cancelable`** (`boolean`): When set to `true` (the default), the event's default action can be prevented by calling `event.preventDefault()`.
+-   **`composed`** (`boolean`): When set to `true` (the default), the event can propagate across the shadow DOM boundary into the standard DOM. This is important for components that use shadow DOM.
+
 ## Covered Permutations
 
 <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>

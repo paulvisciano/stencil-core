@@ -1,0 +1,74 @@
+{
+  "coverage": {
+    "covered": 3,
+    "total": 10,
+    "percent": "30.0"
+  },
+  "coveredPermutations": [
+    {
+      "options": [
+        "window",
+        "✗"
+      ],
+      "count": 3
+    },
+    {
+      "options": [
+        "host",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "host",
+        "✗"
+      ],
+      "count": 11
+    }
+  ],
+  "missingPermutations": [
+    {
+      "options": [
+        "window",
+        "✓"
+      ]
+    },
+    {
+      "options": [
+        "document",
+        "✓"
+      ]
+    },
+    {
+      "options": [
+        "document",
+        "✗"
+      ]
+    },
+    {
+      "options": [
+        "body",
+        "✓"
+      ]
+    },
+    {
+      "options": [
+        "body",
+        "✗"
+      ]
+    },
+    {
+      "options": [
+        "parent",
+        "✓"
+      ]
+    },
+    {
+      "options": [
+        "parent",
+        "✗"
+      ]
+    }
+  ]
+}
