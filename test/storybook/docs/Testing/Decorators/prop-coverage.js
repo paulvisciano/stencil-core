@@ -10,7 +10,7 @@ const TEST_DIRS = [
   path.resolve(__dirname, '../../../../../test/wdio'),
 ];
 const PROP_TYPES = ['boolean', 'string', 'number', 'Set', 'Array', 'Object'];
-const OPTIONS = ['type', 'reflect'];
+const OPTIONS = ['type', 'reflect', 'mutable'];
 const mdxPath = path.resolve(__dirname, '@Prop.mdx');
 const jsonPath = path.resolve(__dirname, 'prop-coverage-data.json');
 
@@ -41,6 +41,10 @@ function extractPropOptions(file) {
     if (propOptions.includes('reflect: true')) {
       reflect = '✓';
     }
+    let mutable = '✗';
+    if (propOptions.includes('mutable: true')) {
+      mutable = '✓';
+    }
 
     let normalizedType = 'Object';
     if (type.toLowerCase().includes('string')) {
@@ -55,7 +59,7 @@ function extractPropOptions(file) {
       normalizedType = 'Array';
     }
 
-    results.push({ type: normalizedType, reflect });
+    results.push({ type: normalizedType, reflect, mutable });
   }
   return results;
 }
@@ -64,7 +68,9 @@ function getAllPermutationKeys() {
   const allPermutations = [];
   for (const type of PROP_TYPES) {
     for (const reflect of ['✓', '✗']) {
-      allPermutations.push(`${type}|${reflect}`);
+      for (const mutable of ['✓', '✗']) {
+        allPermutations.push(`${type}|${reflect}|${mutable}`);
+      }
     }
   }
   return allPermutations;
@@ -97,7 +103,7 @@ function main() {
 
   const permutationMap = {};
   allFoundProps.forEach(prop => {
-    const key = `${prop.type}|${prop.reflect}`;
+    const key = `${prop.type}|${prop.reflect}|${prop.mutable}`;
     if (!permutationMap[key]) {
       permutationMap[key] = { count: 0 };
     }
