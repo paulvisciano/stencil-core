@@ -1,0 +1,86 @@
+import data from './prop-coverage-data.json';
+
+# @Prop Testing Matrix
+
+The `@Prop` decorator is used to declare a public property on a Stencil component. This matrix tracks the test coverage for different types and configurations of the `@Prop` decorator.
+
+<div>
+  <strong>Permutation Coverage:</strong> {data.coverage.covered}/{data.coverage.total} permutations covered (
+  <strong>{data.coverage.percent}%</strong>)
+</div>
+
+## Covered Permutations
+
+<div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+    <colgroup>
+      <col style={{ width: '33%' }} />
+      <col style={{ width: '33%' }} />
+      <col style={{ width: '34%' }} />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>reflect</th>
+        <th>Number of Occurrences</th>
+      </tr>
+    </thead>
+  </table>
+  <div style={{ maxHeight: 400, overflowY: 'auto', width: '100%' }}>
+    <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+      <colgroup>
+        <col style={{ width: '33%' }} />
+        <col style={{ width: '33%' }} />
+        <col style={{ width: '34%' }} />
+      </colgroup>
+      <tbody>
+        {data.coveredPermutations.map((p, i) => (
+          <tr key={i}>
+            {p.options.map((opt, j) => (
+              <td key={j}>{opt}</td>
+            ))}
+            <td>{p.count}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+## Missing Permutations
+
+<div style={{ marginTop: '2rem', maxWidth: '100%', width: '100%', background: '#fff' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+    <colgroup>
+      <col style={{ width: '33%' }} />
+      <col style={{ width: '33%' }} />
+      <col style={{ width: '34%' }} />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>reflect</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+  </table>
+  <div style={{ maxHeight: 600, overflowY: 'auto', width: '100%' }}>
+    <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+      <colgroup>
+        <col style={{ width: '33%' }} />
+        <col style={{ width: '33%' }} />
+        <col style={{ width: '34%' }} />
+      </colgroup>
+      <tbody>
+        {data.missingPermutations.map((p, i) => (
+          <tr key={i} style={{ background: '#fff3cd', fontStyle: 'italic' }}>
+            {p.options.map((opt, j) => (
+              <td key={j}>{opt}</td>
+            ))}
+            <td>Missing</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>

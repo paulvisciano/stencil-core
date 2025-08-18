@@ -1,0 +1,91 @@
+{
+  "coverage": {
+    "covered": 8,
+    "total": 12,
+    "percent": "66.7"
+  },
+  "coveredPermutations": [
+    {
+      "options": [
+        "Object",
+        "✗"
+      ],
+      "count": 9
+    },
+    {
+      "options": [
+        "Array",
+        "✗"
+      ],
+      "count": 6
+    },
+    {
+      "options": [
+        "string",
+        "✗"
+      ],
+      "count": 15
+    },
+    {
+      "options": [
+        "string",
+        "✓"
+      ],
+      "count": 2
+    },
+    {
+      "options": [
+        "number",
+        "✓"
+      ],
+      "count": 5
+    },
+    {
+      "options": [
+        "Set",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "number",
+        "✗"
+      ],
+      "count": 4
+    },
+    {
+      "options": [
+        "boolean",
+        "✗"
+      ],
+      "count": 8
+    }
+  ],
+  "missingPermutations": [
+    {
+      "options": [
+        "boolean",
+        "✓"
+      ]
+    },
+    {
+      "options": [
+        "Set",
+        "✓"
+      ]
+    },
+    {
+      "options": [
+        "Array",
+        "✓"
+      ]
+    },
+    {
+      "options": [
+        "Object",
+        "✓"
+      ]
+    }
+  ]
+}
