@@ -1,0 +1,103 @@
+import data from './method-coverage-data.json';
+
+# @Method Testing Matrix
+
+The `@Method` decorator is used to expose a method on a component's public API. This matrix tracks the test coverage for different method signatures.
+
+## Method Characteristics
+
+The `@Method` decorator itself does not take any arguments, but the signature of the method it decorates has several important characteristics that determine its behavior.
+
+- **`async`**: An `async` method returns a `Promise`. When calling an `async` method from a test, you must use `await` to get the result and ensure the test waits for the method to complete.
+
+- **Arguments**: Methods can accept arguments, allowing you to pass data into the component. Tests should cover cases with and without arguments, as well as different types of arguments.
+
+- **Return Value**: Methods can return values, which is how a component can expose data or state to its consumers. Tests should verify that the correct value is returned, including for `async` methods where the value will be wrapped in a `Promise`.
+
+## Covered Permutations
+
+<div>
+  <strong>Permutation Coverage:</strong> {data.coverage.covered}/{data.coverage.total} permutations covered (
+  <strong>{data.coverage.percent}%</strong>)
+</div>
+
+<div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+    <colgroup>
+      <col style={{ width: '25%' }} />
+      <col style={{ width: '25%' }} />
+      <col style={{ width: '25%' }} />
+      <col style={{ width: '25%' }} />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Async</th>
+        <th>Has Arguments</th>
+        <th>Has Return Value</th>
+        <th>Number of Occurrences</th>
+      </tr>
+    </thead>
+  </table>
+  <div style={{ maxHeight: 400, overflowY: 'auto', width: '100%' }}>
+    <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+      <colgroup>
+        <col style={{ width: '25%' }} />
+        <col style={{ width: '25%' }} />
+        <col style={{ width: '25%' }} />
+        <col style={{ width: '25%' }} />
+      </colgroup>
+      <tbody>
+        {data.coveredPermutations.map((p, i) => (
+          <tr key={i}>
+            {p.options.map((opt, j) => (
+              <td key={j}>{opt}</td>
+            ))}
+            <td>{p.count}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+## Missing Permutations
+
+<div style={{ marginTop: '2rem', maxWidth: '100%', width: '100%', background: '#fff' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+    <colgroup>
+      <col style={{ width: '25%' }} />
+      <col style={{ width: '25%' }} />
+      <col style={{ width: '25%' }} />
+      <col style={{ width: '25%' }} />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Async</th>
+        <th>Has Arguments</th>
+        <th>Has Return Value</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+  </table>
+  <div style={{ maxHeight: 600, overflowY: 'auto', width: '100%' }}>
+    <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+      <colgroup>
+        <col style={{ width: '25%' }} />
+        <col style={{ width: '25%' }} />
+        <col style={{ width: '25%' }} />
+        <col style={{ width: '25%' }} />
+      </colgroup>
+      <tbody>
+        {data.missingPermutations.map((p, i) => (
+          <tr key={i} style={{ background: '#fff3cd', fontStyle: 'italic' }}>
+            {p.options.map((opt, j) => (
+              <td key={j}>{opt}</td>
+            ))}
+            <td>Missing</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
