@@ -1,8 +1,8 @@
 {
   "coverage": {
-    "covered": 15,
+    "covered": 24,
     "total": 24,
-    "percent": "62.5"
+    "percent": "100.0"
   },
   "coveredPermutations": [
     {
@@ -11,7 +11,7 @@
         "✗",
         "✗"
       ],
-      "count": 6
+      "count": 18
     },
     {
       "options": [
@@ -19,7 +19,7 @@
         "✗",
         "✗"
       ],
-      "count": 6
+      "count": 10
     },
     {
       "options": [
@@ -27,11 +27,11 @@
         "✗",
         "✓"
       ],
-      "count": 3
+      "count": 6
     },
     {
       "options": [
-        "string",
+        "number",
         "✗",
         "✗"
       ],
@@ -40,6 +40,38 @@
     {
       "options": [
         "string",
+        "✗",
+        "✗"
+      ],
+      "count": 37
+    },
+    {
+      "options": [
+        "boolean",
+        "✗",
+        "✓"
+      ],
+      "count": 2
+    },
+    {
+      "options": [
+        "string",
+        "✓",
+        "✗"
+      ],
+      "count": 7
+    },
+    {
+      "options": [
+        "number",
+        "✓",
+        "✗"
+      ],
+      "count": 7
+    },
+    {
+      "options": [
+        "Object",
         "✓",
         "✗"
       ],
@@ -47,7 +79,7 @@
     },
     {
       "options": [
-        "number",
+        "boolean",
         "✓",
         "✗"
       ],
@@ -55,6 +87,14 @@
     },
     {
       "options": [
+        "boolean",
+        "✗",
+        "✗"
+      ],
+      "count": 17
+    },
+    {
+      "options": [
         "Set",
         "✗",
         "✗"
@@ -67,15 +107,87 @@
         "✗",
         "✓"
       ],
+      "count": 5
+    },
+    {
+      "options": [
+        "string",
+        "✗",
+        "✓"
+      ],
+      "count": 3
+    },
+    {
+      "options": [
+        "Array",
+        "✗",
+        "✓"
+      ],
+      "count": 4
+    },
+    {
+      "options": [
+        "Set",
+        "✗",
+        "✓"
+      ],
       "count": 2
     },
     {
       "options": [
+        "Set",
+        "✓",
+        "✓"
+      ],
+      "count": 2
+    },
+    {
+      "options": [
+        "string",
+        "✓",
+        "✓"
+      ],
+      "count": 3
+    },
+    {
+      "options": [
+        "Array",
+        "✓",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
         "boolean",
-        "✗",
+        "✓",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "number",
+        "✓",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "Object",
+        "✓",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "Set",
+        "✓",
         "✗"
       ],
-      "count": 8
+      "count": 2
     },
     {
       "options": [
@@ -84,111 +196,7 @@
         "✗"
       ],
       "count": 1
-    },
-    {
-      "options": [
-        "boolean",
-        "✓",
-        "✗"
-      ],
-      "count": 1
-    },
-    {
-      "options": [
-        "Object",
-        "✓",
-        "✗"
-      ],
-      "count": 1
-    },
-    {
-      "options": [
-        "Set",
-        "✓",
-        "✗"
-      ],
-      "count": 1
-    },
-    {
-      "options": [
-        "number",
-        "✗",
-        "✗"
-      ],
-      "count": 2
-    },
-    {
-      "options": [
-        "string",
-        "✗",
-        "✓"
-      ],
-      "count": 2
     }
   ],
-  "missingPermutations": [
-    {
-      "options": [
-        "boolean",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "boolean",
-        "✗",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "string",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "number",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "Set",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "Set",
-        "✗",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "Array",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "Array",
-        "✗",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "Object",
-        "✓",
-        "✓"
-      ]
-    }
-  ]
+  "missingPermutations": []
 }

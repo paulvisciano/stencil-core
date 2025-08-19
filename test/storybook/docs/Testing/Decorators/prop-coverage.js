@@ -31,36 +31,97 @@ function findFiles(dir, ext = '.tsx', excludeDirs = ['node_modules', '.cache']) 
 
 function extractPropOptions(file) {
   const content = fs.readFileSync(file, 'utf8');
-  const propRegex = /@Prop\(([^)]*)\)\s*(\w+)\s*:\s*([\w\[\]]+)/g;
-  let match;
+  const lines = content.split('\n');
   const results = [];
-  while ((match = propRegex.exec(content)) !== null) {
-    const propOptions = match[1];
-    const type = match[3];
-    let reflect = '✗';
-    if (propOptions.includes('reflect: true')) {
-      reflect = '✓';
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    
+    // Look for @Prop decorator
+    if (line.startsWith('@Prop(')) {
+      let propDecoratorLine = line;
+      let propLine = '';
+      
+      // Handle multi-line @Prop declarations
+      let j = i;
+      while (j < lines.length && !propDecoratorLine.includes(')')) {
+        j++;
+        if (j < lines.length) {
+          propDecoratorLine += ' ' + lines[j].trim();
+        }
+      }
+      
+      // Check if the property declaration is on the same line as the decorator
+      const decoratorEndIndex = propDecoratorLine.indexOf(')');
+      if (decoratorEndIndex !== -1 && propDecoratorLine.length > decoratorEndIndex + 1) {
+        // Property is on the same line as the decorator
+        propLine = propDecoratorLine.substring(decoratorEndIndex + 1).trim();
+      } else {
+        // Find the property declaration (next non-empty line after the decorator)
+        j++;
+        while (j < lines.length && lines[j].trim() === '') {
+          j++;
+        }
+        if (j < lines.length) {
+          propLine = lines[j].trim();
+        }
+      }
+      
+      // Extract decorator options
+      const optionsMatch = propDecoratorLine.match(/@Prop\((.*?)\)/);
+      const options = optionsMatch ? optionsMatch[1] : '';
+      
+      // Determine reflect and mutable
+      // Only set to ✓ if explicitly set to true
+      const reflectTrue = /reflect\s*:\s*true/.test(options);
+      const mutableTrue = /mutable\s*:\s*true/.test(options);
+      
+      const reflect = reflectTrue ? '✓' : '✗';
+      const mutable = mutableTrue ? '✓' : '✗';
+      
+      // Extract type from property declaration
+      let normalizedType = 'Object';
+      
+      // Look for explicit type annotation
+      const typeMatch = propLine.match(/:\s*([\w<>\[\]\s,|]+?)(?:\s*=|;)/);
+      if (typeMatch) {
+        const type = typeMatch[1].trim();
+        if (type.toLowerCase().includes('set')) {
+          normalizedType = 'Set';
+        } else if (type.includes('[]') || type.toLowerCase().includes('array')) {
+          normalizedType = 'Array';
+        } else if (type.toLowerCase().includes('string')) {
+          normalizedType = 'string';
+        } else if (type.toLowerCase().includes('boolean')) {
+          normalizedType = 'boolean';
+        } else if (type.toLowerCase().includes('number')) {
+          normalizedType = 'number';
+        }
+      } else {
+        // Infer type from initializer
+        const initMatch = propLine.match(/=\s*(.+);?$/);
+        if (initMatch) {
+          const init = initMatch[1].trim().replace(/;$/, '');
+          if (init.startsWith("'") || init.startsWith('"') || init.startsWith('`')) {
+            normalizedType = 'string';
+          } else if (init === 'true' || init === 'false') {
+            normalizedType = 'boolean';
+          } else if (!isNaN(parseFloat(init))) {
+            normalizedType = 'number';
+          } else if (init.toLowerCase().startsWith('new set')) {
+            normalizedType = 'Set';
+          } else if (init.startsWith('[')) {
+            normalizedType = 'Array';
+          } else if (init.startsWith('{')) {
+            normalizedType = 'Object';
+          }
+        }
+      }
+      
+      results.push({ type: normalizedType, reflect, mutable });
     }
-    let mutable = '✗';
-    if (propOptions.includes('mutable: true')) {
-      mutable = '✓';
-    }
-
-    let normalizedType = 'Object';
-    if (type.toLowerCase().includes('string')) {
-      normalizedType = 'string';
-    } else if (type.toLowerCase().includes('boolean')) {
-      normalizedType = 'boolean';
-    } else if (type.toLowerCase().includes('number')) {
-      normalizedType = 'number';
-    } else if (type.toLowerCase().includes('set')) {
-      normalizedType = 'Set';
-    } else if (type.includes('[]') || type.toLowerCase().includes('array')) {
-      normalizedType = 'Array';
-    }
-
-    results.push({ type: normalizedType, reflect, mutable });
   }
+  
   return results;
 }
 
