@@ -20,6 +20,7 @@ describe('prop-mutable', () => {
 
   it('should mutate boolean prop', async () => {
     const cmp = await $('prop-mutable-boolean-cmp');
+    await expect(cmp.$('p')).toHaveText('mutableFalse: false');
     const button = await cmp.$('button');
     await button.click();
     await expect(cmp.$('p')).toHaveText('mutableFalse: true');
@@ -27,6 +28,7 @@ describe('prop-mutable', () => {
 
   it('should mutate string prop', async () => {
     const cmp = await $('prop-mutable-string-cmp');
+    await expect(cmp.$('p')).toHaveText('mutableString: initial');
     const button = await cmp.$('button');
     await button.click();
     await expect(cmp.$('p')).toHaveText('mutableString: changed');
@@ -34,6 +36,7 @@ describe('prop-mutable', () => {
 
   it('should mutate number prop', async () => {
     const cmp = await $('prop-mutable-number-cmp');
+    await expect(cmp.$('p')).toHaveText('mutableNumber: 1');
     const button = await cmp.$('button');
     await button.click();
     await expect(cmp.$('p')).toHaveText('mutableNumber: 2');
@@ -41,6 +44,7 @@ describe('prop-mutable', () => {
 
   it('should mutate array prop', async () => {
     const cmp = await $('prop-mutable-array-cmp');
+    await expect(cmp.$('p')).toHaveText('mutableArray: [1,2,3]');
     const button = await cmp.$('button');
     await button.click();
     await expect(cmp.$('p')).toHaveText('mutableArray: [4,5,6]');
@@ -48,6 +52,7 @@ describe('prop-mutable', () => {
 
   it('should mutate object prop', async () => {
     const cmp = await $('prop-mutable-object-cmp');
+    await expect(cmp.$('p')).toHaveText('mutableObject: {"a":1,"b":2}');
     const button = await cmp.$('button');
     await button.click();
     await expect(cmp.$('p')).toHaveText('mutableObject: {"c":3,"d":4}');
@@ -55,6 +60,7 @@ describe('prop-mutable', () => {
 
   it('should mutate set prop', async () => {
     const cmp = await $('prop-mutable-set-cmp');
+    await expect(cmp.$('p')).toHaveText('mutableSet: [1,2,3]');
     const button = await cmp.$('button');
     await button.click();
     await expect(cmp.$('p')).toHaveText('mutableSet: [4,5,6]');
