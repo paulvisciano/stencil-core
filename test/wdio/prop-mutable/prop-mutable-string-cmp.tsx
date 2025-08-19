@@ -6,10 +6,15 @@ import { Component, Prop, h } from '@stencil/core';
 export class PropMutableStringCmp {
   @Prop({ mutable: true }) mutableString = 'initial';
 
+  private mutateProperty = () => {
+    this.mutableString = 'changed';
+  };
+
   render() {
     return (
       <div>
         <p>mutableString: {this.mutableString}</p>
+        <button onClick={this.mutateProperty}>Mutate</button>
       </div>
     );
   }
