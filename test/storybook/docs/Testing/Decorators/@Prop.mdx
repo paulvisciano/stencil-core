@@ -100,3 +100,47 @@ Below is a detailed explanation of each property available in the `@Prop` decora
     </table>
   </div>
 </div>
+
+## Known Bugs
+
+<div style={{ marginTop: '2rem', maxWidth: '100%', width: '100%', background: '#fff' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+    <colgroup>
+      <col style={{ width: '25%' }} />
+      <col style={{ width: '50%' }} />
+      <col style={{ width: '25%' }} />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Tests</th>
+      </tr>
+    </thead>
+  </table>
+  <div style={{ maxHeight: 600, overflowY: 'auto', width: '100%' }}>
+    <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+      <colgroup>
+        <col style={{ width: '25%' }} />
+        <col style={{ width: '50%' }} />
+        <col style={{ width: '25%' }} />
+      </colgroup>
+      <tbody>
+        <tr style={{ background: '#f8d7da', fontStyle: 'italic' }}>
+          <td>STENCIL-123</td>
+          <td>Initial values of complex props (`Array`, `Object`) are not reflected to attributes.</td>
+          <td>
+            <code>test/wdio/prop-mutable-reflect/cmp.test.tsx</code>
+          </td>
+        </tr>
+        <tr style={{ background: '#f8d7da', fontStyle: 'italic' }}>
+          <td>STENCIL-123</td>
+          <td>Mutated values of complex props (`Array`, `Object`) are not reflected to attributes.</td>
+          <td>
+            <code>test/wdio/prop-mutable-reflect/cmp.test.tsx</code>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

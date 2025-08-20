@@ -6,10 +6,15 @@ import { Component, Prop, h } from '@stencil/core';
 export class PropMutableReflectNumberCmp {
   @Prop({ mutable: true, reflect: true }) mutableReflectNumber = 1;
 
+  private mutateProperty = () => {
+    this.mutableReflectNumber = 2;
+  };
+
   render() {
     return (
       <div>
         <p>mutableReflectNumber: {this.mutableReflectNumber}</p>
+        <button onClick={this.mutateProperty}>Mutate</button>
       </div>
     );
   }
