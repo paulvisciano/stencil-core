@@ -4,12 +4,17 @@ import { Component, Prop, h } from '@stencil/core';
   tag: 'prop-no-mutable-set-cmp',
 })
 export class PropNoMutableSetCmp {
-  @Prop({ reflect : false, mutable : false }) mySet: Set<number> = new Set([1, 2, 3]);
+  @Prop({ reflect: false, mutable: false }) mySet: Set<number> = new Set([1, 2, 3]);
+
+  private handleClick = () => {
+    this.mySet.add(4);
+  };
 
   render() {
     return (
       <div>
         <p>mySet: {JSON.stringify(Array.from(this.mySet))}</p>
+        <button onClick={this.handleClick}>Mutate</button>
       </div>
     );
   }
