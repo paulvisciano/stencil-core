@@ -69,30 +69,10 @@ This approach allows us to harness the collective intelligence and diverse capab
 
 ## Testing Tiers
 
-### 1. Component-Level Tests (`test/wdio`)
+Our testing strategy is divided into two main tiers:
 
--   **Purpose:** To test the functionality of individual components or features in perfect isolation. These are our "unit tests" for component behavior.
--   **Technology:** WebdriverIO (WDIO) is the primary framework, utilizing the `@wdio/browser-runner/stencil` for efficient in-browser component rendering and interaction.
--   **Scope:**
-    -   Focus on a single feature or permutation at a time. For example, when testing `@Prop({ reflect: true })`, there should be separate, isolated tests for `boolean`, `number`, `string`, `Array`, `Object`, and `Set` types.
-    -   Each test should use its own dedicated component to ensure no interference from other properties or features. This is critical for compatibility with our static analysis tools, which rely on finding these features in isolation.
--   **Benefits:**
-    -   **Precision:** Tests are clear, targeted, and unambiguous.
-    -   **Debugging:** Failures are easy to pinpoint to a specific feature.
-    -   **Robustness:** Guarantees that each feature works correctly on its own, forming a reliable foundation.
-    -   **Tooling Compatibility:** This approach works well with static analysis-based coverage tools.
-
-### 2. End-to-End Tests (`test/end-to-end`)
-
--   **Purpose:** To test the integration of multiple features and components working together. These tests simulate more complex, real-world scenarios.
--   **Technology:** Stencil's built-in `newE2EPage()` test utility, which leverages Puppeteer to control a headless browser for simulating user interactions.
--   **Scope:**
-    -   Test how different features interact. For example, a single page could host multiple components, each with different combinations of reflected properties, event listeners, and methods.
-    -   Simulate user flows and interactions between components.
-    -   Verify that features that work in isolation do not have negative side effects when combined.
--   **Benefits:**
-    -   **Confidence:** Ensures that the framework is stable when used in complex applications.
-    -   **Real-World Validation:** Tests scenarios that are closer to how developers will actually use Stencil.
+- [Component-Level Tests](./component_tests.md)
+- [End-to-End Tests](./e2e_tests.md)
 
 ## Summary: The Testing Pyramid in Practice
 
@@ -100,28 +80,6 @@ This approach allows us to harness the collective intelligence and diverse capab
 | --------------------- | ----------------- | ---------------------------------------------------- | ----------------------------------------------------------------- |
 | **Component Tests**   | `test/wdio/`      | WebdriverIO (`@wdio/browser-runner/stencil`)         | Verify individual features in isolation and satisfy static analysis.    |
 | **Integration Tests** | `test/end-to-end/` | Stencil's `newE2EPage()` (Puppeteer)                 | Verify that multiple features work correctly when used together. |
-
-### Running Component Tests
-
-To run the component-level tests located in the `test/wdio` directory, follow these steps:
-
-1.  **Navigate to the `wdio` test directory**:
-    ```bash
-    cd test/wdio
-    ```
-2.  **Update the test configuration**: Open the `wdio.conf.ts` file.
-3.  **Specify the test file**: Locate the `specs` array within the configuration file and update it to point to the specific test file(s) you want to run. For example:
-    ```typescript
-    // ...
-    specs: [['./prop-mutable/**/*.test.tsx']],
-    // ...
-    ```
-4.  **Run the tests**: Execute the following command in your terminal:
-    ```bash
-    npm run wdio
-    ```
-
-This will launch the WebdriverIO test runner and execute the specified tests.
 
 ## Continuous Improvement
 
