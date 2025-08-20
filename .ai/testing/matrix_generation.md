@@ -1,0 +1,62 @@
+# Matrix Generation for Component Permutations
+
+This document details the inner workings of the `*-coverage.js` scripts responsible for generating the permutation matrices that power our testing strategy. Understanding this process is crucial for ensuring the reliability of our coverage metrics, which serve as the source of truth for our GenAI-powered testing loop.
+
+It is critical to understand that this matrix **does not reflect test coverage**. Instead, it reflects **component permutation coverage**. It verifies that a dedicated component exists for every possible permutation of a feature's options. The generation of tests that *use* these components is a separate, subsequent step in the process.
+
+## Core Objective
+
+The primary goal of each `*-coverage.js` script is to determine the component permutation coverage for a specific Stencil decorator (e.g., `@Prop`, `@Listen`). It achieves this by performing two key functions:
+
+1.  **Defining the entire universe of possible feature permutations.**
+2.  **Scanning the codebase to see which of those permutations are actually implemented in dedicated test components.**
+
+The final output is a comparison between the "possible" and the "actual," resulting in a coverage percentage and a list of what's missing.
+
+## The Generation Process: A Step-by-Step Guide
+
+All coverage scripts follow a similar underlying logic, which can be broken down into the following steps:
+
+### 1. Defining the Scope
+
+-   **Component Directories:** Each script begins by defining a list of directories to scan for component files. This is typically `test/wdio` and `test/end-to-end`.
+-   **Permutation Options:** The script hardcodes the "source of truth" for a decorator's permutations. This includes all possible properties and their potential values.
+    -   **Example (`@Listen`):**
+        -   `TARGET_OPTIONS`: `['window', 'document', 'body', 'parent', 'host']`
+        -   `capture`: `[true, false]`
+
+### 2. Finding Relevant Component Files
+
+A file system utility recursively searches the specified component directories for files with a specific extension, almost always `.tsx`. This produces a list of all component files that could contain decorator implementations.
+
+### 3. Parsing Source Code to Find Decorators
+
+This is the most critical and variable step. The script reads the content of each component file and uses a specific strategy to find all instances of the target decorator.
+
+-   **Strategy A: Regex for Simple Decorators:** For decorators with a straightforward, single-line syntax like `@Listen`, a single, effective regex (`/@Listen\s*\(([^)]*)\)/g`) is used to capture all instances and their options at once. This is efficient and concise.
+
+-   **Strategy B: Line-by-Line Parsing for Complex Decorators:** For decorators like `@Prop` where the declaration can be multi-line and associated with a typed class property, a more robust line-by-line parsing approach is necessary. The script iterates through the file's lines, identifies a decorator, and then continues reading subsequent lines to piece together the full context (e.g., the property's type, name, and initializer).
+
+### 4. Extracting and Normalizing Data
+
+Once a decorator is found, its options are extracted.
+
+-   **Extraction:** Regex is used to pull out the values of specific keys (e.g., `reflect: true`, `target: 'window'`).
+-   **Defaults:** The script logic accounts for default values. For instance, in `@Listen`, if `target` is not specified, it defaults to `'host'`.
+-   **Normalization:** The extracted values are normalized into a consistent format for easy comparison. A common example is converting boolean `true`/`false` into checkmark icons (`✓`/`✗`).
+
+### 5. Calculating Coverage
+
+-   The script programmatically generates a complete list of all possible permutation keys from the hardcoded options (e.g., `"window|✓"`, `"window|✗"`).
+-   It then creates a map of all the permutations it found during the parsing step.
+-   By comparing the "found" map against the "all possible" list, it calculates the total number of covered permutations, the overall percentage, and a list of the specific permutations that are missing.
+
+### 6. Generating Output
+
+The final results are typically written to a `.json` file (e.g., `prop-coverage-data.json`). This file serves as a data source for other tools and, in many cases, is used to dynamically build and update the coverage matrix tables displayed in the `.mdx` documentation files.
+
+## Key Learnings and Implications
+
+-   **The Script is the Source of Truth for Components:** The reliability of our entire testing loop hinges on the accuracy of these coverage scripts. If a permutation option is not defined in the script, it will not be tracked, creating a blind spot (as seen with the `@Prop({ mutable: true })` case).
+-   **Parsing is Fragile:** Source code parsing, whether with regex or line-by-line analysis, can be brittle. Changes in code formatting or syntax could potentially break the scripts. They must be maintained alongside any changes to coding conventions.
+-   **Human Oversight is Essential:** The process is automated but not infallible. It's crucial for developers to periodically review these scripts to ensure they accurately reflect the full feature set of the decorators they are intended to cover. When a new option is added to a decorator, the corresponding coverage script **must** be updated.

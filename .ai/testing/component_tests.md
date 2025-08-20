@@ -32,3 +32,15 @@ To run the component-level tests located in the `test/wdio` directory, follow th
     ```
 
 This will launch the WebdriverIO test runner and execute the specified tests.
+
+## Best Practices
+
+### Testing State Mutations
+
+When testing how a component's state changes (e.g., when a `@Prop({ mutable: true })` is modified), it's crucial to verify the component's behavior before and after the change. A reliable pattern for this is:
+
+1.  **Initial State Assertion:** Verify the initial state of the component's property.
+2.  **User-like Interaction:** Trigger an action that should cause the state to change. This is typically a click on a button or another user-driven event.
+3.  **Final State Assertion:** Verify that the property has been updated to the new, expected value.
+
+This "before and after" approach ensures that the mutation is a direct result of the interaction and that the component behaves as expected.

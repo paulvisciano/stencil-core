@@ -1,6 +1,7 @@
 # Stencil.js Testing Strategy
 
 This document outlines the testing strategy for the Stencil.js codebase, centered around a GenAI-powered loop. This iterative process involves:
+
 1. Defining all feature permutations in a machine and human-readable format.
 2. Using AI to generate tests that cover these permutations.
 3. Running the generated tests to ensure they are functionally correct.
@@ -74,6 +75,8 @@ Our testing strategy is divided into two main tiers:
 - [Component-Level Tests](./component_tests.md)
 - [End-to-End Tests](./e2e_tests.md)
 
+For a detailed explanation of how the permutation matrices are generated, see the [Matrix Generation Guide](./matrix_generation.md).
+
 ## Summary: The Testing Pyramid in Practice
 
 | Test Type             | Directory         | Technology                                           | Goal                                                              |
@@ -84,6 +87,8 @@ Our testing strategy is divided into two main tiers:
 ## Continuous Improvement
 
 This testing strategy is a living document. We will continue to refine our approach, adopt new tools, and improve our processes over time to ensure Stencil remains a reliable and high-quality framework for all developers.
+
+A core tenet of this continuous improvement is the practice of documenting our learnings. After each major testing iteration, we will update the relevant documentation—including this strategy, the component-level and end-to-end testing guides, and the [audit log](./audit.md)—with any new insights, patterns, or challenges we encountered. This ensures that our institutional knowledge grows with our test suite.
 
 As this is our first time implementing the GenAI-powered loop, we anticipate a learning period where mistakes are possible. Our commitment is to learn from these experiences and rapidly evolve towards a rock-solid automated testing framework.
 
