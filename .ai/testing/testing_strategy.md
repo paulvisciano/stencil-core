@@ -1,14 +1,6 @@
 # Stencil.js Testing Strategy
 
-This document outlines the testing strategy for the Stencil.js codebase, centered around a GenAI-powered loop. This iterative process involves:
-
-1. Defining all feature permutations in a machine and human-readable format.
-2. Using AI to generate tests that cover these permutations.
-3. Running the generated tests to ensure they are functionally correct.
-4. Analyzing the code to update a coverage matrix, identifying any gaps.
-5. Refining and regenerating tests to address any uncovered permutations until 100% coverage is achieved.
-
-This ensures a comprehensive and robust testing suite that is both maintainable and scalable.
+This document outlines the testing strategy for the Stencil.js codebase, centered around a GenAI-powered loop. This ensures a comprehensive and robust testing suite that is both maintainable and scalable.
 
 ## Philosophy
 
@@ -20,13 +12,14 @@ A key aspect of our strategy is recognizing the difference between **static cove
 
 A groundbreaking aspect of our testing strategy is its reliance on a GenAI-powered iterative loop. This approach allows us to systematically work towards 100% coverage of all feature permutations in a way that is both dynamic and self-improving. The loop is as follows:
 
-1.  **Study & Document Permutations**: For a given feature, like a decorator, we first study all its possible variations and options. These are documented in a human- and machine-readable permutation matrix within an `.mdx` file. This matrix serves as the single source of truth for what needs to be tested.
-2.  **AI-Driven Test Generation**: A generative AI assistant uses the permutation matrix as a blueprint to generate the necessary tests. It creates a combination of isolated component-level tests (`test/wdio`) and integration tests (`test/end-to-end`) to exercise every permutation defined in the matrix.
-3.  **Test Execution and Validation**: Before checking coverage, the newly generated `wdio` tests are run to ensure they pass. This step is critical to confirm that the generated components and tests are functionally correct and adhere to the established patterns in the `wdio` directory.
-4.  **Coverage Analysis & Matrix Update**: After the tests are generated and pass, a custom coverage script analyzes the results. It updates the permutation matrix `.mdx` file with the latest coverage statistics, clearly marking which permutations are successfully tested and which are missing.
-5.  **Iterate and Refine**: The AI reviews the updated matrix. If any permutations are uncovered, it refines the existing tests or generates new ones to cover the gaps. This loop continues until all permutations in the matrix are covered, ensuring our test suite is as comprehensive as possible.
+1.  **Define Component Permutations**: For a given feature, like a decorator, we first study all its possible variations and options. These are documented in a human- and machine-readable permutation matrix within an `.mdx` file. This matrix serves as the single source of truth for which component permutations need to be tested.
+2.  **AI-Driven Component Test Generation**: A generative AI assistant uses the permutation matrix as a blueprint to generate the necessary component-level tests in the `test/wdio` directory. For each permutation, it creates an isolated component and a corresponding test to exercise its behavior.
+3.  **Test Execution and Validation**: Before checking coverage, the newly generated `wdio` tests are run to ensure they pass. This step is critical to confirm that the generated components and tests are functionally correct and adhere to the established patterns.
+4.  **Coverage Analysis & Matrix Update**: After the tests are generated and pass, a custom coverage script analyzes the codebase. It updates the permutation matrix `.mdx` file with the latest coverage statistics, clearly marking which component permutations are implemented and tested, and which are missing.
+5.  **Iterate and Refine**: The AI reviews the updated matrix. If any permutations are uncovered, it generates the missing components and tests to cover the gaps. This loop continues until all permutations in the matrix are covered, ensuring our test suite is as comprehensive as possible.
+6.  **Document Learnings**: Once 100% coverage is achieved, the AI documents any learnings from the testing iteration in the appropriate `.ai` folder files. This includes mistakes made during test generation, loopholes discovered in coverage scripts, improvements to documentation, and any patterns or best practices identified. This step ensures that each iteration builds upon the knowledge gained from previous cycles, making the process continuously more efficient and accurate.
 
-This iterative process allows us to not only achieve but also maintain high test coverage over time, adapting as new features and variations are introduced.
+This iterative process allows us to not only achieve but also maintain high test coverage over time, adapting as new features and variations are introduced while continuously improving our methodology.
 
 ### A Real-World Example: The `@Prop` Decorator
 
@@ -89,6 +82,14 @@ For a detailed explanation of how the permutation matrices are generated, see th
 This testing strategy is a living document. We will continue to refine our approach, adopt new tools, and improve our processes over time to ensure Stencil remains a reliable and high-quality framework for all developers.
 
 A core tenet of this continuous improvement is the practice of documenting our learnings. After each major testing iteration, we will update the relevant documentation—including this strategy, the component-level and end-to-end testing guides, and the [audit log](./audit.md)—with any new insights, patterns, or challenges we encountered. This ensures that our institutional knowledge grows with our test suite.
+
+**Key areas for learning documentation include:**
+
+- **AI Mistakes and Corrections**: Recording instances where the AI generated incorrect or suboptimal tests, along with the corrections made
+- **Coverage Script Gaps**: Documenting loopholes or blind spots discovered in coverage scripts and how they were addressed
+- **Documentation Improvements**: Noting areas where guides or instructions were unclear or incomplete
+- **Process Optimizations**: Capturing workflow improvements or shortcuts discovered during iterations
+- **Pattern Recognition**: Identifying recurring themes or best practices that emerge from the testing process
 
 As this is our first time implementing the GenAI-powered loop, we anticipate a learning period where mistakes are possible. Our commitment is to learn from these experiences and rapidly evolve towards a rock-solid automated testing framework.
 

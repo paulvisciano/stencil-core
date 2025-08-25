@@ -1,86 +1,94 @@
 {
   "coverage": {
-    "covered": 3,
+    "covered": 12,
     "total": 12,
-    "percent": "25.00"
+    "percent": "100.00"
   },
   "coveredPermutations": [
     {
       "options": [
         "string",
-        "true"
+        "false"
       ],
-      "count": 31
+      "count": 5
     },
-    {
-      "options": [
-        "number",
-        "true"
-      ],
-      "count": 25
-    },
-    {
-      "options": [
-        "any",
-        "true"
-      ],
-      "count": 18
-    }
-  ],
-  "missingPermutations": [
     {
       "options": [
         "string",
-        "false"
-      ]
+        "true"
+      ],
+      "count": 32
     },
     {
       "options": [
         "number",
-        "false"
-      ]
+        "true"
+      ],
+      "count": 26
     },
     {
       "options": [
         "boolean",
         "true"
-      ]
-    },
-    {
-      "options": [
-        "boolean",
-        "false"
-      ]
-    },
-    {
-      "options": [
-        "array",
-        "true"
-      ]
-    },
-    {
-      "options": [
-        "array",
-        "false"
-      ]
-    },
-    {
-      "options": [
-        "object",
-        "true"
-      ]
-    },
-    {
-      "options": [
-        "object",
-        "false"
-      ]
+      ],
+      "count": 19
     },
     {
       "options": [
         "any",
         "false"
-      ]
+      ],
+      "count": 8
+    },
+    {
+      "options": [
+        "object",
+        "false"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "object",
+        "true"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "number",
+        "false"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "boolean",
+        "false"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "array",
+        "true"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "array",
+        "false"
+      ],
+      "count": 2
+    },
+    {
+      "options": [
+        "any",
+        "true"
+      ],
+      "count": 1
     }
-  ]
+  ],
+  "missingPermutations": []
 }

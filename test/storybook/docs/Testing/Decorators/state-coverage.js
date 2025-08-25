@@ -40,28 +40,37 @@ const files = searchDirs.flatMap(dir => globSync(`${dir}/**/*.{ts,tsx}`, {
   ignore: ['**/*.spec.ts', '**/*.e2e.ts'],
 }));
 
-const stateRegex = /@State\(\)\s+([\w\d_]+)\s*(?::\s*([\w\d\[\]<>{}|.'"]+))?(\s*=[\s\S]*?;)/g;
+const stateRegex = /@State\(\)\s+([\w\d_]+)\s*(?::\s*([\w\d\[\]<>{}|=.'"]+))?(\s*=\s*[^;]*;)?/g;
 
 function getType(typeAnnotation, initializer) {
-    if (typeAnnotation) {
-        typeAnnotation = typeAnnotation.toLowerCase();
-        if (typeAnnotation.includes('string')) return 'string';
-        if (typeAnnotation.includes('number')) return 'number';
-        if (typeAnnotation.includes('boolean')) return 'boolean';
-        if (typeAnnotation.includes('[]') || typeAnnotation.includes('array')) return 'array';
-        if (typeAnnotation.includes('{') || typeAnnotation.includes('object')) return 'object';
-    }
-    if (initializer) {
-        const initStr = initializer.substring(1).trim(); // remove '='
-        if (initStr.startsWith("'") || initStr.startsWith("`") || initStr.startsWith('"')) return 'string';
-        if (!isNaN(parseFloat(initStr))) return 'number';
-        if (initStr === 'true' || initStr === 'false') return 'boolean';
-        if (initStr.startsWith('[')) return 'array';
-        if (initStr.startsWith('{')) return 'object';
-    }
-    return 'any';
-}
+  let type = 'any'; // Default type
 
+  if (typeAnnotation) {
+    const annotation = typeAnnotation.toLowerCase();
+    if (annotation.includes('string')) type = 'string';
+    else if (annotation.includes('number')) type = 'number';
+    else if (annotation.includes('boolean')) type = 'boolean';
+    else if (annotation.includes('[]') || annotation.includes('array')) type = 'array';
+    else if (annotation.includes('{') || annotation.includes('object')) type = 'object';
+  }
+
+  if (initializer) {
+    const initStr = initializer.substring(1).trim().replace(/;$/, '');
+    if (initStr === 'true' || initStr === 'false') {
+      type = 'boolean';
+    } else if (initStr.startsWith("'") || initStr.startsWith('"') || initStr.startsWith('`')) {
+      type = 'string';
+    } else if (!isNaN(parseFloat(initStr)) && isFinite(initStr)) {
+      type = 'number';
+    } else if (initStr.startsWith('[')) {
+      type = 'array';
+    } else if (initStr.startsWith('{')) {
+      type = 'object';
+    }
+  }
+
+  return type;
+}
 
 files.forEach(file => {
   const content = fs.readFileSync(file, 'utf8');

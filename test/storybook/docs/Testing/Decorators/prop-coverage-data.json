@@ -99,7 +99,7 @@
         "✗",
         "✗"
       ],
-      "count": 1
+      "count": 2
     },
     {
       "options": [
@@ -115,7 +115,7 @@
         "✗",
         "✓"
       ],
-      "count": 3
+      "count": 2
     },
     {
       "options": [
@@ -131,23 +131,7 @@
         "✗",
         "✓"
       ],
-      "count": 2
-    },
-    {
-      "options": [
-        "Set",
-        "✓",
-        "✓"
-      ],
-      "count": 2
-    },
-    {
-      "options": [
-        "string",
-        "✓",
-        "✓"
-      ],
-      "count": 3
+      "count": 1
     },
     {
       "options": [
@@ -180,6 +164,22 @@
         "✓"
       ],
       "count": 1
+    },
+    {
+      "options": [
+        "Set",
+        "✓",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "string",
+        "✓",
+        "✓"
+      ],
+      "count": 2
     },
     {
       "options": [
