@@ -31,6 +31,7 @@ This document tracks the progress and effectiveness of the GenAI-powered testing
 -   The testing loop proved to be self-correcting. When a blind spot was identified and the "source of truth" (the coverage script) was updated, the strategy seamlessly guided the process of filling the gap.
 -   Static analysis is a powerful but imperfect tool. It is only as good as the patterns it's configured to find, highlighting the need for periodic human review to identify what might be missing.
 -   The exponential cost of comprehensive testing was validated. Adding a single boolean property doubled the testing matrix, reinforcing the need for an efficient and scalable strategy.
+-   **Human-AI Collaboration is Key**: This entire process was a partnership. The AI was a powerful engine for generating code and executing the testing loop, but human insight was required to identify the initial blind spot (`mutable`) and refine the strategy. The most effective approach is one that leverages AI for speed and scale while relying on human expertise for critical thinking and direction.
 
 ---
 

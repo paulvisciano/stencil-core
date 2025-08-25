@@ -103,14 +103,7 @@ This will execute your tests and provide feedback on whether they pass or fail.
 
 ### Step 6: Document Learnings
 
-After achieving 100% coverage, document any learnings from the testing process in the appropriate `.ai` folder files. This includes:
-
-- **Mistakes made during test generation** and how they were corrected
-- **Issues discovered in coverage scripts** and their fixes  
-- **Improvements needed in documentation** or testing guides
-- **Patterns or best practices** identified during the process
-
-This documentation ensures that future testing iterations build upon the knowledge gained from this cycle.
+After achieving 100% coverage for a feature, the final step is to document the key learnings from the iteration. This is a crucial part of our self-improving testing loop. For a complete guide on what to document and where, please refer to the "Continuous Improvement" section of the main [Testing Strategy](./testing_strategy.md) document.
 
 ## Best Practices
 

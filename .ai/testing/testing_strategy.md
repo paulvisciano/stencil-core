@@ -35,20 +35,6 @@ Our first application of this strategy to the `@Prop` decorator provides a perfe
 
 This experience validates our strategy. The loop is designed to be self-correcting. It allows us to uncover our own blind spots, systematically address them, and continuously improve the robustness of our test suite.
 
-### Key Learnings from the `@Prop` Implementation
-
-The process of testing the `@Prop` decorator, particularly the discovery of the `mutable` property after an initial focus on `reflect`, provided several critical insights that now form the bedrock of our testing philosophy:
-
-1.  **Static Analysis Creates Blind Spots**: Our initial 100% coverage metric was misleading because the coverage script was not programmed to look for the `mutable` property. This taught us that our static analysis tools are only as good as the patterns they are configured to find. It highlights the need for human oversight to question the results and identify what might be missing.
-
-2.  **The Exponential Cost of Comprehensive Testing**: Adding a single boolean property (`mutable`) to the `@Prop` decorator doubled the size of our permutation matrix. This was a stark reminder that the cost of testing does not grow linearly; it grows exponentially with each new feature option. This underscores the need for an efficient and scalable testing strategy to manage this complexity.
-
-3.  **The Value of a Self-Correcting Loop**: The GenAI-powered testing loop proved its worth. When we discovered the `mutable` property, the process didn't break. We simply updated the coverage script (the source of truth), and the loop naturally guided us to the next step: generating the missing tests. This iterative, self-correcting nature is what makes the strategy resilient and sustainable.
-
-4.  **Isolated Tests are Foundational**: The `test/wdio` approach of using small, single-purpose components for each permutation was highly effective. It resulted in tests that were simple to write, easy to debug, and perfectly compatible with our static analysis tools. This "one feature, one component" approach is a core principle for building our foundational test layer.
-
-5.  **Human-AI Collaboration is Key**: This entire process was a partnership. The AI was a powerful engine for generating code and executing the testing loop, but human insight was required to identify the initial blind spot (`mutable`) and refine the strategy. The most effective approach is one that leverages AI for speed and scale while relying on human expertise for critical thinking and direction.
-
 ## An Open, Community-Driven Framework
 
 While the concept of a GenAI-powered testing loop is powerful, its true potential is unlocked through community collaboration. We envision this testing strategy as a public project, open to contributions from everyone.
