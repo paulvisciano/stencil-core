@@ -115,5 +115,6 @@ This document tracks the progress and effectiveness of the GenAI-powered testing
 2. **Refined Component Test Guide:** Corrected the build process documentation to reflect actual workflow.
 3. **Coverage Script Enhancement:** Improved regex patterns for more accurate static analysis.
 4. **Workflow Optimization:** Streamlined the testing process based on lessons learned from previous iterations.
+5. **Test Configuration Refinement:** Clarified the workflow for managing test execution in `wdio.conf.ts`, advocating for specific paths during debugging and glob patterns for full suite runs.
 
 ---

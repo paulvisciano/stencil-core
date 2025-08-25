@@ -40,6 +40,20 @@ To run the component-level tests located in the `test/wdio` directory, follow th
     specs: [['./state/**/*.test.tsx']],
     // ...
     ```
+    
+    For running a full suite of tests (e.g., all tests for a decorator), you can use a glob pattern:
+    ```typescript
+    // ...
+    specs: [['./state/**/*.test.tsx']],
+    // ...
+    ```
+    
+    For running all tests in the project, you can use a broader pattern:
+    ```typescript
+    // ...
+    specs: [['./**/*.test.tsx']],
+    // ...
+    ```
 6.  **Run the tests**: Execute the following command in your terminal:
     ```bash
     npm run wdio
@@ -88,12 +102,7 @@ To run the tests and ensure they pass, follow these steps:
     ```bash
     cd test/wdio
     ```
-2.  **Update the test configuration**: Open the `wdio.conf.ts` file and modify the `specs` array to point to your test file(s). For example:
-    ```typescript
-    // ...
-    specs: [['./state/**/*.test.tsx']],
-    // ...
-    ```
+2.  **Update the test configuration**: Open the `wdio.conf.ts` file and modify the `specs` array to point to your test file(s). See the examples above for guidance.
 3.  **Run the tests**:
     ```bash
     npm run wdio
