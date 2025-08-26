@@ -1,11 +1,13 @@
 import { Component, Event, EventEmitter, h, Listen, State } from '@stencil/core';
 
 @Component({
-  tag: 'event-bubbles-false',
+  tag: 'event-bubbles-true-cancelable-false-composed-false',
 })
-export class EventBubblesFalse {
+export class EventBubblesTrueCancelableFalseComposedFalse {
   @Event({
-    bubbles: false,
+    bubbles: true,
+    cancelable: false,
+    composed: false,
   })
   testEvent: EventEmitter;
 
