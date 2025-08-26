@@ -21,57 +21,13 @@ import { Meta } from '@storybook/addon-docs/blocks';
 -   **Component Suffix:** Test components must have a `-cmp` suffix in their filename (e.g., `my-feature-cmp.tsx`).
 -   **Test File:** The test file for a component or a group of related components should be named `cmp.test.tsx`.
 
-## Running Component Tests
-
-To run the component-level tests located in the `test/wdio` directory, follow these steps:
-
-1.  **Build the project**: Before running any tests, you must build the Stencil project from the root directory.
-    ```bash
-    npm run build
-    ```
-2.  **Navigate to the `wdio` test directory**:
-    ```bash
-    cd test/wdio
-    ```
-3.  **Build the `wdio` project**: Before running the tests, you need to build the test components.
-    ```bash
-    npm run build
-    ```
-4.  **Update the test configuration**: Open the `wdio.conf.ts` file.
-5.  **Specify the test file**: Locate the `specs` array within the configuration file and update it to point to the specific test file(s) you want to run. For example:
-    ```typescript
-    // ...
-    specs: [['./state/**/*.test.tsx']],
-    // ...
-    ```
-    
-    For running a full suite of tests (e.g., all tests for a decorator), you can use a glob pattern:
-    ```typescript
-    // ...
-    specs: [['./state/**/*.test.tsx']],
-    // ...
-    ```
-    
-    For running all tests in the project, you can use a broader pattern:
-    ```typescript
-    // ...
-    specs: [['./**/*.test.tsx']],
-    // ...
-    ```
-6.  **Run the tests**: Execute the following command in your terminal:
-    ```bash
-    npm run wdio
-    ```
-
-This will launch the WebdriverIO test runner and execute the specified tests.
-
-## A Guide to Writing and Running Component Tests
+## Writing and Running Component Tests
 
 This guide outlines the complete workflow for creating and executing component-level tests in the `test/wdio` directory. Following these steps will help you contribute effectively to the project's test suite.
 
 ### Step 1: Establish a Baseline with the Coverage Script
 
-Before writing any new tests, it's important to understand the current test coverage. A dedicated coverage script helps identify which permutations of a feature are already tested and which are missing.
+Before writing any new tests, it's important to understand the current test coverage. The coverage script helps you determine if components exist for all required permutations. For more details, refer to the matrix Generation documentation.
 
 To run the coverage script, use the following command:
 
@@ -79,7 +35,7 @@ To run the coverage script, use the following command:
 cd test/storybook && npm run coverage
 ```
 
-This command will analyze the existing test suite and generate a report, giving you a clear picture of where new tests are needed.
+This command will analyze the existing test suite and generate a report, giving you a clear picture of where new test components are needed for full permutation coverage.
 
 ### Step 2: Generate Test Components
 
@@ -87,7 +43,7 @@ Once you've identified the missing test cases, the next step is to create the ne
 
 ### Step 3: Build the Test Components
 
-After creating your test components, you need to build them. Navigate to the `wdio` test directory and run the build command:
+After creating or modifying your test components, you need to build them. Navigate to the `wdio` test directory and run the build command:
 
 ```bash
 cd test/wdio
@@ -102,12 +58,23 @@ With the components built, you can now write the tests. These tests should also 
 
 To run the tests and ensure they pass, follow these steps:
 
-1.  **Navigate to the `wdio` test directory** (if you're not already there):
-    ```bash
-    cd test/wdio
+1.  **Update the test configuration**: Open the `wdio.conf.ts` file and modify the `specs` array to point to your test file(s).
+    
+    For running a single test:
+    ```typescript
+    // ...
+    specs: [['./state/**/*.test.tsx']],
+    // ...
     ```
-2.  **Update the test configuration**: Open the `wdio.conf.ts` file and modify the `specs` array to point to your test file(s). See the examples above for guidance.
-3.  **Run the tests**:
+    
+    For running a full suite of tests (e.g., all tests for a decorator), you can use a glob pattern:
+    ```typescript
+    // ...
+    specs: [['./**/*.test.tsx']],
+    // ...
+    ```
+
+2.  **Run the tests from the `test/wdio` directory**:
     ```bash
     npm run wdio
     ```
