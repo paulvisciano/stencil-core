@@ -24,7 +24,7 @@
         "number",
         "true"
       ],
-      "count": 26
+      "count": 33
     },
     {
       "options": [
@@ -38,14 +38,14 @@
         "any",
         "false"
       ],
-      "count": 8
+      "count": 7
     },
     {
       "options": [
         "object",
         "false"
       ],
-      "count": 1
+      "count": 2
     },
     {
       "options": [

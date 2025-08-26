@@ -1,8 +1,8 @@
 {
   "coverage": {
-    "covered": 2,
+    "covered": 8,
     "total": 8,
-    "percent": "25.0"
+    "percent": "100.0"
   },
   "coveredPermutations": [
     {
@@ -19,51 +19,56 @@
         "✗",
         "✓"
       ],
+      "count": 2
+    },
+    {
+      "options": [
+        "✗",
+        "✗",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "✗",
+        "✓",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "✗",
+        "✓",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "✓",
+        "✗",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "✓",
+        "✗",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "✓",
+        "✓",
+        "✗"
+      ],
       "count": 1
     }
   ],
-  "missingPermutations": [
-    {
-      "options": [
-        "✓",
-        "✓",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "✓",
-        "✗",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "✓",
-        "✗",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "✗",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "✗",
-        "✓",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "✗",
-        "✗",
-        "✗"
-      ]
-    }
-  ]
+  "missingPermutations": []
 }
