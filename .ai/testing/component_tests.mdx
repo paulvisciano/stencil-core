@@ -129,3 +129,58 @@ When testing how a component's state changes (e.g., when a `@Prop({ mutable: tru
 3.  **Final State Assertion:** Verify that the property has been updated to the new, expected value.
 
 This "before and after" approach ensures that the mutation is a direct result of the interaction and that the component behaves as expected.
+
+### Testing Event Emissions
+
+When testing `@Event` decorators, the most reliable and direct pattern is to use an in-component `@Listen` decorator to verify that the event was emitted. This avoids the complexities and potential flakiness of trying to intercept events from outside the component.
+
+**Example:**
+
+A component that emits a `testEvent` can have a simple counter that is incremented by a `@Listen('testEvent')` handler. The test then only needs to check if the counter's value has been updated.
+
+**Component (`event-basic-cmp.tsx`):**
+
+```tsx
+import { Component, Event, EventEmitter, h, Listen, State } from '@stencil/core';
+
+@Component({ tag: 'event-basic' })
+export class EventBasic {
+  @Event() testEvent: EventEmitter;
+  @State() counter = 0;
+
+  @Listen('testEvent')
+  testEventHandler() {
+    this.counter++;
+  }
+
+  render() {
+    return (
+      <button onClick={() => this.testEvent.emit()}>Emit Event</button>
+      <p>Emission count: <span id="counter">{this.counter}</span></p>
+    );
+  }
+}
+```
+
+**Test (`cmp.test.tsx`):**
+
+```tsx
+import { h } from '@stencil/core';
+import { render } from '@wdio/browser-runner/stencil';
+
+describe('event-basic', () => {
+  beforeEach(async () => {
+    render({
+      template: () => <event-basic></event-basic>,
+    });
+  });
+
+  it('should increment counter when event is emitted', async () => {
+    await expect($('#counter')).toHaveText('0');
+    await $('button').click();
+    await expect($('#counter')).toHaveText('1');
+  });
+});
+```
+
+This pattern is simple, robust, and aligns with Stencil's architecture, making it the preferred method for testing event emissions.

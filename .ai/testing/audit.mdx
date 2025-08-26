@@ -122,3 +122,37 @@ This document tracks the progress and effectiveness of the GenAI-powered testing
 5. **Test Configuration Refinement:** Clarified the workflow for managing test execution in `wdio.conf.ts`, advocating for specific paths during debugging and glob patterns for full suite runs.
 
 ---
+
+## Iteration 4: `@Event` Decorator
+
+**Date:** August 26, 2025
+
+### Phase 1: Initial Misdirection
+
+-   **Target Feature:** `@Event` decorator.
+-   **Initial Action:** The AI assistant was tasked with bringing `@Event` decorator coverage to 100%. However, it immediately went down the wrong path by attempting to generate E2E tests instead of component tests, and placing them in the incorrect directory (`test/end-to-end/` instead of `test/wdio/`).
+-   **Correction:** Human intervention was required to redirect the AI, pointing it to the correct `wdio` directory and the `@State` decorator tests as a pattern to follow.
+
+### Phase 2: Test Implementation Failures
+
+-   **Challenge:** The AI struggled to adopt the correct testing pattern. Its first attempt at creating the test file (`cmp.test.tsx`) used `newSpecPage` from Stencil's unit testing framework, which was incorrect for component tests.
+-   **Correction:** The user again corrected the AI, pointing out the convention mismatch.
+-   **Second Failure:** The AI's next attempt was also flawed. It used a non-existent `browser.spyOn` method, which caused the tests to fail. This led to a frustrating loop where the AI was unable to correct its own mistake.
+
+### Phase 3: File System and Pattern Discovery Issues
+
+-   **Challenge:** The AI entered a persistent failure loop where it was unable to successfully write to the test file (`cmp.test.tsx`). The file repeatedly appeared as empty or corrupted, requiring the user to manually revert changes and suggest workarounds, such as using a temporary file name.
+-   **A Better Pattern Revealed:** The most significant issue was the AI's failure to recognize the simplest existing testing pattern. While the AI was attempting a complex and incorrect solution using `browser.execute`, the user pointed out that existing tests (like `event-basic`) used a much cleaner in-component `@Listen` decorator to verify the event emission.
+-   **Outcome:** This insight was critical. It rendered the AI's complex solution obsolete and highlighted a major blind spot in its ability to learn from the most relevant examples in the codebase.
+
+### Phase 4: Final Refactoring and Success
+
+-   **Action:** Following the user's guidance, the AI refactored all the newly generated components to use the `@Listen` pattern. The test file (`cmp-tests.tsx`) was simplified to check a counter, aligning with the established, simpler convention.
+-   **Outcome:** After adopting the correct pattern as identified by the user, the tests were simplified, and the process was successfully completed.
+
+### Key Learnings:
+
+-   **Pattern Blindness:** This iteration revealed a critical failure in the AI's ability to identify and adopt the best and simplest existing patterns, even when provided with examples. It defaulted to a more complex, generic, and ultimately incorrect solution.
+-   **Tool-Level Instability:** The AI exhibited significant instability with basic file operations, leading to a frustrating user experience and requiring manual workarounds. This points to a need for more robust error handling and self-correction in the AI's tool usage.
+-   **Over-Reliance on Correction:** The AI was entirely dependent on the user for course correction at every major step. The human's role shifted from supervisor to constant troubleshooter and pattern-matcher.
+-   **The Cost of "Almost Right":** The AI's ability to generate code that was syntactically correct but functionally wrong (e.g., using `browser.spyOn`) proved to be a significant time sink, demonstrating that superficial correctness is not a substitute for understanding context and convention.
