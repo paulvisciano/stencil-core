@@ -1,16 +1,60 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta title="Testing/AI/Strategy" />
+<Meta title="Testing/Overview" />
 
 # Stencil.js Testing Strategy
 
-This document outlines the testing strategy for the Stencil.js codebase, centered around a GenAI-powered loop. This ensures a comprehensive and robust testing suite that is both maintainable and scalable.
+This document outlines the testing strategy for the Stencil.js codebase. It is centered around a GenAI-powered loop to ensure a comprehensive and robust testing suite that is both maintainable and scalable.
 
 ## Philosophy
 
 For a foundational library like Stencil, the testing strategy must be rigorous. It should not only validate that features work as expected but also ensure they are reliable in isolation and play well with others. We follow a model inspired by the classic testing pyramid.
 
 A key aspect of our strategy is recognizing the difference between **static coverage analysis** and **runtime behavior testing**. Our coverage scripts work by statically analyzing the source code for specific patterns (e.g., the presence of a `@Prop` decorator with certain options). This is a fast and effective way to inventory our features, but it does not execute the code to verify its behavior. Therefore, our testing strategy is designed to satisfy both our static analysis tools and the need for robust, behavior-driven validation.
+
+## Summary: The Testing Pyramid in Practice
+
+<table>
+  <thead>
+    <tr>
+      <th>Test Type</th>
+      <th>Directory</th>
+      <th>Technology</th>
+      <th>Goal</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Core Tests</strong></td>
+      <td><code>src/</code></td>
+      <td>Jest</td>
+      <td>Verify Stencil's internal logic and compiler functionality.</td>
+      <td><a href="./Core.mdx">Core Testing Docs</a></td>
+    </tr>
+    <tr>
+      <td><strong>Component Tests</strong></td>
+      <td><code>test/wdio/</code></td>
+      <td>WebdriverIO (<code>@wdio/browser-runner/stencil</code>)</td>
+      <td>Verify individual features in isolation and satisfy static analysis.</td>
+      <td><a href="./component_tests.md">Component Testing Docs</a></td>
+    </tr>
+    <tr>
+      <td><strong>Integration Tests</strong></td>
+      <td><code>test/end-to-end/</code></td>
+      <td>Stencil's <code>newE2EPage()</code> (Puppeteer)</td>
+      <td>Verify that multiple features work correctly when used together.</td>
+      <td><a href="./e2e_tests.md">E2E Testing Docs</a></td>
+    </tr>
+    <tr>
+      <td><strong>Decorator Coverage</strong></td>
+      <td><code>test/storybook/</code></td>
+      <td>Static Analysis</td>
+      <td>Ensure all permutations of decorator options are tested.</td>
+      <td><a href="./Decorators/Overview.mdx">Decorator Coverage Docs</a></td>
+    </tr>
+  </tbody>
+</table>
 
 ## The GenAI-Powered Testing Loop
 
@@ -51,22 +95,6 @@ The framework is designed to be model-agnostic. Anyone, whether they have access
 
 This approach allows us to harness the collective intelligence and diverse capabilities of the entire community. By crowdsourcing the test generation process, we can build a more robust, resilient, and thoroughly-vetted testing suite than any single team or model could create alone.
 
-## Testing Tiers
-
-Our testing strategy is divided into two main tiers:
-
-- [Component-Level Tests](./component_tests.md)
-- [End-to-End Tests](./e2e_tests.md)
-
-For a detailed explanation of how the permutation matrices are generated, see the [Matrix Generation Guide](./matrix_generation.md).
-
-## Summary: The Testing Pyramid in Practice
-
-| Test Type             | Directory         | Technology                                           | Goal                                                              |
-| --------------------- | ----------------- | ---------------------------------------------------- | ----------------------------------------------------------------- |
-| **Component Tests**   | `test/wdio/`      | WebdriverIO (`@wdio/browser-runner/stencil`)         | Verify individual features in isolation and satisfy static analysis.    |
-| **Integration Tests** | `test/end-to-end/` | Stencil's `newE2EPage()` (Puppeteer)                 | Verify that multiple features work correctly when used together. |
-
 ## Continuous Improvement
 
 This testing strategy is a living document. We will continue to refine our approach, adopt new tools, and improve our processes over time to ensure Stencil remains a reliable and high-quality framework for all developers.
@@ -75,11 +103,11 @@ A core tenet of this continuous improvement is the practice of documenting our l
 
 **Key areas for learning documentation include:**
 
-- **AI Mistakes and Corrections**: Recording instances where the AI generated incorrect or suboptimal tests, along with the corrections made
-- **Coverage Script Gaps**: Documenting loopholes or blind spots discovered in coverage scripts and how they were addressed
-- **Documentation Improvements**: Noting areas where guides or instructions were unclear or incomplete
-- **Process Optimizations**: Capturing workflow improvements or shortcuts discovered during iterations
-- **Pattern Recognition**: Identifying recurring themes or best practices that emerge from the testing process
+-   **AI Mistakes and Corrections**: Recording instances where the AI generated incorrect or suboptimal tests, along with the corrections made
+-   **Coverage Script Gaps**: Documenting loopholes or blind spots discovered in coverage scripts and how they were addressed
+-   **Documentation Improvements**: Noting areas where guides or instructions were unclear or incomplete
+-   **Process Optimizations**: Capturing workflow improvements or shortcuts discovered during iterations
+-   **Pattern Recognition**: Identifying recurring themes or best practices that emerge from the testing process
 
 As this is our first time implementing the GenAI-powered loop, we anticipate a learning period where mistakes are possible. Our commitment is to learn from these experiences and rapidly evolve towards a rock-solid automated testing framework.
 
