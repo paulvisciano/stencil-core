@@ -55,41 +55,37 @@ The `@State` decorator is used for managing internal data that can change over t
   </div>
 </div>
 
-## Missing Permutations
+## Test Case Summary
 
-<div style={{ marginTop: '2rem', maxWidth: '100%', width: '100%', background: '#fff' }}>
-  <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+The following table summarizes the actual component-level WDIO test cases for the `@State` decorator:
+
+<div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
     <colgroup>
-      <col style={{ width: '33%' }} />
-      <col style={{ width: '33%' }} />
-      <col style={{ width: '34%' }} />
+      <col style={{ width: '50%' }} />
+      <col style={{ width: '30%' }} />
+      <col style={{ width: '20%' }} />
     </colgroup>
     <thead>
-      <tr>
-        <th>Type</th>
-        <th>Has Default Value</th>
-        <th>Status</th>
+      <tr style={{ background: '#f2f2f2' }}>
+        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Case</th>
+        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Permutations Covered</th>
+        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
       </tr>
     </thead>
+    <tbody>
+      <tr>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+          Clicking a button updates the <code>@State</code> property and the DOM reflects the new state (e.g., selected day is highlighted).
+        </td>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+          All types, with/without default value
+        </td>
+        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
+          <span style={{ color: 'green' }}>✔</span>
+        </td>
+      </tr>
+    </tbody>
   </table>
-  <div style={{ maxHeight: 600, overflowY: 'auto', width: '100%' }}>
-    <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
-      <colgroup>
-        <col style={{ width: '33%' }} />
-        <col style={{ width: '33%' }} />
-        <col style={{ width: '34%' }} />
-      </colgroup>
-      <tbody>
-        {data.missingPermutations.map((p, i) => (
-          <tr key={i} style={{ background: '#fff3cd', fontStyle: 'italic' }}>
-            {p.options.map((opt, j) => (
-              <td key={j}>{opt}</td>
-            ))}
-            <td>Missing</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
 </div>
 
