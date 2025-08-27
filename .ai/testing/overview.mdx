@@ -64,34 +64,6 @@ A groundbreaking aspect of our testing strategy is its reliance on a GenAI-power
 
 This iterative process allows us to not only achieve but also maintain high test coverage over time, adapting as new features and variations are introduced while continuously improving our methodology.
 
-### A Real-World Example: The `@Prop` Decorator
-
-Our first application of this strategy to the `@Prop` decorator provides a perfect case study of the iterative process in action and highlights the exponential cost of comprehensive testing. For a concrete example of the permutation matrix in practice, see [@Prop Matrix: Covered Permutations](?path=/docs/testing-decorators-prop--docs#covered-permutations).
-
-1.  **Initial Coverage Push**: We began by identifying the primary permutations for `@Prop`, focusing on its `type` (e.g., `string`, `number`, `boolean`) and the `reflect` option. The AI assistant generated a suite of isolated component tests in `test/wdio/prop-reflect/` to cover these cases. After this initial push, our coverage script reported **100% coverage** for the known permutations.
-
-2.  **Discovering a Blind Spot**: Upon review, we realized we had completely overlooked the `mutable` property. It was not being tracked by our coverage script, giving us a false sense of security.
-
-3.  **The Cost of a New Permutation**: We updated the `prop-coverage.js` script to recognize the `mutable` property. The impact was immediate and dramatic. The total number of testable permutations doubled, and our coverage plummeted from **100% to 62.5%**. This demonstrated a critical lesson: each new property added to a feature doesn't just add a few more tests; it can exponentially increase the testing matrix.
-
-4.  **The Next Iteration**: We are now back at the beginning of the testing loop, but we are not starting from scratch. With a more accurate permutation matrix, we will now use the same strategy—and the lessons learned from the first iteration—to generate the tests required to cover the new `mutable` permutations and bring our coverage back to 100%.
-
-This experience validates our strategy. The loop is designed to be self-correcting. It allows us to uncover our own blind spots, systematically address them, and continuously improve the robustness of our test suite.
-
-## Matrix-Driven Static Analysis Coverage
-
-Traditional unit test coverage tools (like Istanbul/NYC) are effective for verifying the compiler's internal logic, but they cannot ensure that every possible decorator permutation is exercised in real-world usage. This is because, to truly flex the compiler, we must use it as an external consumer—generating components and running them through the build/test pipeline. Standard coverage tools cannot track which decorator permutations are exercised in generated code.
-
-To address this, we use a matrix-driven static analysis approach:
-
-- **Permutation Matrix:** For each decorator, all possible permutations (based on its properties/options) are enumerated in a machine-readable matrix (typically an `.mdx` file). For more on how this matrix is created and maintained, see [Matrix Generation](?path=/docs/testing-decorators-matrix-generation--docs).
-- **Static Analysis:** Scripts scan the codebase to check which permutations are present in generated components and tests.
-- **Coverage Reporting:** The matrix is updated to show which permutations are covered and which are missing.
-- **Test Generation:** Missing permutations trigger new component/test generation, ensuring every case is exercised.
-- **Expansion:** While currently focused on Component Tests, this approach will expand to e2e tests, ensuring full coverage across all test types.
-
-This matrix-driven strategy is essential for maintaining confidence in Stencil’s feature coverage, especially as new decorator options are added. It complements runtime tests and standard coverage tools, providing a systematic way to achieve and maintain comprehensive coverage.
-
 ## An Open, Community-Driven Framework
 
 While the concept of a GenAI-powered testing loop is powerful, its true potential is unlocked through community collaboration. We envision this testing strategy as a public project, open to contributions from everyone.
