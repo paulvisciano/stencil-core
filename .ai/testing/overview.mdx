@@ -12,6 +12,8 @@ For a foundational library like Stencil, the testing strategy must be rigorous. 
 
 A key aspect of our strategy is recognizing the difference between **static coverage analysis** and **runtime behavior testing**. Our coverage scripts work by statically analyzing the source code for specific patterns (e.g., the presence of a `@Prop` decorator with certain options). This is a fast and effective way to inventory our features, but it does not execute the code to verify its behavior. Therefore, our testing strategy is designed to satisfy both our static analysis tools and the need for robust, behavior-driven validation.
 
+> **Note:** For a deeper dive into how the permutation matrix is generated and used for coverage, see [Matrix Generation](?path=/docs/testing-decorators-matrix-generation--docs).
+
 ## Summary: The Testing Pyramid in Practice
 
 <table>
@@ -46,13 +48,6 @@ A key aspect of our strategy is recognizing the difference between **static cove
       <td>Verify that features work correctly together (e.g. multiple decorators, render function) and that component behavior is correct in a browser environment.</td>
       <td>[E2E Testing Docs](?path=/docs/testing-e2e-tests--docs)</td>
     </tr>
-    <tr>
-      <td><strong>Decorator Coverage</strong></td>
-      <td><code>test/storybook/</code></td>
-      <td>Static Analysis</td>
-      <td>Ensure all permutations of decorator options are tested.</td>
-      <td>[Decorator Coverage Docs](?path=/docs/testing-decorator-coverage--docs)</td>
-    </tr>
   </tbody>
 </table>
 
@@ -60,7 +55,7 @@ A key aspect of our strategy is recognizing the difference between **static cove
 
 A groundbreaking aspect of our testing strategy is its reliance on a GenAI-powered iterative loop. This approach allows us to systematically work towards 100% coverage of all feature permutations in a way that is both dynamic and self-improving. The loop is as follows:
 
-1.  **Define Component Permutations**: For a given feature, like a decorator, we first study all its possible variations and options. These are documented in a human- and machine-readable permutation matrix within an `.mdx` file. This matrix serves as the single source of truth for which component permutations need to be tested.
+1.  **Define Component Permutations**: For a given feature, like a decorator, we first study all its possible variations and options. These are documented in a human- and machine-readable permutation matrix within an `.mdx` file. This matrix serves as the single source of truth for which component permutations need to be tested. For details on how the matrix is generated, see [Matrix Generation](?path=/docs/testing-decorators-matrix-generation--docs).
 2.  **AI-Driven Component Test Generation**: A generative AI assistant uses the permutation matrix as a blueprint to generate the necessary component-level tests in the `test/wdio` directory. For each permutation, it creates an isolated component and a corresponding test to exercise its behavior.
 3.  **Test Execution and Validation**: Before checking coverage, the newly generated `wdio` tests are run to ensure they pass. This step is critical to confirm that the generated components and tests are functionally correct and adhere to the established patterns.
 4.  **Coverage Analysis & Matrix Update**: After the tests are generated and pass, a custom coverage script analyzes the codebase. It updates the permutation matrix `.mdx` file with the latest coverage statistics, clearly marking which component permutations are implemented and tested, and which are missing.
@@ -71,7 +66,7 @@ This iterative process allows us to not only achieve but also maintain high test
 
 ### A Real-World Example: The `@Prop` Decorator
 
-Our first application of this strategy to the `@Prop` decorator provides a perfect case study of the iterative process in action and highlights the exponential cost of comprehensive testing.
+Our first application of this strategy to the `@Prop` decorator provides a perfect case study of the iterative process in action and highlights the exponential cost of comprehensive testing. For a concrete example of the permutation matrix in practice, see [@Prop Matrix: Covered Permutations](?path=/docs/testing-decorators-prop--docs#covered-permutations).
 
 1.  **Initial Coverage Push**: We began by identifying the primary permutations for `@Prop`, focusing on its `type` (e.g., `string`, `number`, `boolean`) and the `reflect` option. The AI assistant generated a suite of isolated component tests in `test/wdio/prop-reflect/` to cover these cases. After this initial push, our coverage script reported **100% coverage** for the known permutations.
 
@@ -82,6 +77,20 @@ Our first application of this strategy to the `@Prop` decorator provides a perfe
 4.  **The Next Iteration**: We are now back at the beginning of the testing loop, but we are not starting from scratch. With a more accurate permutation matrix, we will now use the same strategy—and the lessons learned from the first iteration—to generate the tests required to cover the new `mutable` permutations and bring our coverage back to 100%.
 
 This experience validates our strategy. The loop is designed to be self-correcting. It allows us to uncover our own blind spots, systematically address them, and continuously improve the robustness of our test suite.
+
+## Matrix-Driven Static Analysis Coverage
+
+Traditional unit test coverage tools (like Istanbul/NYC) are effective for verifying the compiler's internal logic, but they cannot ensure that every possible decorator permutation is exercised in real-world usage. This is because, to truly flex the compiler, we must use it as an external consumer—generating components and running them through the build/test pipeline. Standard coverage tools cannot track which decorator permutations are exercised in generated code.
+
+To address this, we use a matrix-driven static analysis approach:
+
+- **Permutation Matrix:** For each decorator, all possible permutations (based on its properties/options) are enumerated in a machine-readable matrix (typically an `.mdx` file). For more on how this matrix is created and maintained, see [Matrix Generation](?path=/docs/testing-decorators-matrix-generation--docs).
+- **Static Analysis:** Scripts scan the codebase to check which permutations are present in generated components and tests.
+- **Coverage Reporting:** The matrix is updated to show which permutations are covered and which are missing.
+- **Test Generation:** Missing permutations trigger new component/test generation, ensuring every case is exercised.
+- **Expansion:** While currently focused on Component Tests, this approach will expand to e2e tests, ensuring full coverage across all test types.
+
+This matrix-driven strategy is essential for maintaining confidence in Stencil’s feature coverage, especially as new decorator options are added. It complements runtime tests and standard coverage tools, providing a systematic way to achieve and maintain comprehensive coverage.
 
 ## An Open, Community-Driven Framework
 
