@@ -85,6 +85,21 @@ This will execute your tests and provide feedback on whether they pass or fail.
 
 After achieving 100% coverage for a feature, the final step is to document the key learnings from the iteration. This is a crucial part of our self-improving testing loop. For a complete guide on what to document and where, please refer to the "Continuous Improvement" section of the main [Testing Strategy](./testing_strategy.md) document.
 
+## Using AI to Generate Component Tests
+
+During the August 2025 iteration, we leveraged Copilot GPT-4.1 to automate the generation of component-level tests. To maximize AI effectiveness and ensure alignment with project standards:
+
+- **Import the `.ai` folder for context:** Always provide the AI assistant with the contents of the `.ai` folder so it understands coding standards, domain knowledge, and testing strategy.
+- **Prompt Example:**
+  > Utilizing the testing strategy covered in the .ai folder, let's get the @Method matrix up to 100%, follow the instructions under component_tests Writing and Running Component Tests
+- **Workflow:**
+  1. Run the coverage script to identify missing permutations.
+  2. Use the AI assistant to generate missing test components and WDIO tests, following the patterns and conventions documented in this file.
+  3. Build the components and run the tests as described above.
+  4. Document learnings and update the audit log after each coverage push.
+
+This approach enables rapid, standards-compliant test generation and ensures continuous improvement through human-AI collaboration.
+
 ## Best Practices
 
 ### Testing State Mutations
@@ -151,3 +166,11 @@ describe('event-basic', () => {
 ```
 
 This pattern is simple, robust, and aligns with Stencil's architecture, making it the preferred method for testing event emissions.
+
+## Important Notes for Future Iterations
+
+- **Stencil @Method Decorator:** Only async methods (returning a Promise) are valid. Always review framework constraints and update the coverage matrix and test generation logic to exclude unsupported permutations.
+- **Matrix Validity:** Before generating tests, manually review the coverage matrix to ensure it matches the actual feature set supported by the framework. Coverage metrics are only meaningful if the matrix is correct.
+- **Consistent Test Patterns:** For WDIO component tests, use a consistent pattern (e.g., DOM update via button click) to ensure reliable automation and coverage.
+- **Build/Test Workflow:** Always follow the documented build and test workflow (`cd test/wdio && npm run build`, then `npm run wdio`). Update documentation if the process changes.
+- **Document Learnings:** After each coverage push, document key learnings and process changes in the audit log. This ensures continuous improvement and helps future contributors avoid past mistakes.

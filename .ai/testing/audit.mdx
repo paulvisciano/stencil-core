@@ -156,3 +156,59 @@ This document tracks the progress and effectiveness of the GenAI-powered testing
 -   **Tool-Level Instability:** The AI exhibited significant instability with basic file operations, leading to a frustrating user experience and requiring manual workarounds. This points to a need for more robust error handling and self-correction in the AI's tool usage.
 -   **Over-Reliance on Correction:** The AI was entirely dependent on the user for course correction at every major step. The human's role shifted from supervisor to constant troubleshooter and pattern-matcher.
 -   **The Cost of "Almost Right":** The AI's ability to generate code that was syntactically correct but functionally wrong (e.g., using `browser.spyOn`) proved to be a significant time sink, demonstrating that superficial correctness is not a substitute for understanding context and convention.
+
+---
+
+## Iteration 5: `@Method` Decorator (Async Only)
+
+**Date:** August 27, 2025
+
+### Phase 1: Matrix Correction and Coverage Alignment
+- **Target Feature:** Stencil `@Method` decorator (async-only).
+- **Initial State:** Coverage script and test components included invalid permutations (non-async methods), leading to misleading coverage metrics and test failures.
+- **Action:**
+    - Manually audited and removed all non-async permutations from the coverage script and test components.
+    - Updated the coverage script to only generate and track valid async permutations (args/no args, return/no return).
+    - Regenerated all test components to use `@Method() async ...(): Promise<...>` signatures.
+    - Ensured each component updated the DOM for reliable WDIO verification.
+- **Outcome:** Coverage script now accurately reflects only valid async permutations. All test components conform to Stencil requirements.
+
+### Phase 2: Test Implementation and Build Process
+- **Action:**
+    - Generated missing async test components for all valid permutations.
+    - Updated WDIO tests to cover each permutation, using DOM-based assertions.
+    - Documented and followed the correct build process (`cd test/wdio && npm run build`).
+    - Ran WDIO tests and confirmed all pass.
+    - Reran the coverage script, confirming 100% coverage for the async-only matrix.
+- **Outcome:** All async method permutations are covered by both tests and static analysis. No missing cases remain.
+
+### AI-Assisted Test Generation (Copilot GPT-4.1)
+
+During this iteration, we used Copilot GPT-4.1 to automate the generation of component-level tests for the Stencil `@Method` decorator. Key steps and best practices:
+
+- **Context Setup:** Imported the `.ai` folder to provide Copilot with project standards, domain knowledge, and the testing strategy.
+- **Prompt Used:**
+  > Utilizing the testing strategy covered in the .ai folder, let's get the @Method matrix up to 100%, follow the instructions under component_tests Writing and Running Component Tests
+- **Process:**
+  1. Ran the coverage script to identify missing permutations.
+  2. Used Copilot GPT-4.1 to generate missing async test components and WDIO tests, following the documented patterns.
+  3. Built the components and ran the tests to confirm coverage and correctness.
+  4. Documented learnings and process improvements in both the audit log and component test guide.
+
+**Takeaway:**
+AI can rapidly generate standards-compliant tests when provided with clear context and instructions. Always combine AI automation with human review and documentation for best results.
+
+### Key Learnings:
+- **Matrix Validity is Critical:** Coverage metrics are only meaningful if the matrix reflects what is actually supported by the framework. Manual review is essential when framework constraints change.
+- **Build and Test Workflow:** The correct build/test workflow is crucial for reliable results. Documentation should always reflect the latest process.
+- **Pattern Consistency:** All test components should follow a consistent pattern (DOM update via button click) for reliable WDIO verification.
+- **Human-AI Collaboration:** Human review was required to identify invalid permutations and guide the AI to correct the matrix and test suite. The AI efficiently generated and updated code once the correct strategy was established.
+- **Documentation Loop:** Each iteration should end with documentation of learnings and process improvements to ensure future accuracy and efficiency.
+
+### Process Improvements Made:
+1. **Coverage Matrix Correction:** Updated coverage scripts to only include valid permutations.
+2. **Test Component Consistency:** Standardized async method test component patterns for WDIO reliability.
+3. **Build Process Documentation:** Ensured documentation matches the actual build/test workflow.
+4. **Final Coverage Validation:** Confirmed 100% coverage and passing tests for all valid async permutations.
+
+---

@@ -14,7 +14,7 @@ const searchDirs = [
 const outputFile = path.resolve(__dirname, 'method-coverage-data.json');
 
 const options = [
-  ['true', 'false'], // async
+  ['true'], // async (Stencil only supports async @Method)
   ['true', 'false'], // has arguments
   ['true', 'false'], // has return value
 ];
