@@ -2,20 +2,13 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Testing/Coverage Matrix/Verification" />
 
-# Matrix Verification via Random Sampling
+# Matrix Verification Process
 
-This document defines the process for verifying the reliability of the coverage matrix and its generation script. After generating components to fill matrix gaps, a random sampling of components is selected, their decorator values are changed, and the coverage script is rerun. The matrix should reflect these changes, confirming the script's accuracy. This process is repeated for several iterations to ensure consistent reliability.
+This file provides a concise guide for verifying the coverage matrix. The process is iterative and can be automated:
 
-Use this workflow to validate that the coverage matrix remains a trustworthy source of truth as the codebase evolves.
+1. **Sample Components:** Randomly select generated components.
+2. **Mutate Decorators:** Programmatically change decorator values.
+3. **Rerun Coverage Script:** Check if the matrix/report reflects changes.
+4. **Validate Reliability:** Repeat to ensure consistent accuracy.
 
-## Iterative Matrix Verification and Automation
-
-Matrix verification is also an iterative process. After each generation cycle, the verification steps are repeated to ensure the matrix accurately reflects the codebase. Previously, this involved manually tweaking decorator values in components and rerunning the coverage script to observe changes in the report. To improve reliability and efficiency, this process is being automated:
-
-1. Randomly sample generated components.
-2. Programmatically modify decorator values.
-3. Rerun the coverage script.
-4. Confirm that the matrix and report reflect the changes.
-5. Repeat for several iterations to validate reliability.
-
-All verification steps and automation strategies are documented here.
+These steps ensure the matrix remains a trustworthy source of truth. For generation steps, see `generation.mdx`.

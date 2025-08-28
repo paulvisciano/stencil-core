@@ -1,0 +1,20 @@
+# Project-Specific Coverage Matrix Configuration
+
+This file documents project-specific details for the coverage matrix workflow. It is intended to keep the main AI testing framework documentation generic and portable, while capturing all configuration and conventions unique to this project.
+
+## Decorator Documentation
+- Each decorator has a corresponding `.mdx` file in `test/storybook/docs/Testing/Decorators`.
+- These files document the decorator's properties, the Permutation Matrix, and a summary table of test cases.
+
+## Coverage Scripts and Data
+- Each decorator has a `decorator-coverage.js` script to generate the coverage matrix.
+- Coverage data is stored in a corresponding `coverage-data.json` file.
+
+## Running Coverage Scripts
+- You can run a coverage script directly for a specific decorator.
+- To run all coverage scripts at once, use `test/storybook/docs/Testing/Decorators/run-all-coverage.js`.
+- Alternatively, from `/Users/paul.visciano/repos/core/test/storybook`, run `npm run coverage` to execute all coverage scripts.
+
+---
+
+This file should be updated with any new conventions, paths, or project-specific details as the coverage matrix workflow evolves.

@@ -79,14 +79,14 @@ Our first application of this strategy to the `@Prop` decorator provides a perfe
 
 This experience validates our strategy. The loop is designed to be self-correcting. It allows us to uncover our own blind spots, systematically address them, and continuously improve the robustness of our test suite.
 
-## Iterative Generation and Verification
+# Coverage Matrix: Shared Context for AI and Humans
 
-The coverage matrix workflow is inherently iterative. Both the generation and verification processes are repeated as new decorator options are added, new components are generated, and coverage gaps are discovered. Each cycle improves the reliability and completeness of the matrix.
+This documentation is the source of truth for the coverage matrix workflow. It is designed to be concise and clear for both AI and human readers, enabling iterative evaluation, generation, and verification of coverage.
 
-- The **generation** process is documented in `generation.mdx`, detailing how to enumerate permutations and generate components/tests.
-- The **verification** process is documented in `verification.mdx`, describing how to confirm the matrix's accuracy and ensure all permutations are covered.
+- **Generation:** See `generation.mdx` for how to enumerate permutations and generate missing components/tests.
+- **Verification:** See `verification.mdx` for how to confirm matrix accuracy and automate reliability checks.
 
-Refer to these files for step-by-step instructions and best practices for each phase of the loop.
+The process is inherently iterative, adapting as new decorator options and features are added. Testing details (component and e2e) are covered in separate documentation files.
 
 ## Key Learnings and Implications
 
