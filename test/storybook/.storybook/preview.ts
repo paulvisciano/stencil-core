@@ -10,7 +10,7 @@ const preview: Preview = {
     },
     options: {
       storySort: {
-        order: ['Testing',['Overview', 'Core Tests', 'Component Tests', 'E2E Tests', 'Roadmap', 'Decorators',['Overview', 'Matrix Generation', '@Component', '@Prop', '@State']]],
+        order: ['Testing',['Overview', 'Core Tests', 'Component Tests', 'E2E Tests','Coverage Matrix', 'Roadmap', 'Decorators',['Overview', 'Matrix Generation', '@Component', '@Prop', '@State']]],
       },
     },
   },

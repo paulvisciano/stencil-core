@@ -1,0 +1,20 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Testing/Coverage Matrix/Generation" />
+
+# Matrix Generation Process
+
+This document covers the details of generating the coverage matrix for Stencil decorators. It describes how scripts define the universe of possible permutations, scan component directories, parse source code, extract and normalize decorator options, and calculate coverage. Learnings from each iteration are summarized here, including the impact of adding new decorator properties and the importance of maintaining the script as the source of truth.
+
+Refer to this file for best practices and lessons learned from previous matrix generation cycles.
+
+## Iterative Matrix Generation
+
+Matrix generation is not a one-time event. As new decorator options or features are added, the process is repeated to ensure the matrix remains up-to-date and comprehensive. Each iteration involves:
+
+1. Enumerating all possible permutations for the target decorator.
+2. Scanning the codebase for existing components/tests.
+3. Generating new components/tests for uncovered permutations.
+4. Updating the matrix and documentation.
+
+All steps and learnings from each iteration are captured in this file.

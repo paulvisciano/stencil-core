@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta title="Testing/Decorators/Matrix Generation" />
+<Meta title="Testing/Coverage Matrix/Overview" />
 
 # Matrix Generation for Component Permutations
 
@@ -78,6 +78,15 @@ Our first application of this strategy to the `@Prop` decorator provides a perfe
 4.  **The Next Iteration**: We are now back at the beginning of the testing loop, but we are not starting from scratch. With a more accurate permutation matrix, we will now use the same strategy—and the lessons learned from the first iteration—to generate the tests required to cover the new `mutable` permutations and bring our coverage back to 100%.
 
 This experience validates our strategy. The loop is designed to be self-correcting. It allows us to uncover our own blind spots, systematically address them, and continuously improve the robustness of our test suite.
+
+## Iterative Generation and Verification
+
+The coverage matrix workflow is inherently iterative. Both the generation and verification processes are repeated as new decorator options are added, new components are generated, and coverage gaps are discovered. Each cycle improves the reliability and completeness of the matrix.
+
+- The **generation** process is documented in `generation.mdx`, detailing how to enumerate permutations and generate components/tests.
+- The **verification** process is documented in `verification.mdx`, describing how to confirm the matrix's accuracy and ensure all permutations are covered.
+
+Refer to these files for step-by-step instructions and best practices for each phase of the loop.
 
 ## Key Learnings and Implications
 
