@@ -1,16 +1,32 @@
-import type { Preview } from '@storybook/react-vite'
+import type { Preview } from '@storybook/react-vite';
 
 const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
+        color: /(background|color)$/i,
+        date: /Date$/i,
       },
     },
     options: {
       storySort: {
-        order: ['Testing',['Overview', 'Project Config', 'Coverage Matrix',['Overview', 'Config','Generation', 'Verification'], 'Tests', ['Core', 'Component', 'E2E'], 'Roadmap', 'Decorators',['Overview', 'Matrix Generation', '@Component', '@Prop', '@State']]],
+        order: [
+          'Testing',
+          [
+            'Framework',
+            [
+              'Overview',
+              'Project Config',
+              'Coverage Matrix',
+              ['Overview', 'Config', 'Generation', 'Verification'],
+              'Tests',
+              ['Core', 'Component', 'E2E'],
+              'Roadmap',
+            ],
+            'Decorators',
+            ['Overview', 'Matrix Generation', '@Component', '@Prop', '@State'],
+          ],
+        ],
       },
     },
   },
