@@ -1,0 +1,260 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "inputs": [
+    {
+      "id": "stencilProject",
+      "description": "the location on disk of a stencil project use",
+      "type": "promptString"
+    }
+  ],
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest All",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [
+        "--runInBand"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest File",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [
+        "--runInBand",
+        "src/runtime/test/style.spec.tsx"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest Current File",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [
+        "${relativeFile}"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Hello World",
+      "args": [
+        "${workspaceFolder}/bin/stencil",
+        "build",
+        "--dev",
+        "--debug",
+        "--max-workers=0",
+        "--prerender",
+        "--config",
+        "${workspaceFolder}/test/hello-world/stencil.config.ts"
+      ],
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Hello World Prerender",
+      "args": [
+        "${workspaceFolder}/test/hello-world/prerender.js"
+      ],
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Hello VDom",
+      "args": [
+        "${workspaceFolder}/bin/stencil",
+        "build",
+        "--watch",
+        "--debug",
+        "--dev",
+        "--config",
+        "${workspaceFolder}/test/hello-vdom/stencil.config.ts"
+      ],
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Hello VDom Watch",
+      "args": [
+        "${workspaceFolder}/bin/stencil",
+        "build",
+        "--dev",
+        "--serve",
+        "--watch",
+        "--config",
+        "${workspaceFolder}/test/hello-vdom/stencil.config.ts"
+      ],
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Ionic App",
+      "args": [
+        "${workspaceFolder}/bin/stencil",
+        "build",
+        "--dev",
+        "--max-workers=0",
+        "--config",
+        "${workspaceFolder}/test/ionic-app/stencil.config.ts"
+      ],
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "debug stencil compiler (default config)",
+      "args": [
+        "${workspaceFolder}/bin/stencil",
+        "build",
+        "--max-workers=1"
+      ],
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "debug stencil compiler with an existing stencil project",
+      "args": [
+        "${workspaceFolder}/bin/stencil",
+        "build",
+        "--config",
+        "${input:stencilProject}"
+      ],
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Prerender Shadow",
+      "args": [
+        "${workspaceFolder}/bin/stencil",
+        "build",
+        "--dev",
+        "--prerender",
+        "--max-workers=0",
+        "--config",
+        "${workspaceFolder}/test/prerender-shadow/stencil.config.ts"
+      ],
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "End-To-End",
+      "args": [
+        "${workspaceFolder}/bin/stencil",
+        "build",
+        // "--dev",
+        "--max-workers=0",
+        "--config",
+        "${workspaceFolder}/test/end-to-end/stencil.config.ts"
+      ],
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "End-To-End Test",
+      "args": [
+        "${workspaceFolder}/bin/stencil",
+        "test",
+        "--e2e",
+        "--config",
+        "${workspaceFolder}/test/end-to-end/stencil.config.ts"
+      ],
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Conference App",
+      "args": [
+        "${workspaceFolder}/bin/stencil",
+        "build",
+        "--dev",
+        "--config",
+        "${workspaceFolder}/../ionic-stencil-conference-app/stencil.config.ts"
+      ],
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Todo App",
+      "args": [
+        "${workspaceFolder}/bin/stencil",
+        "build",
+        "--dev",
+        "--watch",
+        "--serve",
+        "--debug",
+        "--no-open",
+        "--max-workers=0",
+        "--config",
+        "${workspaceFolder}/test/todo-app/stencil.config.ts"
+      ],
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Style Modes",
+      "args": [
+        "${workspaceFolder}/bin/stencil",
+        "build",
+        "--dev",
+        "--max-workers=0",
+        "--config",
+        "${workspaceFolder}/test/style-modes/stencil.config.ts"
+      ],
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Stencil Site Prerender",
+      "args": [
+        "${workspaceFolder}/bin/stencil",
+        "build",
+        "--prerender",
+        "--max-workers=0",
+        "--config",
+        "${workspaceFolder}/../stencil-site/stencil.config.ts"
+      ],
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Ionic Docs Prerender",
+      "args": [
+        "${workspaceFolder}/bin/stencil",
+        "build",
+        "--prerender",
+        "--max-workers=0",
+        "--debug",
+        "--config",
+        "${workspaceFolder}/../ionic-docs/stencil.config.ts"
+      ],
+      "protocol": "inspector"
+    }
+  ]
+}
