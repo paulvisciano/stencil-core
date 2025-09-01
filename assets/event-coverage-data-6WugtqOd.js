@@ -1,0 +1,1 @@
+const o={covered:8,total:8,percent:"100.0"},t=[{options:["✓","✓","✓"],count:22},{options:["✗","✗","✓"],count:2},{options:["✗","✗","✗"],count:1},{options:["✗","✓","✗"],count:1},{options:["✗","✓","✓"],count:1},{options:["✓","✗","✗"],count:1},{options:["✓","✗","✓"],count:1},{options:["✓","✓","✗"],count:1}],n={coverage:o,coveredPermutations:t};export{n as e};

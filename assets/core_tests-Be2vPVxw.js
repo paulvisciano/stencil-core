@@ -1,1 +1,0 @@
-import{j as n}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as e}from"./index-C_ZRGgfF.js";import"./iframe-Dekc-Wbb.js";import"./preload-helper-DJfpOrTE.js";function r(t){return n.jsx(n.Fragment,{})}function u(t={}){const{wrapper:o}={...e(),...t.components};return o?n.jsx(o,{...t,children:n.jsx(r,{...t})}):r()}export{u as default};
