@@ -14,6 +14,16 @@ const config: StorybookConfig = {
   "framework": {
     "name": "@storybook/react-vite",
     "options": {}
-  }
-};
+  },
+  /**
+   * Add this viteFinal function to configure the base path for production builds.
+   */
+  async viteFinal(config, { configType }) {
+    // Set the base path only for production builds.
+    if (configType === 'PRODUCTION') {
+      config.base = '/stencil-core/';
+    }
+    return config;
+  },
+};  
 export default config;
