@@ -1,4 +1,4 @@
-import{j as e}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as r}from"./index-oON1Pjnu.js";import{M as o}from"./blocks-D7qAqVvl.js";import"./iframe-D5Xv28TE.js";import"./preload-helper-D9Z9MdNV.js";import"./index-Ui5v9HiU.js";function i(s){const n={code:"code",h1:"h1",h2:"h2",hr:"hr",li:"li",p:"p",strong:"strong",ul:"ul",...r(),...s.components};return e.jsxs(e.Fragment,{children:[e.jsx(o,{title:"Testing/Project Config"}),`
+import{j as e}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as r}from"./index-D_b_KTPz.js";import{M as t}from"./blocks-DpavRa4g.js";import"./iframe-Bz6ozHtr.js";import"./preload-helper-D9Z9MdNV.js";import"./index-Bc_xQhXn.js";function i(s){const n={code:"code",h1:"h1",h2:"h2",hr:"hr",li:"li",p:"p",strong:"strong",ul:"ul",...r(),...s.components};return e.jsxs(e.Fragment,{children:[e.jsx(t,{title:"Testing/Framework/Project Config"}),`
 `,e.jsx(n.h1,{id:"project-specific-coverage-matrix-configuration",children:"Project-Specific Coverage Matrix Configuration"}),`
 `,e.jsx(n.p,{children:"This file documents project-specific details for the coverage matrix workflow. It is intended to keep the main AI testing framework documentation generic and portable, while capturing all configuration and conventions unique to this project."}),`
 `,e.jsx(n.h2,{id:"decorator-documentation",children:"Decorator Documentation"}),`
@@ -15,7 +15,7 @@ import{j as e}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as r}from"
 `,e.jsxs(n.ul,{children:[`
 `,e.jsx(n.li,{children:"You can run a coverage script directly for a specific decorator."}),`
 `,e.jsxs(n.li,{children:["To run all coverage scripts at once, use ",e.jsx(n.code,{children:"test/storybook/docs/Testing/Decorators/run-all-coverage.js"}),"."]}),`
-`,e.jsxs(n.li,{children:["Alternatively, from ",e.jsx(n.code,{children:"/Users/paul.visciano/repos/core/test/storybook"}),", run ",e.jsx(n.code,{children:"npm run coverage"})," to execute all coverage scripts."]}),`
+`,e.jsxs(n.li,{children:["Alternatively, from ",e.jsx(n.code,{children:"test/storybook"}),", run ",e.jsx(n.code,{children:"npm run coverage"})," to execute all coverage scripts."]}),`
 `]}),`
 `,e.jsx(n.h2,{id:"project-paths-and-coverage-script-config",children:"Project Paths and Coverage Script Config"}),`
 `,e.jsxs(n.ul,{children:[`
