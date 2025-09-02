@@ -9,6 +9,19 @@ This document tracks the progress and effectiveness of the GenAI-powered testing
 
 ---
 
+# Audit Log: GenAI Testing Loop Improvements
+
+## Manual Verification of Coverage Matrix
+
+A key step in the testing loop is manual verification of the coverage matrix. After generating components and tests for all decorator permutations, manually change some decorator options (e.g., target, capture) in component files and re-run the coverage script. Confirm that the coverage report updates to reflect these changes. This ensures the coverage script accurately detects permutations and the matrix is reliable.
+
+**Best Practice:**
+- Always perform manual verification after reaching 100% coverage.
+- Document any issues or false positives found during this step.
+- Update the audit log and documentation to reflect improvements.
+
+---
+
 ## Iteration 1: `@Prop` Decorator
 
 **Date:** August 19, 2025
@@ -213,3 +226,7 @@ AI can rapidly generate standards-compliant tests when provided with clear conte
 4. **Final Coverage Validation:** Confirmed 100% coverage and passing tests for all valid async permutations.
 
 ---
+
+## Recording Learnings
+
+For every completed GenAI-powered testing loop, ensure that all learnings, mistakes, and improvements are documented in the relevant `.ai` folder file and summarized here in the audit log. This practice helps maintain a robust knowledge base and supports continuous improvement for future contributors.

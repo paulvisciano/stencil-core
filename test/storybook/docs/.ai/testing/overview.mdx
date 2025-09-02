@@ -58,14 +58,20 @@ A key aspect of our strategy is recognizing the difference between **static cove
 
 A groundbreaking aspect of our testing strategy is its reliance on a GenAI-powered iterative loop. This approach allows us to systematically work towards 100% coverage of all feature permutations in a way that is both dynamic and self-improving. The loop is as follows:
 
-1.  **Define Component Permutations**: For a given feature, like a decorator, we first study all its possible variations and options. These are documented in a human- and machine-readable permutation matrix within an `.mdx` file. This matrix serves as the single source of truth for which component permutations need to be tested. For details on how the matrix is generated, see [Matrix Generation](?path=/docs/testing-framework-coverage-matrix-generation--docs).
-2.  **AI-Driven Component Test Generation**: A generative AI assistant uses the permutation matrix as a blueprint to generate the necessary component-level tests in the `test/wdio` directory. For each permutation, it creates an isolated component and a corresponding test to exercise its behavior.
-3.  **Test Execution and Validation**: Before checking coverage, the newly generated `wdio` tests are run to ensure they pass. This step is critical to confirm that the generated components and tests are functionally correct and adhere to the established patterns.
-4.  **Coverage Analysis & Matrix Update**: After the tests are generated and pass, a custom coverage script analyzes the codebase. It updates the permutation matrix `.mdx` file with the latest coverage statistics, clearly marking which component permutations are implemented and tested, and which are missing.
-5.  **Iterate and Refine**: The AI reviews the updated matrix. If any permutations are uncovered, it generates the missing components and tests to cover the gaps. This loop continues until all permutations in the matrix are covered, ensuring our test suite is as comprehensive as possible.
-6.  **Document Learnings**: Once 100% coverage is achieved, the AI documents any learnings from the testing iteration in the appropriate `.ai` folder files. This includes mistakes made during test generation, loopholes discovered in coverage scripts, improvements to documentation, and any patterns or best practices identified. This step ensures that each iteration builds upon the knowledge gained from previous cycles, making the process continuously more efficient and accurate.
+1.  **Define Permutation Matrix**: For a given feature, like a decorator, enumerate all possible variations and options in a human- and machine-readable matrix (typically an `.mdx` file). This matrix is the single source of truth for required permutations.
+2.  **Generate Components Based on Matrix**: Use the matrix to generate isolated components for each permutation in the appropriate test directory.
+3.  **Regenerate Matrix & Check Coverage**: Run the coverage script to update the matrix and check if all permutations are covered (100% coverage).
+4.  **Repeat Steps 2 & 3 Until 100% Coverage**: Continue generating missing components and updating the matrix until all permutations are implemented and covered.
+5.  **Verify Matrix and Components**: Perform manual verification by randomly sampling components, changing decorator options, and re-running the coverage report to ensure accuracy and reliability.
+6.  **Generate Tests for Each Component**: Once the matrix is solid, generate tests for every component created in previous steps.
+7.  **Build and Run Tests**: Build the components and tests, then run the tests to ensure they pass and validate behavior.
+8.  **Document Learnings**: Record mistakes, improvements, and best practices in the `.ai` folder and update documentation for future iterations.
 
 This iterative process allows us to not only achieve but also maintain high test coverage over time, adapting as new features and variations are introduced while continuously improving our methodology.
+
+## Recording Learnings
+
+After each testing loop iteration, all learnings—including mistakes, improvements, coverage script gaps, and best practices—should be documented in the appropriate `.ai` folder file for the feature or decorator. Additionally, a summary of key learnings and process changes should be added to the audit log (`audit.mdx`) to ensure institutional knowledge is preserved and future contributors benefit from past experience.
 
 ## An Open, Community-Driven Framework
 
