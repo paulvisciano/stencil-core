@@ -114,24 +114,32 @@ The following test cases are covered by generated tests for the `@Prop` decorato
       </tr>
     </thead>
     <tbody>
-      <tr style={{ background: '#f8d7da', fontStyle: 'italic' }}>
+      <tr>
         <td>STENCIL-123</td>
         <td>Initial values of complex props (`Array`, `Object`) are not reflected to attributes.</td>
         <td>
           <code>test/wdio/prop-mutable-reflect/cmp.test.tsx</code>
         </td>
       </tr>
-      <tr style={{ background: '#f8d7da', fontStyle: 'italic' }}>
+      <tr>
         <td>STENCIL-123</td>
         <td>Mutated values of complex props (`Array`, `Object`) are not reflected to attributes.</td>
         <td>
           <code>test/wdio/prop-mutable-reflect/cmp.test.tsx</code>
         </td>
       </tr>
-      <tr >
+      <tr>
         <td>STENCIL-IMMUTABLE-001</td>
         <td>Mutation of properties from outside the component (via direct property assignment on the DOM element) is possible for all types. True immutability is not enforced by Stencil.</td>
         <td>
+          <code>test/wdio/prop-no-mutable/cmp.test.tsx</code>
+        </td>
+      </tr>
+      <tr>
+        <td>STENCIL-IMMUTABLE-002</td>
+        <td>Boolean props with can still be mutated from inside the component. Stencil does not enforce immutability for boolean types as expected.</td>
+        <td>
+          <code>test/wdio/prop-no-mutable/cmp.test.tsx</code>
         </td>
       </tr>
     </tbody>
