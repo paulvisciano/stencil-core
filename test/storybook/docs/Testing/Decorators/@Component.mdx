@@ -50,33 +50,18 @@ The `@Component` decorator accepts an object with the following properties:
         <th>Number of Test Files</th>
       </tr>
     </thead>
+    <tbody>
+      {data.coveredPermutations.map((p, i) => (
+        <tr key={i}>
+          <td>{i + 1}</td>
+          {p.options.map((opt, j) => (
+            <td key={j}>{opt}</td>
+          ))}
+          <td>{p.count}</td>
+        </tr>
+      ))}
+    </tbody>
   </table>
-  <div style={{ maxHeight: 400, overflowY: 'auto', width: '100%' }}>
-    <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
-      <colgroup>
-        <col style={{ width: '4%' }} />
-        <col style={{ width: '10%' }} />
-        <col style={{ width: '10%' }} />
-        <col style={{ width: '10%' }} />
-        <col style={{ width: '10%' }} />
-        <col style={{ width: '10%' }} />
-        <col style={{ width: '10%' }} />
-        <col style={{ width: '10%' }} />
-        <col style={{ width: '16%' }} />
-      </colgroup>
-      <tbody>
-        {data.coveredPermutations.map((p, i) => (
-          <tr key={i}>
-            <td>{i + 1}</td>
-            {p.options.map((opt, j) => (
-              <td key={j}>{opt}</td>
-            ))}
-            <td>{p.count}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
 </div>
 
 ## Missing Permutations
@@ -107,31 +92,16 @@ The `@Component` decorator accepts an object with the following properties:
         <th>Status</th>
       </tr>
     </thead>
+    <tbody>
+      {data.missingPermutations.map((p, i) => (
+        <tr key={i} style={{ background: '#fff3cd', fontStyle: 'italic' }}>
+          <td>{i + 1}</td>
+          {p.options.map((opt, j) => (
+            <td key={j}>{opt}</td>
+          ))}
+          <td>Missing</td>
+        </tr>
+      ))}
+    </tbody>
   </table>
-  <div style={{ maxHeight: 600, overflowY: 'auto', width: '100%' }}>
-    <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
-      <colgroup>
-        <col style={{ width: '4%' }} />
-        <col style={{ width: '10%' }} />
-        <col style={{ width: '10%' }} />
-        <col style={{ width: '10%' }} />
-        <col style={{ width: '10%' }} />
-        <col style={{ width: '10%' }} />
-        <col style={{ width: '10%' }} />
-        <col style={{ width: '10%' }} />
-        <col style={{ width: '16%' }} />
-      </colgroup>
-      <tbody>
-        {data.missingPermutations.map((p, i) => (
-          <tr key={i} style={{ background: '#fff3cd', fontStyle: 'italic' }}>
-            <td>{i + 1}</td>
-            {p.options.map((opt, j) => (
-              <td key={j}>{opt}</td>
-            ))}
-            <td>Missing</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
 </div>

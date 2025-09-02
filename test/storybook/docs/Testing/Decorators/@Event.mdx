@@ -35,27 +35,17 @@ The `@Event` decorator can be configured with the following properties in its op
         <th>Number of Occurrences</th>
       </tr>
     </thead>
+    <tbody>
+      {data.coveredPermutations.map((p, i) => (
+        <tr key={i}>
+          {p.options.map((opt, j) => (
+            <td key={j}>{opt}</td>
+          ))}
+          <td>{p.count}</td>
+        </tr>
+      ))}
+    </tbody>
   </table>
-  <div style={{ maxHeight: 400, overflowY: 'auto', width: '100%' }}>
-    <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
-      <colgroup>
-        <col style={{ width: '25%' }} />
-        <col style={{ width: '25%' }} />
-        <col style={{ width: '25%' }} />
-        <col style={{ width: '25%' }} />
-      </colgroup>
-      <tbody>
-        {data.coveredPermutations.map((p, i) => (
-          <tr key={i}>
-            {p.options.map((opt, j) => (
-              <td key={j}>{opt}</td>
-            ))}
-            <td>{p.count}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
 </div>
 
 Our testing strategy for the `@Event` decorator is two-fold. First, we verify that the fundamental event emission works correctly for every possible permutation of the decorator's properties. This ensures baseline reliability. Second, we have more targeted tests for specific properties like `bubbles`, `cancelable`, and `composed` to verify their individual behavior. These property-specific tests do not need to cover every permutation.

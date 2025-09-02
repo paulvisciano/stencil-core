@@ -33,26 +33,17 @@ The `@State` decorator is used for managing internal data that can change over t
         <th>Number of Occurrences</th>
       </tr>
     </thead>
+    <tbody>
+      {data.coveredPermutations.map((p, i) => (
+        <tr key={i}>
+          {p.options.map((opt, j) => (
+            <td key={j}>{opt}</td>
+          ))}
+          <td>{p.count}</td>
+        </tr>
+      ))}
+    </tbody>
   </table>
-  <div style={{ maxHeight: 400, overflowY: 'auto', width: '100%' }}>
-    <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
-      <colgroup>
-        <col style={{ width: '33%' }} />
-        <col style={{ width: '33%' }} />
-        <col style={{ width: '34%' }} />
-      </colgroup>
-      <tbody>
-        {data.coveredPermutations.map((p, i) => (
-          <tr key={i}>
-            {p.options.map((opt, j) => (
-              <td key={j}>{opt}</td>
-            ))}
-            <td>{p.count}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
 </div>
 
 ## Test Case Summary

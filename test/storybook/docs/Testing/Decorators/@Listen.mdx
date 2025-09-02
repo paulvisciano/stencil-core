@@ -22,37 +22,30 @@ Below is a detailed explanation of each property available in the `@Listen` deco
 <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
   <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
     <colgroup>
-      <col style={{ width: '33%' }} />
-      <col style={{ width: '33%' }} />
-      <col style={{ width: '34%' }} />
+      <col style={{ width: '25%' }} />
+      <col style={{ width: '25%' }} />
+      <col style={{ width: '25%' }} />
+      <col style={{ width: '25%' }} />
     </colgroup>
     <thead>
       <tr>
         <th>target</th>
+        <th>event</th>
         <th>capture</th>
         <th>Number of Occurrences</th>
       </tr>
     </thead>
+    <tbody>
+      {data.coveredPermutations.map((p, i) => (
+        <tr key={i}>
+          {p.options.map((opt, j) => (
+            <td key={j}>{opt}</td>
+          ))}
+          <td>{p.count}</td>
+        </tr>
+      ))}
+    </tbody>
   </table>
-  <div style={{ maxHeight: 400, overflowY: 'auto', width: '100%' }}>
-    <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
-      <colgroup>
-        <col style={{ width: '33%' }} />
-        <col style={{ width: '33%' }} />
-        <col style={{ width: '34%' }} />
-      </colgroup>
-      <tbody>
-        {data.coveredPermutations.map((p, i) => (
-          <tr key={i}>
-            {p.options.map((opt, j) => (
-              <td key={j}>{opt}</td>
-            ))}
-            <td>{p.count}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
 </div>
 
 ## Missing Permutations
@@ -71,25 +64,16 @@ Below is a detailed explanation of each property available in the `@Listen` deco
         <th>Status</th>
       </tr>
     </thead>
+    <tbody>
+      {data.missingPermutations.map((p, i) => (
+        <tr key={i} style={{ background: '#fff3cd', fontStyle: 'italic' }}>
+          {p.options.map((opt, j) => (
+            <td key={j}>{opt}</td>
+          ))}
+          <td>Missing</td>
+        </tr>
+      ))}
+    </tbody>
   </table>
-  <div style={{ maxHeight: 600, overflowY: 'auto', width: '100%' }}>
-    <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
-      <colgroup>
-        <col style={{ width: '33%' }} />
-        <col style={{ width: '33%' }} />
-        <col style={{ width: '34%' }} />
-      </colgroup>
-      <tbody>
-        {data.missingPermutations.map((p, i) => (
-          <tr key={i} style={{ background: '#fff3cd', fontStyle: 'italic' }}>
-            {p.options.map((opt, j) => (
-              <td key={j}>{opt}</td>
-            ))}
-            <td>Missing</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
 </div>
 
