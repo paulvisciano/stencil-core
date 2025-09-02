@@ -9,9 +9,19 @@ const TEST_DIRS = [
   path.resolve(__dirname, '../../../../../test/end-to-end'),
   path.resolve(__dirname, '../../../../../test/wdio'),
 ];
-const OPTIONS = ['target', 'capture'];
+const OPTIONS = ['target', 'event', 'capture', 'passive'];
 const TARGET_OPTIONS = ['window', 'document', 'body', 'host']; // 'parent' removed
+const EVENT_OPTIONS = ['click', 'keydown', 'input']; // Add more if needed
+const BOOLEAN_OPTIONS = [true, false];
 const jsonPath = path.resolve(__dirname, 'listen-coverage-data.json');
+
+// Map valid events for each target
+const VALID_EVENTS = {
+  window: ['click', 'keydown'],
+  document: ['click', 'keydown', 'input'],
+  body: ['click', 'keydown', 'input'],
+  host: ['click', 'keydown', 'input'],
+};
 
 function findFiles(dir, ext = '.tsx', excludeDirs = ['node_modules', '.cache']) {
   let results = [];
@@ -40,19 +50,28 @@ function extractListenOptions(file) {
     if (targetMatch) {
       target = targetMatch[1];
     }
-
+    let event = '';
+    const eventMatch = optionsStr.match(/['"]([^'"]+)['"]/);
+    if (eventMatch) {
+      event = eventMatch[1];
+    }
     let capture = false; // default
     const captureMatch = optionsStr.match(/capture:\s*(true|false)/);
     if (captureMatch) {
       capture = captureMatch[1] === 'true';
     }
-    results.push({ target, capture });
+    let passive = false; // default
+    const passiveMatch = optionsStr.match(/passive:\s*(true|false)/);
+    if (passiveMatch) {
+      passive = passiveMatch[1] === 'true';
+    }
+    results.push({ target, event, capture, passive });
   }
   return results;
 }
 
 function normalizeValue(val, opt) {
-  if (opt === 'capture') {
+  if (opt === 'capture' || opt === 'passive') {
     return val ? '✓' : '✗';
   }
   return val;
@@ -60,10 +79,13 @@ function normalizeValue(val, opt) {
 
 function getAllPermutationKeys() {
   const allPermutations = [];
-  const booleanOptions = ['✓', '✗'];
   for (const target of TARGET_OPTIONS) {
-    for (const capture of booleanOptions) {
-      allPermutations.push([target, capture].join('|'));
+    for (const event of VALID_EVENTS[target]) {
+      for (const capture of ['✓', '✗']) {
+        for (const passive of ['✓', '✗']) {
+          allPermutations.push([target, event, capture, passive].join('|'));
+        }
+      }
     }
   }
   return allPermutations;
@@ -96,7 +118,7 @@ function main() {
 
   const permutationMap = {};
   allFoundListeners.forEach(listener => {
-    const keyArr = [listener.target, normalizeValue(listener.capture, 'capture')];
+    const keyArr = [listener.target, listener.event, normalizeValue(listener.capture, 'capture'), normalizeValue(listener.passive, 'passive')];
     const key = keyArr.join('|');
     if (!permutationMap[key]) {
       permutationMap[key] = { count: 0 };

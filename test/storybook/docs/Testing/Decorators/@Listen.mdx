@@ -12,35 +12,43 @@ Below is a detailed explanation of each property available in the `@Listen` deco
 
 - **`capture`**: A boolean that, when `true`, specifies that events for this listener will be dispatched to this listener before being dispatched to any `EventTarget` beneath it in the DOM tree. This is useful for intercepting events before they reach their intended target.
 
+- **`passive`**: A boolean that, when `true`, sets the event listener as passive. Passive listeners cannot call `preventDefault()` on the event, which can improve scrolling performance. See [Passive Event Listeners](https://developers.google.com/web/updates/2016/06/passive-event-listeners) for more details.
+
 ## Covered Permutations
+
+> **Note:** Only valid and realistic permutations of `target`, `event`, `capture`, and `passive` are included in the coverage matrix. Combinations that are impossible or irrelevant (such as events not supported by a target) are excluded to ensure meaningful coverage and avoid redundant test cases.
 
 <div>
   <strong>Permutation Coverage:</strong> {data.coverage.covered}/{data.coverage.total} permutations covered (
   <strong>{data.coverage.percent}%</strong>)
 </div>
 
+
 <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
   <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
     <colgroup>
-      <col style={{ width: '25%' }} />
-      <col style={{ width: '25%' }} />
-      <col style={{ width: '25%' }} />
-      <col style={{ width: '25%' }} />
+      <col style={{ width: '20%' }} />
+      <col style={{ width: '20%' }} />
+      <col style={{ width: '20%' }} />
+      <col style={{ width: '20%' }} />
+      <col style={{ width: '20%' }} />
     </colgroup>
     <thead>
       <tr>
         <th>target</th>
         <th>event</th>
         <th>capture</th>
+        <th>passive</th>
         <th>Number of Occurrences</th>
       </tr>
     </thead>
     <tbody>
       {data.coveredPermutations.map((p, i) => (
         <tr key={i}>
-          {p.options.map((opt, j) => (
-            <td key={j}>{opt}</td>
-          ))}
+          <td>{p.options[0]}</td>
+          <td>{p.options[1]}</td>
+          <td>{p.options[2]}</td>
+          <td>{p.options[3]}</td>
           <td>{p.count}</td>
         </tr>
       ))}
@@ -53,23 +61,25 @@ Below is a detailed explanation of each property available in the `@Listen` deco
 <div style={{ marginTop: '2rem', maxWidth: '100%', width: '100%', background: '#fff' }}>
   <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
     <colgroup>
-      <col style={{ width: '33%' }} />
-      <col style={{ width: '33%' }} />
-      <col style={{ width: '34%' }} />
+      <col style={{ width: '25%' }} />
+      <col style={{ width: '25%' }} />
+      <col style={{ width: '25%' }} />
+      <col style={{ width: '25%' }} />
     </colgroup>
     <thead>
       <tr>
         <th>target</th>
         <th>capture</th>
+        <th>passive</th>
         <th>Status</th>
       </tr>
     </thead>
     <tbody>
       {data.missingPermutations.map((p, i) => (
         <tr key={i} style={{ background: '#fff3cd', fontStyle: 'italic' }}>
-          {p.options.map((opt, j) => (
-            <td key={j}>{opt}</td>
-          ))}
+          <td>{p.options[0]}</td>
+          <td>{p.options[1]}</td>
+          <td>{p.options[2]}</td>
           <td>Missing</td>
         </tr>
       ))}
