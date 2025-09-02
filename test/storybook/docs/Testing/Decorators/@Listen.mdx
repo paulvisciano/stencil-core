@@ -8,7 +8,7 @@ The `@Listen` decorator attaches an event listener to a DOM element. This matrix
 
 Below is a detailed explanation of each property available in the `@Listen` decorator. These properties allow you to configure how the event listener behaves, including where it's attached and how it captures events.
 
-- **`target`**: A string that specifies where the event listener is attached. It can be `'parent'`, `'body'`, `'document'`, or `'window'`. By default, the listener is attached to the component's host element.
+- **`target`**: A string that specifies where the event listener is attached. It can be `'body'`, `'document'`, or `'window'`. By default, the listener is attached to the component's host element. The `parent` target is no longer supported in Stencil 2.
 
 - **`capture`**: A boolean that, when `true`, specifies that events for this listener will be dispatched to this listener before being dispatched to any `EventTarget` beneath it in the DOM tree. This is useful for intercepting events before they reach their intended target.
 

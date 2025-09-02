@@ -19,7 +19,7 @@
         "✗",
         "✗"
       ],
-      "count": 10
+      "count": 11
     },
     {
       "options": [
@@ -35,7 +35,7 @@
         "✗",
         "✗"
       ],
-      "count": 13
+      "count": 14
     },
     {
       "options": [
@@ -43,7 +43,7 @@
         "✗",
         "✗"
       ],
-      "count": 37
+      "count": 38
     },
     {
       "options": [
@@ -91,7 +91,7 @@
         "✗",
         "✗"
       ],
-      "count": 17
+      "count": 18
     },
     {
       "options": [
@@ -99,7 +99,7 @@
         "✗",
         "✗"
       ],
-      "count": 2
+      "count": 3
     },
     {
       "options": [
@@ -183,15 +183,15 @@
     },
     {
       "options": [
-        "Set",
+        "Array",
         "✓",
         "✗"
       ],
-      "count": 2
+      "count": 1
     },
     {
       "options": [
-        "Array",
+        "Set",
         "✓",
         "✗"
       ],

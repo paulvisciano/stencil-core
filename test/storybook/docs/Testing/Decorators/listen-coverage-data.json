@@ -1,7 +1,7 @@
 {
   "coverage": {
-    "covered": 10,
-    "total": 10,
+    "covered": 8,
+    "total": 8,
     "percent": "100.0"
   },
   "coveredPermutations": [
@@ -51,20 +51,6 @@
       "options": [
         "document",
         "✓"
-      ],
-      "count": 1
-    },
-    {
-      "options": [
-        "parent",
-        "✓"
-      ],
-      "count": 1
-    },
-    {
-      "options": [
-        "parent",
-        "✗"
       ],
       "count": 1
     },

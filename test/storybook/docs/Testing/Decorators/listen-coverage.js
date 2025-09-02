@@ -10,7 +10,7 @@ const TEST_DIRS = [
   path.resolve(__dirname, '../../../../../test/wdio'),
 ];
 const OPTIONS = ['target', 'capture'];
-const TARGET_OPTIONS = ['window', 'document', 'body', 'parent', 'host'];
+const TARGET_OPTIONS = ['window', 'document', 'body', 'host']; // 'parent' removed
 const jsonPath = path.resolve(__dirname, 'listen-coverage-data.json');
 
 function findFiles(dir, ext = '.tsx', excludeDirs = ['node_modules', '.cache']) {

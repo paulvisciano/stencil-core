@@ -67,6 +67,8 @@ A groundbreaking aspect of our testing strategy is its reliance on a GenAI-power
 7.  **Build and Run Tests**: Build the components and tests, then run the tests to ensure they pass and validate behavior.
 8.  **Document Learnings**: Record mistakes, improvements, and best practices in the `.ai` folder and update documentation for future iterations.
 
+> **Note:** The `parent` target is no longer supported in Stencil 2. Only `window`, `document`, and `body` are valid targets for the `@Listen` decorator. Do not generate components or tests for the `parent` target.
+
 This iterative process allows us to not only achieve but also maintain high test coverage over time, adapting as new features and variations are introduced while continuously improving our methodology.
 
 ## Recording Learnings
