@@ -10,17 +10,17 @@ interface MyObject {
   tag: 'prop-no-mutable-object-cmp',
 })
 export class PropNoMutableObjectCmp {
-  @Prop() myObject: MyObject = { a: 1, b: 2 };
+  @Prop({ mutable : false}) myObject: MyObject = { a: 1, b: 2 };
 
-  private handleClick = () => {
-    this.myObject.c = 3;
+  private tryMutate = () => {
+    this.myObject = { a: 2, b: 3 };
   };
 
   render() {
     return (
       <div>
         <p>myObject: {JSON.stringify(this.myObject)}</p>
-        <button onClick={this.handleClick}>Mutate</button>
+        <button onClick={this.tryMutate}>Mutate Internally</button>
       </div>
     );
   }

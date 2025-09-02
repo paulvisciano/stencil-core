@@ -50,6 +50,53 @@ Below is a detailed explanation of each property available in the `@Prop` decora
   </table>
 </div>
 
+## Test Case Summary
+
+The following test cases are covered by generated tests for the `@Prop` decorator, with corresponding test folders:
+
+<table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+  <thead>
+    <tr>
+      <th>Test Case</th>
+      <th>Description</th>
+      <th>Test Folder</th>
+      <th>Known Issue</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Prop mutation</td>
+      <td>Mutates the property via user interaction and verifies the rendered output updates.</td>
+      <td><code>test/wdio/prop-mutable</code></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Attribute reflection</td>
+      <td>Verifies that, when <code>reflect: true</code>, the DOM attribute is updated to match the prop value.</td>
+      <td><code>test/wdio/prop-mutable-reflect</code>, <code>test/wdio/prop-reflect</code></td>
+      <td>For complex types (<code>Array</code>, <code>Object</code>, <code>Set</code>), attribute reflection does not work due to a known Stencil bug (<code>STENCIL-123</code>).</td>
+    </tr>
+    <tr>
+      <td>No mutation (mutable: false)</td>
+      <td>Ensures that when <code>mutable: false</code>, attempts to mutate the property do not change its value.</td>
+      <td><code>test/wdio/prop-no-mutable</code></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Internal mutation (button click)</td>
+      <td>Mutates the property from inside the component (via button click handler) and verifies the rendered output updates.</td>
+      <td><code>test/wdio/prop-mutable</code></td>
+      <td>All permutations work as expected.</td>
+    </tr>
+    <tr>
+      <td>External mutation (direct property assignment)</td>
+      <td>Attempts to mutate the property from outside the component (via direct assignment on the DOM element) and verifies the rendered output.</td>
+      <td><code>test/wdio/prop-no-mutable</code></td>
+      <td>Mutation is possible for all types, even with <code>mutable: false</code>. This is a framework limitation.</td>
+    </tr>
+  </tbody>
+</table>
+
 ## Known Bugs
 
 <div style={{ marginTop: '2rem', maxWidth: '100%', width: '100%', background: '#fff' }}>
@@ -79,6 +126,12 @@ Below is a detailed explanation of each property available in the `@Prop` decora
         <td>Mutated values of complex props (`Array`, `Object`) are not reflected to attributes.</td>
         <td>
           <code>test/wdio/prop-mutable-reflect/cmp.test.tsx</code>
+        </td>
+      </tr>
+      <tr >
+        <td>STENCIL-IMMUTABLE-001</td>
+        <td>Mutation of properties from outside the component (via direct property assignment on the DOM element) is possible for all types. True immutability is not enforced by Stencil.</td>
+        <td>
         </td>
       </tr>
     </tbody>
