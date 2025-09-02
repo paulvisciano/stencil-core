@@ -86,7 +86,7 @@ The following test cases are covered by generated tests for the `@Prop` decorato
       <td>Internal mutation (button click)</td>
       <td>Mutates the property from inside the component (via button click handler) and verifies the rendered output updates.</td>
       <td><code>test/wdio/prop-mutable</code></td>
-      <td>All permutations work as expected.</td>
+      <td>All types except boolean work as expected. Boolean props can still be mutated (see STENCIL-IMMUTABLE-002).</td>
     </tr>
     <tr>
       <td>External mutation (direct property assignment)</td>
