@@ -15,7 +15,7 @@ For a foundational library like Stencil, the testing strategy must be rigorous. 
 
 A key aspect of our strategy is recognizing the difference between **static coverage analysis** and **runtime behavior testing**. Our coverage scripts work by statically analyzing the source code for specific patterns (e.g., the presence of a `@Prop` decorator with certain options). This is a fast and effective way to inventory our features, but it does not execute the code to verify its behavior. Therefore, our testing strategy is designed to satisfy both our static analysis tools and the need for robust, behavior-driven validation.
 
-> **Note:** For a deeper dive into how the permutation matrix is generated and used for coverage, see [Matrix Generation](?path=/docs/testing-decorators-matrix-generation--docs).
+> **Note:** For a deeper dive into how the permutation matrix is generated and used for coverage, see [Matrix Generation](?path=/docs/testing-framework-coverage-matrix-generation--docs).
 
 ## Summary: The Testing Pyramid in Practice
 
@@ -35,21 +35,21 @@ A key aspect of our strategy is recognizing the difference between **static cove
       <td><code>src/</code></td>
       <td>Jest</td>
       <td>Verify Stencil's internal logic and compiler functionality.</td>
-      <td>[Core Testing Docs](?path=/docs/testing-tests-core--docs)</td>
+      <td>[Core Testing Docs](?path=/docs/testing-framework-tests-core-tests--docs)</td>
     </tr>
     <tr>
       <td><strong>Component Tests</strong></td>
       <td><code>test/wdio/</code></td>
       <td>WebdriverIO (<code>@wdio/browser-runner/stencil</code>)</td>
       <td>Verify individual features in isolation and satisfy static analysis.</td>
-      <td>[Component Testing Docs](?path=/docs/testing-tests-component--docs)</td>
+      <td>[Component Testing Docs](?path=/docs/testing-framework-tests-component-tests--docs)</td>
     </tr>
     <tr>
       <td><strong>E2E Tests</strong></td>
       <td><code>test/end-to-end/</code></td>
       <td>Stencil's <code>newE2EPage()</code> (Puppeteer)</td>
       <td>Verify that features work correctly together (e.g. multiple decorators, render function) and that component behavior is correct in a browser environment.</td>
-      <td>[E2E Testing Docs](?path=/docs/testing-tests-e2e--docs)</td>
+      <td>[E2E Testing Docs](?path=/docs/testing-framework-tests-e2e-tests--docs)</td>
     </tr>
   </tbody>
 </table>
@@ -58,7 +58,7 @@ A key aspect of our strategy is recognizing the difference between **static cove
 
 A groundbreaking aspect of our testing strategy is its reliance on a GenAI-powered iterative loop. This approach allows us to systematically work towards 100% coverage of all feature permutations in a way that is both dynamic and self-improving. The loop is as follows:
 
-1.  **Define Component Permutations**: For a given feature, like a decorator, we first study all its possible variations and options. These are documented in a human- and machine-readable permutation matrix within an `.mdx` file. This matrix serves as the single source of truth for which component permutations need to be tested. For details on how the matrix is generated, see [Matrix Generation](?path=/docs/testing-decorators-matrix-generation--docs).
+1.  **Define Component Permutations**: For a given feature, like a decorator, we first study all its possible variations and options. These are documented in a human- and machine-readable permutation matrix within an `.mdx` file. This matrix serves as the single source of truth for which component permutations need to be tested. For details on how the matrix is generated, see [Matrix Generation](?path=/docs/testing-framework-coverage-matrix-generation--docs).
 2.  **AI-Driven Component Test Generation**: A generative AI assistant uses the permutation matrix as a blueprint to generate the necessary component-level tests in the `test/wdio` directory. For each permutation, it creates an isolated component and a corresponding test to exercise its behavior.
 3.  **Test Execution and Validation**: Before checking coverage, the newly generated `wdio` tests are run to ensure they pass. This step is critical to confirm that the generated components and tests are functionally correct and adhere to the established patterns.
 4.  **Coverage Analysis & Matrix Update**: After the tests are generated and pass, a custom coverage script analyzes the codebase. It updates the permutation matrix `.mdx` file with the latest coverage statistics, clearly marking which component permutations are implemented and tested, and which are missing.
@@ -83,7 +83,7 @@ This approach allows us to harness the collective intelligence and diverse capab
 
 This testing strategy is a living document. We will continue to refine our approach, adopt new tools, and improve our processes over time to ensure Stencil remains a reliable and high-quality framework for all developers.
 
-A core tenet of this continuous improvement is the practice of documenting our learnings. After each major testing iteration, we will update the relevant documentation—including this strategy, the component-level and end-to-end testing guides, and the [audit log](?path=/docs/testing-audit--docs)—with any new insights, patterns, or challenges we encountered. This ensures that our institutional knowledge grows with our test suite.
+A core tenet of this continuous improvement is the practice of documenting our learnings. After each major testing iteration, we will update the relevant documentation—including this strategy, the component-level and end-to-end testing guides, and the [audit log](?path=/docs/testing-framework-audit--docs)—with any new insights, patterns, or challenges we encountered. This ensures that our institutional knowledge grows with our test suite.
 
 **Key areas for learning documentation include:**
 
@@ -117,7 +117,7 @@ By adhering to this strategy, we build a comprehensive test suite that is both r
     overflow: 'hidden'
   }}>
     <span style={{ display: 'block', fontSize: 28, color: '#0ea5e9', fontWeight: 900, marginBottom: 18, zIndex: 1, position: 'relative', letterSpacing: '0.04em' }}>
-      🚀 [2025 Testing Roadmap: Dive into the future of Stencil.js testing!](?path=/docs/testing-roadmap-2025--docs) 🚀
+      🚀 [2025 Testing Roadmap: Dive into the future of Stencil.js testing!](?path=/docs/testing-framework-roadmap-2025--docs) 🚀
     </span>
     <span style={{ display: 'block', fontSize: 20, color: '#6366f1', fontWeight: 500, marginTop: 18, zIndex: 1, position: 'relative', letterSpacing: '0.02em' }}>
       Next-gen coverage, GenAI-powered automation, and SSR mastery await.
