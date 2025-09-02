@@ -1,7 +1,17 @@
-import{j as e}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as i}from"./index-BxMiAmRf.js";import{M as r}from"./blocks-DmHRBODb.js";import"./iframe-C2C1ItUp.js";import"./preload-helper-D9Z9MdNV.js";import"./index-SXJHywsQ.js";function s(t){const n={blockquote:"blockquote",code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",ol:"ol",p:"p",strong:"strong",ul:"ul",...i(),...t.components};return e.jsxs(e.Fragment,{children:[e.jsx(r,{title:"Testing/Framework/Audit",tags:["pending-review"]}),`
+import{j as e}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as i}from"./index-DerBrFPi.js";import{M as r}from"./blocks-D_de16sk.js";import"./iframe-Dx--6jvh.js";import"./preload-helper-D9Z9MdNV.js";import"./index-6izr7o5Y.js";function s(t){const n={blockquote:"blockquote",code:"code",h1:"h1",h2:"h2",h3:"h3",hr:"hr",li:"li",ol:"ol",p:"p",strong:"strong",ul:"ul",...i(),...t.components};return e.jsxs(e.Fragment,{children:[e.jsx(r,{title:"Testing/Framework/Audit",tags:["pending-review"]}),`
 `,e.jsx(n.h1,{id:"testing-strategy-audit-log",children:"Testing Strategy Audit Log"}),`
 `,e.jsx("div",{style:{display:"inline-block",padding:"4px 12px",background:"#ffe066",color:"#7c5c00",borderRadius:"16px",fontWeight:"bold",marginBottom:"16px"},children:"⏳ Pending Review"}),`
 `,e.jsx(n.p,{children:"This document tracks the progress and effectiveness of the GenAI-powered testing strategy over time. Each entry represents a significant iteration or application of the strategy to a specific feature set."}),`
+`,e.jsx(n.hr,{}),`
+`,e.jsx(n.h1,{id:"audit-log-genai-testing-loop-improvements",children:"Audit Log: GenAI Testing Loop Improvements"}),`
+`,e.jsx(n.h2,{id:"manual-verification-of-coverage-matrix",children:"Manual Verification of Coverage Matrix"}),`
+`,e.jsx(n.p,{children:"A key step in the testing loop is manual verification of the coverage matrix. After generating components and tests for all decorator permutations, manually change some decorator options (e.g., target, capture) in component files and re-run the coverage script. Confirm that the coverage report updates to reflect these changes. This ensures the coverage script accurately detects permutations and the matrix is reliable."}),`
+`,e.jsx(n.p,{children:e.jsx(n.strong,{children:"Best Practice:"})}),`
+`,e.jsxs(n.ul,{children:[`
+`,e.jsx(n.li,{children:"Always perform manual verification after reaching 100% coverage."}),`
+`,e.jsx(n.li,{children:"Document any issues or false positives found during this step."}),`
+`,e.jsx(n.li,{children:"Update the audit log and documentation to reflect improvements."}),`
+`]}),`
 `,e.jsx(n.hr,{}),`
 `,e.jsxs(n.h2,{id:"iteration-1-prop-decorator",children:["Iteration 1: ",e.jsx(n.code,{children:"@Prop"})," Decorator"]}),`
 `,e.jsxs(n.p,{children:[e.jsx(n.strong,{children:"Date:"})," August 19, 2025"]}),`
@@ -224,4 +234,6 @@ AI can rapidly generate standards-compliant tests when provided with clear conte
 `,e.jsxs(n.li,{children:[e.jsx(n.strong,{children:"Build Process Documentation:"})," Ensured documentation matches the actual build/test workflow."]}),`
 `,e.jsxs(n.li,{children:[e.jsx(n.strong,{children:"Final Coverage Validation:"})," Confirmed 100% coverage and passing tests for all valid async permutations."]}),`
 `]}),`
-`,e.jsx(n.hr,{})]})}function x(t={}){const{wrapper:n}={...i(),...t.components};return n?e.jsx(n,{...t,children:e.jsx(s,{...t})}):s(t)}export{x as default};
+`,e.jsx(n.hr,{}),`
+`,e.jsx(n.h2,{id:"recording-learnings",children:"Recording Learnings"}),`
+`,e.jsxs(n.p,{children:["For every completed GenAI-powered testing loop, ensure that all learnings, mistakes, and improvements are documented in the relevant ",e.jsx(n.code,{children:".ai"})," folder file and summarized here in the audit log. This practice helps maintain a robust knowledge base and supports continuous improvement for future contributors."]})]})}function u(t={}){const{wrapper:n}={...i(),...t.components};return n?e.jsx(n,{...t,children:e.jsx(s,{...t})}):s(t)}export{u as default};
