@@ -1,10 +1,10 @@
 import { h } from '@stencil/core';
 import { render } from '@wdio/browser-runner/stencil';
 
-describe('listen-window', function () {
+describe('listen-window-capture', function () {
   beforeEach(() => {
     render({
-      template: () => <listen-window></listen-window>,
+      template: () => <listen-window-capture></listen-window-capture>,
     });
   });
 

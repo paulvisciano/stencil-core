@@ -1,10 +1,10 @@
 import { Component, h, Listen, State } from '@stencil/core';
 
 @Component({
-  tag: 'listen-window',
+  tag: 'listen-window-capture',
   scoped: true,
 })
-export class ListenWindow {
+export class ListenWindowCapture {
   @State() eventReceived = false;
 
   @Listen('custom-window-event', { target: 'window', capture: true })
