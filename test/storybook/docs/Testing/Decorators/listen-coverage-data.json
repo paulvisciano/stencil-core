@@ -1,8 +1,8 @@
 {
   "coverage": {
-    "covered": 3,
+    "covered": 10,
     "total": 10,
-    "percent": "30.0"
+    "percent": "100.0"
   },
   "coveredPermutations": [
     {
@@ -17,7 +17,7 @@
         "host",
         "✓"
       ],
-      "count": 1
+      "count": 2
     },
     {
       "options": [
@@ -25,50 +25,56 @@
         "✗"
       ],
       "count": 19
-    }
-  ],
-  "missingPermutations": [
+    },
+    {
+      "options": [
+        "body",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "body",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "document",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "document",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "parent",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "parent",
+        "✗"
+      ],
+      "count": 1
+    },
     {
       "options": [
         "window",
         "✓"
-      ]
-    },
-    {
-      "options": [
-        "document",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "document",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "body",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "body",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "parent",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "parent",
-        "✗"
-      ]
+      ],
+      "count": 1
     }
-  ]
+  ],
+  "missingPermutations": []
 }
