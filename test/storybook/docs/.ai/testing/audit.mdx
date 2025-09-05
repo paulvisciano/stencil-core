@@ -227,6 +227,32 @@ AI can rapidly generate standards-compliant tests when provided with clear conte
 
 ---
 
+## Iteration 6: `@Listen` Decorator (Host Target Tag Name Consistency)
+
+**Date:** September 5, 2025
+
+### Phase 1: Host Target Tag Name Mismatch
+- **Issue:** Automated generation of Stencil components and WDIO tests for `@Listen` permutations resulted in a tag name mismatch for host-targeted components and their tests. Components used the tag `listen-host-click-capture-nopassive`, while tests used `cmp-host-click-capture-nopassive`.
+- **Impact:** Host tests failed because the rendered element did not match the tag name expected by the test, causing the host element not to be found or events not to fire.
+
+### Phase 2: Diagnosis and Correction
+- **Action:** Identified the mismatch by comparing the component's `@Component({ tag })` property and the test's render/selector usage.
+- **Correction:** Updated all host WDIO tests to use the correct tag name as defined in the component, ensuring both render and event dispatch target `listen-host-click-capture-nopassive`.
+- **Outcome:** Host tests now pass as expected, confirming correct event handling and coverage.
+
+### Key Learnings:
+- **Naming Consistency:** Automated test and component generation must derive tag names from the component's `@Component({ tag })` property to ensure consistency.
+- **Validation Step:** Add a validation step to the automation pipeline to check that all tests reference the correct tag name for their component.
+- **Source of Truth:** Use the component's tag property as the single source of truth for naming in both code and tests.
+- **Human-AI Collaboration:** Human review remains essential for catching subtle mismatches that static analysis may miss.
+
+### Process Improvements Made:
+1. **Automation Update:** Update generation scripts to always use the component's tag property for test rendering and selectors.
+2. **Validation Script:** Add a script to audit test/component tag name consistency across the codebase.
+3. **Documentation:** Record this learning in the audit log and update the component test guide to emphasize tag name consistency.
+
+---
+
 ## Stencil 2 Target Update
 
 The `parent` target is no longer supported for the `@Listen` decorator in Stencil 2. All documentation, coverage matrices, and generated components/tests should exclude this target going forward.
