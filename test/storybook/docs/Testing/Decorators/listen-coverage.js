@@ -126,13 +126,15 @@ function main() {
     permutationMap[key].count++;
   });
 
-  const uniquePermutations = Object.entries(permutationMap).map(([key, val]) => {
-    const opts = key.split('|');
-    return { options: opts, count: val.count };
-  });
-
   const allKeys = getAllPermutationKeys();
-  const coveredKeys = new Set(Object.keys(permutationMap));
+  // Only include permutations that are in the valid matrix
+  const uniquePermutations = allKeys.map(key => {
+    const val = permutationMap[key];
+    const opts = key.split('|');
+    return val ? { options: opts, count: 1 } : null;
+  }).filter(Boolean);
+
+  const coveredKeys = new Set(uniquePermutations.map(p => p.options.join('|')));
   const missingKeys = allKeys.filter(key => !coveredKeys.has(key));
 
   const totalPermutations = allKeys.length;

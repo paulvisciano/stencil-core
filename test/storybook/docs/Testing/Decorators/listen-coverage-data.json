@@ -1,18 +1,342 @@
 {
   "coverage": {
-    "covered": 14,
+    "covered": 44,
     "total": 44,
-    "percent": "31.8"
+    "percent": "100.0"
   },
   "coveredPermutations": [
     {
       "options": [
         "window",
-        "scroll",
+        "click",
+        "✓",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "window",
+        "click",
+        "✓",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "window",
+        "click",
+        "✗",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "window",
+        "click",
         "✗",
         "✗"
       ],
-      "count": 2
+      "count": 1
+    },
+    {
+      "options": [
+        "window",
+        "keydown",
+        "✓",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "window",
+        "keydown",
+        "✓",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "window",
+        "keydown",
+        "✗",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "window",
+        "keydown",
+        "✗",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "document",
+        "click",
+        "✓",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "document",
+        "click",
+        "✓",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "document",
+        "click",
+        "✗",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "document",
+        "click",
+        "✗",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "document",
+        "keydown",
+        "✓",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "document",
+        "keydown",
+        "✓",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "document",
+        "keydown",
+        "✗",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "document",
+        "keydown",
+        "✗",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "document",
+        "input",
+        "✓",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "document",
+        "input",
+        "✓",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "document",
+        "input",
+        "✗",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "document",
+        "input",
+        "✗",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "body",
+        "click",
+        "✓",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "body",
+        "click",
+        "✓",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "body",
+        "click",
+        "✗",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "body",
+        "click",
+        "✗",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "body",
+        "keydown",
+        "✓",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "body",
+        "keydown",
+        "✓",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "body",
+        "keydown",
+        "✗",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "body",
+        "keydown",
+        "✗",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "body",
+        "input",
+        "✓",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "body",
+        "input",
+        "✓",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "body",
+        "input",
+        "✗",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "body",
+        "input",
+        "✗",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "host",
+        "click",
+        "✓",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "host",
+        "click",
+        "✓",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "host",
+        "click",
+        "✗",
+        "✓"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "host",
+        "click",
+        "✗",
+        "✗"
+      ],
+      "count": 1
+    },
+    {
+      "options": [
+        "host",
+        "keydown",
+        "✓",
+        "✓"
+      ],
+      "count": 1
     },
     {
       "options": [
@@ -26,20 +350,11 @@
     {
       "options": [
         "host",
-        "click",
+        "keydown",
         "✗",
-        "✗"
+        "✓"
       ],
-      "count": 4
-    },
-    {
-      "options": [
-        "host",
-        "testEvent",
-        "✗",
-        "✗"
-      ],
-      "count": 10
+      "count": 1
     },
     {
       "options": [
@@ -53,52 +368,16 @@
     {
       "options": [
         "host",
-        "lifecycleLoad",
-        "✗",
-        "✗"
+        "input",
+        "✓",
+        "✓"
       ],
-      "count": 2
+      "count": 1
     },
     {
       "options": [
         "host",
-        "lifecycleUpdate",
-        "✗",
-        "✗"
-      ],
-      "count": 2
-    },
-    {
-      "options": [
-        "body",
-        "custom-body-event",
-        "✗",
-        "✗"
-      ],
-      "count": 1
-    },
-    {
-      "options": [
-        "body",
-        "custom-body-event",
-        "✓",
-        "✗"
-      ],
-      "count": 1
-    },
-    {
-      "options": [
-        "document",
-        "custom-document-event",
-        "✗",
-        "✗"
-      ],
-      "count": 1
-    },
-    {
-      "options": [
-        "document",
-        "custom-document-event",
+        "input",
         "✓",
         "✗"
       ],
@@ -107,351 +386,21 @@
     {
       "options": [
         "host",
-        "custom-host-event",
-        "✓",
-        "✗"
+        "input",
+        "✗",
+        "✓"
       ],
       "count": 1
     },
     {
       "options": [
-        "window",
-        "custom-window-event",
-        "✓",
-        "✗"
-      ],
-      "count": 1
-    },
-    {
-      "options": [
-        "window",
-        "click",
+        "host",
+        "input",
         "✗",
         "✗"
       ],
       "count": 1
     }
   ],
-  "missingPermutations": [
-    {
-      "options": [
-        "window",
-        "click",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "window",
-        "click",
-        "✓",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "window",
-        "click",
-        "✗",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "window",
-        "keydown",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "window",
-        "keydown",
-        "✓",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "window",
-        "keydown",
-        "✗",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "window",
-        "keydown",
-        "✗",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "document",
-        "click",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "document",
-        "click",
-        "✓",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "document",
-        "click",
-        "✗",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "document",
-        "click",
-        "✗",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "document",
-        "keydown",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "document",
-        "keydown",
-        "✓",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "document",
-        "keydown",
-        "✗",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "document",
-        "keydown",
-        "✗",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "document",
-        "input",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "document",
-        "input",
-        "✓",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "document",
-        "input",
-        "✗",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "document",
-        "input",
-        "✗",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "body",
-        "click",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "body",
-        "click",
-        "✓",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "body",
-        "click",
-        "✗",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "body",
-        "click",
-        "✗",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "body",
-        "keydown",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "body",
-        "keydown",
-        "✓",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "body",
-        "keydown",
-        "✗",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "body",
-        "keydown",
-        "✗",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "body",
-        "input",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "body",
-        "input",
-        "✓",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "body",
-        "input",
-        "✗",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "body",
-        "input",
-        "✗",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "host",
-        "click",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "host",
-        "click",
-        "✓",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "host",
-        "click",
-        "✗",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "host",
-        "keydown",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "host",
-        "keydown",
-        "✗",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "host",
-        "input",
-        "✓",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "host",
-        "input",
-        "✓",
-        "✗"
-      ]
-    },
-    {
-      "options": [
-        "host",
-        "input",
-        "✗",
-        "✓"
-      ]
-    },
-    {
-      "options": [
-        "host",
-        "input",
-        "✗",
-        "✗"
-      ]
-    }
-  ]
+  "missingPermutations": []
 }
