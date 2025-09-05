@@ -12,9 +12,14 @@ export class CmpBodyClickCapturePassive {
     this.clicked++;
   }
 
+  disconnectedCallback() {
+    document.body.removeEventListener('click', this.handleBodyClick, { capture: true });
+  }
+
   render() {
     return (
       <div>
+        <input id="test-input" onClick={e => document.body.click()} />
         <div id="clicked">Clicked: {this.clicked}</div>
       </div>
     );

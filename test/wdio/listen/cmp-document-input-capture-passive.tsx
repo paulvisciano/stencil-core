@@ -13,6 +13,11 @@ export class CmpDocumentInputCapturePassive {
   }
 
   render() {
-    return <div>document input capture passive: {this.inputCount}</div>;
+    return (
+      <div>
+        <input id="test-input" />
+        <div id="output">document input capture passive: {this.inputCount}</div>
+      </div>
+    );
   }
 }

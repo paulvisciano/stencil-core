@@ -12,6 +12,10 @@ export class CmpBodyClickNoCaptureNoPassive {
     this.clicked++;
   }
 
+  disconnectedCallback() {
+    document.body.removeEventListener('click', this.handleBodyClick, { capture: false });
+  }
+
   render() {
     return (
       <div>

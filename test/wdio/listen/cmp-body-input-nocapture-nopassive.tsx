@@ -12,7 +12,16 @@ export class CmpBodyInputNocaptureNoPassive {
     this.inputs++;
   }
 
+  disconnectedCallback() {
+    document.body.removeEventListener('input', this.handleBodyInput, { capture: false });
+  }
+
   render() {
-    return <div>body input nocapture no passive: {this.inputs}</div>;
+    return (
+      <div>
+        <input id="test-input" />
+        <div id="output">body input nocapture nopassive: {this.inputs}</div>
+      </div>
+    );
   }
 }
