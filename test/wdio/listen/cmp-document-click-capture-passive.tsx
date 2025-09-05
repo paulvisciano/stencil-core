@@ -13,6 +13,10 @@ export class CmpDocumentClickCapturePassive {
   }
 
   render() {
-    return <div>document click capture passive: {this.clicked}</div>;
+    return (
+      <div>
+        <div id="clicked">Clicked: {this.clicked}</div>
+      </div>
+    );
   }
 }

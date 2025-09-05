@@ -6,13 +6,19 @@ import { Component, h, Listen, State } from '@stencil/core';
 })
 export class ListenHostClickCaptureNopassive {
   @State() eventReceived = false;
+  @State() clicked = 0;
 
   @Listen('click', { capture: true, passive: false })
   onClick() {
     this.eventReceived = true;
+    this.clicked++;
   }
 
   render() {
-    return <span id="host-click-capture-nopassive-result">{this.eventReceived ? 'Received' : 'Not received'}</span>;
+    return (
+      <div>
+        <div id="clicked">Clicked: {this.clicked}</div>
+      </div>
+    );
   }
 }

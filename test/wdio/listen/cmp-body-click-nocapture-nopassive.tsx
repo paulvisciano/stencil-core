@@ -13,6 +13,10 @@ export class CmpBodyClickNoCaptureNoPassive {
   }
 
   render() {
-    return <div>body click no capture no passive: {this.clicked}</div>;
+    return (
+      <div>
+        <div id="clicked">Clicked: {this.clicked}</div>
+      </div>
+    );
   }
 }
