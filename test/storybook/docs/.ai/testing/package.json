@@ -9,6 +9,7 @@
     "coverage-prop": "cd ../../Testing/Decorators && node prop-coverage.js",
     "coverage-listen": "cd ../../Testing/Decorators && node listen-coverage.js",
     "coverage-state": "cd ../../Testing/Decorators && node state-coverage.js",
-    "coverage-event": "cd ../../Testing/Decorators && node event-coverage.js"
+    "coverage-event": "cd ../../Testing/Decorators && node event-coverage.js",
+    "generate-missing-components": "cd ../../Testing/Decorators && node generate-missing-components.js"
   }
 }
