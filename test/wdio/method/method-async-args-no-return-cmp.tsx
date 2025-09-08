@@ -7,14 +7,14 @@ export class MethodAsyncArgsNoReturnCmp {
   @State() called = false;
 
   @Method()
-  async doSomething(arg: string): Promise<void> {
+  async doSomething(): Promise<void> {
     this.called = true;
   }
 
   render() {
     return (
       <div>
-        <button onClick={() => this.doSomething('test')}>Call Method</button>
+        <button onClick={() => this.doSomething()}>Call Method</button>
         <span>{this.called ? 'called' : 'not called'}</span>
       </div>
     );

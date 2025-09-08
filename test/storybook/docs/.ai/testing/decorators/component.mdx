@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta title="Testing/Decorators/@Component" tags={['pending-review']} />
+<Meta title="Testing/Decorators/@Component Coverage Strategy" tags={['pending-review']} />
 
 # @Component Decorator Coverage Strategy
 
@@ -49,8 +49,15 @@ Permutation: <shadow> | <scoped> | <assetsDirs> | <formAssociated> | <styleUrl> 
 4. Build and run tests.
 
 ## Status (2025-09-08)
-- Covered: 122/216 (56.5%)
-- Next batch: generate the next 20 from `missingPermutations`
+- Covered: 192/192 (100.0%)
+- .tsx count under `test/wdio/component-decorator/**` equals the covered count (192)
+- All matrix components import `{ Component, h }` from `@stencil/core`
+- Invalid permutations pruned: no `shadow: true` + `scoped: true` remain; style prop exclusivity enforced
+- Fixed invalid tag file: removed `matrix/component.tsx`; added `matrix/cmp-base.tsx`
+- Generator updated/used to emit exactly one component per missing permutation; future gens use `cmp-*` prefix
+
+Next:
+- Run coverage + build from `.ai/testing` scripts to validate end-to-end
 
 ## Model Policy
 - Use GPT-5 (Preview) for component generation

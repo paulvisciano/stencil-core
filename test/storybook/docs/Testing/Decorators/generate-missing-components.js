@@ -12,6 +12,9 @@ const OUTPUT_DIR = path.resolve(__dirname, '../../../../../test/wdio/component-d
 /**
  * OPTIONS order reference used by component-coverage.js
  * ['shadow','scoped','assetsDirs','formAssociated','styleUrl','styleUrls','styles']
+ *
+ * Note: For styleUrls cases, this generator emits the canonical pair
+ * ['matrix-gen.css', 'matrix-alt.css'] to ensure multi-URL coverage.
  */
 
 function toBoolSymbol(val) {
@@ -57,13 +60,13 @@ function buildComponentSource(options, tag) {
   if (assetsDirs === '✓') props.push(`assetsDirs: ['assets']`);
   if (formAssociated !== '-') props.push(`formAssociated: ${toBoolSymbol(formAssociated)}`);
   if (styleUrl === '✓') props.push(`styleUrl: 'matrix-gen.css'`);
-  if (styleUrls === '✓') props.push(`styleUrls: ['matrix-gen.css']`);
+  if (styleUrls === '✓') props.push(`styleUrls: ['matrix-gen.css', 'matrix-alt.css']`);
   if (styles === '✓') props.push(`styles: ':host{display:block}'`);
 
   const className = toPascalCase(tag);
   const permutationStr = options.join(' | ');
 
-  return `import { Component } from '@stencil/core';
+  return `import { Component, h } from '@stencil/core';
 
 @Component({
   ${props.join(',\n  ')}

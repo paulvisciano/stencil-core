@@ -4,7 +4,7 @@ import { Component, h, State } from '@stencil/core';
   tag: 'state-any-cmp',
 })
 export class StateAnyCmp {
-  @State() stateAny;
+  @State() stateAny : any;
 
   render() {
     return <div>{JSON.stringify(this.stateAny)}</div>;

@@ -1,5 +1,5 @@
 // filepath: /Users/paul.visciano/repos/core/test/wdio/component-decorator/matrix/component-scoped-false-styles.tsx
-import { Component } from '@stencil/core';
+import { Component, h } from '@stencil/core';
 
 @Component({
   tag: 'component-scoped-false-styles',

@@ -1,4 +1,4 @@
-import { Component } from '@stencil/core';
+import { Component, h } from '@stencil/core';
 
 @Component({
   tag: 'component-shadow-false-scoped-false-assetsdirs-formassociated-false-styleurl',
@@ -6,7 +6,7 @@ import { Component } from '@stencil/core';
   scoped: false,
   assetsDirs: ['assets'],
   formAssociated: false,
-  styleUrl: 'matrix-d20.css'
+  styleUrl: 'matrix-gen.css'
 })
 export class ComponentShadowFalseScopedFalseAssetsDirsFormAssociatedFalseStyleUrl {
   render() {

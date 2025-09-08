@@ -1,5 +1,5 @@
 // filepath: /Users/paul.visciano/repos/core/test/wdio/component-decorator/matrix/component-shadow-false-assetsdirs-formassociated-styles.tsx
-import { Component } from '@stencil/core';
+import { Component, h } from '@stencil/core';
 
 @Component({
   tag: 'component-shadow-false-assetsdirs-formassociated-styles',

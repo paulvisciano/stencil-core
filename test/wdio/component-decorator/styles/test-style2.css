@@ -1,0 +1,3 @@
+/* Secondary reference CSS for styleUrls examples */
+:host { display: block; }
+.test-style-2 { color: #555; }

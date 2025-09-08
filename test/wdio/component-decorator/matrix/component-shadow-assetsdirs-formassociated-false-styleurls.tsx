@@ -1,11 +1,11 @@
-import { Component } from '@stencil/core';
+import { Component, h } from '@stencil/core';
 
 @Component({
   tag: 'component-shadow-assetsdirs-formassociated-false-styleurls',
   shadow: true,
   assetsDirs: ['assets'],
   formAssociated: false,
-  styleUrls: ['matrix-c4.css']
+  styleUrls: ['matrix-gen.css', 'matrix-alt.css']
 })
 export class ComponentShadowAssetsDirsFormAssociatedFalseStyleUrls {
   render() {

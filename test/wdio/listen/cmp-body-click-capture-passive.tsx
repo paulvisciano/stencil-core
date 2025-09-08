@@ -19,7 +19,7 @@ export class CmpBodyClickCapturePassive {
   render() {
     return (
       <div>
-        <input id="test-input" onClick={e => document.body.click()} />
+        <input id="test-input" onClick={_ => document.body.click()} />
         <div id="clicked">Clicked: {this.clicked}</div>
       </div>
     );

@@ -1,11 +1,11 @@
-import { Component } from '@stencil/core';
+import { Component, h } from '@stencil/core';
 
 @Component({
   tag: 'component-shadow-false-scoped-assetsdirs-styleurl',
   shadow: false,
   scoped: true,
   assetsDirs: ['assets'],
-  styleUrl: 'matrix-d01.css'
+  styleUrl: 'matrix-gen.css'
 })
 export class ComponentShadowFalseScopedAssetsDirsStyleUrl {
   render() {

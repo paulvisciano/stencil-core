@@ -19,7 +19,7 @@
         "true",
         "false"
       ],
-      "count": 3
+      "count": 2
     },
     {
       "options": [
@@ -35,7 +35,7 @@
         "false",
         "false"
       ],
-      "count": 5
+      "count": 6
     }
   ],
   "missingPermutations": []

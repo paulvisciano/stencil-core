@@ -1,11 +1,11 @@
-import { Component } from '@stencil/core';
+import { Component, h } from '@stencil/core';
 
 @Component({
   tag: 'component-shadow-scoped-false-formassociated-styleurl',
   shadow: true,
   scoped: false,
   formAssociated: true,
-  styleUrl: 'matrix-b1.css'
+  styleUrl: 'matrix-gen.css'
 })
 export class ComponentShadowScopedFalseFormAssociatedStyleUrl {
   render() {
