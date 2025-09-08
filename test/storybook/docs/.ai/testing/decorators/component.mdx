@@ -1,0 +1,58 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Testing/Decorators/@Component" tags={['pending-review']} />
+
+# @Component Decorator Coverage Strategy
+
+This document outlines the approach to achieve and maintain 100% coverage for valid `@Component` permutations as defined by the canonical coverage script at `Testing/Decorators/component-coverage.js`.
+
+## Source of Truth
+- Coverage data: `Testing/Decorators/component-coverage-data.json`
+- Script: `Testing/Decorators/component-coverage.js`
+- Matrix location for new components: `test/wdio/component-decorator/matrix/`
+
+## Options & Valid States
+- Options order: `[shadow, scoped, assetsDirs, formAssociated, styleUrl, styleUrls, styles]`
+- Value symbols: `✓` (true/set), `✗` (false), `-` (absent)
+- Style exclusivity: Exactly one of `styleUrl`, `styleUrls`, or `styles` may be set, or none. The coverage script skips any invalid component that sets more than one.
+
+Valid style states:
+- `[✓, -, -]`  → `styleUrl`
+- `[-, ✓, -]`  → `styleUrls`
+- `[-, -, ✓]`  → `styles`
+- `[-, -, -]`  → none
+
+## File/Tag Naming
+Place each new component in `matrix/` with a descriptive name derived from its options, and use the same string for the `@Component({ tag })`:
+
+- `component-shadow[-false]-scoped[-false][-assetsdirs][-formassociated|-formassociated-false][-styleurl|-styleurls|-styles].tsx`
+- Example: `component-shadow-false-scoped-assetsdirs-formassociated-false-styleurls.tsx`
+
+The component should render a helper string for audits:
+
+```
+Permutation: <shadow> | <scoped> | <assetsDirs> | <formAssociated> | <styleUrl> | <styleUrls> | <styles>
+```
+
+## Workflow
+1. Run coverage: `npm run coverage-component-tests --prefix test/storybook/docs/.ai/testing`
+2. Inspect `missingPermutations` in `component-coverage-data.json`
+3. Generate exactly one component per missing key (respect exclusivity)
+4. Re-run coverage and verify:
+   - `coverage.covered` increases by the number of files added
+   - The count of `.tsx` under `test/wdio/component-decorator/**` equals `coverage.covered`
+5. Repeat until `covered === total`
+
+## Status (2025-09-08)
+- Covered: 122/216 (56.5%)
+- Next batch: generate the next 20 from `missingPermutations`
+
+## Model Policy
+- Use GPT-5 (Preview) for component generation
+- Use GPT-4.1 for documentation
+
+## Tips
+- Prefer small CSS shims like `styles: ':host{display:block}'` to keep components trivial
+- Use unique CSS filenames for `styleUrl`/`styleUrls` to avoid accidental dedupe
+- Do not alter existing `styles/` reference examples; new permutations live in `matrix/`
+- If coverage unexpectedly drops, search for components with multiple style props or misplaced files

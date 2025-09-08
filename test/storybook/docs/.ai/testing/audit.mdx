@@ -280,6 +280,98 @@ The `parent` target is no longer supported for the `@Listen` decorator in Stenci
 
 ---
 
+## Iteration 7: `@Component` Decorator Permutation Coverage
+
+**Date:** September 8, 2025
+
+### Goals
+- Reach 100% coverage for all valid `@Component` decorator permutations defined by the coverage script.
+- Enforce strict mutual exclusivity: only one of `styleUrl`, `styleUrls`, or `styles` per component.
+- Maintain a one-to-one mapping: exactly one `.tsx` component per unique permutation.
+- Keep file count under `test/wdio/component-decorator/**` equal to the “covered” count in `component-coverage-data.json` after each run.
+
+### Actions Taken
+- Audited and removed invalid components that set multiple style properties; created canonical `matrix/` for valid permutations.
+- Implemented naming and placement conventions under `test/wdio/component-decorator/matrix/` (descriptive filenames; tag matches filename).
+- Generated batches of valid permutations with exclusivity:
+  - Initial 15 baseline components (shadow/scoped/assetsDirs/formAssociated with single style key when present).
+  - +1 additional specific permutation.
+  - +10 permutations for `shadow: true, scoped: false` across `formAssociated` and style variants.
+  - +20 permutations spanning:
+    - `shadow: true` with assetsDirs/formAssociated combos and style variants
+    - `shadow: false, scoped: true` with assetsDirs/formAssociated and styles
+    - styles-only for `shadow: true, scoped: false`
+  - +20 permutations for `shadow: false, scoped: true` plus `scoped: false` assetsDirs/formAssociated combos.
+- Used the repo’s `.ai` testing scripts to regenerate coverage after each batch.
+
+### Coverage Progress
+- Baseline: 82/216 (38.0%).
+- After batch 1: 102/216 (47.2%).
+- After batch 2: 122/216 (56.5%).
+- Verified file count matches coverage: 122 `.tsx` files under `test/wdio/component-decorator/**` equals `covered = 122`.
+
+### Rules & Conventions
+- Mutual exclusivity is enforced by the coverage script; any component with more than one style property is skipped.
+- Options order for permutation keys: `[shadow, scoped, assetsDirs, formAssociated, styleUrl, styleUrls, styles]` with values `✓ | ✗ | -`.
+- Valid style states: `[✓,-,-]`, `[-,✓,-]`, `[-,-,✓]`, or `[-,-,-]`.
+- Location: `test/wdio/component-decorator/matrix/` only for new permutations.
+- Naming: `component-<shadow|shadow-false>-<scoped|scoped-false>-<assetsdirs?>-<formassociated|formassociated-false?>-<styleurl|styleurls|styles?>.tsx` (omit segments that are `-`).
+- Tag equals filename (without extension). Render includes a `Permutation: ...` string matching the seven-field key to aid audits.
+
+### Model Usage
+- Use GPT-5 (Preview) for code generation of components.
+- Use GPT-4.1 for documentation authoring and maintenance.
+
+### Next Steps
+- Accept newly created files in the UI.
+- Continue generating the next batches by reading `missingPermutations` from `component-coverage-data.json` and creating exactly one component per missing key.
+- Re-run coverage after each batch and ensure file count equals `covered`.
+- Update this audit and the `@Component` decorator docs as the workflow evolves.
+
+---
+
+## 2025-09-08: Context-First Strategy, GPT-5 Results, and Portability Vision
+
+### Summary
+- Hypothesis validated: investing in the .ai context (standards, coverage scripts, docs, prompts) yields outsized returns versus hand-writing components/tests. As models improve, high-fidelity code and docs follow naturally from a strong context.
+- GPT-5 (Preview) materially outperforms GPT-4.1 on this repo:
+  - Accurately scanned the .ai folder, updated the correct `audit.mdx`, and authored a high-quality `decorators/component.mdx` with minimal prompting.
+  - Generated components from the coverage matrix more reliably and with better adherence to conventions.
+  - Produced stronger documentation with simpler prompts.
+
+### Why this matters
+- The testing loop hinges on a trustworthy coverage matrix. AI uses the matrix to: (1) enumerate missing permutations, (2) generate components, and next (3) generate tests. When the sample set fully represents all permutations, test coverage meaningfully guards compiler/runtime changes.
+- This enables crowdsourcing: contributors can ask AI to add the next missing permutations/tests and submit PRs—guided by the shared context.
+
+### Portability: the .ai Context Pack
+- Goal: make `.ai` a portable, framework-agnostic "Context Pack" others can import into any repo.
+- Adaptation model:
+  1) Drop the `.ai` folder into a target repo.
+  2) Update `project-config.mdx` to align with local tech (unit/component/e2e frameworks, runners, scripts).
+  3) Use `.ai/testing/package.json` script shortcuts to normalize paths and execution.
+  4) Run coverage to discover missing permutations; generate components/tests accordingly.
+- Always reference `AGENT_KEYWORDS.md` for standardized agent keywords and prompt conventions.
+
+### Concrete outcomes observed today
+- GPT-5 authored a high-signal audit entry and created `decorators/component.mdx` that formalizes the `@Component` permutation strategy (naming, exclusivity, workflow).
+- Component generation quality improved and aligned with the matrix rules, enabling the next step (test generation) with confidence.
+
+### Vision: Universal, framework-agnostic GenAI testing
+- Maintain source-of-truth coverage scripts and matrices in `.ai`.
+- Make context-first workflows portable via `project-config.mdx` and script shortcuts.
+- Encourage contributors to use GPT-5 with these artifacts to iteratively close coverage gaps and add tests.
+
+### Risks and mitigations
+- Risk: context drift between repos. Mitigation: version the Context Pack, document required local overrides in `project-config.mdx`, and run a quick "context sanity" script before generation.
+- Risk: false confidence from incomplete matrices. Mitigation: manual verification steps and regular audits (see Manual Verification of Coverage Matrix above).
+
+### Next actions
+- Add a dedicated "Context Pack" guide with import/setup steps (created in `.ai/testing/context-pack.mdx`).
+- Cross-link the guide from `overview.mdx` and `project-config.mdx` in a future pass.
+- Prefer GPT-5 (Preview) for generation; GPT-4.1 for documentation, as currently noted in `decorators/component.mdx`.
+
+---
+
 ## Recording Learnings
 
 For every completed GenAI-powered testing loop, ensure that all learnings, mistakes, and improvements are documented in the relevant `.ai` folder file and summarized here in the audit log. This practice helps maintain a robust knowledge base and supports continuous improvement for future contributors.
