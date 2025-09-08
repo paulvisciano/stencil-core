@@ -22,11 +22,19 @@ Valid style states:
 - `[-, -, ✓]`  → `styles`
 - `[-, -, -]`  → none
 
+## Rules and Valid States
+
+- Shadow and Scoped are mutually exclusive. Do not set both to true in a single component. The matrix and coverage script filter out any `shadow: true` + `scoped: true` combos.
+- Exactly one of styleUrl, styleUrls, or styles may be set, or none.
+- Naming: `component-<shadow?>-<scoped?>-<assetsdirs?>-<formassociated?>-<style?>` or `cmp-<...>`.
+- One file per unique permutation only.
+
 ## File/Tag Naming
 Place each new component in `matrix/` with a descriptive name derived from its options, and use the same string for the `@Component({ tag })`:
 
 - `component-shadow[-false]-scoped[-false][-assetsdirs][-formassociated|-formassociated-false][-styleurl|-styleurls|-styles].tsx`
-- Example: `component-shadow-false-scoped-assetsdirs-formassociated-false-styleurls.tsx`
+- or `cmp-shadow[-false]-scoped[-false][-assetsdirs][-formassociated|-formassociated-false][-styleurl|-styleurls|-styles].tsx`
+- Example: `cmp-shadow-false-scoped-assetsdirs-formassociated-false-styleurls.tsx`
 
 The component should render a helper string for audits:
 
@@ -35,13 +43,10 @@ Permutation: <shadow> | <scoped> | <assetsDirs> | <formAssociated> | <styleUrl> 
 ```
 
 ## Workflow
-1. Run coverage: `npm run coverage-component-tests --prefix test/storybook/docs/.ai/testing`
-2. Inspect `missingPermutations` in `component-coverage-data.json`
-3. Generate exactly one component per missing key (respect exclusivity)
-4. Re-run coverage and verify:
-   - `coverage.covered` increases by the number of files added
-   - The count of `.tsx` under `test/wdio/component-decorator/**` equals `coverage.covered`
-5. Repeat until `covered === total`
+1. Run coverage to compute the valid matrix (invalid shadow+scoped true combos are excluded).
+2. Use the generator to fill missing permutations.
+3. Re-run coverage and ensure file count matches covered.
+4. Build and run tests.
 
 ## Status (2025-09-08)
 - Covered: 122/216 (56.5%)

@@ -10,6 +10,7 @@ This document provides a concise guide for generating the coverage matrix for St
 ## Process Overview
 
 1. **Enumerate Permutations:** List all possible decorator permutations and options.
+   - Exclude invalid combinations: `shadow: true` with `scoped: true` is not allowed and should be dropped from enumeration and coverage.
 2. **Scan for Coverage:** Identify which permutations are already covered by existing components/tests.
 3. **Generate Missing Cases:** Create new components/tests for uncovered permutations.
 4. **Update Matrix:** Revise the matrix and documentation after each iteration.

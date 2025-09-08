@@ -73,6 +73,12 @@ function getAllPermutationKeys() {
 
   function buildPermutations(current, index) {
     if (index === baseKeys.length) {
+      // Enforce mutual exclusivity: shadow and scoped cannot both be true
+      const shadowVal = current[0]; // shadow
+      const scopedVal = current[1]; // scoped
+      if (shadowVal === '✓' && scopedVal === '✓') {
+        return; // skip invalid base combination
+      }
       // Once a base permutation is built, combine it with each valid style permutation
       stylePermutations.forEach(stylePerm => {
         allPermutations.push([...current, ...stylePerm].join('|'));
@@ -120,6 +126,15 @@ function main() {
   const permutationMap = {};
   results.forEach(entry => {
     const keyArr = OPTIONS.map(opt => normalizeValue(entry[opt], opt));
+
+    // Enforce mutual exclusivity: shadow and scoped cannot both be true
+    const shadowIdx = OPTIONS.indexOf('shadow');
+    const scopedIdx = OPTIONS.indexOf('scoped');
+    if (keyArr[shadowIdx] === '✓' && keyArr[scopedIdx] === '✓') {
+      console.warn(`Skipping invalid shadow+scoped permutation found in ${entry.file}`);
+      return; // skip invalid covered permutation
+    }
+
     // Enforce mutual exclusivity for styleUrl, styleUrls, styles in covered permutations
     const styleIdx = OPTIONS.indexOf('styleUrl');
     const styleUrlsIdx = OPTIONS.indexOf('styleUrls');

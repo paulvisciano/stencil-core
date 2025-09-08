@@ -16,6 +16,8 @@ Matrix-driven static analysis bridges this gap:
 - **Test Generation:** Missing permutations trigger new component/test generation, ensuring every case is exercised.
 - **Expansion:** While currently focused on Component Tests, this approach will expand to e2e tests, ensuring full coverage across all test types.
 
+> Note: As of Iteration X, we exclude permutations where both `shadow` and `scoped` are true. Stencil treats these as invalid (mutually exclusive), so they are not counted in total permutations.
+
 This matrix-driven strategy is essential for maintaining confidence in Stencil’s feature coverage, especially as new decorator options are added. It complements runtime tests and standard coverage tools, providing a systematic way to achieve and maintain comprehensive coverage.
 
 ## Core Objective

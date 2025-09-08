@@ -26,7 +26,7 @@ function segmentFrom(option, value) {
 
 function buildNameSegments(options) {
   const [shadow, scoped, assetsDirs, formAssociated, styleUrl, styleUrls, styles] = options;
-  const segs = ['component'];
+  const segs = ['cmp'];
   const s1 = segmentFrom('shadow', shadow);
   if (s1) segs.push(s1);
   const s2 = segmentFrom('scoped', scoped);
