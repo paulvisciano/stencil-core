@@ -1,0 +1,14 @@
+{
+  "name": "ai-testing-scripts",
+  "version": "1.0.0",
+  "description": "Shortcut scripts for running coverage and build tasks from the .ai/testing folder.",
+  "scripts": {
+    "build-component-tests": "cd ../../../wdio && npm run build",
+    "run-component-tests": "cd ../../../wdio && npm run wdio",
+    "coverage-component-tests": "cd ../../Testing/Decorators && node run-all-coverage.js",
+    "coverage-prop": "cd ../../Testing/Decorators && node prop-coverage.js",
+    "coverage-listen": "cd ../../Testing/Decorators && node listen-coverage.js",
+    "coverage-state": "cd ../../Testing/Decorators && node state-coverage.js",
+    "coverage-event": "cd ../../Testing/Decorators && node event-coverage.js"
+  }
+}

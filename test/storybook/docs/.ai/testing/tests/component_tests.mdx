@@ -32,13 +32,13 @@ This guide outlines the complete workflow for creating and executing component-l
 
 Before writing any new tests, it's important to understand the current test coverage. The coverage script helps you determine if components exist for all required permutations. For more details, refer to the matrix Generation documentation.
 
-To run the coverage script, use the following command:
+To run the coverage script for all decorators, use the following command:
 
 ```bash
-cd test/storybook && npm run coverage
+npm run coverage-component-tests
 ```
 
-This command will analyze the existing test suite and generate a report, giving you a clear picture of where new test components are needed for full permutation coverage.
+This command (run from `.ai/testing`) will analyze the existing test suite and generate a report, giving you a clear picture of where new test components are needed for full permutation coverage.
 
 ### Step 2: Generate Test Components
 
@@ -46,11 +46,10 @@ Once you've identified the missing test cases, the next step is to create the ne
 
 ### Step 3: Build the Test Components
 
-After creating or modifying your test components, you need to build them. Navigate to the `wdio` test directory and run the build command:
+After creating or modifying your test components, you need to build them. Run the build command from `.ai/testing`:
 
 ```bash
-cd test/wdio
-npm run build
+npm run build-component-tests
 ```
 
 ### Step 4: Write the Tests
@@ -77,9 +76,9 @@ To run the tests and ensure they pass, follow these steps:
     // ...
     ```
 
-2.  **Run the tests from the `test/wdio` directory**:
+2.  **Run the tests from `.ai/testing`**:
     ```bash
-    npm run wdio
+    npm run run-component-tests
     ```
 
 This will execute your tests and provide feedback on whether they pass or fail.
@@ -175,5 +174,5 @@ This pattern is simple, robust, and aligns with Stencil's architecture, making i
 - **Stencil @Method Decorator:** Only async methods (returning a Promise) are valid. Always review framework constraints and update the coverage matrix and test generation logic to exclude unsupported permutations.
 - **Matrix Validity:** Before generating tests, manually review the coverage matrix to ensure it matches the actual feature set supported by the framework. Coverage metrics are only meaningful if the matrix is correct.
 - **Consistent Test Patterns:** For WDIO component tests, use a consistent pattern (e.g., DOM update via button click) to ensure reliable automation and coverage.
-- **Build/Test Workflow:** Always follow the documented build and test workflow (`cd test/wdio && npm run build`, then `npm run wdio`). Update documentation if the process changes.
+- **Build/Test Workflow:** Always follow the documented build and test workflow (`npm run build-component-tests`, then `npm run run-component-tests`). Update documentation if the process changes.
 - **Document Learnings:** After each coverage push, document key learnings and process changes in the audit log. This ensures continuous improvement and helps future contributors avoid past mistakes.

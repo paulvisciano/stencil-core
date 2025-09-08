@@ -253,9 +253,30 @@ AI can rapidly generate standards-compliant tests when provided with clear conte
 
 ---
 
+## 2025-09-05: Input Event WDIO Test Pattern
+
+- Issue: WDIO `setValue('test')` on an input triggers the `input` event for each character, incrementing the counter multiple times.
+- Solution: For robust Stencil `@Listen('input')` tests, always render the input in the component, select it by id, and use `setValue('t')` for a single event or `setValue('test')` for multiple events. Match the assertion to the expected event count.
+- Pattern applied to all input event tests for reliable coverage.
+- Example:
+  - Component renders `<input id="test-input" />` and output div.
+  - Test waits for input, sets value, and asserts correct count.
+- Result: All input event WDIO tests now pass and coverage is complete.
+
+---
+
 ## Stencil 2 Target Update
 
 The `parent` target is no longer supported for the `@Listen` decorator in Stencil 2. All documentation, coverage matrices, and generated components/tests should exclude this target going forward.
+
+---
+
+## 2025-09-08: Script Path Management and Automation
+
+- **Issue:** Frequent errors and confusion occurred when running coverage, build, and test scripts from the wrong working directory, due to different terminal root folders and relative path mismatches.
+- **Solution:** Added a `package.json` file with shortcut scripts to `.ai/testing` that automatically `cd` into the correct directory before running the actual script. This ensures all commands are executed from a consistent location and paths are resolved correctly.
+- **Best Practice:** Always run scripts using the shortcuts in `.ai/testing/package.json` to avoid path issues. Update the overview and documentation to reflect this workflow improvement.
+- **Learning:** Automation and documentation must account for environment and path context. Centralizing script execution via shortcut scripts greatly reduces errors and improves developer experience.
 
 ---
 

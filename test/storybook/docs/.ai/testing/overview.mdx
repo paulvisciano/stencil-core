@@ -71,6 +71,22 @@ A groundbreaking aspect of our testing strategy is its reliance on a GenAI-power
 
 This iterative process allows us to not only achieve but also maintain high test coverage over time, adapting as new features and variations are introduced while continuously improving our methodology.
 
+## Running Scripts with package.json Shortcuts
+
+To streamline the testing workflow and avoid path resolution issues, a `package.json` file with shortcut scripts is provided in the `.ai/testing` folder. These scripts automatically `cd` into the correct directory and run the required commands, ensuring consistent execution regardless of your current working directory.
+
+**How to use:**
+- Build WDIO components: `npm run build-component-tests`
+- Run WDIO component tests: `npm run run-component-tests`
+- Run the component coverage script (all decorators): `npm run coverage-component-tests`
+- Run a specific coverage script (e.g., prop): `npm run coverage-prop`
+- Run a specific coverage script (e.g., listen): `npm run coverage-listen`
+- Run a specific coverage script (e.g., state): `npm run coverage-state`
+- Run a specific coverage script (e.g., event): `npm run coverage-event`
+
+**Best Practice:**
+Always use these shortcuts from the `.ai/testing` folder to avoid path issues and ensure scripts run in the correct environment. Update or add new shortcuts as needed to keep the workflow efficient and reliable.
+
 ## Recording Learnings
 
 After each testing loop iteration, all learnings—including mistakes, improvements, coverage script gaps, and best practices—should be documented in the appropriate `.ai` folder file for the feature or decorator. Additionally, a summary of key learnings and process changes should be added to the audit log (`audit.mdx`) to ensure institutional knowledge is preserved and future contributors benefit from past experience.
