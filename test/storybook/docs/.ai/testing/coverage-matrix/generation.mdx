@@ -1,18 +1,70 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta title="Testing/Framework/Coverage Matrix/Generation" tags={['pending-review']} />
+<Meta title="Testing/Framework/Coverage Matrix/Generation" tags={['ai','coverage','stable']} />
 
 # Matrix Generation Process
-<div style={{display: 'inline-block', padding: '4px 12px', background: '#ffe066', color: '#7c5c00', borderRadius: '16px', fontWeight: 'bold', marginBottom: '16px'}}>⏳ Pending Review</div>
 
-This document provides a concise guide for generating the coverage matrix for Stencil decorators. It outlines the iterative process for maintaining comprehensive coverage as the codebase evolves.
+This document provides a concise, actionable guide for generating and maintaining the coverage matrix for Stencil decorators, with a focus on `@Component`. It captures the rules we enforce, the standardized assets we use, the generator behavior, and the end-to-end workflow using the `.ai` scripts.
 
-## Process Overview
+## Canonical Rules
 
-1. **Enumerate Permutations:** List all possible decorator permutations and options.
-   - Exclude invalid combinations: `shadow: true` with `scoped: true` is not allowed and should be dropped from enumeration and coverage.
-2. **Scan for Coverage:** Identify which permutations are already covered by existing components/tests.
-3. **Generate Missing Cases:** Create new components/tests for uncovered permutations.
-4. **Update Matrix:** Revise the matrix and documentation after each iteration.
+- Shadow/scoped exclusivity: `shadow: true` and `scoped: true` cannot both be true. Such permutations are invalid and excluded from enumeration and coverage.
+- Style exclusivity: At most one of `styleUrl`, `styleUrls`, or `styles` may be set per component. Files that set more than one are skipped by coverage and must be fixed.
+- One file per unique permutation: Exactly one `.tsx` component per unique permutation under `test/wdio/component-decorator/**`.
+- Naming conventions: Prefer `cmp-*` (or `component-*`) with descriptive suffixes that reflect options. Place generated files under `test/wdio/component-decorator/matrix/`.
 
-Best practices and lessons learned from previous cycles are captured here. For verification steps, see `verification.mdx`.
+Options order used by coverage: `[shadow, scoped, assetsDirs, formAssociated, styleUrl, styleUrls, styles]`.
+
+## Standardized Assets/Defaults
+
+To keep the matrix predictable and easy to audit, the generator uses canonical assets:
+
+- `styleUrl`: `'matrix-gen.css'`
+- `styleUrls`: `['matrix-gen.css', 'matrix-alt.css']`
+- `styles`: `':host{display:block}'`
+
+These CSS files live in `test/wdio/component-decorator/matrix/` and are shared by all generated components. Legacy examples under `test/wdio/component-decorator/styles/**` are retained; do not modify them.
+
+## Generator Behavior
+
+- Script: `Testing/Decorators/generate-missing-components.js`
+- Emission folder: `test/wdio/component-decorator/matrix/`
+- Filename prefix: `cmp-`
+- Imports: `import { Component, h } from '@stencil/core'`
+- Enforcement: emits exactly one file per missing permutation, honoring the rules above.
+
+## End-to-End Workflow (.ai scripts)
+
+From `test/storybook/docs/.ai/testing`:
+
+1) Compute coverage and write JSON artifacts
+- `npm run coverage-component-tests` → updates `Testing/Decorators/*-coverage-data.json` including `component-coverage-data.json`.
+
+2) Generate any missing `@Component` permutations
+- `npm run generate-missing-components` → creates components under `matrix/` as needed.
+
+3) Re-run coverage and verify 100%
+- `npm run coverage-component-tests` → expect `covered === total` for `component-coverage-data.json`.
+
+4) Build WDIO components
+- `npm run build-wdio-components` → builds `test/wdio` using the repository scripts.
+
+## Verification and Guardrails
+
+- Coverage target: 100% across valid permutations (excludes `shadow:true + scoped:true`).
+- File count parity: The total `.tsx` files under `test/wdio/component-decorator/**` must equal the `covered` count recorded in `component-coverage-data.json`.
+- Style exclusivity audit: If coverage drops unexpectedly, search for components that set multiple of `styleUrl|styleUrls|styles` and fix them.
+
+## Portability Notes
+
+- The generation/coverage logic operates purely on source files and JSON outputs, with no project-specific build assumptions beyond paths noted here.
+- CSS assets are co-located in `matrix/` and referenced with relative paths, ensuring components remain portable within the repo.
+- Scripts are invoked from `.ai/testing` and use relative path traversal to address both the Storybook docs and WDIO projects.
+
+## Troubleshooting
+
+- Missing CSS during WDIO build: ensure `matrix-gen.css` and `matrix-alt.css` exist under `matrix/` (they are created/maintained in this repo).
+- Invalid permutations in repo: delete or fix any file that sets `shadow:true` with `scoped:true`, or multiple style props.
+- Duplicate permutations: if two files implement the same permutation, delete/rename so only one remains under `component-decorator/**`.
+
+Best practices and lessons from previous cycles are reflected here. For verification specifics, see `coverage-matrix/verification.mdx`. For status details and examples, see `decorators/component.mdx`.

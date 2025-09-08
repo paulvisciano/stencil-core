@@ -1,20 +1,20 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta title="Testing/Decorators/@Component Coverage Strategy" tags={['pending-review']} />
+<Meta title="Testing/Decorators/@Component Coverage Strategy" tags={['ai','coverage','stable']} />
 
 # @Component Decorator Coverage Strategy
 
-This document outlines the approach to achieve and maintain 100% coverage for valid `@Component` permutations as defined by the canonical coverage script at `Testing/Decorators/component-coverage.js`.
+This document outlines the approach to achieve and maintain 100% coverage for valid `@Component` permutations as defined by `Testing/Decorators/component-coverage.js`.
 
 ## Source of Truth
 - Coverage data: `Testing/Decorators/component-coverage-data.json`
 - Script: `Testing/Decorators/component-coverage.js`
-- Matrix location for new components: `test/wdio/component-decorator/matrix/`
+- Matrix location: `test/wdio/component-decorator/matrix/`
 
 ## Options & Valid States
 - Options order: `[shadow, scoped, assetsDirs, formAssociated, styleUrl, styleUrls, styles]`
-- Value symbols: `✓` (true/set), `✗` (false), `-` (absent)
-- Style exclusivity: Exactly one of `styleUrl`, `styleUrls`, or `styles` may be set, or none. The coverage script skips any invalid component that sets more than one.
+- Symbols: `✓` (true/set), `✗` (false), `-` (absent)
+- Style exclusivity: At most one of `styleUrl`, `styleUrls`, or `styles` may be set per component.
 
 Valid style states:
 - `[✓, -, -]`  → `styleUrl`
@@ -22,49 +22,36 @@ Valid style states:
 - `[-, -, ✓]`  → `styles`
 - `[-, -, -]`  → none
 
-## Rules and Valid States
+## Rules
+- Shadow and Scoped are mutually exclusive; do not set both to true.
+- Exactly one file per unique permutation.
+- Names: `cmp-*` or `component-*`, placed in `matrix/`.
 
-- Shadow and Scoped are mutually exclusive. Do not set both to true in a single component. The matrix and coverage script filter out any `shadow: true` + `scoped: true` combos.
-- Exactly one of styleUrl, styleUrls, or styles may be set, or none.
-- Naming: `component-<shadow?>-<scoped?>-<assetsdirs?>-<formassociated?>-<style?>` or `cmp-<...>`.
-- One file per unique permutation only.
+## Standardized Assets
+- `styleUrl`: `'matrix-gen.css'`
+- `styleUrls`: `['matrix-gen.css', 'matrix-alt.css']`
+- `styles`: `':host{display:block}'`
 
-## File/Tag Naming
-Place each new component in `matrix/` with a descriptive name derived from its options, and use the same string for the `@Component({ tag })`:
-
-- `component-shadow[-false]-scoped[-false][-assetsdirs][-formassociated|-formassociated-false][-styleurl|-styleurls|-styles].tsx`
-- or `cmp-shadow[-false]-scoped[-false][-assetsdirs][-formassociated|-formassociated-false][-styleurl|-styleurls|-styles].tsx`
-- Example: `cmp-shadow-false-scoped-assetsdirs-formassociated-false-styleurls.tsx`
-
-The component should render a helper string for audits:
-
-```
-Permutation: <shadow> | <scoped> | <assetsDirs> | <formAssociated> | <styleUrl> | <styleUrls> | <styles>
-```
-
-## Workflow
-1. Run coverage to compute the valid matrix (invalid shadow+scoped true combos are excluded).
-2. Use the generator to fill missing permutations.
-3. Re-run coverage and ensure file count matches covered.
-4. Build and run tests.
+## Workflow (.ai scripts)
+From `test/storybook/docs/.ai/testing`:
+- `npm run coverage-component-tests` → refresh coverage JSON
+- `npm run generate-missing-components` → fill gaps under `matrix/`
+- `npm run coverage-component-tests` → confirm 100%
+- `npm run build-wdio-components` → build WDIO project
 
 ## Status (2025-09-08)
 - Covered: 192/192 (100.0%)
-- .tsx count under `test/wdio/component-decorator/**` equals the covered count (192)
-- All matrix components import `{ Component, h }` from `@stencil/core`
-- Invalid permutations pruned: no `shadow: true` + `scoped: true` remain; style prop exclusivity enforced
-- Fixed invalid tag file: removed `matrix/component.tsx`; added `matrix/cmp-base.tsx`
-- Generator updated/used to emit exactly one component per missing permutation; future gens use `cmp-*` prefix
+- .tsx count under `test/wdio/component-decorator/**` equals covered (192)
+- Imports normalized to `import { Component, h } from '@stencil/core'`
+- Invalid permutations pruned; exclusivity enforced
+- Generator emits one file per missing permutation with `cmp-` prefix
 
-Next:
-- Run coverage + build from `.ai/testing` scripts to validate end-to-end
+## Verification Guardrails
+- Parity check: `.tsx` count must equal `coverage.covered`
+- No files setting multiple style props
+- No `shadow:true` + `scoped:true`
 
-## Model Policy
-- Use GPT-5 (Preview) for component generation
-- Use GPT-4.1 for documentation
-
-## Tips
-- Prefer small CSS shims like `styles: ':host{display:block}'` to keep components trivial
-- Use unique CSS filenames for `styleUrl`/`styleUrls` to avoid accidental dedupe
-- Do not alter existing `styles/` reference examples; new permutations live in `matrix/`
-- If coverage unexpectedly drops, search for components with multiple style props or misplaced files
+## Troubleshooting
+- If WDIO build fails due to missing CSS, ensure `matrix-gen.css` and `matrix-alt.css` exist in `matrix/`.
+- If coverage dips, search for invalid permutations or duplicate files.
+```
