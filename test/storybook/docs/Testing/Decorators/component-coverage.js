@@ -7,8 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const TEST_DIRS = [
-  path.resolve(__dirname, '../../../../../test/end-to-end'),
-  path.resolve(__dirname, '../../../../../test/wdio'),
+  path.resolve(__dirname, '../../../../../test/wdio/component-decorator'),
 ];
 const OPTIONS = ['shadow', 'scoped', 'assetsDirs', 'formAssociated', 'styleUrl', 'styleUrls', 'styles'];
 

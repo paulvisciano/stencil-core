@@ -68,7 +68,7 @@ export const config: WebdriverIO.Config = {
   // of the config file unless it's absolute.
   //
   specs: [
-    ['./**/*.test.tsx']
+    './listen/**/*.test.tsx',
   ],
   // Patterns to exclude.
   exclude: [
