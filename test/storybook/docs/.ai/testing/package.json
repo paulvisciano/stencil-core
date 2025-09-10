@@ -5,7 +5,9 @@
   "scripts": {
     "build-wdio-components": "cd ../../../../wdio && npm run build",
     "run-component-tests": "cd ../../../../wdio && npm run wdio",
+    "run-component-tests:spec": "cd ../../../../wdio && npm run wdio --",
     "refresh-coverage-matrix": "cd ../../Testing/Decorators && node run-all-coverage.js",
+    "coverage-loop": "npm run refresh-coverage-matrix && npm run generate-missing-components && npm run refresh-coverage-matrix",
     "coverage-prop": "cd ../../Testing/Decorators && node prop-coverage.js",
     "coverage-listen": "cd ../../Testing/Decorators && node listen-coverage.js",
     "coverage-state": "cd ../../Testing/Decorators && node state-coverage.js",

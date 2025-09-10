@@ -26,6 +26,10 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 ## Writing and Running Component Tests
 
+Prerequisites:
+- Coverage at 100% for the target decorator(s) using `npm run refresh-coverage-matrix`.
+- WDIO build succeeds with no compiler errors using `npm run build-wdio-components`.
+
 This guide outlines the complete workflow for creating and executing component-level tests in the `test/wdio` directory. Following these steps will help you contribute effectively to the project's test suite.
 
 ### Step 1: Establish a Baseline with the Coverage Script

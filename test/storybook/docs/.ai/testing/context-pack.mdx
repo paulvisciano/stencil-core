@@ -27,6 +27,7 @@ A portable, framework-agnostic package of prompts, policies, scripts, and docs t
 3) Adjust `.ai/testing/package.json` shortcuts to `cd` into the correct local folders.
 4) Run coverage from `.ai/testing` to discover gaps:
    - All decorators: `npm run refresh-coverage-matrix`
+   - Shortcut (refresh → generate → refresh): `npm run coverage-loop`
    - Specific decorator (examples): `npm run coverage-prop`, `npm run coverage-state`, `npm run coverage-listen`, `npm run coverage-event`
 5) Generation loop (preferred models):
    - Use GPT-5 (Preview) for component/test generation
@@ -35,6 +36,7 @@ A portable, framework-agnostic package of prompts, policies, scripts, and docs t
 6) Build and run:
    - Build components: `npm run build-wdio-components`
    - Run tests: `npm run run-component-tests`
+   - Targeted run (spec/glob): `npm run run-component-tests:spec -- ./state/**/*.test.tsx`
 
 ## Minimal prompt template
 > Using the Context Pack and `project-config.mdx`, read the coverage data, list `missingPermutations`, generate exactly one component per missing key following naming/location rules, rebuild, and rerun coverage. Then generate WDIO tests for the new components following the documented patterns.

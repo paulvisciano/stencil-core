@@ -39,6 +39,7 @@ From `test/storybook/docs/.ai/testing`:
 
 1) Compute coverage and write JSON artifacts
 - `npm run refresh-coverage-matrix` → updates `Testing/Decorators/*-coverage-data.json` including `component-coverage-data.json`.
+- Shortcut: `npm run coverage-loop` runs steps 1–3 in one go.
 
 2) Generate any missing `@Component` permutations
 - `npm run generate-missing-components` → creates components under `matrix/` as needed.
@@ -48,6 +49,14 @@ From `test/storybook/docs/.ai/testing`:
 
 4) Build WDIO components
 - `npm run build-wdio-components` → builds `test/wdio` using the repository scripts.
+
+5) If the build surfaces compiler errors (e.g., mutually exclusive decorator properties), fix the offending components or update the coverage rules, then rebuild until clean
+
+6) Re-verify coverage remains at 100%
+- `npm run refresh-coverage-matrix` → confirm parity still holds after fixes.
+
+7) Next phase: generate tests for the matrix components
+- See [Component Tests](?path=/docs/testing-framework-tests-component-tests--docs). Run tests with `npm run run-component-tests` or target a spec: `npm run run-component-tests:spec -- ./component-decorator/**/*.test.tsx`.
 
 ## Verification and Guardrails
 
