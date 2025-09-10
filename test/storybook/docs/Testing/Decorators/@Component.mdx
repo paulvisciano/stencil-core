@@ -1,8 +1,15 @@
+import rules from './component-rules.json';
 import data from './component-coverage-data.json';
 
 # @Component Testing Matrix
 
 The `@Component` decorator is used to define a Stencil custom element, specifying its tag name, style, encapsulation, shadow DOM options, and other metadata. It is the entry point for all Stencil components and controls how they are registered and rendered.
+
+## Rules (at a glance)
+- Styles are mutually exclusive: use exactly one of {rules.exclusiveGroups.find(g => g.name === 'styles').members.join(' | ')}.
+- Encapsulation flags are mutually exclusive: {rules.exclusiveGroups.find(g => g.name === 'encapsulation').members.join(' and ')} cannot both be `true`.
+- Render modes: {rules.modes.map(m => m.name).join(', ')}.
+- Matrix conventions: generated examples are grouped by render mode under `matrix/shadow`, `matrix/scoped`, and `matrix/light`; CSS asset paths are parent‑relative from grouped subfolders.
 
 ## Component Properties
 

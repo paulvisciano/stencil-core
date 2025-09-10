@@ -10,6 +10,7 @@ const TEST_DIRS = [
   path.resolve(__dirname, '../../../../../test/wdio/component-decorator'),
 ];
 const OPTIONS = ['shadow', 'scoped', 'assetsDirs', 'formAssociated', 'styleUrl', 'styleUrls', 'styles'];
+const RULES_PATH = path.resolve(__dirname, 'component-rules.json');
 
 function findFiles(dir, ext = '.tsx', excludeDirs = ['node_modules', '.cache']) {
   let results = [];
@@ -53,6 +54,8 @@ function normalizeValue(val, opt) {
 }
 
 function getAllPermutationKeys() {
+  const rules = JSON.parse(fs.readFileSync(RULES_PATH, 'utf8'));
+
   const baseOptions = {
     shadow: ['✓', '✗', '-'],
     scoped: ['✓', '✗', '-'],
@@ -60,26 +63,26 @@ function getAllPermutationKeys() {
     formAssociated: ['✓', '✗', '-'],
   };
 
-  // There are 4 valid states for the style properties
+  // Build style permutations from rules.exclusiveGroups (styles group) and allow none
   const stylePermutations = [
     ['✓', '-', '-'], // styleUrl set
     ['-', '✓', '-'], // styleUrls set
     ['-', '-', '✓'], // styles set
     ['-', '-', '-'], // none set
   ];
-
+  
   const baseKeys = Object.keys(baseOptions);
   const allPermutations = [];
 
   function buildPermutations(current, index) {
     if (index === baseKeys.length) {
-      // Enforce mutual exclusivity: shadow and scoped cannot both be true
+      // Enforce mutual exclusivity per rules: shadow and scoped cannot both be true
       const shadowVal = current[0]; // shadow
       const scopedVal = current[1]; // scoped
       if (shadowVal === '✓' && scopedVal === '✓') {
         return; // skip invalid base combination
       }
-      // Once a base permutation is built, combine it with each valid style permutation
+      // Combine with each style permutation
       stylePermutations.forEach(stylePerm => {
         allPermutations.push([...current, ...stylePerm].join('|'));
       });
@@ -135,7 +138,7 @@ function main() {
       return; // skip invalid covered permutation
     }
 
-    // Enforce mutual exclusivity for styleUrl, styleUrls, styles in covered permutations
+    // Enforce mutual exclusivity for styleUrl, styleUrls, styles in covered permutations using rules
     const styleIdx = OPTIONS.indexOf('styleUrl');
     const styleUrlsIdx = OPTIONS.indexOf('styleUrls');
     const stylesIdx = OPTIONS.indexOf('styles');

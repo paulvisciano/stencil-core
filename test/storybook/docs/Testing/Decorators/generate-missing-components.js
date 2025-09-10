@@ -6,6 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const DATA_PATH = path.resolve(__dirname, 'component-coverage-data.json');
+const RULES_PATH = path.resolve(__dirname, 'component-rules.json');
 const OUTPUT_DIR = path.resolve(__dirname, '../../../../../test/wdio/component-decorator/matrix');
 
 /**
@@ -52,14 +53,18 @@ function toPascalCase(tag) {
 function buildComponentSource(options, tag, cssPrefix = '') {
   const [shadow, scoped, assetsDirs, formAssociated, styleUrl, styleUrls, styles] = options;
 
+  const rules = JSON.parse(fs.readFileSync(RULES_PATH, 'utf8'));
+
   const props = [];
   props.push(`tag: '${tag}'`);
   if (shadow !== '-') props.push(`shadow: ${toBoolSymbol(shadow)}`);
   if (scoped !== '-') props.push(`scoped: ${toBoolSymbol(scoped)}`);
   if (assetsDirs === '✓') props.push(`assetsDirs: ['assets']`);
   if (formAssociated !== '-') props.push(`formAssociated: ${toBoolSymbol(formAssociated)}`);
-  if (styleUrl === '✓') props.push(`styleUrl: '${cssPrefix}matrix-gen.css'`);
-  if (styleUrls === '✓') props.push(`styleUrls: ['${cssPrefix}matrix-gen.css', '${cssPrefix}matrix-alt.css']`);
+
+  // Styles exclusivity handled by permutation; emit based on which is set
+  if (styleUrl === '✓') props.push(`styleUrl: '${cssPrefix}${rules.emit.assets.styleUrl}'`);
+  if (styleUrls === '✓') props.push(`styleUrls: ['${cssPrefix}${rules.emit.assets.styleUrls[0]}', '${cssPrefix}${rules.emit.assets.styleUrls[1]}']`);
   if (styles === '✓') props.push(`styles: ':host{display:block}'`);
 
   const className = toPascalCase(tag);
@@ -88,6 +93,10 @@ function getGroupDirForOptions(options) {
 function main() {
   if (!fs.existsSync(DATA_PATH)) {
     console.error(`Missing data file: ${DATA_PATH}`);
+    process.exit(1);
+  }
+  if (!fs.existsSync(RULES_PATH)) {
+    console.error(`Missing rules file: ${RULES_PATH}`);
     process.exit(1);
   }
   if (!fs.existsSync(OUTPUT_DIR)) {

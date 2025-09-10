@@ -1,0 +1,31 @@
+{
+  "decorator": "@Component",
+  "options": {
+    "shadow": "boolean:omit",
+    "scoped": "boolean:omit",
+    "assetsDirs": "present|omit",
+    "formAssociated": "boolean:omit",
+    "styleUrl": "present|omit",
+    "styleUrls": "present|omit",
+    "styles": "present|omit"
+  },
+  "exclusiveGroups": [
+    { "name": "encapsulation", "members": ["shadow", "scoped"], "allowNone": true },
+    { "name": "styles", "members": ["styleUrl", "styleUrls", "styles"], "allowNone": true }
+  ],
+  "modes": [
+    { "name": "shadow", "when": { "shadow": true } },
+    { "name": "scoped", "when": { "scoped": true } },
+    { "name": "light",  "when": { "shadow": false, "scoped": false } }
+  ],
+  "emit": {
+    "assets": {
+      "styleUrl": "matrix-gen.css",
+      "styleUrls": ["matrix-gen.css", "matrix-alt.css"]
+    },
+    "naming": {
+      "prefix": "cmp",
+      "includeOptions": ["shadow", "scoped", "assetsDirs", "formAssociated", "styleUrl", "styleUrls", "styles"]
+    }
+  }
+}
