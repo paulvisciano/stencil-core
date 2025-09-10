@@ -34,9 +34,9 @@ Valid style states:
 
 ## Workflow (.ai scripts)
 From `test/storybook/docs/.ai/testing`:
-- `npm run coverage-component-tests` → refresh coverage JSON
+- `npm run refresh-coverage-matrix` → refresh coverage JSON
 - `npm run generate-missing-components` → fill gaps under `matrix/`
-- `npm run coverage-component-tests` → confirm 100%
+- `npm run refresh-coverage-matrix` → confirm 100%
 - `npm run build-wdio-components` → build WDIO project
 
 ## Status (2025-09-08)
@@ -54,4 +54,3 @@ From `test/storybook/docs/.ai/testing`:
 ## Troubleshooting
 - If WDIO build fails due to missing CSS, ensure `matrix-gen.css` and `matrix-alt.css` exist in `matrix/`.
 - If coverage dips, search for invalid permutations or duplicate files.
-```

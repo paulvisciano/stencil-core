@@ -38,13 +38,13 @@ These CSS files live in `test/wdio/component-decorator/matrix/` and are shared b
 From `test/storybook/docs/.ai/testing`:
 
 1) Compute coverage and write JSON artifacts
-- `npm run coverage-component-tests` → updates `Testing/Decorators/*-coverage-data.json` including `component-coverage-data.json`.
+- `npm run refresh-coverage-matrix` → updates `Testing/Decorators/*-coverage-data.json` including `component-coverage-data.json`.
 
 2) Generate any missing `@Component` permutations
 - `npm run generate-missing-components` → creates components under `matrix/` as needed.
 
 3) Re-run coverage and verify 100%
-- `npm run coverage-component-tests` → expect `covered === total` for `component-coverage-data.json`.
+- `npm run refresh-coverage-matrix` → expect `covered === total` for `component-coverage-data.json`.
 
 4) Build WDIO components
 - `npm run build-wdio-components` → builds `test/wdio` using the repository scripts.
