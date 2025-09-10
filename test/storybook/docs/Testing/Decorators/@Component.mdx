@@ -16,6 +16,24 @@ The `@Component` decorator accepts an object with the following properties:
 -   **`styleUrls`** (`string[]`): An array of URLs for multiple stylesheets to be applied to the component. This is mutually exclusive with `styleUrl` and `styles`.
 -   **`styles`** (`string`): A string containing the CSS text to be applied directly to the component. This is mutually exclusive with `styleUrl` and `styleUrls`.
 
+## Rendering Modes and Matrix Grouping
+
+To simplify navigation of the generated matrix, components are organized one level deep by render mode under `test/wdio/component-decorator/matrix/`:
+
+- `shadow/` (shadow: true)
+  - Uses native Shadow DOM for real DOM and CSS encapsulation
+  - Slots work natively; :host and :host-context apply inside the shadow root
+  - External page CSS does not leak in (CSS variables still pass through)
+- `scoped/` (scoped: true, shadow: false)
+  - Renders in light DOM; Stencil rewrites selectors to emulate encapsulation
+  - Easier theming from outside; some global CSS may still affect layout
+- `light/` (shadow: false, scoped: false)
+  - Plain light DOM with no encapsulation
+  - Fastest and simplest; external styles fully apply
+
+Rule: `shadow` and `scoped` are mutually exclusive and never both `true`.
+
+`cmp-base.tsx`, `matrix-gen.css`, and `matrix-alt.css` remain in the `matrix/` root.
 
 ## Covered Permutations
 

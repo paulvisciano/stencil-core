@@ -10,6 +10,7 @@
     "coverage-listen": "cd ../../Testing/Decorators && node listen-coverage.js",
     "coverage-state": "cd ../../Testing/Decorators && node state-coverage.js",
     "coverage-event": "cd ../../Testing/Decorators && node event-coverage.js",
-    "generate-missing-components": "cd ../../Testing/Decorators && node generate-missing-components.js"
+    "generate-missing-components": "cd ../../Testing/Decorators && node generate-missing-components.js",
+    "group-matrix": "node ./scripts/group-matrix.js"
   }
 }
