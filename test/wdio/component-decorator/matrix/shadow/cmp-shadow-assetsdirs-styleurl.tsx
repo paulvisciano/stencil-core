@@ -5,7 +5,7 @@ import { Component, h } from '@stencil/core';
   tag: 'cmp-shadow-assetsdirs-styleurl',
   shadow: true,
   assetsDirs: ['assets'],
-  styleUrl: 'matrix-gen.css'
+  styleUrl: '../matrix-gen.css'
 })
 export class CmpShadowAssetsdirsStyleurl {
   render() {

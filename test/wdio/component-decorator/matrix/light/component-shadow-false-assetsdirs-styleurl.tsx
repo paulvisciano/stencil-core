@@ -5,7 +5,7 @@ import { Component, h } from '@stencil/core';
   tag: 'component-shadow-false-assetsdirs-styleurl',
   shadow: false,
   assetsDirs: ['assets'],
-  styleUrl: 'matrix-gen.css'
+  styleUrl: '../matrix-gen.css'
 })
 export class ComponentShadowFalseAssetsdirsStyleurl {
   render() {

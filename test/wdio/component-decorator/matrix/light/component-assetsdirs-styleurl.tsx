@@ -4,7 +4,7 @@ import { Component, h } from '@stencil/core';
 @Component({
   tag: 'component-assetsdirs-styleurl',
   assetsDirs: ['assets'],
-  styleUrl: 'matrix-gen.css'
+  styleUrl: '../matrix-gen.css'
 })
 export class ComponentAssetsdirsStyleurl {
   render() {

@@ -5,7 +5,7 @@ import { Component, h } from '@stencil/core';
   tag: 'cmp-shadow-formassociated-styleurls',
   shadow: true,
   formAssociated: true,
-  styleUrls: ['matrix-gen.css', 'matrix-alt.css']
+  styleUrls: ['../matrix-gen.css', '../matrix-alt.css']
 })
 export class CmpShadowFormassociatedStyleurls {
   render() {

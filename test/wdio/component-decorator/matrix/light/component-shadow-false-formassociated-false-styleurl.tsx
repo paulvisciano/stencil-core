@@ -5,7 +5,7 @@ import { Component, h } from '@stencil/core';
   tag: 'component-shadow-false-formassociated-false-styleurl',
   shadow: false,
   formAssociated: false,
-  styleUrl: 'matrix-gen.css'
+  styleUrl: '../matrix-gen.css'
 })
 export class ComponentShadowFalseFormassociatedFalseStyleurl {
   render() {

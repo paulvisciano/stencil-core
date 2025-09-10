@@ -4,7 +4,7 @@ import { Component, h } from '@stencil/core';
 @Component({
   tag: 'component-scoped-false-styleurls',
   scoped: false,
-  styleUrls: ['matrix-gen.css', 'matrix-alt.css']
+  styleUrls: ['../matrix-gen.css', '../matrix-alt.css']
 })
 export class ComponentScopedFalseStyleurls {
   render() {

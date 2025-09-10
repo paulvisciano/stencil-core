@@ -4,7 +4,7 @@ import { Component, h } from '@stencil/core';
 @Component({
   tag: 'cmp-scoped-styleurls',
   scoped: true,
-  styleUrls: ['matrix-gen.css', 'matrix-alt.css']
+  styleUrls: ['../matrix-gen.css', '../matrix-alt.css']
 })
 export class CmpScopedStyleurls {
   render() {

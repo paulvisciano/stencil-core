@@ -4,7 +4,7 @@ import { Component, h } from '@stencil/core';
 @Component({
   tag: 'component-formassociated-styleurl',
   formAssociated: true,
-  styleUrl: 'matrix-gen.css'
+  styleUrl: '../matrix-gen.css'
 })
 export class ComponentFormassociatedStyleurl {
   render() {

@@ -1,4 +1,3 @@
-// filepath: /Users/paul.visciano/repos/core/test/storybook/docs/Testing/Decorators/generate-missing-components.js
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -50,7 +49,7 @@ function toPascalCase(tag) {
     .join('');
 }
 
-function buildComponentSource(options, tag) {
+function buildComponentSource(options, tag, cssPrefix = '') {
   const [shadow, scoped, assetsDirs, formAssociated, styleUrl, styleUrls, styles] = options;
 
   const props = [];
@@ -59,8 +58,8 @@ function buildComponentSource(options, tag) {
   if (scoped !== '-') props.push(`scoped: ${toBoolSymbol(scoped)}`);
   if (assetsDirs === '✓') props.push(`assetsDirs: ['assets']`);
   if (formAssociated !== '-') props.push(`formAssociated: ${toBoolSymbol(formAssociated)}`);
-  if (styleUrl === '✓') props.push(`styleUrl: 'matrix-gen.css'`);
-  if (styleUrls === '✓') props.push(`styleUrls: ['matrix-gen.css', 'matrix-alt.css']`);
+  if (styleUrl === '✓') props.push(`styleUrl: '${cssPrefix}matrix-gen.css'`);
+  if (styleUrls === '✓') props.push(`styleUrls: ['${cssPrefix}matrix-gen.css', '${cssPrefix}matrix-alt.css']`);
   if (styles === '✓') props.push(`styles: ':host{display:block}'`);
 
   const className = toPascalCase(tag);
@@ -77,6 +76,13 @@ export class ${className} {
   }
 }
 `;
+}
+
+function getGroupDirForOptions(options) {
+  const [shadow, scoped] = options;
+  if (shadow === '✓') return 'shadow';
+  if (scoped === '✓') return 'scoped';
+  return 'light';
 }
 
 function main() {
@@ -99,7 +105,14 @@ function main() {
     const nameSegs = buildNameSegments(options);
     const baseName = nameSegs.join('-');
     const fileName = `${baseName}.tsx`;
-    const filePath = path.join(OUTPUT_DIR, fileName);
+
+    const groupDir = getGroupDirForOptions(options);
+    const targetDir = path.join(OUTPUT_DIR, groupDir);
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
+    }
+
+    const filePath = path.join(targetDir, fileName);
 
     if (fs.existsSync(filePath)) {
       // Already exists (defensive), skip
@@ -107,7 +120,8 @@ function main() {
     }
 
     const tag = nameSegs.join('-');
-    const src = buildComponentSource(options, tag);
+    const cssPrefix = '../';
+    const src = buildComponentSource(options, tag, cssPrefix);
 
     fs.writeFileSync(filePath, `// filepath: ${filePath}\n${src}`);
     created++;

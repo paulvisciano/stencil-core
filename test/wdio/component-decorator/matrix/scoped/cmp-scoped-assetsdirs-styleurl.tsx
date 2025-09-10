@@ -5,7 +5,7 @@ import { Component, h } from '@stencil/core';
   tag: 'cmp-scoped-assetsdirs-styleurl',
   scoped: true,
   assetsDirs: ['assets'],
-  styleUrl: 'matrix-gen.css'
+  styleUrl: '../matrix-gen.css'
 })
 export class CmpScopedAssetsdirsStyleurl {
   render() {
