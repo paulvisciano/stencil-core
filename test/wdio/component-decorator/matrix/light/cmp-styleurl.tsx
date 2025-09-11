@@ -1,4 +1,4 @@
-// filepath: /Users/paul.visciano/repos/core/test/wdio/component-decorator/matrix/cmp-styleurl.tsx
+// filepath: /Users/paul.visciano/repos/core/test/wdio/component-decorator/matrix/light/cmp-styleurl.tsx
 import { Component, h } from '@stencil/core';
 
 @Component({
