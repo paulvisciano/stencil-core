@@ -22,6 +22,51 @@ A key step in the testing loop is manual verification of the coverage matrix. Af
 
 ---
 
+## Iteration: `@Component` — Rule‑driven matrix, generator, and verify guard
+
+**Date:** September 14, 2025
+
+### Summary
+This iteration went well beyond expectations. GPT‑5 proposed and implemented a rule‑driven approach that materially improved speed and reliability:
+- Authored a dedicated generator script for matrix components (10x+ faster end‑to‑end loop).
+- Extracted human‑readable rules into a JSON file as the single source of truth.
+- Added a verify guard script to enforce parity, grouping, and exclusivity, with a probe to validate rule‑driven growth.
+
+### Key Changes
+- Rules as source of truth
+  - `component-rules.json`: options schema, exclusivity groups, modes (grouping), emit naming/assets.
+- Coverage refactor
+  - `component-coverage.js`: builds permutation space from rules (cartesian + exclusivity), validates covered permutations via rules, records relative file paths; supports env override `COMPONENT_RULES_PATH` for probes.
+- Generator integration
+  - `generate-missing-components.js`: derives names from `rules.emit.naming`, groups files via `rules.modes` (shadow/scoped/light), emits exactly one style prop per file from `rules.emit.assets`.
+- Verify guard
+  - `verify-matrix.js`: re‑runs coverage; asserts covered === total; asserts `.tsx` parity under `test/wdio/component-decorator/**`; validates exclusivity/groups using recorded files; optional probe removing the “encapsulation” group to confirm total permutations increase; portable (no shell dependency, direct Node invocation).
+- Scripts/docs
+  - `.ai/testing/package.json`: added `verify-matrix` shortcut.
+  - Quickstart updated to verify before build and document the recovery loop (tweak rules → coverage‑loop → verify → build → tests).
+  - Storybook nav updated to surface Quickstart.
+
+### Impact
+- Speed: Loop execution improved by an estimated 10x+ due to automated generation and a clean verify step.
+- Reliability: Exclusivity and grouping are now enforced automatically; parity guard prevents drift; probe confirms rules genuinely drive permutation space.
+
+### Metrics
+- Coverage: 192/192 (100.0%).
+- Probe: Removing the “encapsulation” exclusivity increased total permutations from 192 → 216 (as expected), without generating files.
+- Parity: `.tsx` count under `test/wdio/component-decorator/**` equals covered permutations (192).
+
+### Workflow Update
+- Recommended order: coverage‑loop → verify‑matrix → build → tests.
+- On compiler errors after generation: tweak rules → re‑run coverage‑loop → verify‑matrix → build → tests.
+
+### Lessons Learned
+- Centralizing rules enables both humans and automation to reason about validity and growth.
+- Recording file paths in coverage enables downstream structural checks (grouping by render mode).
+- Avoid shell dependencies for portability; prefer `execFileSync(process.execPath, ...)`.
+- A small, deterministic verify guard prevents slow drift and keeps contributors aligned.
+
+---
+
 ## Iteration 1: `@Prop` Decorator
 
 **Date:** August 19, 2025
