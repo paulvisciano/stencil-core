@@ -10,7 +10,9 @@ const TEST_DIRS = [
   path.resolve(__dirname, '../../../../../test/wdio/component-decorator'),
 ];
 const OPTIONS = ['shadow', 'scoped', 'assetsDirs', 'formAssociated', 'styleUrl', 'styleUrls', 'styles'];
-const RULES_PATH = path.resolve(__dirname, 'component-rules.json');
+const RULES_PATH = process.env.COMPONENT_RULES_PATH
+  ? path.resolve(process.env.COMPONENT_RULES_PATH)
+  : path.resolve(__dirname, 'component-rules.json');
 
 function findFiles(dir, ext = '.tsx', excludeDirs = ['node_modules', '.cache']) {
   let results = [];
@@ -36,7 +38,7 @@ function extractComponentOptions(file) {
     // Allow optional spaces around the property name and colon
     const optMatch = match[1].match(new RegExp(`\\s*${opt}\\s*:\\s*([^,\\n]+)`));
     if (optMatch) {
-      options[opt] = optMatch[1].replace(/['"`]/g, '').trim();
+      options[opt] = optMatch[1].replace(/[\'"`]/g, '').trim();
     }
   });
   return options;
@@ -49,54 +51,107 @@ function normalizeValue(val, opt) {
     if (val === 'false' || val === false) return '✗';
     return '✓'; // treat any other value as set
   }
-  // For string/array options
+  // For string/array options, any presence is considered set
   return val !== undefined && val !== 'false' ? '✓' : '-';
 }
 
-function getAllPermutationKeys() {
+function parseRules() {
   const rules = JSON.parse(fs.readFileSync(RULES_PATH, 'utf8'));
+  return rules;
+}
 
-  const baseOptions = {
-    shadow: ['✓', '✗', '-'],
-    scoped: ['✓', '✗', '-'],
-    assetsDirs: ['✓', '-'],
-    formAssociated: ['✓', '✗', '-'],
-  };
+function allowedSymbolsForOption(optionName, rules) {
+  const t = rules.options[optionName];
+  if (!t) {
+    // default to present|omit semantics
+    return ['✓', '-'];
+  }
+  if (t.startsWith('boolean')) {
+    // e.g. 'boolean:omit'
+    return ['✓', '✗', '-'];
+  }
+  // e.g. 'present|omit'
+  return ['✓', '-'];
+}
 
-  // Build style permutations from rules.exclusiveGroups (styles group) and allow none
-  const stylePermutations = [
-    ['✓', '-', '-'], // styleUrl set
-    ['-', '✓', '-'], // styleUrls set
-    ['-', '-', '✓'], // styles set
-    ['-', '-', '-'], // none set
-  ];
-  
-  const baseKeys = Object.keys(baseOptions);
-  const allPermutations = [];
+function buildAllPermutationKeysFromRules(rules) {
+  // Precompute allowed symbols per OPTIONS in order
+  const allowedMap = OPTIONS.map(opt => allowedSymbolsForOption(opt, rules));
 
-  function buildPermutations(current, index) {
-    if (index === baseKeys.length) {
-      // Enforce mutual exclusivity per rules: shadow and scoped cannot both be true
-      const shadowVal = current[0]; // shadow
-      const scopedVal = current[1]; // scoped
-      if (shadowVal === '✓' && scopedVal === '✓') {
-        return; // skip invalid base combination
+  // Generate cartesian product
+  const out = [];
+  const current = new Array(OPTIONS.length);
+
+  const groups = rules.exclusiveGroups || [];
+
+  function isValidByGroups() {
+    // Evaluate current partial/complete assignment against exclusive groups
+    for (const g of groups) {
+      let setCount = 0;
+      let specifiedCount = 0;
+      for (const member of g.members) {
+        const idx = OPTIONS.indexOf(member);
+        if (idx === -1) continue;
+        const sym = current[idx];
+        if (sym !== undefined) {
+          specifiedCount++;
+          if (sym === '✓') setCount++;
+        }
       }
-      // Combine with each style permutation
-      stylePermutations.forEach(stylePerm => {
-        allPermutations.push([...current, ...stylePerm].join('|'));
-      });
-      return;
+      if (setCount > 1) return false; // mutual exclusivity
+      if (specifiedCount === g.members.length && g.allowNone === false && setCount === 0) return false; // require at least one
     }
-
-    const key = baseKeys[index];
-    baseOptions[key].forEach(value => {
-      buildPermutations([...current, value], index + 1);
-    });
+    return true;
   }
 
-  buildPermutations([], 0);
-  return allPermutations;
+  function rec(i) {
+    if (i === OPTIONS.length) {
+      // Full assignment: final validation (same as partial check)
+      if (isValidByGroups()) {
+        out.push(current.join('|'));
+      }
+      return;
+    }
+    for (const sym of allowedMap[i]) {
+      current[i] = sym;
+      if (isValidByGroups()) {
+        rec(i + 1);
+      }
+    }
+    current[i] = undefined;
+  }
+
+  rec(0);
+  return out;
+}
+
+function checkCoveredPermutationValid(symbols, rules) {
+  const groups = rules.exclusiveGroups || [];
+  for (const g of groups) {
+    let setCount = 0;
+    for (const member of g.members) {
+      const idx = OPTIONS.indexOf(member);
+      if (idx === -1) continue;
+      if (symbols[idx] === '✓') setCount++;
+    }
+    if (setCount > 1) return false;
+    if (g.allowNone === false) {
+      // require at least one ✓ in the group
+      let hasOne = false;
+      for (const member of g.members) {
+        const idx = OPTIONS.indexOf(member);
+        if (idx === -1) continue;
+        if (symbols[idx] === '✓') { hasOne = true; break; }
+      }
+      if (!hasOne) return false;
+    }
+  }
+  return true;
+}
+
+function getAllPermutationKeys() {
+  const rules = parseRules();
+  return buildAllPermutationKeysFromRules(rules);
 }
 
 function getCoverageData(coveredCount, totalCount, coveredPermutations, missingPermutations) {
@@ -107,12 +162,14 @@ function getCoverageData(coveredCount, totalCount, coveredPermutations, missingP
       total: totalCount,
       percent: percent,
     },
-    coveredPermutations: coveredPermutations.map(p => ({ options: p.options, count: p.count })),
+    coveredPermutations: coveredPermutations.map(p => ({ options: p.options, count: p.count, files: p.files })),
     missingPermutations: missingPermutations.map(p => ({ options: p.split('|') })),
   };
 }
 
 function main() {
+  const rules = parseRules();
+
   // Scan for permutations
   const results = [];
   TEST_DIRS.forEach(dir => {
@@ -130,29 +187,20 @@ function main() {
   results.forEach(entry => {
     const keyArr = OPTIONS.map(opt => normalizeValue(entry[opt], opt));
 
-    // Enforce mutual exclusivity: shadow and scoped cannot both be true
-    const shadowIdx = OPTIONS.indexOf('shadow');
-    const scopedIdx = OPTIONS.indexOf('scoped');
-    if (keyArr[shadowIdx] === '✓' && keyArr[scopedIdx] === '✓') {
-      console.warn(`Skipping invalid shadow+scoped permutation found in ${entry.file}`);
-      return; // skip invalid covered permutation
-    }
-
-    // Enforce mutual exclusivity for styleUrl, styleUrls, styles in covered permutations using rules
-    const styleIdx = OPTIONS.indexOf('styleUrl');
-    const styleUrlsIdx = OPTIONS.indexOf('styleUrls');
-    const stylesIdx = OPTIONS.indexOf('styles');
-    const styleSetCount = [keyArr[styleIdx], keyArr[styleUrlsIdx], keyArr[stylesIdx]].filter(v => v === '✓').length;
-    if (styleSetCount > 1) {
+    // Enforce mutual exclusivity for covered permutations using rules
+    if (!checkCoveredPermutationValid(keyArr, rules)) {
       console.warn(`Skipping invalid permutation found in ${entry.file}: ${keyArr.join('|')}`);
       return; // skip invalid covered permutation
     }
+
     const key = keyArr.join('|');
     if (!permutationMap[key]) {
       permutationMap[key] = { count: 0, files: [] };
     }
     permutationMap[key].count++;
-    permutationMap[key].files.push(path.basename(entry.file));
+    // record relative path from component-decorator root
+    const rel = path.relative(TEST_DIRS[0], entry.file);
+    permutationMap[key].files.push(rel);
   });
 
   const uniquePermutations = Object.entries(permutationMap).map(([key, val]) => {

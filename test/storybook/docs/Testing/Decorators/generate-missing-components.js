@@ -21,25 +21,41 @@ function toBoolSymbol(val) {
   return val === '✓' ? 'true' : val === '✗' ? 'false' : undefined; // '-' => undefined/omit
 }
 
+function symbolToBool(sym) {
+  if (sym === '✓') return true;
+  if (sym === '✗' || sym === '-') return false; // treat omit as false for mode matching
+  return false;
+}
+
 function segmentFrom(option, value) {
   if (value === '✓') return option.toLowerCase();
   if (value === '✗') return `${option.toLowerCase()}-false`;
   return null; // omit for '-'
 }
 
-function buildNameSegments(options) {
-  const [shadow, scoped, assetsDirs, formAssociated, styleUrl, styleUrls, styles] = options;
-  const segs = ['cmp'];
-  const s1 = segmentFrom('shadow', shadow);
-  if (s1) segs.push(s1);
-  const s2 = segmentFrom('scoped', scoped);
-  if (s2) segs.push(s2);
-  if (assetsDirs === '✓') segs.push('assetsdirs');
-  const fa = segmentFrom('formassociated', formAssociated);
-  if (fa) segs.push(fa);
-  if (styleUrl === '✓') segs.push('styleurl');
-  if (styleUrls === '✓') segs.push('styleurls');
-  if (styles === '✓') segs.push('styles');
+function buildNameSegments(options, rules) {
+  const include = (rules.emit?.naming?.includeOptions) || ['shadow','scoped','assetsDirs','formAssociated','styleUrl','styleUrls','styles'];
+  const label = (opt) => opt.toLowerCase();
+  const segs = [(rules.emit?.naming?.prefix) || 'cmp'];
+  const optMap = {
+    shadow: options[0],
+    scoped: options[1],
+    assetsDirs: options[2],
+    formAssociated: options[3],
+    styleUrl: options[4],
+    styleUrls: options[5],
+    styles: options[6],
+  };
+  for (const opt of include) {
+    const v = optMap[opt];
+    if (v === undefined) continue;
+    const seg = segmentFrom(label(opt), v);
+    if (seg) segs.push(seg);
+    else if (v === '✓' && (opt === 'assetsDirs' || opt === 'styles' || opt === 'styleUrl' || opt === 'styleUrls')) {
+      // present-only options: include simple label when set
+      segs.push(label(opt));
+    }
+  }
   return segs;
 }
 
@@ -83,8 +99,25 @@ export class ${className} {
 `;
 }
 
-function getGroupDirForOptions(options) {
+function getGroupDirForOptions(options, rules) {
   const [shadow, scoped] = options;
+  // If any mode matches its 'when' predicates, return that mode name.
+  const bools = {
+    shadow: symbolToBool(shadow),
+    scoped: symbolToBool(scoped),
+  };
+  const modes = rules.modes || [];
+  for (const m of modes) {
+    const when = m.when || {};
+    let ok = true;
+    for (const k of Object.keys(when)) {
+      const expect = when[k];
+      const got = bools[k];
+      if (got !== expect) { ok = false; break; }
+    }
+    if (ok) return m.name;
+  }
+  // Fallback to legacy grouping logic
   if (shadow === '✓') return 'shadow';
   if (scoped === '✓') return 'scoped';
   return 'light';
@@ -103,6 +136,7 @@ function main() {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
 
+  const rules = JSON.parse(fs.readFileSync(RULES_PATH, 'utf8'));
   const data = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
   const missing = data.missingPermutations || [];
 
@@ -111,11 +145,11 @@ function main() {
     const options = entry.options;
     if (!Array.isArray(options) || options.length !== 7) continue;
 
-    const nameSegs = buildNameSegments(options);
+    const nameSegs = buildNameSegments(options, rules);
     const baseName = nameSegs.join('-');
     const fileName = `${baseName}.tsx`;
 
-    const groupDir = getGroupDirForOptions(options);
+    const groupDir = getGroupDirForOptions(options, rules);
     const targetDir = path.join(OUTPUT_DIR, groupDir);
     if (!fs.existsSync(targetDir)) {
       fs.mkdirSync(targetDir, { recursive: true });

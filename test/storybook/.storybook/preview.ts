@@ -16,6 +16,7 @@ const preview: Preview = {
             'Framework',
             [
               'Overview',
+              'Quickstart',
               'Project Config',
               'Coverage Matrix',
               ['Overview', 'Config', 'Generation', 'Verification'],
