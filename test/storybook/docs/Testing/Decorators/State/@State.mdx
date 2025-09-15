@@ -1,3 +1,4 @@
+import rules from './rules.json';
 import { Meta } from '@storybook/addon-docs/blocks';
 import data from './coverage-data.json';
 
@@ -7,13 +8,29 @@ import data from './coverage-data.json';
 
 The `@State` decorator is used to manage internal state for a component. When a state property changes, the component will re-render. This matrix tracks the test coverage for different types and configurations of the `@State` decorator.
 
+## Rules (at a glance)
+- Options under test: {Object.keys(rules.options).join(', ')}.
+- No mutually exclusive option groups for `@State`.
+- Render modes: {rules.modes.map(m => m.name).join(', ')}.
+- Matrix conventions: generated examples are grouped by state type under `test/wdio/state-new/matrix/<type>`; files live directly in the type subfolder (e.g., `string/`, `number/`).
+
 ## State Characteristics
 
 The `@State` decorator is used for managing internal data that can change over time. Unlike `@Prop`, state is not meant to be passed in from a parent component.
 
-- **Type**: `@State` can be used with any standard data type, such as `string`, `number`, `boolean`, `array`, or `object`. The type can be explicitly annotated or inferred from the initial value.
+- **Type**: `@State` can be used with any standard data type, such as `string`, `number`, `boolean`, `array`, `object`, or `any`. The type can be explicitly annotated or inferred from the initial value.
+- **Default Value**: A state property can be initialized with a default value. If no default value is provided, it will be `undefined`. Tests cover both scenarios to ensure the component behaves correctly.
 
-- **Default Value**: A state property can be initialized with a default value. If no default value is provided, it will be `undefined`. Tests should cover both scenarios to ensure the component behaves correctly.
+## Rendering Modes and Matrix Grouping
+
+To simplify navigation of the generated matrix, components are organized by state type under `test/wdio/state-new/matrix/`:
+
+- `string/` — string state values
+- `number/` — numeric state values
+- `boolean/` — boolean state values
+- `array/` — array state values
+- `object/` — object state values
+- `any/` — untyped or mixed state values
 
 ## Covered Permutations
 
