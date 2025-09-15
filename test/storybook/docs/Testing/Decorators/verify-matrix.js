@@ -30,8 +30,8 @@ const CONFIG = (() => {
     return { RULES_PATH, DATA_PATH, COMPONENT_DIR };
   }
   // default: component
-  const RULES_PATH = path.resolve(__dirname, 'component-rules.json');
-  const DATA_PATH = path.resolve(__dirname, 'component-coverage-data.json');
+  const RULES_PATH = path.resolve(__dirname, 'Component/rules.json');
+  const DATA_PATH = path.resolve(__dirname, 'Component/coverage-data.json');
   const COMPONENT_DIR = path.resolve(__dirname, '../../../../../test/wdio/component-decorator');
   return { RULES_PATH, DATA_PATH, COMPONENT_DIR };
 })();
@@ -111,7 +111,7 @@ function probeEncapsulationIncrease() {
   fs.writeFileSync(tmpPath, JSON.stringify(mutated, null, 2));
 
   try {
-    const coverageScript = path.resolve(__dirname, 'component-coverage.js');
+    const coverageScript = path.resolve(__dirname, 'Component/coverage.js');
     execFileSync(process.execPath, [coverageScript], {
       stdio: 'inherit',
       env: { ...process.env, COMPONENT_RULES_PATH: tmpPath },
@@ -140,7 +140,7 @@ function main() {
 
   const { covered, total } = data.coverage;
   if (covered !== total) {
-    const hint = DECORATOR === 'component' ? 'generate-missing-components' : 'State/generate-components';
+    const hint = DECORATOR === 'component' ? 'Component/generate-components' : 'State/generate-components';
     throw new Error(`Coverage drift for ${DECORATOR}: covered (${covered}) !== total (${total}). Run ${hint} then refresh.`);
   }
   console.log(`Coverage OK for ${DECORATOR}: ${covered}/${total}`);
