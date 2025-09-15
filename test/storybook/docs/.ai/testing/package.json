@@ -17,6 +17,6 @@
     "component:verify-matrix": "cd ../../Testing/Decorators && node verify-matrix.js --decorator=component",
     "state:coverage": "cd ../../Testing/Decorators/State && node coverage.js",
     "state:generate-components": "cd ../../Testing/Decorators/State && node generate-components.js",
-    "state:verify-matrix": "cd ../../Testing/Decorators && node verify-matrix.js --decorator=state",
+    "state:verify-matrix": "cd ../../Testing/Decorators && node verify-matrix.js --decorator=state"
   }
 }

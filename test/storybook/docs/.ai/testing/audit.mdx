@@ -140,7 +140,7 @@ This iteration went well beyond expectations. GPT‑5 proposed and implemented a
 
 -   **Target Feature:** `@State` decorator.
 -   **Initial Focus:** All permutations of type (`string`, `number`, `boolean`, `array`, `object`, `any`) and default value presence (`true`, `false`).
--   **Action:** Applied the GenAI-powered testing loop to generate component-level tests in `test/wdio/state-new/tests` for all 12 identified permutations.
+-   **Action:** Applied the GenAI-powered testing loop to generate component-level tests in `test/wdio/state/tests` for all 12 identified permutations.
 -   **Outcome:** Successfully generated 10 component files and corresponding tests. All tests passed on first execution.
 
 ### Phase 2: Coverage Script Issues
@@ -168,7 +168,7 @@ This iteration went well beyond expectations. GPT‑5 proposed and implemented a
 
 -   **Test Generation Success:** The AI successfully generated all required test components and tests on the first attempt, showing improvement in the testing loop efficiency.
 -   **Coverage Script Vulnerabilities:** Regex patterns in coverage scripts need careful crafting to avoid false negatives. Greedy patterns can cause incorrect parsing in complex code contexts.
--   **File Placement Accuracy:** All components were correctly placed under `test/wdio/state-new/matrix/**` (grouped by type), and tests live in `test/wdio/state-new/tests`.
+-   **File Placement Accuracy:** All components were correctly placed under `test/wdio/state/matrix/**` (grouped by type), and tests live in `test/wdio/state/tests`.
 -   **Documentation Workflow Improvements:** The testing workflow documentation was refined to reflect the correct single-step build process (`cd test/wdio && npm run build`) rather than the initially documented two-step process.
 -   **Testing Strategy Evolution:** Added the crucial sixth step to the testing loop: "Document Learnings" to ensure continuous improvement between iterations.
 

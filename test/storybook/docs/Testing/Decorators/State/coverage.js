@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const rootDir = path.resolve(__dirname, '../../../../../..');
-const stateRoot = path.resolve(rootDir, 'test/wdio/state-new/matrix');
+const stateRoot = path.resolve(rootDir, 'test/wdio/state/matrix');
 const searchDirs = [stateRoot];
 const outputFile = path.resolve(__dirname, 'coverage-data.json');
 

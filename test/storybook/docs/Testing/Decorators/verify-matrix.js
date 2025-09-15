@@ -26,7 +26,7 @@ const CONFIG = (() => {
   if (DECORATOR === 'state') {
     const RULES_PATH = path.resolve(__dirname, 'State/rules.json');
     const DATA_PATH = path.resolve(__dirname, 'State/coverage-data.json');
-    const COMPONENT_DIR = path.resolve(__dirname, '../../../../../test/wdio/state-new/matrix');
+    const COMPONENT_DIR = path.resolve(__dirname, '../../../../../test/wdio/state/matrix');
     return { RULES_PATH, DATA_PATH, COMPONENT_DIR };
   }
   // default: component

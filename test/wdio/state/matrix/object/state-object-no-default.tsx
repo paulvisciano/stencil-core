@@ -1,4 +1,4 @@
-// filepath: /Users/paul.visciano/repos/core/test/wdio/state-new/matrix/object/state-object-no-default.tsx
+// filepath: /Users/paul.visciano/repos/core/test/wdio/state/matrix/object/state-object-no-default.tsx
 import { Component, h, State } from '@stencil/core';
 
 @Component({

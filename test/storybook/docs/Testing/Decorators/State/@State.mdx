@@ -12,7 +12,7 @@ The `@State` decorator is used to manage internal state for a component. When a 
 - Options under test: {Object.keys(rules.options).join(', ')}.
 - No mutually exclusive option groups for `@State`.
 - Render modes: {rules.modes.map(m => m.name).join(', ')}.
-- Matrix conventions: generated examples are grouped by state type under `test/wdio/state-new/matrix/<type>`; files live directly in the type subfolder (e.g., `string/`, `number/`).
+- Matrix conventions: generated examples are grouped by state type under `test/wdio/state/matrix/<type>`; files live directly in the type subfolder (e.g., `string/`, `number/`).
 
 ## State Characteristics
 
@@ -23,7 +23,7 @@ The `@State` decorator is used for managing internal data that can change over t
 
 ## Rendering Modes and Matrix Grouping
 
-To simplify navigation of the generated matrix, components are organized by state type under `test/wdio/state-new/matrix/`:
+To simplify navigation of the generated matrix, components are organized by state type under `test/wdio/state/matrix/`:
 
 - `string/` — string state values
 - `number/` — numeric state values
@@ -98,7 +98,7 @@ The following table summarizes the WDIO component tests that exercise the `@Stat
           <span style={{ color: 'green' }}>✔</span>
         </td>
         <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-          <code>test/wdio/state-new/tests</code>
+          <code>test/wdio/state/tests</code>
         </td>
       </tr>
       <tr style={{ background: '#f9f9f9' }}>
@@ -112,7 +112,7 @@ The following table summarizes the WDIO component tests that exercise the `@Stat
           <span style={{ color: 'green' }}>✔</span>
         </td>
         <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-          <code>test/wdio/state-new/tests</code>
+          <code>test/wdio/state/tests</code>
         </td>
       </tr>
     </tbody>
