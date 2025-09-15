@@ -140,7 +140,7 @@ This iteration went well beyond expectations. GPT‑5 proposed and implemented a
 
 -   **Target Feature:** `@State` decorator.
 -   **Initial Focus:** All permutations of type (`string`, `number`, `boolean`, `array`, `object`, `any`) and default value presence (`true`, `false`).
--   **Action:** Applied the GenAI-powered testing loop to generate component-level tests in `test/wdio/state/` for all 12 identified permutations.
+-   **Action:** Applied the GenAI-powered testing loop to generate component-level tests in `test/wdio/state-new/tests` for all 12 identified permutations.
 -   **Outcome:** Successfully generated 10 component files and corresponding tests. All tests passed on first execution.
 
 ### Phase 2: Coverage Script Issues
@@ -168,17 +168,9 @@ This iteration went well beyond expectations. GPT‑5 proposed and implemented a
 
 -   **Test Generation Success:** The AI successfully generated all required test components and tests on the first attempt, showing improvement in the testing loop efficiency.
 -   **Coverage Script Vulnerabilities:** Regex patterns in coverage scripts need careful crafting to avoid false negatives. Greedy patterns can cause incorrect parsing in complex code contexts.
--   **File Placement Accuracy:** All components were correctly placed in the `test/wdio/state/` directory following established naming conventions (`*-cmp.tsx`).
+-   **File Placement Accuracy:** All components were correctly placed under `test/wdio/state-new/matrix/**` (grouped by type), and tests live in `test/wdio/state-new/tests`.
 -   **Documentation Workflow Improvements:** The testing workflow documentation was refined to reflect the correct single-step build process (`cd test/wdio && npm run build`) rather than the initially documented two-step process.
 -   **Testing Strategy Evolution:** Added the crucial sixth step to the testing loop: "Document Learnings" to ensure continuous improvement between iterations.
-
-### Process Improvements Made:
-
-1. **Updated Testing Strategy Documentation:** Added Step 6 to document learnings and ensure continuous improvement.
-2. **Refined Component Test Guide:** Corrected the build process documentation to reflect actual workflow.
-3. **Coverage Script Enhancement:** Improved regex patterns for more accurate static analysis.
-4. **Workflow Optimization:** Streamlined the testing process based on lessons learned from previous iterations.
-5. **Test Configuration Refinement:** Clarified the workflow for managing test execution in `wdio.conf.ts`, advocating for specific paths during debugging and glob patterns for full suite runs.
 
 ---
 
