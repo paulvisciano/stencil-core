@@ -6,11 +6,9 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const rootDir = path.resolve(__dirname, '../../../../../');
-const searchDirs = [
-  path.resolve(rootDir, 'test/end-to-end'),
-  path.resolve(rootDir, 'test/wdio'),
-];
+const rootDir = path.resolve(__dirname, '../../../../../..');
+const stateRoot = path.resolve(rootDir, 'test/wdio/state-new/matrix');
+const searchDirs = [stateRoot];
 const outputFile = path.resolve(__dirname, 'state-coverage-data.json');
 
 const options = [
@@ -35,6 +33,7 @@ function getPermutations(options) {
 
 const allPermutations = getPermutations(options);
 const coveredPermutations = new Map();
+const filesForPermutation = new Map();
 
 const files = searchDirs.flatMap(dir => globSync(`${dir}/**/*.{ts,tsx}`, {
   ignore: ['**/*.spec.ts', '**/*.e2e.ts'],
@@ -85,6 +84,10 @@ files.forEach(file => {
     const key = permutation.join(',');
 
     coveredPermutations.set(key, (coveredPermutations.get(key) || 0) + 1);
+
+    const rel = path.relative(stateRoot, file);
+    if (!filesForPermutation.has(key)) filesForPermutation.set(key, new Set());
+    filesForPermutation.get(key).add(rel);
   }
 });
 
@@ -92,6 +95,7 @@ const covered = Array.from(coveredPermutations.entries()).map(([key, count]) => 
   return {
     options: key.split(','),
     count: count,
+    files: Array.from(filesForPermutation.get(key) || []),
   };
 });
 

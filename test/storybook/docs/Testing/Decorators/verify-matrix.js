@@ -8,15 +8,33 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const AI_TESTING_DIR = path.resolve(__dirname, '../.ai/testing');
-const RULES_PATH = path.resolve(__dirname, 'component-rules.json');
-const DATA_PATH = path.resolve(__dirname, 'component-coverage-data.json');
-const COMPONENT_DIR = path.resolve(__dirname, '../../../../../test/wdio/component-decorator');
-
-const OPTIONS = ['shadow','scoped','assetsDirs','formAssociated','styleUrl','styleUrls','styles'];
 
 function readJson(p) {
   return JSON.parse(fs.readFileSync(p, 'utf8'));
 }
+
+function getArg(name, def) {
+  const pref = `--${name}=`;
+  const a = process.argv.find(v => v.startsWith(pref));
+  if (!a) return def;
+  return a.slice(pref.length);
+}
+
+const DECORATOR = getArg('decorator', 'component'); // 'component' | 'state'
+
+const CONFIG = (() => {
+  if (DECORATOR === 'state') {
+    const RULES_PATH = path.resolve(__dirname, 'State/state-rules.json');
+    const DATA_PATH = path.resolve(__dirname, 'State/state-coverage-data.json');
+    const COMPONENT_DIR = path.resolve(__dirname, '../../../../../test/wdio/state-new/matrix');
+    return { RULES_PATH, DATA_PATH, COMPONENT_DIR };
+  }
+  // default: component
+  const RULES_PATH = path.resolve(__dirname, 'component-rules.json');
+  const DATA_PATH = path.resolve(__dirname, 'component-coverage-data.json');
+  const COMPONENT_DIR = path.resolve(__dirname, '../../../../../test/wdio/component-decorator');
+  return { RULES_PATH, DATA_PATH, COMPONENT_DIR };
+})();
 
 function countTsxFiles(root) {
   let count = 0;
@@ -33,36 +51,43 @@ function countTsxFiles(root) {
   return count;
 }
 
-function symbolToBool(sym) {
-  return sym === '✓' ? true : false; // treat omit/false as false for mode matching
+function coerceToComparable(actual, expected) {
+  if (typeof expected === 'boolean') {
+    if (actual === '✓' || actual === 'true' || actual === true) return true;
+    if (actual === '✗' || actual === '-' || actual === 'false' || actual === false) return false;
+    return Boolean(actual);
+  }
+  // string/other comparison
+  return actual;
 }
 
-function expectedGroupName(options, rules) {
-  const [shadow, scoped] = options;
+function expectedGroupName(pOptions, rules, optionOrder) {
   const modes = rules.modes || [];
-  const bools = { shadow: symbolToBool(shadow), scoped: symbolToBool(scoped) };
+  const actual = {};
+  optionOrder.forEach((name, i) => (actual[name] = pOptions[i]));
   for (const m of modes) {
     const when = m.when || {};
     let ok = true;
     for (const k of Object.keys(when)) {
-      if (bools[k] !== when[k]) { ok = false; break; }
+      const expect = when[k];
+      const got = coerceToComparable(actual[k], expect);
+      if (got !== expect) { ok = false; break; }
     }
     if (ok) return m.name;
   }
-  // fallback
-  if (shadow === '✓') return 'shadow';
-  if (scoped === '✓') return 'scoped';
-  return 'light';
+  return modes[0]?.name || 'default';
 }
 
-function validateExclusivity(options, rules) {
+function validateExclusivity(pOptions, rules, optionOrder) {
   const groups = rules.exclusiveGroups || [];
   for (const g of groups) {
     let setCount = 0;
     for (const member of g.members) {
-      const idx = OPTIONS.indexOf(member);
+      const idx = optionOrder.indexOf(member);
       if (idx === -1) continue;
-      if (options[idx] === '✓') setCount++;
+      const val = pOptions[idx];
+      const isSet = val === '✓' || val === 'true' || val === true;
+      if (isSet) setCount++;
     }
     if (setCount > 1) return false;
     if (g.allowNone === false && setCount === 0) return false;
@@ -71,17 +96,16 @@ function validateExclusivity(options, rules) {
 }
 
 function refreshCoverage() {
-  // Directly run run-all-coverage.js with Node to avoid shell dependency
   const script = path.resolve(__dirname, 'run-all-coverage.js');
   execFileSync(process.execPath, [script], { cwd: path.dirname(script), stdio: 'inherit' });
 }
 
 function probeEncapsulationIncrease() {
-  // Load base coverage
-  const base = readJson(DATA_PATH);
+  if (DECORATOR !== 'component') return; // only relevant to @Component
+  const base = readJson(CONFIG.DATA_PATH);
   const baseTotal = base.coverage.total;
 
-  const rules = readJson(RULES_PATH);
+  const rules = readJson(CONFIG.RULES_PATH);
   const mutated = { ...rules, exclusiveGroups: (rules.exclusiveGroups || []).filter(g => g.name !== 'encapsulation') };
   const tmpPath = path.join(os.tmpdir(), `component-rules.probe.${Date.now()}.json`);
   fs.writeFileSync(tmpPath, JSON.stringify(mutated, null, 2));
@@ -96,7 +120,7 @@ function probeEncapsulationIncrease() {
     // keep tmp rules for inspection
   }
 
-  const probe = readJson(DATA_PATH);
+  const probe = readJson(CONFIG.DATA_PATH);
   const probeTotal = probe.coverage.total;
   if (probeTotal <= baseTotal) {
     throw new Error(`Probe rules did not increase total permutations (base=${baseTotal}, probe=${probeTotal})`);
@@ -105,43 +129,47 @@ function probeEncapsulationIncrease() {
 }
 
 function main() {
-  // 1) Refresh coverage
   refreshCoverage();
 
-  const rules = readJson(RULES_PATH);
-  const data = readJson(DATA_PATH);
+  const rules = readJson(CONFIG.RULES_PATH);
+  const data = readJson(CONFIG.DATA_PATH);
 
-  // 2) Assert covered === total
+  const optionOrder = rules.emit?.naming?.includeOptions || (DECORATOR === 'component'
+    ? ['shadow','scoped','assetsDirs','formAssociated','styleUrl','styleUrls','styles']
+    : ['type','hasDefault']);
+
   const { covered, total } = data.coverage;
   if (covered !== total) {
-    throw new Error(`Coverage drift: covered (${covered}) !== total (${total}). Run generate-missing-components then refresh.`);
+    const hint = DECORATOR === 'component' ? 'generate-missing-components' : 'generate-missing-state';
+    throw new Error(`Coverage drift for ${DECORATOR}: covered (${covered}) !== total (${total}). Run ${hint} then refresh.`);
   }
-  console.log(`Coverage OK: ${covered}/${total}`);
+  console.log(`Coverage OK for ${DECORATOR}: ${covered}/${total}`);
 
-  // 3) Assert .tsx count parity
-  const tsxCount = countTsxFiles(COMPONENT_DIR);
+  const tsxCount = countTsxFiles(CONFIG.COMPONENT_DIR);
   if (tsxCount !== covered) {
-    throw new Error(`File count drift: ${tsxCount} .tsx files under component-decorator !== covered permutations ${covered}`);
+    throw new Error(`File count drift for ${DECORATOR}: ${tsxCount} .tsx files under ${CONFIG.COMPONENT_DIR} !== covered permutations ${covered}`);
   }
-  console.log(`File count OK: ${tsxCount}`);
+  console.log(`File count OK for ${DECORATOR}: ${tsxCount}`);
 
-  // 4) Validate grouping and exclusivity
   for (const p of data.coveredPermutations) {
-    // exclusivity
-    if (!validateExclusivity(p.options, rules)) {
-      throw new Error(`Exclusivity violation in options: ${p.options.join(' | ')}`);
+    if (!validateExclusivity(p.options, rules, optionOrder)) {
+      throw new Error(`Exclusivity violation in options (${DECORATOR}): ${p.options.join(' | ')}`);
     }
-    // grouping for each file listed
-    const expected = expectedGroupName(p.options, rules);
+    const expected = expectedGroupName(p.options, rules, optionOrder);
     for (const rel of p.files || []) {
-      if (!rel.includes(`matrix/${expected}/`) && rel !== 'matrix/cmp-base.tsx') {
-        throw new Error(`Grouping mismatch: expected ${expected} for ${rel} (options: ${p.options.join(' | ')})`);
+      if (DECORATOR === 'component') {
+        if (!rel.includes(`matrix/${expected}/`) && rel !== 'matrix/cmp-base.tsx') {
+          throw new Error(`Grouping mismatch (${DECORATOR}): expected ${expected} for ${rel} (options: ${p.options.join(' | ')})`);
+        }
+      } else {
+        if (!(rel.startsWith(`${expected}/`) || rel.includes(`/${expected}/`))) {
+          throw new Error(`Grouping mismatch (${DECORATOR}): expected ${expected} for ${rel} (options: ${p.options.join(' | ')})`);
+        }
       }
     }
   }
-  console.log('Grouping and exclusivity OK');
+  console.log(`Grouping and exclusivity OK for ${DECORATOR}`);
 
-  // Optional probe step: set VERIFY_PROBE_ENCAPSULATION=1 to verify rule-driven growth
   if (process.env.VERIFY_PROBE_ENCAPSULATION === '1') {
     probeEncapsulationIncrease();
   }

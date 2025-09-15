@@ -1,0 +1,22 @@
+{
+  "decorator": "@State",
+  "options": {
+    "type": ["string", "number", "boolean", "array", "object", "any"],
+    "hasDefault": [true, false]
+  },
+  "exclusiveGroups": [],
+  "modes": [
+    { "name": "string",  "when": { "type": "string" } },
+    { "name": "number",  "when": { "type": "number" } },
+    { "name": "boolean", "when": { "type": "boolean" } },
+    { "name": "array",   "when": { "type": "array" } },
+    { "name": "object",  "when": { "type": "object" } },
+    { "name": "any",     "when": { "type": "any" } }
+  ],
+  "emit": {
+    "naming": {
+      "prefix": "state",
+      "includeOptions": ["type", "hasDefault"]
+    }
+  }
+}
