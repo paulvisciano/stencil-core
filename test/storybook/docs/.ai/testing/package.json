@@ -10,12 +10,13 @@
     "coverage-loop": "npm run refresh-coverage-matrix && npm run generate-missing-components && npm run refresh-coverage-matrix",
     "coverage-prop": "cd ../../Testing/Decorators && node prop-coverage.js",
     "coverage-listen": "cd ../../Testing/Decorators && node listen-coverage.js",
-    "coverage-state": "cd ../../Testing/Decorators/State && node state-coverage.js",
+    "coverage-state": "cd ../../Testing/Decorators/State && node coverage.js",
     "coverage-event": "cd ../../Testing/Decorators && node event-coverage.js",
     "generate-missing-components": "cd ../../Testing/Decorators && node generate-missing-components.js",
-    "generate-missing-state": "cd ../../Testing/Decorators/State && node generate-missing-state.js",
+    "generate-missing-state": "cd ../../Testing/Decorators/State && node generate-components.js",
     "verify-matrix": "cd ../../Testing/Decorators && node verify-matrix.js",
     "verify-matrix:component": "cd ../../Testing/Decorators && node verify-matrix.js --decorator=component",
     "verify-matrix:state": "cd ../../Testing/Decorators && node verify-matrix.js --decorator=state",
+    "compare-state-legacy": "cd ../../Testing/Decorators/State && node compare-legacy.js"
   }
 }

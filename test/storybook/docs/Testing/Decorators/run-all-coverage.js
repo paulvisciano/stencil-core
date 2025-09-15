@@ -11,7 +11,7 @@ const scripts = [
   'event-coverage.js',
   'listen-coverage.js',
   'method-coverage.js',
-  'State/state-coverage.js',
+  'State/coverage.js',
 ];
 
 scripts.forEach(script => {

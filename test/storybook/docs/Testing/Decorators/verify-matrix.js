@@ -24,8 +24,8 @@ const DECORATOR = getArg('decorator', 'component'); // 'component' | 'state'
 
 const CONFIG = (() => {
   if (DECORATOR === 'state') {
-    const RULES_PATH = path.resolve(__dirname, 'State/state-rules.json');
-    const DATA_PATH = path.resolve(__dirname, 'State/state-coverage-data.json');
+    const RULES_PATH = path.resolve(__dirname, 'State/rules.json');
+    const DATA_PATH = path.resolve(__dirname, 'State/coverage-data.json');
     const COMPONENT_DIR = path.resolve(__dirname, '../../../../../test/wdio/state-new/matrix');
     return { RULES_PATH, DATA_PATH, COMPONENT_DIR };
   }
@@ -140,7 +140,7 @@ function main() {
 
   const { covered, total } = data.coverage;
   if (covered !== total) {
-    const hint = DECORATOR === 'component' ? 'generate-missing-components' : 'generate-missing-state';
+    const hint = DECORATOR === 'component' ? 'generate-missing-components' : 'State/generate-components';
     throw new Error(`Coverage drift for ${DECORATOR}: covered (${covered}) !== total (${total}). Run ${hint} then refresh.`);
   }
   console.log(`Coverage OK for ${DECORATOR}: ${covered}/${total}`);

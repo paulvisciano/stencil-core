@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '../../../../../..');
 const stateRoot = path.resolve(rootDir, 'test/wdio/state-new/matrix');
 const searchDirs = [stateRoot];
-const outputFile = path.resolve(__dirname, 'state-coverage-data.json');
+const outputFile = path.resolve(__dirname, 'coverage-data.json');
 
 const options = [
   ['string', 'number', 'boolean', 'array', 'object', 'any'], // type
@@ -39,7 +39,7 @@ const files = searchDirs.flatMap(dir => globSync(`${dir}/**/*.{ts,tsx}`, {
   ignore: ['**/*.spec.ts', '**/*.e2e.ts'],
 }));
 
-const stateRegex = /@State\(\)\s+([\w\d_]+)\s*(?::\s*([\w\d\[\]<>{}|=.'"]+))?(\s*=\s*[^;]*;)?/g;
+const stateRegex = /@State\(\)\s+([\w\d_]+)\s*(?::\s*([\w\d\[\]<>\{|\}=.'"]+))?(\s*=\s*[^;]*;)?/g;
 
 function getType(typeAnnotation, initializer) {
   let type = 'any'; // Default type
