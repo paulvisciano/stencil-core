@@ -7,15 +7,15 @@ import { Meta } from '@storybook/addon-docs/blocks';
 A concise, repeatable loop to maintain 100% coverage of valid decorator permutations, driven by a single rules file.
 
 ## Source of truth
-- Rules JSON (per decorator): e.g., `Testing/Decorators/component-rules.json`
-- Coverage output (per decorator): e.g., `Testing/Decorators/component-coverage-data.json`
+- Rules JSON (per decorator): e.g., `Testing/Decorators/Component/rules.json`
+- Coverage output (per decorator): e.g., `Testing/Decorators/Component/coverage-data.json`
 - Generated artifacts (per decorator): e.g., `test/wdio/component-decorator/matrix/{shadow,scoped,light}/`
 
 ## One-pass loop (from `.ai/testing`)
 1. Refresh coverage, generate any missing, refresh again
    - `npm run coverage-loop`
 2. Verify matrix integrity (coverage parity, grouping, exclusivity) BEFORE building (for the active decorator)
-   - `npm run verify-matrix` (for @Component; use the corresponding verify step per decorator)
+   - `npm run component:verify-matrix` (use `npm run state:verify-matrix` for @State)
 3. Build the WDIO components
    - `npm run build-wdio-components`
 4. Run component tests (or target a spec)
@@ -26,15 +26,15 @@ A concise, repeatable loop to maintain 100% coverage of valid decorator permutat
 - Preferred (one-liner to sync data and files):
   - `npm run coverage-loop` (refresh → generate → refresh)
 - Verify early:
-  - `npm run verify-matrix` (for @Component; use the corresponding verify step per decorator)
+  - `npm run component:verify-matrix` (or `npm run state:verify-matrix`)
 - If the build reports compiler errors after you generate components:
-  - Tweak the rules JSON for the active decorator (e.g., `component-rules.json`) to correct the permutation space or exclusivity
+  - Tweak the rules JSON for the active decorator (e.g., `Testing/Decorators/Component/rules.json`) to correct the permutation space or exclusivity
   - Re-run `npm run coverage-loop`
-  - Re-run `npm run verify-matrix`
+  - Re-run `npm run component:verify-matrix`
   - Once the matrix verifies cleanly, build again with `npm run build-wdio-components`
   - Then move on to tests
 - Optional sanity check (prove rule-driven growth):
-  - `VERIFY_PROBE_ENCAPSULATION=1 npm run verify-matrix`
+  - `VERIFY_PROBE_ENCAPSULATION=1 npm run component:verify-matrix`
 
 ## Guardrails enforced
 For @Component (example):

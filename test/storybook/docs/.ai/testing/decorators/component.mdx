@@ -4,11 +4,11 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # @Component Decorator Coverage Strategy
 
-This document outlines the approach to achieve and maintain 100% coverage for valid `@Component` permutations as defined by `Testing/Decorators/component-coverage.js`.
+This document outlines the approach to achieve and maintain 100% coverage for valid `@Component` permutations as defined by `Testing/Decorators/Component/coverage.js`.
 
 ## Source of Truth
-- Coverage data: `Testing/Decorators/component-coverage-data.json`
-- Script: `Testing/Decorators/component-coverage.js`
+- Coverage data: `Testing/Decorators/Component/coverage-data.json`
+- Script: `Testing/Decorators/Component/coverage.js`
 - Matrix location: `test/wdio/component-decorator/matrix/`
 
 ## Options & Valid States
@@ -35,7 +35,7 @@ Valid style states:
 ## Workflow (.ai scripts)
 From `test/storybook/docs/.ai/testing`:
 - `npm run refresh-coverage-matrix` → refresh coverage JSON
-- `npm run generate-missing-components` → fill gaps under `matrix/`
+- `npm run component:generate-components` → fill gaps under `matrix/`
 - `npm run refresh-coverage-matrix` → confirm 100%
 - `npm run build-wdio-components` → build WDIO project
 

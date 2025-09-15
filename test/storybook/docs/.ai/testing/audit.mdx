@@ -34,15 +34,15 @@ This iteration went well beyond expectations. GPT‑5 proposed and implemented a
 
 ### Key Changes
 - Rules as source of truth
-  - `component-rules.json`: options schema, exclusivity groups, modes (grouping), emit naming/assets.
+  - `Component/rules.json`: options schema, exclusivity groups, modes (grouping), emit naming/assets.
 - Coverage refactor
-  - `component-coverage.js`: builds permutation space from rules (cartesian + exclusivity), validates covered permutations via rules, records relative file paths; supports env override `COMPONENT_RULES_PATH` for probes.
+  - `Component/coverage.js`: builds permutation space from rules (cartesian + exclusivity), validates covered permutations via rules, records relative file paths; supports env override `COMPONENT_RULES_PATH` for probes.
 - Generator integration
-  - `generate-missing-components.js`: derives names from `rules.emit.naming`, groups files via `rules.modes` (shadow/scoped/light), emits exactly one style prop per file from `rules.emit.assets`.
+  - `Component/generate-components.js`: derives names from `rules.emit.naming`, groups files via `rules.modes` (shadow/scoped/light), emits exactly one style prop per file from `rules.emit.assets`.
 - Verify guard
   - `verify-matrix.js`: re‑runs coverage; asserts covered === total; asserts `.tsx` parity under `test/wdio/component-decorator/**`; validates exclusivity/groups using recorded files; optional probe removing the “encapsulation” group to confirm total permutations increase; portable (no shell dependency, direct Node invocation).
 - Scripts/docs
-  - `.ai/testing/package.json`: added `verify-matrix` shortcut.
+  - `.ai/testing/package.json`: added `component:*` and `state:*` shortcuts, including `component:verify-matrix` and `state:verify-matrix`.
   - Quickstart updated to verify before build and document the recovery loop (tweak rules → coverage‑loop → verify → build → tests).
   - Storybook nav updated to surface Quickstart.
 
@@ -53,7 +53,7 @@ This iteration went well beyond expectations. GPT‑5 proposed and implemented a
 ### Metrics
 - Coverage: 192/192 (100.0%).
 - Probe: Removing the “encapsulation” exclusivity increased total permutations from 192 → 216 (as expected), without generating files.
-- Parity: `.tsx` count under `test/wdio/component-decorator/**` equals covered permutations (192).
+- Parity: `.tsx` count under `test/wdio/component-decorator/**` equals the covered permutations (192) recorded in `Testing/Decorators/Component/coverage-data.json`.
 
 ### Workflow Update
 - Recommended order: coverage‑loop → verify‑matrix → build → tests.
@@ -333,7 +333,7 @@ The `parent` target is no longer supported for the `@Listen` decorator in Stenci
 - Reach 100% coverage for all valid `@Component` decorator permutations defined by the coverage script.
 - Enforce strict mutual exclusivity: only one of `styleUrl`, `styleUrls`, or `styles` per component.
 - Maintain a one-to-one mapping: exactly one `.tsx` component per unique permutation.
-- Keep file count under `test/wdio/component-decorator/**` equal to the “covered” count in `component-coverage-data.json` after each run.
+- Keep file count under `test/wdio/component-decorator/**` equal to the “covered” count in `Component/coverage-data.json` after each run.
 
 ### Actions Taken
 - Audited and removed invalid components that set multiple style properties; created canonical `matrix/` for valid permutations.
@@ -369,7 +369,7 @@ The `parent` target is no longer supported for the `@Listen` decorator in Stenci
 
 ### Next Steps
 - Accept newly created files in the UI.
-- Continue generating the next batches by reading `missingPermutations` from `component-coverage-data.json` and creating exactly one component per missing key.
+- Continue generating the next batches by reading `missingPermutations` from `Testing/Decorators/Component/coverage-data.json` and creating exactly one component per missing key.
 - Re-run coverage after each batch and ensure file count equals `covered`.
 - Update this audit and the `@Component` decorator docs as the workflow evolves.
 
