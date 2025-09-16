@@ -1,6 +1,7 @@
 import rules from './rules.json';
 import { Meta } from '@storybook/addon-docs/blocks';
 import data from './coverage-data.json';
+import overlay from './coverage-overlay.json';
 
 <Meta title="Testing/Decorators/@State"/>
 
@@ -32,6 +33,73 @@ To simplify navigation of the generated matrix, components are organized by stat
 - `object/` — object state values
 - `any/` — untyped or mixed state values
 
+## Test Case Summary
+
+{(() => {
+  const items = overlay.items || [];
+  const groupIn = (set) => items.filter(i => set.has(i.group));
+  const count = (arr) => ({ tested: arr.filter(i => i.tested).length, total: arr.length });
+
+  const primitiveSet = new Set(['string', 'number', 'boolean']);
+  const complexSet = new Set(['any', 'array', 'object']);
+
+  const primitive = count(groupIn(primitiveSet));
+  const complex = count(groupIn(complexSet));
+
+  return (
+    <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <colgroup>
+          <col style={{ width: '55%' }} />
+          <col style={{ width: '20%' }} />
+          <col style={{ width: '10%' }} />
+          <col style={{ width: '15%' }} />
+        </colgroup>
+        <thead>
+          <tr style={{ background: '#f2f2f2' }}>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Case</th>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Permutations Covered</th>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Folder</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+              Button click mutates a primitive <code>@State</code> value and updates DOM output.
+            </td>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+              type: string | number | boolean × default: true/false<br/>
+              <small>Covered: {primitive.tested}/{primitive.total}</small>
+            </td>
+            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
+              <span style={{ color: primitive.tested === primitive.total ? 'green' : '#d00' }}>{primitive.tested === primitive.total ? '✔' : '✗'}</span>
+            </td>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+              <code>test/wdio/state/tests</code>
+            </td>
+          </tr>
+          <tr style={{ background: '#f9f9f9' }}>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+              Static render validation for complex types (<code>any</code>, <code>array</code>, <code>object</code>) with and without defaults.
+            </td>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+              type: any | array | object × default: true/false<br/>
+              <small>Covered: {complex.tested}/{complex.total}</small>
+            </td>
+            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
+              <span style={{ color: complex.tested === complex.total ? 'green' : '#d00' }}>{complex.tested === complex.total ? '✔' : '✗'}</span>
+            </td>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+              <code>test/wdio/state/tests</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+})()}
+
 ## Covered Permutations
 
 <div>
@@ -39,83 +107,56 @@ To simplify navigation of the generated matrix, components are organized by stat
   <strong>{data.coverage.percent}%</strong>)
 </div>
 
-<div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
-  <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
-    <colgroup>
-      <col style={{ width: '33%' }} />
-      <col style={{ width: '33%' }} />
-      <col style={{ width: '34%' }} />
-    </colgroup>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Has Default Value</th>
-        <th>Number of Occurrences</th>
-      </tr>
-    </thead>
-    <tbody>
-      {data.coveredPermutations.map((p, i) => (
-        <tr key={i}>
-          {p.options.map((opt, j) => (
-            <td key={j}>{opt}</td>
-          ))}
-          <td>{p.count}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
-
-## Test Case Summary
-
-The following table summarizes the WDIO component tests that exercise the `@State` decorator across types and default-value cases.
-
-<div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
-  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-    <colgroup>
-      <col style={{ width: '55%' }} />
-      <col style={{ width: '20%' }} />
-      <col style={{ width: '10%' }} />
-      <col style={{ width: '15%' }} />
-    </colgroup>
-    <thead>
-      <tr style={{ background: '#f2f2f2' }}>
-        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Case</th>
-        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Permutations Covered</th>
-        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
-        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Folder</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-          Button click mutates a primitive <code>@State</code> value and updates DOM output.
-        </td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-          type: string | number | boolean × default: true/false
-        </td>
-        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-          <span style={{ color: 'green' }}>✔</span>
-        </td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-          <code>test/wdio/state/tests</code>
-        </td>
-      </tr>
-      <tr style={{ background: '#f9f9f9' }}>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-          Static render validation for complex types (<code>any</code>, <code>array</code>, <code>object</code>) with and without defaults.
-        </td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-          type: any | array | object × default: true/false
-        </td>
-        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-          <span style={{ color: 'green' }}>✔</span>
-        </td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-          <code>test/wdio/state/tests</code>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+{(() => {
+  const oIdx = new Map(
+    (overlay.items || []).map(i => [`${i.options.type},${String(i.options.hasDefault)}`, i])
+  );
+  return (
+    <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+        <colgroup>
+          <col style={{ width: '22%' }} />
+          <col style={{ width: '22%' }} />
+          <col style={{ width: '12%' }} />
+          <col style={{ width: '44%' }} />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Has Default Value</th>
+            <th>Tested</th>
+            <th>Test Cases</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.coveredPermutations.map((p, i) => {
+            const key = `${p.options[0]},${p.options[1]}`;
+            const oi = oIdx.get(key);
+            const tested = oi?.tested;
+            const tests = oi?.testedBy || [];
+            return (
+              <tr key={i} style={{ background: tested ? '#fbfffb' : '#fff9f9' }}>
+                {p.options.map((opt, j) => (
+                  <td key={j}>{opt}</td>
+                ))}
+                <td style={{ textAlign: 'center' }}>{tested ? <span style={{ color: 'green' }}>✔</span> : <span style={{ color: 'red' }}>✗</span>}</td>
+                <td>
+                  {tests.length ? (
+                    <ul style={{ margin: 0, paddingLeft: 16 }}>
+                      {tests.map((t, k) => (
+                        <li key={k}>{t}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <em>—</em>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+})()}
 

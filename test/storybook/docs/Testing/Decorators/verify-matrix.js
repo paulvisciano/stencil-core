@@ -27,7 +27,9 @@ const CONFIG = (() => {
     const RULES_PATH = path.resolve(__dirname, 'State/rules.json');
     const DATA_PATH = path.resolve(__dirname, 'State/coverage-data.json');
     const COMPONENT_DIR = path.resolve(__dirname, '../../../../../test/wdio/state/matrix');
-    return { RULES_PATH, DATA_PATH, COMPONENT_DIR };
+    const TEST_FILE = path.resolve(__dirname, '../../../../../test/wdio/state/tests/cmp.test.tsx');
+    const OVERLAY_OUT = path.resolve(__dirname, 'State/coverage-overlay.json');
+    return { RULES_PATH, DATA_PATH, COMPONENT_DIR, TEST_FILE, OVERLAY_OUT };
   }
   // default: component
   const RULES_PATH = path.resolve(__dirname, 'Component/rules.json');
@@ -128,6 +130,62 @@ function probeEncapsulationIncrease() {
   console.log(`Probe OK: permutations increased from ${baseTotal} -> ${probeTotal}`);
 }
 
+// Build state coverage overlay JSON by parsing WDIO test usage
+function buildStateOverlay() {
+  if (DECORATOR !== 'state') return;
+  const data = readJson(CONFIG.DATA_PATH);
+  const testSrc = fs.readFileSync(CONFIG.TEST_FILE, 'utf8');
+
+  // tag -> [test titles]
+  const manifest = new Map();
+  const itBlockRe = /it\(\s*([`'\"])\s*([^\1]+?)\s*\1\s*,\s*async\s*\(\)\s*=>\s*\{([\s\S]*?)\}\s*\)/g;
+  let m;
+  while ((m = itBlockRe.exec(testSrc)) !== null) {
+    const title = m[2].trim();
+    const body = m[3] || '';
+    const tagRe = /\$\(\s*([`'\"])\s*(state-[^\1>\s]+)\s*\1\s*\)/g;
+    let tm;
+    const tagsInThisTest = new Set();
+    while ((tm = tagRe.exec(body)) !== null) {
+      tagsInThisTest.add(tm[2]);
+    }
+    for (const tag of tagsInThisTest) {
+      if (!manifest.has(tag)) manifest.set(tag, []);
+      manifest.get(tag).push(title);
+    }
+  }
+  if (manifest.size === 0) {
+    const tagRe = /\$\(\s*([`'\"])\s*(state-[^\1>\s]+)\s*\1\s*\)/g;
+    let tm;
+    while ((tm = tagRe.exec(testSrc)) !== null) {
+      const tag = tm[2];
+      if (!manifest.has(tag)) manifest.set(tag, []);
+    }
+  }
+
+  const items = [];
+  for (const p of data.coveredPermutations) {
+    const type = p.options?.[0];
+    const hasDefault = String(p.options?.[1]) === 'true';
+    const files = p.files || [];
+    const tags = files.map(rel => path.basename(rel, path.extname(rel)));
+    const tag = tags[0] || null;
+    const testedBy = tag && manifest.has(tag) ? manifest.get(tag) : [];
+    const tested = (testedBy && testedBy.length > 0) || (tag && manifest.has(tag));
+    items.push({ group: type, options: { type, hasDefault }, files, tag, tested, testedBy });
+  }
+
+  const stats = {
+    totalPermutations: items.length,
+    testedPermutations: items.filter(i => i.tested).length,
+    percentTested: items.length ? ((items.filter(i => i.tested).length / items.length) * 100).toFixed(2) : '0.00',
+  };
+
+  const out = { coverage: readJson(CONFIG.DATA_PATH).coverage, stats, items };
+  fs.writeFileSync(CONFIG.OVERLAY_OUT, JSON.stringify(out, null, 2));
+  console.log(`State coverage overlay written to ${CONFIG.OVERLAY_OUT}`);
+}
+
 function main() {
   refreshCoverage();
 
@@ -172,6 +230,11 @@ function main() {
 
   if (process.env.VERIFY_PROBE_ENCAPSULATION === '1') {
     probeEncapsulationIncrease();
+  }
+
+  // Build overlay for @State after verification
+  if (DECORATOR === 'state') {
+    buildStateOverlay();
   }
 
   console.log('verify-matrix completed successfully.');

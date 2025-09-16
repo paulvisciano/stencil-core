@@ -1,0 +1,194 @@
+{
+  "coverage": {
+    "covered": 12,
+    "total": 12,
+    "percent": "100.00"
+  },
+  "stats": {
+    "totalPermutations": 12,
+    "testedPermutations": 12,
+    "percentTested": "100.00"
+  },
+  "items": [
+    {
+      "group": "string",
+      "options": {
+        "type": "string",
+        "hasDefault": false
+      },
+      "files": [
+        "string/state-string-no-default.tsx"
+      ],
+      "tag": "state-string-no-default",
+      "tested": true,
+      "testedBy": [
+        "mutates string (no default) and updates DOM"
+      ]
+    },
+    {
+      "group": "string",
+      "options": {
+        "type": "string",
+        "hasDefault": true
+      },
+      "files": [
+        "string/state-string-default.tsx"
+      ],
+      "tag": "state-string-default",
+      "tested": true,
+      "testedBy": [
+        "mutates string (default) and updates DOM"
+      ]
+    },
+    {
+      "group": "object",
+      "options": {
+        "type": "object",
+        "hasDefault": false
+      },
+      "files": [
+        "object/state-object-no-default.tsx"
+      ],
+      "tag": "state-object-no-default",
+      "tested": true,
+      "testedBy": [
+        "renders object (no default) statically"
+      ]
+    },
+    {
+      "group": "object",
+      "options": {
+        "type": "object",
+        "hasDefault": true
+      },
+      "files": [
+        "object/state-object-default.tsx"
+      ],
+      "tag": "state-object-default",
+      "tested": true,
+      "testedBy": [
+        "renders object (default) statically"
+      ]
+    },
+    {
+      "group": "number",
+      "options": {
+        "type": "number",
+        "hasDefault": false
+      },
+      "files": [
+        "number/state-number-no-default.tsx"
+      ],
+      "tag": "state-number-no-default",
+      "tested": true,
+      "testedBy": [
+        "mutates number (no default) and updates DOM"
+      ]
+    },
+    {
+      "group": "number",
+      "options": {
+        "type": "number",
+        "hasDefault": true
+      },
+      "files": [
+        "number/state-number-default.tsx"
+      ],
+      "tag": "state-number-default",
+      "tested": true,
+      "testedBy": [
+        "mutates number (default) and updates DOM"
+      ]
+    },
+    {
+      "group": "boolean",
+      "options": {
+        "type": "boolean",
+        "hasDefault": false
+      },
+      "files": [
+        "boolean/state-boolean-no-default.tsx"
+      ],
+      "tag": "state-boolean-no-default",
+      "tested": true,
+      "testedBy": [
+        "mutates boolean (no default) and updates DOM"
+      ]
+    },
+    {
+      "group": "boolean",
+      "options": {
+        "type": "boolean",
+        "hasDefault": true
+      },
+      "files": [
+        "boolean/state-boolean-default.tsx"
+      ],
+      "tag": "state-boolean-default",
+      "tested": true,
+      "testedBy": [
+        "mutates boolean (default) and updates DOM"
+      ]
+    },
+    {
+      "group": "array",
+      "options": {
+        "type": "array",
+        "hasDefault": false
+      },
+      "files": [
+        "array/state-array-no-default.tsx"
+      ],
+      "tag": "state-array-no-default",
+      "tested": true,
+      "testedBy": [
+        "renders array (no default) statically"
+      ]
+    },
+    {
+      "group": "array",
+      "options": {
+        "type": "array",
+        "hasDefault": true
+      },
+      "files": [
+        "array/state-array-default.tsx"
+      ],
+      "tag": "state-array-default",
+      "tested": true,
+      "testedBy": [
+        "renders array (default) statically"
+      ]
+    },
+    {
+      "group": "any",
+      "options": {
+        "type": "any",
+        "hasDefault": false
+      },
+      "files": [
+        "any/state-any-no-default.tsx"
+      ],
+      "tag": "state-any-no-default",
+      "tested": true,
+      "testedBy": [
+        "renders any (no default) statically"
+      ]
+    },
+    {
+      "group": "any",
+      "options": {
+        "type": "any",
+        "hasDefault": true
+      },
+      "files": [
+        "any/state-any-default.tsx"
+      ],
+      "tag": "state-any-default",
+      "tested": true,
+      "testedBy": [
+        "renders any (default) statically"
+      ]
+    }
+  ]
+}
