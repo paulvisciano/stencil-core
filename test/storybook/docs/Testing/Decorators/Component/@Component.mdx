@@ -1,6 +1,7 @@
 import rules from './rules.json';
 import { Meta } from '@storybook/addon-docs/blocks';
 import data from './coverage-data.json';
+import overlay from './coverage-overlay.json';
 
 <Meta title="Testing/Decorators/@Component"/>
 
@@ -45,6 +46,64 @@ Rule: `shadow` and `scoped` are mutually exclusive and never both `true`.
 
 `cmp-base.tsx`, `matrix-gen.css`, and `matrix-alt.css` remain in the `matrix/` root.
 
+## Test Case Summary
+
+Planned WDIO tests will exercise representative permutations of the `@Component` matrix. Until then, this section serves as a placeholder for the shared summary format.
+
+{(() => {
+  const items = overlay.items || [];
+  const groupCounts = new Map();
+  items.forEach(i => {
+    const g = i.group || 'light';
+    const c = groupCounts.get(g) || { tested: 0, total: 0 };
+    c.total += 1;
+    if (i.tested) c.tested += 1;
+    groupCounts.set(g, c);
+  });
+
+  const rows = ['shadow', 'scoped', 'light'].map(g => ({ group: g, ...(groupCounts.get(g) || { tested: 0, total: 0 }) }));
+
+  return (
+    <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <colgroup>
+          <col style={{ width: '55%' }} />
+          <col style={{ width: '20%' }} />
+          <col style={{ width: '10%' }} />
+          <col style={{ width: '15%' }} />
+        </colgroup>
+        <thead>
+          <tr style={{ background: '#f2f2f2' }}>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Case</th>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Permutations Covered</th>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Folder</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r, i) => (
+            <tr key={i}>
+              <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+                Render validations for {r.group} mode and asset/style combinations.
+              </td>
+              <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+                group: {r.group}<br/>
+                <small>Covered: {r.tested}/{r.total}</small>
+              </td>
+              <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
+                <span style={{ color: r.tested === r.total && r.total > 0 ? 'green' : '#999' }}>{r.total > 0 ? (r.tested === r.total ? '✔' : '✗') : '—'}</span>
+              </td>
+              <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+                <code>test/wdio/component-decorator/tests</code>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+})()}
+
 ## Covered Permutations
 
 <div>
@@ -75,58 +134,38 @@ Rule: `shadow` and `scoped` are mutually exclusive and never both `true`.
         <th>styleUrl</th>
         <th>styleUrls</th>
         <th>styles</th>
-        <th>Number of Test Files</th>
+        <th>Tested / Test Cases</th>
       </tr>
     </thead>
     <tbody>
-      {data.coveredPermutations.map((p, i) => (
-        <tr key={i}>
-          <td>{i + 1}</td>
-          {p.options.map((opt, j) => (
-            <td key={j}>{opt}</td>
-          ))}
-          <td>{p.count}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
-
-## Test Case Summary
-
-Planned WDIO tests will exercise representative permutations of the `@Component` matrix. Until then, this section serves as a placeholder for the shared summary format.
-
-<div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
-  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-    <colgroup>
-      <col style={{ width: '55%' }} />
-      <col style={{ width: '20%' }} />
-      <col style={{ width: '10%' }} />
-      <col style={{ width: '15%' }} />
-    </colgroup>
-    <thead>
-      <tr style={{ background: '#f2f2f2' }}>
-        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Case</th>
-        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Permutations Covered</th>
-        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
-        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Folder</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-          Component renders correctly with mode‑specific styles and assets.
-        </td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-          Representative across shadow | scoped | light
-        </td>
-        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-          <span style={{ color: '#999' }}>—</span>
-        </td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-          <code>test/wdio/component-decorator/tests</code>
-        </td>
-      </tr>
+      {data.coveredPermutations.map((p, i) => {
+        const optionKey = p.options.join('|');
+        const oi = (overlay.items || []).find(x => x.optionsKey === optionKey);
+        const tested = oi?.tested;
+        const tests = oi?.testedBy || [];
+        return (
+          <tr key={i} style={{ background: tested ? '#fbfffb' : '#fff' }}>
+            <td>{i + 1}</td>
+            {p.options.map((opt, j) => (
+              <td key={j}>{opt}</td>
+            ))}
+            <td>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ minWidth: 16, textAlign: 'center' }}>{tested ? <span style={{ color: 'green' }}>✔</span> : <span style={{ color: '#999' }}>—</span>}</span>
+                {tests.length ? (
+                  <ul style={{ margin: 0, paddingLeft: 16 }}>
+                    {tests.map((t, k) => (
+                      <li key={k}>{t}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <em>—</em>
+                )}
+              </div>
+            </td>
+          </tr>
+        );
+      })}
     </tbody>
   </table>
 </div>

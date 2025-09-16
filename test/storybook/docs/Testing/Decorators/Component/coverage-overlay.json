@@ -1,0 +1,3662 @@
+{
+  "coverage": {
+    "covered": 192,
+    "total": 192,
+    "percent": "100.0"
+  },
+  "stats": {
+    "totalPermutations": 192,
+    "testedPermutations": 0,
+    "percentTested": "0.00"
+  },
+  "items": [
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|-|-|-|-|-",
+      "files": [
+        "matrix/cmp-base.tsx"
+      ],
+      "tag": "cmp-base",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|-|✓|✗|-|-|✓",
+      "files": [
+        "matrix/light/cmp-assetsdirs-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-assetsdirs-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|✓|✗|✓|-|-",
+      "files": [
+        "matrix/light/cmp-assetsdirs-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-assetsdirs-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|✓|✗|-|✓|-",
+      "files": [
+        "matrix/light/cmp-assetsdirs-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-assetsdirs-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|✓|✗|-|-|-",
+      "files": [
+        "matrix/light/cmp-assetsdirs-formassociated-false.tsx"
+      ],
+      "tag": "cmp-assetsdirs-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|-|✓|✓|-|-|✓",
+      "files": [
+        "matrix/light/cmp-assetsdirs-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-assetsdirs-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|✓|✓|✓|-|-",
+      "files": [
+        "matrix/light/cmp-assetsdirs-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-assetsdirs-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|✓|✓|-|✓|-",
+      "files": [
+        "matrix/light/cmp-assetsdirs-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-assetsdirs-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|✓|✓|-|-|-",
+      "files": [
+        "matrix/light/cmp-assetsdirs-formassociated.tsx"
+      ],
+      "tag": "cmp-assetsdirs-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|-|✓|-|-|-|✓",
+      "files": [
+        "matrix/light/cmp-assetsdirs-styles.tsx"
+      ],
+      "tag": "cmp-assetsdirs-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|✓|-|✓|-|-",
+      "files": [
+        "matrix/light/cmp-assetsdirs-styleurl.tsx"
+      ],
+      "tag": "cmp-assetsdirs-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|✓|-|-|✓|-",
+      "files": [
+        "matrix/light/cmp-assetsdirs-styleurls.tsx"
+      ],
+      "tag": "cmp-assetsdirs-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|✓|-|-|-|-",
+      "files": [
+        "matrix/light/cmp-assetsdirs.tsx"
+      ],
+      "tag": "cmp-assetsdirs",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|-|-|✗|-|-|✓",
+      "files": [
+        "matrix/light/cmp-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|-|✗|✓|-|-",
+      "files": [
+        "matrix/light/cmp-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|-|✗|-|✓|-",
+      "files": [
+        "matrix/light/cmp-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|-|✗|-|-|-",
+      "files": [
+        "matrix/light/cmp-formassociated-false.tsx"
+      ],
+      "tag": "cmp-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|-|-|✓|-|-|✓",
+      "files": [
+        "matrix/light/cmp-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|-|✓|✓|-|-",
+      "files": [
+        "matrix/light/cmp-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|-|✓|-|✓|-",
+      "files": [
+        "matrix/light/cmp-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|-|✓|-|-|-",
+      "files": [
+        "matrix/light/cmp-formassociated.tsx"
+      ],
+      "tag": "cmp-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|✗|✓|✗|-|-|✓",
+      "files": [
+        "matrix/light/cmp-scoped-false-assetsdirs-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-scoped-false-assetsdirs-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|✓|✗|✓|-|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-assetsdirs-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-scoped-false-assetsdirs-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|✓|✗|-|✓|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-assetsdirs-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-scoped-false-assetsdirs-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|✓|✗|-|-|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-assetsdirs-formassociated-false.tsx"
+      ],
+      "tag": "cmp-scoped-false-assetsdirs-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|✗|✓|✓|-|-|✓",
+      "files": [
+        "matrix/light/cmp-scoped-false-assetsdirs-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-scoped-false-assetsdirs-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|✓|✓|✓|-|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-assetsdirs-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-scoped-false-assetsdirs-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|✓|✓|-|✓|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-assetsdirs-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-scoped-false-assetsdirs-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|✓|✓|-|-|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-assetsdirs-formassociated.tsx"
+      ],
+      "tag": "cmp-scoped-false-assetsdirs-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|✗|✓|-|-|-|✓",
+      "files": [
+        "matrix/light/cmp-scoped-false-assetsdirs-styles.tsx"
+      ],
+      "tag": "cmp-scoped-false-assetsdirs-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|✓|-|✓|-|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-assetsdirs-styleurl.tsx"
+      ],
+      "tag": "cmp-scoped-false-assetsdirs-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|✓|-|-|✓|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-assetsdirs-styleurls.tsx"
+      ],
+      "tag": "cmp-scoped-false-assetsdirs-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|✓|-|-|-|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-assetsdirs.tsx"
+      ],
+      "tag": "cmp-scoped-false-assetsdirs",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|✗|-|✗|-|-|✓",
+      "files": [
+        "matrix/light/cmp-scoped-false-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-scoped-false-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|-|✗|✓|-|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-scoped-false-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|-|✗|-|✓|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-scoped-false-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|-|✗|-|-|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-formassociated-false.tsx"
+      ],
+      "tag": "cmp-scoped-false-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|✗|-|✓|-|-|✓",
+      "files": [
+        "matrix/light/cmp-scoped-false-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-scoped-false-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|-|✓|✓|-|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-scoped-false-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|-|✓|-|✓|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-scoped-false-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|-|✓|-|-|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-formassociated.tsx"
+      ],
+      "tag": "cmp-scoped-false-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|✗|-|-|-|-|✓",
+      "files": [
+        "matrix/light/cmp-scoped-false-styles.tsx"
+      ],
+      "tag": "cmp-scoped-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|-|-|✓|-|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-styleurl.tsx"
+      ],
+      "tag": "cmp-scoped-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|-|-|-|✓|-",
+      "files": [
+        "matrix/light/cmp-scoped-false-styleurls.tsx"
+      ],
+      "tag": "cmp-scoped-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✗|-|-|-|-|-",
+      "files": [
+        "matrix/light/cmp-scoped-false.tsx"
+      ],
+      "tag": "cmp-scoped-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|-|✓|✗|-|-|✓",
+      "files": [
+        "matrix/light/cmp-shadow-false-assetsdirs-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-assetsdirs-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|✓|✗|✓|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-assetsdirs-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-assetsdirs-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|✓|✗|-|✓|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-assetsdirs-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-assetsdirs-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|✓|✗|-|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-assetsdirs-formassociated-false.tsx"
+      ],
+      "tag": "cmp-shadow-false-assetsdirs-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|-|✓|✓|-|-|✓",
+      "files": [
+        "matrix/light/cmp-shadow-false-assetsdirs-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-assetsdirs-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|✓|✓|✓|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-assetsdirs-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-assetsdirs-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|✓|✓|-|✓|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-assetsdirs-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-assetsdirs-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|✓|✓|-|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-assetsdirs-formassociated.tsx"
+      ],
+      "tag": "cmp-shadow-false-assetsdirs-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|-|✓|-|-|-|✓",
+      "files": [
+        "matrix/light/cmp-shadow-false-assetsdirs-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-assetsdirs-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|✓|-|✓|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-assetsdirs-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-assetsdirs-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|✓|-|-|✓|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-assetsdirs-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-assetsdirs-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|✓|-|-|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-assetsdirs.tsx"
+      ],
+      "tag": "cmp-shadow-false-assetsdirs",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|-|-|✗|-|-|✓",
+      "files": [
+        "matrix/light/cmp-shadow-false-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|-|✗|✓|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|-|✗|-|✓|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|-|✗|-|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-formassociated-false.tsx"
+      ],
+      "tag": "cmp-shadow-false-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|-|-|✓|-|-|✓",
+      "files": [
+        "matrix/light/cmp-shadow-false-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|-|✓|✓|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|-|✓|-|✓|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|-|✓|-|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-formassociated.tsx"
+      ],
+      "tag": "cmp-shadow-false-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|✗|✓|✗|-|-|✓",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-assetsdirs-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-assetsdirs-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|✓|✗|✓|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-assetsdirs-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-assetsdirs-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|✓|✗|-|✓|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-assetsdirs-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-assetsdirs-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|✓|✗|-|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-assetsdirs-formassociated-false.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-assetsdirs-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|✗|✓|✓|-|-|✓",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-assetsdirs-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-assetsdirs-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|✓|✓|✓|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-assetsdirs-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-assetsdirs-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|✓|✓|-|✓|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-assetsdirs-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-assetsdirs-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|✓|✓|-|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-assetsdirs-formassociated.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-assetsdirs-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|✗|✓|-|-|-|✓",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-assetsdirs-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-assetsdirs-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|✓|-|✓|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-assetsdirs-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-assetsdirs-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|✓|-|-|✓|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-assetsdirs-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-assetsdirs-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|✓|-|-|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-assetsdirs.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-assetsdirs",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|✗|-|✗|-|-|✓",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|-|✗|✓|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|-|✗|-|✓|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|-|✗|-|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-formassociated-false.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|✗|-|✓|-|-|✓",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|-|✓|✓|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|-|✓|-|✓|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|-|✓|-|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-formassociated.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|✗|-|-|-|-|✓",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|-|-|✓|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|-|-|-|✓|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✗|-|-|-|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-scoped-false.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|-|-|-|-|-|✓",
+      "files": [
+        "matrix/light/cmp-shadow-false-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|-|-|✓|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|-|-|-|✓|-",
+      "files": [
+        "matrix/light/cmp-shadow-false-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "✗",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|-|-|-|-|-|-",
+      "files": [
+        "matrix/light/cmp-shadow-false.tsx"
+      ],
+      "tag": "cmp-shadow-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|-|-|-|-|-|✓",
+      "files": [
+        "matrix/light/cmp-styles.tsx"
+      ],
+      "tag": "cmp-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|-|-|✓|-|-",
+      "files": [
+        "matrix/light/cmp-styleurl.tsx"
+      ],
+      "tag": "cmp-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "light",
+      "options": {
+        "shadow": "-",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|-|-|-|-|✓|-",
+      "files": [
+        "matrix/light/cmp-styleurls.tsx"
+      ],
+      "tag": "cmp-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|✓|✓|✗|-|-|✓",
+      "files": [
+        "matrix/scoped/cmp-scoped-assetsdirs-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-scoped-assetsdirs-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|✓|✗|✓|-|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-assetsdirs-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-scoped-assetsdirs-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|✓|✗|-|✓|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-assetsdirs-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-scoped-assetsdirs-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|✓|✗|-|-|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-assetsdirs-formassociated-false.tsx"
+      ],
+      "tag": "cmp-scoped-assetsdirs-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|✓|✓|✓|-|-|✓",
+      "files": [
+        "matrix/scoped/cmp-scoped-assetsdirs-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-scoped-assetsdirs-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|✓|✓|✓|-|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-assetsdirs-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-scoped-assetsdirs-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|✓|✓|-|✓|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-assetsdirs-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-scoped-assetsdirs-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|✓|✓|-|-|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-assetsdirs-formassociated.tsx"
+      ],
+      "tag": "cmp-scoped-assetsdirs-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|✓|✓|-|-|-|✓",
+      "files": [
+        "matrix/scoped/cmp-scoped-assetsdirs-styles.tsx"
+      ],
+      "tag": "cmp-scoped-assetsdirs-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|✓|-|✓|-|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-assetsdirs-styleurl.tsx"
+      ],
+      "tag": "cmp-scoped-assetsdirs-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|✓|-|-|✓|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-assetsdirs-styleurls.tsx"
+      ],
+      "tag": "cmp-scoped-assetsdirs-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|✓|-|-|-|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-assetsdirs.tsx"
+      ],
+      "tag": "cmp-scoped-assetsdirs",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|✓|-|✗|-|-|✓",
+      "files": [
+        "matrix/scoped/cmp-scoped-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-scoped-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|-|✗|✓|-|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-scoped-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|-|✗|-|✓|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-scoped-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|-|✗|-|-|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-formassociated-false.tsx"
+      ],
+      "tag": "cmp-scoped-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|✓|-|✓|-|-|✓",
+      "files": [
+        "matrix/scoped/cmp-scoped-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-scoped-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|-|✓|✓|-|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-scoped-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|-|✓|-|✓|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-scoped-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|-|✓|-|-|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-formassociated.tsx"
+      ],
+      "tag": "cmp-scoped-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "-|✓|-|-|-|-|✓",
+      "files": [
+        "matrix/scoped/cmp-scoped-styles.tsx"
+      ],
+      "tag": "cmp-scoped-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|-|-|✓|-|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-styleurl.tsx"
+      ],
+      "tag": "cmp-scoped-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|-|-|-|✓|-",
+      "files": [
+        "matrix/scoped/cmp-scoped-styleurls.tsx"
+      ],
+      "tag": "cmp-scoped-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "-",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "-|✓|-|-|-|-|-",
+      "files": [
+        "matrix/scoped/cmp-scoped.tsx"
+      ],
+      "tag": "cmp-scoped",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|✓|✓|✗|-|-|✓",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-assetsdirs-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-assetsdirs-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|✓|✗|✓|-|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-assetsdirs-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-assetsdirs-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|✓|✗|-|✓|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-assetsdirs-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-assetsdirs-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|✓|✗|-|-|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-assetsdirs-formassociated-false.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-assetsdirs-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|✓|✓|✓|-|-|✓",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-assetsdirs-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-assetsdirs-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|✓|✓|✓|-|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-assetsdirs-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-assetsdirs-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|✓|✓|-|✓|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-assetsdirs-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-assetsdirs-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|✓|✓|-|-|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-assetsdirs-formassociated.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-assetsdirs-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|✓|✓|-|-|-|✓",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-assetsdirs-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-assetsdirs-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|✓|-|✓|-|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-assetsdirs-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-assetsdirs-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|✓|-|-|✓|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-assetsdirs-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-assetsdirs-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|✓|-|-|-|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-assetsdirs.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-assetsdirs",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|✓|-|✗|-|-|✓",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|-|✗|✓|-|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|-|✗|-|✓|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|-|✗|-|-|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-formassociated-false.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|✓|-|✓|-|-|✓",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|-|✓|✓|-|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|-|✓|-|✓|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|-|✓|-|-|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-formassociated.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✗|✓|-|-|-|-|✓",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-styles.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|-|-|✓|-|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|-|-|-|✓|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "scoped",
+      "options": {
+        "shadow": "✗",
+        "scoped": "✓",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✗|✓|-|-|-|-|-",
+      "files": [
+        "matrix/scoped/cmp-shadow-false-scoped.tsx"
+      ],
+      "tag": "cmp-shadow-false-scoped",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✓|-|✓|✗|-|-|✓",
+      "files": [
+        "matrix/shadow/cmp-shadow-assetsdirs-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-shadow-assetsdirs-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|✓|✗|✓|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-assetsdirs-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-assetsdirs-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|✓|✗|-|✓|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-assetsdirs-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-assetsdirs-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|✓|✗|-|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-assetsdirs-formassociated-false.tsx"
+      ],
+      "tag": "cmp-shadow-assetsdirs-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✓|-|✓|✓|-|-|✓",
+      "files": [
+        "matrix/shadow/cmp-shadow-assetsdirs-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-shadow-assetsdirs-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|✓|✓|✓|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-assetsdirs-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-assetsdirs-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|✓|✓|-|✓|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-assetsdirs-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-assetsdirs-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|✓|✓|-|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-assetsdirs-formassociated.tsx"
+      ],
+      "tag": "cmp-shadow-assetsdirs-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✓|-|✓|-|-|-|✓",
+      "files": [
+        "matrix/shadow/cmp-shadow-assetsdirs-styles.tsx"
+      ],
+      "tag": "cmp-shadow-assetsdirs-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|✓|-|✓|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-assetsdirs-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-assetsdirs-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|✓|-|-|✓|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-assetsdirs-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-assetsdirs-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|✓|-|-|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-assetsdirs.tsx"
+      ],
+      "tag": "cmp-shadow-assetsdirs",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✓|-|-|✗|-|-|✓",
+      "files": [
+        "matrix/shadow/cmp-shadow-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-shadow-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|-|✗|✓|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|-|✗|-|✓|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|-|✗|-|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-formassociated-false.tsx"
+      ],
+      "tag": "cmp-shadow-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✓|-|-|✓|-|-|✓",
+      "files": [
+        "matrix/shadow/cmp-shadow-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-shadow-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|-|✓|✓|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|-|✓|-|✓|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|-|✓|-|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-formassociated.tsx"
+      ],
+      "tag": "cmp-shadow-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✓|✗|✓|✗|-|-|✓",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-assetsdirs-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-assetsdirs-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|✓|✗|✓|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-assetsdirs-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-assetsdirs-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|✓|✗|-|✓|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-assetsdirs-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-assetsdirs-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|✓|✗|-|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-assetsdirs-formassociated-false.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-assetsdirs-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✓|✗|✓|✓|-|-|✓",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-assetsdirs-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-assetsdirs-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|✓|✓|✓|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-assetsdirs-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-assetsdirs-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|✓|✓|-|✓|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-assetsdirs-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-assetsdirs-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|✓|✓|-|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-assetsdirs-formassociated.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-assetsdirs-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✓|✗|✓|-|-|-|✓",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-assetsdirs-styles.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-assetsdirs-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|✓|-|✓|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-assetsdirs-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-assetsdirs-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|✓|-|-|✓|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-assetsdirs-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-assetsdirs-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "✓",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|✓|-|-|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-assetsdirs.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-assetsdirs",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✓|✗|-|✗|-|-|✓",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-formassociated-false-styles.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-formassociated-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|-|✗|✓|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-formassociated-false-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-formassociated-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|-|✗|-|✓|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-formassociated-false-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-formassociated-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✗",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|-|✗|-|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-formassociated-false.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-formassociated-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✓|✗|-|✓|-|-|✓",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-formassociated-styles.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-formassociated-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|-|✓|✓|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-formassociated-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-formassociated-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|-|✓|-|✓|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-formassociated-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-formassociated-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "✓",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|-|✓|-|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-formassociated.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-formassociated",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✓|✗|-|-|-|-|✓",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-styles.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|-|-|✓|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|-|-|-|✓|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "✗",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|✗|-|-|-|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-scoped-false.tsx"
+      ],
+      "tag": "cmp-shadow-scoped-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "✓"
+      },
+      "optionsKey": "✓|-|-|-|-|-|✓",
+      "files": [
+        "matrix/shadow/cmp-shadow-styles.tsx"
+      ],
+      "tag": "cmp-shadow-styles",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "✓",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|-|-|✓|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-styleurl.tsx"
+      ],
+      "tag": "cmp-shadow-styleurl",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "✓",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|-|-|-|✓|-",
+      "files": [
+        "matrix/shadow/cmp-shadow-styleurls.tsx"
+      ],
+      "tag": "cmp-shadow-styleurls",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "shadow",
+      "options": {
+        "shadow": "✓",
+        "scoped": "-",
+        "assetsDirs": "-",
+        "formAssociated": "-",
+        "styleUrl": "-",
+        "styleUrls": "-",
+        "styles": "-"
+      },
+      "optionsKey": "✓|-|-|-|-|-|-",
+      "files": [
+        "matrix/shadow/cmp-shadow.tsx"
+      ],
+      "tag": "cmp-shadow",
+      "tested": false,
+      "testedBy": []
+    }
+  ]
+}
