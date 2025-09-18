@@ -1,0 +1,178 @@
+References : 
+    - Github issue :https://github.com/stenciljs/core/issues/3162
+    - Lit Implementation : https://github.com/lit/lit/blob/f8ee010bc515e4bb319e98408d38ef3d971cc08b/packages/reactive-element/src/reactive-controller.ts#L11
+    - Sample implementation : https://gist.github.com/WickyNilliams/79ee85ea370506ac6b16de1920f48e5e
+
+Description : 
+
+    ### Issue
+
+    https://github.com/stenciljs/core/issues/3162
+
+    ### Description
+
+    Attaching controllers to Stencil components allows to extract logic out of the component and make code shareable across multiple components. A controller implements [lifecycle](https://stenciljs.com/docs/component-lifecycle) methods of a Stencil component and contains its own scope to store data as well as provide functions that can be access from within the component. Real world examples could be:
+
+    - a `MouseController` that registers mouse event handlers, observes the position of the mouse and changes state of the component when the mouse is close to the components rendering position.
+    - a `ResizeController` that changes the structure of the component to improve responsive rendering
+
+    The referenced issues contains various suggestions on how this could look like from the user POV. I suggest the following:
+
+    ```tsx
+    import { Component, Fragment, Controller, h } from '@stencil/core'
+
+    import MouseController from '../controller/mouse.js'
+    import ResizeController from '../controllers/resize.js'
+
+    @Component({
+    tag: 'my-component',
+    })
+    export class MyComponent {
+    @Controller()
+    someController = new MouseController()
+
+    @Controller()
+    someOtherController = new ResizeController()
+
+    render() {
+        /**
+        * access controller from within the component
+        */
+        this.someController.action()
+        this.someOtherController.action()
+
+        return (
+        <>
+            <div>...</div>
+            <div>...</div>
+            <div>...</div>
+        </>
+        );
+    }
+    }
+    ```
+
+    Introducing a `Controller` decorator aligns with current design patterns of defining Stencil components and allows for future extensibility, e.g. you can allow users to apply behavioral attributes, e.g.:
+
+    ```tsx
+    @Controller({
+    // restrict access to `componentWillLoad` only
+    lifecycles: ['componentWillLoad'],
+    // execute before user code
+    order: 'pre'
+    })
+    someOtherController = new ResizeController()
+    ```
+
+    ### Implementation
+
+    Decorator in Stencil aren't real and will be replaced at compile time with a runtime artifact that doesn't use decorator. The necessary code that has to be written for this relies in `src/compiler/transformers/` (e.g. the code path starts with `convertDecoratorsToStatic`). A component artifact for a `dist-custom-element` component should look something like this:
+
+    ```js
+    import { p as proxyCustomElement, H, h } from './p-BCkgn2oy.js';
+
+    const MyComponent$1 = /*@__PURE__*/ proxyCustomElement(class MyComponent extends H {
+        constructor() {
+            super();
+            this.__registerHost();
+
+            // register controllers
+            this.someController = new MouseController(this)
+            this.someOtherController = new ResizeController(this)
+        }
+
+        componentWillLoad() {
+            this.someController.componentWillLoad()
+            this.someOtherController.componentWillLoad()
+
+            // continue with user code...
+        }
+
+        // ... potentially other lifecycle hooks
+
+        render() {
+            return (h(h.Fragment, null, h("div", { key: 'e7a6f09defc8236a3dbaf5d82a57cc220339d4c8' }, "..."), h("div", { key: 'cd2f90544f21b9b2e3bcc78ae94a55549bd1888b' }, "..."), h("div", { key: '867c2b602281f5373d82dc5ce382e644eda998d2' }, "...")));
+        }
+    }, [0, "my-component"]);
+    function defineCustomElement$1() {
+        if (typeof customElements === "undefined") {
+            return;
+        }
+        const components = ["my-component"];
+        components.forEach(tagName => { switch (tagName) {
+            case "my-component":
+                if (!customElements.get(tagName)) {
+                    customElements.define(tagName, MyComponent$1);
+                }
+                break;
+        } });
+    }
+    defineCustomElement$1();
+
+    const MyComponent = MyComponent$1;
+    const defineCustomElement = defineCustomElement$1;
+
+    export { MyComponent, defineCustomElement };
+    ```
+
+    #### Controller Implementation
+
+    A controller doesn't require to follow specific implementation details. It can remain a basic class that has access to the component it is assigned to. For DevX purposes I would recommend to provide an abstract class that helps user to not get confused with the typing. Based on above proposal, there are two important notions when implementing a Stencil controller:
+
+    - the controller constructor receives an instance of the Stencil component
+    - if the controller contains methods that have the same name as any of the Stencil lifecycle methods, they need to follow implement and follow the function structure
+
+    A draft implementation of this could look like this:
+
+    ```ts
+    import type { ComponentInterface } from '@stencil/core';
+
+    /**
+    * This abstract class can be extended to build reusable controllers for Stencil components.
+    * It provides typing for lifecycle methods and gives access to the component instance.
+    */
+    export abstract class StencilController<T extends ComponentInterface = ComponentInterface> {
+    protected host: T;
+
+    constructor(host: T) {
+        this.host = host;
+    }
+
+    /**
+    * Optional lifecycle hooks that the controller can implement.
+    * These will be called by the compiler-generated code if defined.
+    */
+    componentWillLoad?(): void | Promise<void>;
+    componentDidLoad?(): void | Promise<void>;
+    componentWillRender?(): void | Promise<void>;
+    componentDidRender?(): void;
+    componentWillUpdate?(): void | Promise<void>;
+    componentDidUpdate?(): void;
+    disconnectedCallback?(): void;
+    }
+    ```
+
+    The user can implement their controller as following:
+
+    ```ts
+    import { StencilController } from './stencil-controller';
+
+    export default class MouseController extends StencilController {
+    position = { x: 0, y: 0 };
+
+    componentWillLoad() {
+        console.log('MouseController initialized for', this.host);
+        // Example: setup logic here
+    }
+
+    action() {
+        // Called from within the component
+        return this.position;
+    }
+    }
+    ```
+
+Questions : 
+
+    - What would be the scope of that feature on Stencil based on their ask, our understanding and the Christian's analysis?
+    - Ballpark estimate for someone that has little to no experience in the project?
