@@ -39,6 +39,8 @@ export {
   Host,
   Listen,
   Method,
+  Mixin,
+  MixinFactory,
   Prop,
   readTask,
   render,

@@ -1,3 +1,46 @@
+## 🏰 [4.37.1](https://github.com/stenciljs/core/compare/v4.37.0...v4.37.1) (2025-09-19)
+
+
+### Bug Fixes
+
+* **dist-custom-elements:** revert [#6381](https://github.com/stenciljs/core/issues/6381) ([77cfdb3](https://github.com/stenciljs/core/commit/77cfdb3b704205ced93b7a265ea0881fa2dd19d0))
+* **Mixin:** export `MixinFactory` type for ease of use ([#6390](https://github.com/stenciljs/core/issues/6390)) ([a26114e](https://github.com/stenciljs/core/commit/a26114ee8a3d808ddb4731547842301628654312))
+* **runtime:** stop eager json parsing for unknown and any type bindings ([#6384](https://github.com/stenciljs/core/issues/6384)) ([ccae0d7](https://github.com/stenciljs/core/commit/ccae0d743cd4eb2766eb7e48cb6add854c9fd640))
+
+
+
+# ⛴ [4.37.0](https://github.com/stenciljs/core/compare/v4.36.3...v4.37.0) (2025-09-13)
+
+
+### Bug Fixes
+
+* **dist-custom-elements:** apply `initializeNextTick` config ([dbcdeff](https://github.com/stenciljs/core/commit/dbcdeff26a9b258f860c5774497e31b84690c7af))
+* **dist-custom-elements:** apply `initializeNextTick` config setting ([#6382](https://github.com/stenciljs/core/issues/6382)) ([7bdf9fb](https://github.com/stenciljs/core/commit/7bdf9fbba0c84305cb7e0d749e0407ced5246b2f))
+* **runtime:** make sure watchers can fire immediately if the custom element is already defined ([#6381](https://github.com/stenciljs/core/issues/6381)) ([4fb9140](https://github.com/stenciljs/core/commit/4fb914024b7a3a760a60feb3ecee21bd3d2c2749))
+
+
+### Features
+
+* new core api - Mixin ([#6375](https://github.com/stenciljs/core/issues/6375)) ([08f6583](https://github.com/stenciljs/core/commit/08f65838787866ce8749489e9ede36bcdfe15f0a))
+* **runtime:** allow class extending ([#6362](https://github.com/stenciljs/core/issues/6362)) ([0456db1](https://github.com/stenciljs/core/commit/0456db148456911ba8cfb0af4af69ed2022763f9))
+
+
+### BREAKING CHANGES
+
+* **runtime:** Watchers will fire earlier than before, but this is the expected behavior
+
+
+
+## 🐈 [4.36.3](https://github.com/stenciljs/core/compare/v4.36.2...v4.36.3) (2025-08-20)
+
+
+### Bug Fixes
+
+* **rollup:** proper `warn` handling ([#6357](https://github.com/stenciljs/core/issues/6357)) ([0831d2c](https://github.com/stenciljs/core/commit/0831d2c35bc16cdc27640353f141ebb2681cb925))
+* **runtime:** fixed parsing of complex attributes that contains JSON strings ([#6359](https://github.com/stenciljs/core/issues/6359)) ([7047196](https://github.com/stenciljs/core/commit/7047196b877f48812783a4d158ac5b3149bcd839))
+
+
+
 ## 💚 [4.36.2](https://github.com/stenciljs/core/compare/v4.36.1...v4.36.2) (2025-07-28)
 
 
