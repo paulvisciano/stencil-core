@@ -1,17 +1,23 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import errorImg from './extends-compiler-error.png';
+
+<Meta title="Testing/Behavior/Composition/Extends Evaluation" tags={['pending-review']} />
+
 # Extends-Only Phase 1 Evaluation
 
-Tags: [EFFORT: S] [RISK: Low] [CONFIDENCE: High]
+> Historical background: see [Historical @Controller Context](?path=/docs/testing-behavior-composition-historical-controller-context--docs).
 
-References
-- PR enabling component inheritance: https://github.com/stenciljs/core/pull/6362
-- Released in Stencil v4.37.0: https://github.com/stenciljs/core/releases/tag/v4.37.0
+## References
+- PR enabling component inheritance: <a href="https://github.com/stenciljs/core/pull/6362" target="_blank" rel="noopener noreferrer">PR #6362</a>
+- Released in Stencil v4.37.0: <a href="https://github.com/stenciljs/core/releases/tag/v4.37.0" target="_blank" rel="noopener noreferrer">Stencil v4.37.0 Release</a>
 
-Minimum required version
+## Minimum Required Version
 - Stencil >= v4.37.0 for `extends` support in components and mixin composition.
 
-Goal: For Phase 1 we evaluate whether plain class inheritance (extends) is sufficient for the immediate needs, without introducing a `@Controller` decorator or runtime host APIs.
+## Goal
+For Phase 1 we evaluate whether plain class inheritance (extends) is sufficient for the immediate needs, without introducing a `@Controller` decorator or runtime host APIs.
 
-Focused Questions
+## Focused Questions
 - Can we move shared functionality into a service (base class or plain helper)?
 - Can that service be reused across multiple components?
 - Can the shared logic tap into component lifecycle events?
@@ -89,7 +95,7 @@ If your local environment has not yet pulled the Stencil update that introduced 
 
 Screenshot
 
-![Compiler error when extending from a base class on older Stencil](./extends-compiler-error.png)
+<img src={errorImg} alt="Compiler error when extending from a base class on older Stencil" style={{maxWidth: '780px', border: '1px solid #eee', borderRadius: '4px'}} />
 
 Example error output
 

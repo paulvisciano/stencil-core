@@ -1,10 +1,42 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Testing/Behavior/Composition/Historical Controller Context" tags={['pending-review']} />
+
 ## References
+
+> Current evaluation summary: see [Extends / Mixins Evaluation](./extends-eval.mdx).
 
 - [GitHub issue #3162](https://github.com/stenciljs/core/issues/3162)
 - [Lit implementation (reactive-controller.ts)](https://github.com/lit/lit/blob/f8ee010bc515e4bb319e98408d38ef3d971cc08b/packages/reactive-element/src/reactive-controller.ts#L11)
 - [Sample implementation gist](https://gist.github.com/WickyNilliams/79ee85ea370506ac6b16de1920f48e5e)
 
+## Current Direction (Extends + Mixins – No Decorator Needed)
+
+Initial exploration proposed a `@Controller` decorator to enable reusable behavior objects with lifecycle participation. Since then, compiler support for direct component inheritance and mixin composition (implemented by @johnjenkins and released in >= v4.37.0) provides the required capabilities out of the box:
+
+- Shared logic via a base class (service-style) using `extends`.
+- Multiple behavior composition via `Mixin(FooFactory, BarFactory, ...)` without extra runtime APIs.
+- Lifecycle tapping by simply implementing lifecycle methods in the base class or mixin factories (standard JS `super` chaining / method composition handled by emitted class structure).
+
+As a result, adding a new `@Controller` decorator and transform layer is no longer necessary for Phase 1 goals. The historical proposal below is retained only for context. Current effort shifts to hardening the inheritance + mixin path with comprehensive tests.
+
+### Test Focus (Planned / In-Progress)
+
+- Inheritance basics: base lifecycle hook invocation (`willLoad`, `didLoad`, `willUpdate`, `didUpdate`).
+- Multiple components reusing the same base ensuring per-instance state isolation.
+- Mixins: combining 2+ behavior factories; verifying merged props, states, methods, watchers (where applicable) without collisions.
+- Override precedence: derived component overrides calling `super` (when present) – ensure no double invocation or loss of base logic.
+- Conflict detection: intentional same-name method in two mixins (document expected last-in-wins behavior or mitigation strategy).
+- Watchers/Methods/Props/State propagation from mixins into the final component metadata (compiler merge correctness).
+- Lifecycle ordering snapshot (base before derived render side-effects) – doc evidence.
+- Edge: absence of async pre-render gating (explicitly documented limitation vs original controller concept).
+- Regression: ensure older compiler error (pre-4.37.0 "@Component can not extend") no longer surfaces.
+
+If later requirements emerge (dynamic attach/detach of behaviors, async gating before first render, SSR ordering guarantees) we can re-evaluate a decorator or runtime hook abstraction. For now: decorator deferred.
+
 ## Original Description / Context (Historical @Controller Proposal)
+
+> Historical context: see [Extends / Mixins Evaluation](./extends-eval.mdx).
 
 ### Issue
 
