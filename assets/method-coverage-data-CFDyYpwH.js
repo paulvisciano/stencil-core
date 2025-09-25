@@ -1,0 +1,1 @@
+const t={covered:4,total:4,percent:"100.00"},e=[{options:["true","true","true"],count:3},{options:["true","true","false"],count:2},{options:["true","false","true"],count:2},{options:["true","false","false"],count:6}],o={coverage:t,coveredPermutations:e};export{o as m};
