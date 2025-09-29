@@ -55,6 +55,105 @@ Acceptance Criteria (Phase 1 extends-only + mixins)
 - Base lifecycle methods execute, verified via WDIO by reading emitted markers from the page.
 - Composition via mixins: a component can consume 2+ behaviors and receive both sets of lifecycle effects and methods without collisions, verified via WDIO.
 
+## Coverage Summary
+
+<div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+    <colgroup>
+      <col style={{ width: '18%' }} />
+      <col style={{ width: '52%' }} />
+      <col style={{ width: '15%' }} />
+      <col style={{ width: '15%' }} />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Area</th>
+        <th>Scenario</th>
+        <th>Spec</th>
+        <th style={{ textAlign: 'center' }}>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Inheritance</td>
+        <td>Shared service base reused across multiple components</td>
+        <td><code>service-inheritance/cmp.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#16a34a', color: '#fff', padding: '2px 8px', borderRadius: 12 }}>PASS</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Inheritance</td>
+        <td>Lifecycle tapping via base hooks (will/did load/update)</td>
+        <td><code>service-inheritance/cmp.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#16a34a', color: '#fff', padding: '2px 8px', borderRadius: 12 }}>PASS</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Inheritance</td>
+        <td>Runtime host state updates from base service (mouse controller example)</td>
+        <td><code>service-inheritance/cmp.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#16a34a', color: '#fff', padding: '2px 8px', borderRadius: 12 }}>PASS</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Mixins</td>
+        <td>Compose two behaviors into one component; both lifecycles/methods present</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Mixins</td>
+        <td>Selective composition (single behavior component) and reuse across components</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Mixins</td>
+        <td>Conflict scenario: same-name methods across behaviors and resolution strategy</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Mixins</td>
+        <td>Override precedence in component with super() chaining</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Mixins</td>
+        <td>Watchers/Props/State merge assertions across composed behaviors</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Mixins</td>
+        <td>Lifecycle ordering across multiple behaviors</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<small>
+Legend: <span style={{ background: '#16a34a', color: '#fff', padding: '1px 6px', borderRadius: 10 }}>PASS</span> = implemented and green in WDIO; <span style={{ background: '#f59e0b', color: '#111827', padding: '1px 6px', borderRadius: 10 }}>PENDING</span> = planned, not yet implemented.
+</small>
+
 ## Checkpoint: Inheritance Support Verified (v4.37.1)
 
 Status: PASS (inheritance); PENDING (mixins suite)
