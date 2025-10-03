@@ -1,7 +1,7 @@
 import { Component, h, State } from '@stencil/core';
-import { MouseController } from './mouse-service.js';
+import { MouseController } from './mouse-service';
 
-@Component({ tag: 'mouse-tracker' })
+@Component({ tag: 'cmp-mouse' })
 export class MouseTracker extends MouseController {
   @State() mouseX: number = 0;
   @State() mouseY: number = 0;

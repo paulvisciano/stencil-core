@@ -1,10 +1,7 @@
 import { h } from '@stencil/core';
 import { render } from '@wdio/browser-runner/stencil';
 import { $, $$, expect, browser } from '@wdio/globals';
-import './cmp-a';
-import './cmp-b';
 import './cmp-mouse';
-import './cmp-state-base';
 
 describe('service-inheritance (extends-only)', () => {
   it('tracks mouse position via base service and updates host', async () => {
