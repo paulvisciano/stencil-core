@@ -2,7 +2,7 @@
 // Attaches a window mousemove listener and updates state on the host component.
 
 export class MouseController {
-  private __onMove = (ev: MouseEvent) => {
+  __onMove = (ev: MouseEvent) => {
     const host = this as any;
     host.mouseX = ev.clientX;
     host.mouseY = ev.clientY;
@@ -10,10 +10,10 @@ export class MouseController {
   };
 
   connectedCallback(this: any) {
-    window.addEventListener('mousemove', this.__onMove as any);
+    window.addEventListener('mousemove', this.__onMove);
   }
 
   disconnectedCallback(this: any) {
-    window.removeEventListener('mousemove', this.__onMove as any);
+    window.removeEventListener('mousemove', this.__onMove);
   }
 }
