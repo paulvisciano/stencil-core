@@ -179,6 +179,119 @@ Pending Follow-ups
 - Capture lifecycle marker assertions from the inheritance test run (optional: add snippet/screenshot) once mixins results are also documented.
 - Update Go/No-Go matrix after mixins verification.
 
+## Parity with Lit Reactive Controllers (Test Plan)
+
+Reference: <a href="https://lit.dev/docs/composition/controllers/" target="_blank" rel="noopener noreferrer">Lit: Reactive Controllers</a>
+
+<div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+    <colgroup>
+      <col style={{ width: '24%' }} />
+      <col style={{ width: '36%' }} />
+      <col style={{ width: '20%' }} />
+      <col style={{ width: '20%' }} />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Lit Feature</th>
+        <th>Stencil Mapping (extends/mixins)</th>
+        <th>Spec Path</th>
+        <th style={{ textAlign: 'center' }}>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>External input: mousemove controller</td>
+        <td>Base service attaches window listener in <code>connectedCallback</code>, updates host <code>@State</code></td>
+        <td><code>service-inheritance/cmp.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#16a34a', color: '#fff', padding: '2px 8px', borderRadius: 12 }}>PASS</span></td>
+      </tr>
+      <tr>
+        <td>Lifecycle: setup/cleanup</td>
+        <td><code>connectedCallback</code>/<code>disconnectedCallback</code> establish and tear down listeners/observers</td>
+        <td><code>service-inheritance/cmp.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#16a34a', color: '#fff', padding: '2px 8px', borderRadius: 12 }}>PASS</span></td>
+      </tr>
+      <tr>
+        <td>Lifecycle: pre/post update hooks</td>
+        <td>Map Lit <code>hostUpdate/hostUpdated</code> to Stencil <code>componentWillRender/componentDidRender</code>; assert ordering and DOM reads</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Update scheduling (requestUpdate)</td>
+        <td>Trigger host re-render via <code>@State</code> mutations from base/mixin; coalescing by counting <code>componentWillRender</code> calls</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Multiple controllers per host</td>
+        <td>Compose multiple behaviors via mixins; both lifecycles and methods present</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Controller composition</td>
+        <td>Behavior A internally composes Behavior B (mixin chain); verify call-through</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Dynamic attach/detach</td>
+        <td>Lit <code>addController/removeController</code> dynamic behavior. Stencil: not supported in Phase 1 (static class composition).</td>
+        <td>—</td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#ef4444', color: '#fff', padding: '2px 8px', borderRadius: 12 }}>GAP</span></td>
+      </tr>
+      <tr>
+        <td>Keyboard input</td>
+        <td>Base/mixin listens to <code>keydown</code> on window; updates host state</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Resize observer</td>
+        <td>Behavior owns a ResizeObserver; exposes attach API; asserts size state updates</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Mutation observer</td>
+        <td>Behavior observes child changes; state reflects mutation count</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Async task lifecycle</td>
+        <td>Task-like behavior with states: <code>idle</code> → <code>pending</code> → <code>resolved/error</code>; triggers updates; abort on disconnect</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Cleanup on disconnect</td>
+        <td>After host removal, external events no longer mutate state; no stray timers</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Update completion signal</td>
+        <td>Lit <code>updateComplete</code> Promise. Stencil: emulate via <code>componentDidUpdate</code> markers/next frame waits</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Directive integration</td>
+        <td>Lit directives + controllers. Stencil: N/A; pattern can be simulated with methods returning callbacks for refs.</td>
+        <td>—</td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#9ca3af', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>N/A</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<small>
+Notes: Controllers in Lit are instance-based and can be dynamically added/removed. Stencil Phase 1 focuses on static composition (extends/mixins). Where direct parity isn't possible, gaps are recorded explicitly.
+</small>
+
 ## Preliminary Conclusion
 - Extends-only path appears sufficient for the three narrow questions (shared logic, reuse, lifecycle tapping). With mixins, composition of multiple behaviors is also feasible without introducing `@Controller` in Phase 1.
 - Keep this evaluation doc updated as tests land.

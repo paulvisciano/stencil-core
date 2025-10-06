@@ -4,37 +4,44 @@
 export class ServiceBase {
   // Shared method used by derived components
   useService(this: any) {
-    // increment a shared counter on the host and mark an update
+    // increment a shared counter on the host
     this.serviceCalls = (this.serviceCalls ?? 0) + 1;
-    this.updates = [...(this.updates ?? []), 'service:use'];
   }
 
-  // Helpers to mutate state on the host (derived component)
-  protected addLoad(this: any, label: string) {
-    this.loads = [...(this.loads ?? []), label];
+  // Lifecycle: Custom Elements
+  connectedCallback(this: any) {
+    this.connected = (this.connected ?? 0) + 1;
   }
-  protected addUpdate(this: any, label: string) {
-    this.updates = [...(this.updates ?? []), label];
+  disconnectedCallback(this: any) {
+    this.disconnected = (this.disconnected ?? 0) + 1;
+  }
+
+  // Stencil render lifecycles
+  componentWillRender(this: any) {
+    this.willRender = (this.willRender ?? 0) + 1;
+  }
+  componentDidRender(this: any) {
+    this.didRender = (this.didRender ?? 0) + 1;
   }
 
   // Lifecycle hooks executed on derived components via prototype inheritance
   componentWillLoad(this: any) {
-    this.addLoad('base:willLoad');
+    this.willLoad = (this.willLoad ?? 0) + 1;
   }
   componentDidLoad(this: any) {
-    this.addLoad('base:didLoad');
+    this.didLoad = (this.didLoad ?? 0) + 1;
   }
   componentWillUpdate(this: any) {
     // only log once per host value change to mirror other tests
     if (this.value === 'updated' && !this.__baseWillUpdated) {
       this.__baseWillUpdated = true;
-      this.addUpdate('base:willUpdate');
+      this.willUpdate = (this.willUpdate ?? 0) + 1;
     }
   }
   componentDidUpdate(this: any) {
     if (this.value === 'updated' && !this.__baseDidUpdated) {
       this.__baseDidUpdated = true;
-      this.addUpdate('base:didUpdate');
+      this.didUpdate = (this.didUpdate ?? 0) + 1;
     }
   }
 }
