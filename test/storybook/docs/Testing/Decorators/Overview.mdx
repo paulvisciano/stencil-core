@@ -105,6 +105,25 @@ Below are all the decorators provided by Stencil. Each decorator has a dedicated
   </ul>
 </div>
 
+### Phase 2. Behavioral Tests for Generated Components
+
+- Purpose: verify that compiled components from Phase 1 behave as expected at runtime.
+- Reuse existing WDIO tests as templates; study each test’s use case and intent.
+- Propagate each applicable test across all generated components that match the scenario (skip when not applicable).
+- Record results in each decorator’s `coverage-overlay.json` (`tested`, `testedBy`) so the “Tested / Test Cases” column reflects reality.
+- Prefer tags/metadata to express applicability (e.g., by mode/options) so propagation is automated and repeatable.
+- Report progress in docs; do not change compiler rules in Phase 2 unless tests uncover spec gaps.
+
+<div role="note" aria-label="Phase 2 Goal"
+  style={{ border: '1px solid #e0e0e0', background: '#e6f7ff', padding: 12, borderRadius: 6, margin: '12px 0' }}>
+  <div style={{ fontWeight: 600, marginBottom: 6 }}>Phase 2 Goal</div>
+  <ul style={{ margin: 0, paddingLeft: 18 }}>
+    <li>Give confidence that the compiled components from Phase 1 (Web Components) also work as expected at runtime</li>
+    <li>Systematically apply relevant WDIO tests to every applicable generated component.</li>
+    <li>Track tested status in overlay and surface it in the docs.</li>
+  </ul>
+</div>
+
 ## Coverage Summary
 
 <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
