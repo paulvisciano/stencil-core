@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 
 const DATA_PATH = path.resolve(__dirname, 'coverage-data.json');
 const RULES_PATH = path.resolve(__dirname, 'rules.json');
-const OUTPUT_DIR = path.resolve(__dirname, '../../../../../../test/wdio/component-decorator/matrix');
+const OUTPUT_DIR = path.resolve(__dirname, '../../../../../../wdio/component-decorator/matrix');
 
 function toBoolSymbol(val) {
   return val === '✓' ? 'true' : val === '✗' ? 'false' : undefined;

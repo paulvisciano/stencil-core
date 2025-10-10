@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 const DATA_PATH = path.resolve(__dirname, 'coverage-data.json');
 const RULES_PATH = path.resolve(__dirname, 'rules.json');
 const OUTPUT_DIR = path.resolve(__dirname, '../../../../../wdio/event/matrix');
+const REGENERATE = process.env.REGENERATE === '1';
 
 function toPascalCase(tag) {
   return tag
@@ -34,17 +35,29 @@ function buildEventComponentSource(options, tag) {
   const cancelable = cancelableSym === '✓';
   const composed = composedSym === '✓';
   const className = toPascalCase(tag);
-  return `import { Component, Event, EventEmitter, h } from '@stencil/core';
+  return `import { Component, Event, EventEmitter, h, Listen, State } from '@stencil/core';
 
 @Component({ tag: '${tag}', shadow: true })
 export class ${className} {
-  @Event({ bubbles: ${bubbles}, cancelable: ${cancelable}, composed: ${composed} }) change!: EventEmitter<string>;
+  @Event({ bubbles: ${bubbles}, cancelable: ${cancelable}, composed: ${composed} }) testEvent!: EventEmitter<void>;
+  @State() counter = 0;
+
+  @Listen('testEvent')
+  onTestEvent() {
+    this.counter++;
+  }
+
+  componentDidLoad() {
+    // trigger an event once loaded so tests can assert the listener ran
+    this.testEvent.emit();
+  }
 
   render() {
     return (
-      <button onClick={() => this.change.emit('ping')}>
-        Emit: bubbles=${bubbles} cancelable=${cancelable} composed=${composed}
-      </button>
+      <div>
+        <p>Options: bubbles=${bubbles} cancelable=${cancelable} composed=${composed}</p>
+        <p>Counter: <span id="counter">{this.counter}</span></p>
+      </div>
     );
   }
 }
@@ -76,7 +89,7 @@ function main() {
     if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true });
 
     const filePath = path.join(targetDir, fileName);
-    if (fs.existsSync(filePath)) continue;
+    if (!REGENERATE && fs.existsSync(filePath)) continue;
 
     const tag = baseName;
     const src = buildEventComponentSource(options, tag);
@@ -84,7 +97,7 @@ function main() {
     created++;
   }
 
-  console.log(`Generated ${created} components in ${OUTPUT_DIR}`);
+  console.log(`Generated ${created} components in ${OUTPUT_DIR}${REGENERATE ? ' (regenerated)' : ''}`);
 }
 
 main();
