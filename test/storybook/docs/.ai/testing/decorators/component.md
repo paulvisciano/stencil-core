@@ -47,6 +47,22 @@ From `test/storybook/docs/.ai/testing`:
 - No files setting multiple style props
 - No `shadow:true` + `scoped:true`
 
+## Decorator Folder Convention (applies to all decorators)
+To keep Phase 1 (compile coverage) and Phase 2 (runtime tests) consistent across the project, each decorator has its own subfolder under `Testing/Decorators/<Decorator>/` with the same set of scripts and JSON files:
+
+- `@<Decorator>.mdx` — Storybook docs page for the decorator.
+- `rules.json` — single source of truth for Component property rules; rendered in docs via `RulesAtAGlance` to avoid drift.
+- `generate-components.js` — generates components for all permutations in the matrix under the relevant WDIO matrix folder.
+- `coverage.js` — scans the matrix, computes Phase 1 compile coverage, and writes `coverage-data.json`.
+- `coverage-data.json` — compile-time coverage summary (covered/total/missing) plus files per permutation; used by docs and verification.
+- `coverage-overlay.json` — Phase 2 runtime test overlay (tested/testedBy/group), built by the verify pipeline.
+
+Examples today:
+- `Testing/Decorators/Component/`
+- `Testing/Decorators/State/`
+
+Remaining decorators (Prop, Event, Listen, Method) will follow the same folder/file convention as they are aligned to this system.
+
 ## Troubleshooting
 - If WDIO build fails due to missing CSS, ensure `matrix-gen.css` and `matrix-alt.css` exist in `matrix/`.
 - If coverage dips, search for invalid permutations or duplicate files.

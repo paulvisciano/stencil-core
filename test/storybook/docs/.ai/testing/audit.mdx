@@ -412,3 +412,39 @@ The `parent` target is no longer supported for the `@Listen` decorator in Stenci
 ## Recording Learnings
 
 For every completed GenAI-powered testing loop, ensure that all learnings, mistakes, and improvements are documented in the relevant `.ai` folder file and summarized here in the audit log. This practice helps maintain a robust knowledge base and supports continuous improvement for future contributors.
+
+---
+
+## 2025-10-09: Decorator Folder Convention and No‑Drift Workflow
+
+### Summary
+We standardized a per‑decorator folder convention under `Testing/Decorators/<Decorator>/` and aligned docs, generation, and verification to eliminate drift and make the workflow portable across all decorators.
+
+### Convention (applies to every decorator)
+Each decorator now has a dedicated subfolder with the same files/scripts:
+- `@<Decorator>.mdx` — Storybook docs page
+- `rules.json` — single source of truth for valid options, exclusivity, grouping (modes), naming
+- `generate-components.js` — emits one component per valid permutation under the WDIO matrix folder
+- `coverage.js` — computes Phase 1 compile coverage and writes `coverage-data.json`
+- `coverage-data.json` — compile coverage summary and file lists consumed by docs/verify
+- `coverage-overlay.json` — Phase 2 test overlay (tested/testedBy/group), built by `verify-matrix`
+
+### Docs integration
+- `RulesAtAGlance` renders `rules.json` directly to prevent drift (with `modeLabel` support for non‑Component decorators).
+- Section order standardized: 1) Decorator Properties, 2) Rules (at a glance), 3) Generated Components, 4) Component Grouping, 5) Test Cases.
+- Terminology standardized: “Generated Components” replaces “matrix”.
+- Phase 1 note (“compile‑only”) included; Phase 2 columns are placeholders until tests are propagated.
+
+### Verify pipeline
+- `verify-matrix.js` re‑runs coverage, checks parity (covered === total and `.tsx` count), validates grouping from `rules.modes`, enforces exclusivity, and builds the per‑decorator `coverage-overlay.json`.
+- `run-all-coverage.js` refreshes coverage for all decorators.
+
+### Status
+- Adopted for: `@Component`, `@State`.
+- Cleanup: removed `State/compare-legacy.js` (migration helper no longer needed).
+- Next: align `@Prop`, `@Event`, `@Listen`, `@Method` to this convention; add optional CI rule to validate schema and prevent drift.
+
+### Why this matters
+- Predictable structure enables automation (generation, verification, documentation) per decorator.
+- Rendering rules from `rules.json` removes manual duplication and drift.
+- Makes the `.ai` Context Pack portable; contributors can follow the same pattern for new decorators/features.
