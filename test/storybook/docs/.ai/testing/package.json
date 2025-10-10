@@ -15,7 +15,6 @@
     "prop:verify-matrix": "cd ../../Testing/Decorators && node verify-matrix.js --decorator=prop",
     "event:generate-components": "cd ../../Testing/Decorators/Event && node coverage.js && node generate-components.js && node coverage.js",
     "event:verify-matrix": "cd ../../Testing/Decorators && node verify-matrix.js --decorator=event",
-    "listen:coverage": "cd ../../Testing/Decorators && node listen-coverage.js",
     "listen:generate-components": "cd ../../Testing/Decorators/Listen && node coverage.js && node generate-components.js && node coverage.js",
     "listen:verify-matrix": "cd ../../Testing/Decorators && node verify-matrix.js --decorator=listen",
     "generate-components": "npm run component:generate-components && npm run state:generate-components && npm run prop:generate-components && npm run event:generate-components && npm run listen:generate-components"
