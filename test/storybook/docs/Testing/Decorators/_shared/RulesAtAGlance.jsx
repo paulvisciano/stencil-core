@@ -1,18 +1,14 @@
 import React from 'react';
 
-export default function RulesAtAGlance({ rules, showSource = true, sourcePath = './rules.json' }) {
+export default function RulesAtAGlance({ rules, showSource = true, sourcePath = './rules.json', modeLabel = 'Render mode' }) {
   const exclusiveGroups = Array.isArray(rules?.exclusiveGroups) ? rules.exclusiveGroups : [];
 
-  // Known groups with friendly phrasing
+  // Known groups with friendly phrasing (only if present)
   const stylesGroup = exclusiveGroups.find((g) => g?.name === 'styles');
   const encGroup = exclusiveGroups.find((g) => g?.name === 'encapsulation');
 
-  const stylesList = Array.isArray(stylesGroup?.members) && stylesGroup.members.length
-    ? stylesGroup.members
-    : ['styleUrl', 'styleUrls', 'styles'];
-  const encMembers = Array.isArray(encGroup?.members) && encGroup.members.length
-    ? encGroup.members
-    : ['shadow', 'scoped'];
+  const stylesList = Array.isArray(stylesGroup?.members) ? stylesGroup.members : [];
+  const encMembers = Array.isArray(encGroup?.members) ? encGroup.members : [];
 
   const modes = Array.isArray(rules?.modes) ? rules.modes : [];
   const modeList = modes.map((m) => m?.name).filter(Boolean);
@@ -48,7 +44,7 @@ export default function RulesAtAGlance({ rules, showSource = true, sourcePath = 
         ))}
         {modeList.length > 0 && (
           <li>
-            Render mode: choose {
+            {modeLabel}: choose {
               modeList.map((m, i) => (
                 <span key={m}>
                   <code>{m}</code>

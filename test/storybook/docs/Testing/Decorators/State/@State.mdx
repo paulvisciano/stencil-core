@@ -2,29 +2,173 @@ import rules from './rules.json';
 import { Meta } from '@storybook/addon-docs/blocks';
 import data from './coverage-data.json';
 import overlay from './coverage-overlay.json';
+import React, { useMemo, useState } from 'react';
+import RulesAtAGlance from '../_shared/RulesAtAGlance.jsx';
 
 <Meta title="Testing/Decorators/@State"/>
 
-# @State Testing Matrix
+# @State Decorator
 
-The `@State` decorator is used to manage internal state for a component. When a state property changes, the component will re-render. This matrix tracks the test coverage for different types and configurations of the `@State` decorator.
+The `@State` decorator manages internal state for a component. When a state property changes, the component re-renders.
 
-## Rules (at a glance)
-- Options under test: {Object.keys(rules.options).join(', ')}.
-- No mutually exclusive option groups for `@State`.
-- Render modes: {rules.modes.map(m => m.name).join(', ')}.
-- Matrix conventions: generated examples are grouped by state type under `test/wdio/state/matrix/<type>`; files live directly in the type subfolder (e.g., `string/`, `number/`).
-
-## State Characteristics
+## Decorator Properties
 
 The `@State` decorator is used for managing internal data that can change over time. Unlike `@Prop`, state is not meant to be passed in from a parent component.
 
-- **Type**: `@State` can be used with any standard data type, such as `string`, `number`, `boolean`, `array`, `object`, or `any`. The type can be explicitly annotated or inferred from the initial value.
-- **Default Value**: A state property can be initialized with a default value. If no default value is provided, it will be `undefined`. Tests cover both scenarios to ensure the component behaves correctly.
+- **Type**: `@State` can be used with standard data types, such as `string`, `number`, `boolean`, `array`, `object`, or `any`. The type can be explicitly annotated or inferred from the initial value.
+- **Default Value**: A state property can be initialized with a default value. If no default value is provided, it will be `undefined`. Generation covers both scenarios to ensure the component compiles correctly.
 
-## Rendering Modes and Matrix Grouping
+## Rules (at a glance)
+<RulesAtAGlance rules={rules} sourcePath="./rules.json" modeLabel="State type" />
 
-To simplify navigation of the generated matrix, components are organized by state type under `test/wdio/state/matrix/`:
+## Generated Components
+
+<div>
+  <strong>Generated Components:</strong> {data.coverage.covered} of {data.coverage.total} generated (
+  <strong>{data.coverage.percent}%</strong>)
+</div>
+
+<p style={{ marginTop: 8 }}>
+  This section lists the generated components we build to stress the compiler. Each row is one component with a
+  unique combination of decorator options (<code>type</code> × <code>hasDefault</code>). If a combo fails to compile,
+  we capture that as a rule in <code>rules.json</code>, update the list, and regenerate. Use the toggle to expand or
+  collapse the full list.
+  <br/>
+  <em>Note:</em> the “Tested / Test Cases” column will be populated in Phase 2 when we add real tests.
+</p>
+
+export const GeneratedComponentsTable = () => {
+  const [expanded, setExpanded] = useState(false);
+
+  const rows = useMemo(() => {
+    const map = new Map((overlay.items || []).map(i => [`${i.options?.type},${String(i.options?.hasDefault)}`, i]));
+    return (data.coveredPermutations || []).map((p, i) => {
+      const type = p.options?.[0];
+      const hasDefault = p.options?.[1];
+      const oi = map.get(`${type},${hasDefault}`) || {};
+      return {
+        index: i,
+        type,
+        hasDefault,
+        tested: !!oi.tested,
+        tests: oi.testedBy || [],
+      };
+    });
+  }, []);
+
+  const total = rows.length;
+
+  const renderTable = (rowsToRender) => (
+    <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+        <colgroup>
+          <col style={{ width: '22%' }} />
+          <col style={{ width: '22%' }} />
+          <col style={{ width: '12%' }} />
+          <col style={{ width: '44%' }} />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Has Default Value</th>
+            <th style={{ textAlign: 'center' }}>Tested</th>
+            <th>Test Cases</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rowsToRender.map((r) => (
+            <tr key={r.index} style={{ background: r.tested ? '#fbfffb' : '#fff' }}>
+              <td>{r.type}</td>
+              <td>{r.hasDefault}</td>
+              <td style={{ textAlign: 'center' }}>
+                {r.tested ? <span style={{ color: 'green' }}>✔</span> : <span style={{ color: '#999' }}>—</span>}
+              </td>
+              <td>
+                {r.tests.length ? (
+                  <ul style={{ margin: 0, paddingLeft: 16 }}>
+                    {r.tests.map((t, k) => (
+                      <li key={k}>{t}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <em>—</em>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
+  if (!expanded) {
+    const preview = rows.slice(0, 3);
+    return (
+      <div style={{ position: 'relative' }}>
+        {renderTable(preview)}
+        {total > 3 && (
+          <>
+            <div
+              style={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                bottom: 40,
+                height: 48,
+                background: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 90%)',
+                pointerEvents: 'none',
+              }}
+            />
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: -8 }}>
+              <button
+                onClick={() => setExpanded(true)}
+                style={{
+                  padding: '6px 12px',
+                  border: '1px solid #ddd',
+                  background: '#f8f8f8',
+                  borderRadius: 4,
+                  cursor: 'pointer',
+                  fontSize: 12,
+                }}
+                aria-label={`Show all ${total} components`}
+              >
+                Show all {total} components
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 8 }}>
+        <button
+          onClick={() => setExpanded(false)}
+          style={{
+            padding: '6px 12px',
+            border: '1px solid #ddd',
+            background: '#f8f8f8',
+            borderRadius: 4,
+            cursor: 'pointer',
+            fontSize: 12,
+          }}
+          aria-label="Collapse components table"
+        >
+          Collapse table
+        </button>
+      </div>
+      {renderTable(rows)}
+    </div>
+  );
+};
+
+<GeneratedComponentsTable />
+
+## Component Grouping
+
+Generated components are organized by state type under `test/wdio/state/matrix/`:
 
 - `string/` — string state values
 - `number/` — numeric state values
@@ -33,7 +177,7 @@ To simplify navigation of the generated matrix, components are organized by stat
 - `object/` — object state values
 - `any/` — untyped or mixed state values
 
-## Test Case Summary
+## Test Cases
 
 {(() => {
   const items = overlay.items || [];
@@ -58,7 +202,7 @@ To simplify navigation of the generated matrix, components are organized by stat
         <thead>
           <tr style={{ background: '#f2f2f2' }}>
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Case</th>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Permutations Covered</th>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Types Covered</th>
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Folder</th>
           </tr>
@@ -73,7 +217,7 @@ To simplify navigation of the generated matrix, components are organized by stat
               <small>Covered: {primitive.tested}/{primitive.total}</small>
             </td>
             <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-              <span style={{ color: primitive.tested === primitive.total ? 'green' : '#d00' }}>{primitive.tested === primitive.total ? '✔' : '✗'}</span>
+              <span style={{ color: primitive.tested === primitive.total ? 'green' : '#999' }}>{primitive.total > 0 ? (primitive.tested === primitive.total ? '✔' : '✗') : '—'}</span>
             </td>
             <td style={{ padding: '8px', border: '1px solid #ddd' }}>
               <code>test/wdio/state/tests</code>
@@ -88,72 +232,12 @@ To simplify navigation of the generated matrix, components are organized by stat
               <small>Covered: {complex.tested}/{complex.total}</small>
             </td>
             <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-              <span style={{ color: complex.tested === complex.total ? 'green' : '#d00' }}>{complex.tested === complex.total ? '✔' : '✗'}</span>
+              <span style={{ color: complex.tested === complex.total ? 'green' : '#999' }}>{complex.total > 0 ? (complex.tested === complex.total ? '✔' : '✗') : '—'}</span>
             </td>
             <td style={{ padding: '8px', border: '1px solid #ddd' }}>
               <code>test/wdio/state/tests</code>
             </td>
           </tr>
-        </tbody>
-      </table>
-    </div>
-  );
-})()}
-
-## Covered Permutations
-
-<div>
-  <strong>Permutation Coverage:</strong> {data.coverage.covered}/{data.coverage.total} permutations covered (
-  <strong>{data.coverage.percent}%</strong>)
-</div>
-
-{(() => {
-  const oIdx = new Map(
-    (overlay.items || []).map(i => [`${i.options.type},${String(i.options.hasDefault)}`, i])
-  );
-  return (
-    <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
-        <colgroup>
-          <col style={{ width: '22%' }} />
-          <col style={{ width: '22%' }} />
-          <col style={{ width: '12%' }} />
-          <col style={{ width: '44%' }} />
-        </colgroup>
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Has Default Value</th>
-            <th>Tested</th>
-            <th>Test Cases</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.coveredPermutations.map((p, i) => {
-            const key = `${p.options[0]},${p.options[1]}`;
-            const oi = oIdx.get(key);
-            const tested = oi?.tested;
-            const tests = oi?.testedBy || [];
-            return (
-              <tr key={i} style={{ background: tested ? '#fbfffb' : '#fff9f9' }}>
-                {p.options.map((opt, j) => (
-                  <td key={j}>{opt}</td>
-                ))}
-                <td style={{ textAlign: 'center' }}>{tested ? <span style={{ color: 'green' }}>✔</span> : <span style={{ color: 'red' }}>✗</span>}</td>
-                <td>
-                  {tests.length ? (
-                    <ul style={{ margin: 0, paddingLeft: 16 }}>
-                      {tests.map((t, k) => (
-                        <li key={k}>{t}</li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <em>—</em>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
         </tbody>
       </table>
     </div>
