@@ -11,7 +11,7 @@ import RulesAtAGlance from '../_shared/RulesAtAGlance.jsx';
 
 The `@Component` decorator is used to define a Stencil custom element, specifying its tag name, style, encapsulation, shadow DOM options, and other metadata. It is the entry point for all Stencil components and controls how they are registered and rendered.
 
-## @Component Decorator Properties
+## Decorator Properties
 
 The `@Component` decorator accepts an object with the following properties:
 
@@ -25,91 +25,21 @@ The `@Component` decorator accepts an object with the following properties:
 
 ## Rules (at a glance)
 <RulesAtAGlance rules={rules} sourcePath="./rules.json" />
-- Component grouping: generated components are grouped by mode under `matrix/shadow`, `matrix/scoped`, and `matrix/light`. CSS paths are relative to those folders.
 
-## Rendering Modes and Component Grouping
-
-To simplify navigation, generated components are organized one level deep by render mode under `test/wdio/component-decorator/matrix/`:
-
-- `shadow/` (shadow: true)
-  - Uses native Shadow DOM for real DOM and CSS encapsulation
-  - Slots work natively; :host and :host-context apply inside the shadow root
-  - External page CSS does not leak in (CSS variables still pass through)
-- `scoped/` (scoped: true, shadow: false)
-  - Renders in light DOM; Stencil rewrites selectors to emulate encapsulation
-  - Easier theming from outside; some global CSS may still affect layout
-- `light/` (shadow: false, scoped: false)
-  - Plain light DOM with no encapsulation
-  - Fastest and simplest; external styles fully apply
-
-Rule: `shadow` and `scoped` are mutually exclusive and never both `true`.
-
-`cmp-base.tsx`, `matrix-gen.css`, and `matrix-alt.css` remain in the `matrix/` root.
-
-## Test Case Summary
-
-Planned WDIO tests will exercise representative permutations of the `@Component` matrix. Until then, this section serves as a placeholder for the shared summary format.
-
-{(() => {
-  const items = overlay.items || [];
-  const groupCounts = new Map();
-  items.forEach(i => {
-    const g = i.group || 'light';
-    const c = groupCounts.get(g) || { tested: 0, total: 0 };
-    c.total += 1;
-    if (i.tested) c.tested += 1;
-    groupCounts.set(g, c);
-  });
-
-  const rows = ['shadow', 'scoped', 'light'].map(g => ({ group: g, ...(groupCounts.get(g) || { tested: 0, total: 0 }) }));
-
-  return (
-    <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <colgroup>
-          <col style={{ width: '55%' }} />
-          <col style={{ width: '20%' }} />
-          <col style={{ width: '10%' }} />
-          <col style={{ width: '15%' }} />
-        </colgroup>
-        <thead>
-          <tr style={{ background: '#f2f2f2' }}>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Case</th>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Permutations Covered</th>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Folder</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r, i) => (
-            <tr key={i}>
-              <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-                Render validations for {r.group} mode and asset/style combinations.
-              </td>
-              <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-                group: {r.group}<br/>
-                <small>Covered: {r.tested}/{r.total}</small>
-              </td>
-              <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-                <span style={{ color: r.tested === r.total && r.total > 0 ? 'green' : '#999' }}>{r.total > 0 ? (r.tested === r.total ? '✔' : '✗') : '—'}</span>
-              </td>
-              <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-                <code>test/wdio/component-decorator/tests</code>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-})()}
-
-## Covered Permutations
+## Generated Components
 
 <div>
-  <strong>Permutation Coverage:</strong> {data.coverage.covered}/{data.coverage.total} permutations covered (
+  <strong>Generated Components:</strong> {data.coverage.covered} of {data.coverage.total} generated (
   <strong>{data.coverage.percent}%</strong>)
 </div>
+
+<p style={{ marginTop: 8 }}>
+  This section lists the generated components we build to stress the compiler. Each row is one component with a
+  unique combination of decorator options. If a combo fails to compile, we capture that as a rule in
+  <code>rules.json</code>, update the list, and regenerate. Use the toggle to expand or collapse the full list.
+  <br/>
+  <em>Note:</em> the “Tested / Test Cases” column will be populated in Phase 2 when we add real tests.
+</p>
 
 export const CoveredPermutationsTable = () => {
   const [expanded, setExpanded] = useState(false);
@@ -216,9 +146,9 @@ export const CoveredPermutationsTable = () => {
                   cursor: 'pointer',
                   fontSize: 12,
                 }}
-                aria-label={`Show all ${total} permutations`}
+                aria-label={`Show all ${total} components`}
               >
-                Show all {total}
+                Show all {total} components
               </button>
             </div>
           </>
@@ -251,3 +181,79 @@ export const CoveredPermutationsTable = () => {
 };
 
 <CoveredPermutationsTable />
+
+## Component Grouping
+
+Components are grouped one level deep by render mode under `test/wdio/component-decorator/matrix/`:
+
+- `shadow/` (shadow: true)
+  - Uses native Shadow DOM for real DOM and CSS encapsulation
+  - Slots work natively; :host and :host-context apply inside the shadow root
+  - External page CSS does not leak in (CSS variables still pass through)
+- `scoped/` (scoped: true, shadow: false)
+  - Renders in light DOM; Stencil rewrites selectors to emulate encapsulation
+  - Easier theming from outside; some global CSS may still affect layout
+- `light/` (shadow: false, scoped: false)
+  - Plain light DOM with no encapsulation
+  - Fastest and simplest; external styles fully apply
+
+`cmp-base.tsx`, `matrix-gen.css`, and `matrix-alt.css` remain in the `matrix/` root.
+
+## Test Cases
+
+- Planned tests land in Phase 2. Phase 1 is compile-only: generate components (unique option combos) and use the compiler to discover rules/errors. This section is a placeholder for the shared test summary to be added in Phase 2.
+
+{(() => {
+  const items = overlay.items || [];
+  const groupCounts = new Map();
+  items.forEach(i => {
+    const g = i.group || 'light';
+    const c = groupCounts.get(g) || { tested: 0, total: 0 };
+    c.total += 1;
+    if (i.tested) c.tested += 1;
+    groupCounts.set(g, c);
+  });
+
+  const rows = ['shadow', 'scoped', 'light'].map(g => ({ group: g, ...(groupCounts.get(g) || { tested: 0, total: 0 }) }));
+
+  return (
+    <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <colgroup>
+          <col style={{ width: '55%' }} />
+          <col style={{ width: '20%' }} />
+          <col style={{ width: '10%' }} />
+          <col style={{ width: '15%' }} />
+        </colgroup>
+        <thead>
+          <tr style={{ background: '#f2f2f2' }}>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Case</th>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Permutations Covered</th>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Folder</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r, i) => (
+            <tr key={i}>
+              <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+                Render validations for {r.group} mode and asset/style combinations.
+              </td>
+              <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+                group: {r.group}<br/>
+                <small>Covered: {r.tested}/{r.total}</small>
+              </td>
+              <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
+                <span style={{ color: r.tested === r.total && r.total > 0 ? 'green' : '#999' }}>{r.total > 0 ? (r.tested === r.total ? '✔' : '✗') : '—'}</span>
+              </td>
+              <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+                <code>test/wdio/component-decorator/tests</code>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+})()}
+

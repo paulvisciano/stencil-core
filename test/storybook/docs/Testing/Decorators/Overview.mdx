@@ -9,7 +9,23 @@ import methodData from './method-coverage-data.json';
 
 This section tracks test coverage for all Stencil decorators. Each decorator has its own matrix and coverage notes. Use this as a reference for contributors and maintainers.
 
+## Project Phases
 
+### Phase 1 (Generation-first docs)
+- Document all properties of each decorator.
+- Define a permutation matrix in `rules.json` for the decorator.
+- Generate components from the matrix via script; organize by mode under `matrix/<mode>/`.
+- Verify the matrix and compile all generated components to discover actual compiler rules (e.g., mutually-exclusive options).
+- Update `rules.json` with discovered rules and adjust the matrix; regenerate until all components compile.
+- Prevent drift: docs render rules from `rules.json` using `RulesAtAGlance`, and a verify script checks accuracy.
+- Doc layout convention per decorator:
+  1) Decorator Properties
+  2) Rules (at a glance)
+  3) Generated Components
+  4) Component Grouping
+  5) Test Cases
+
+> Compiling the full set of generated components is the signal in Phase 1: it reveals the true compiler‑enforced rules and gives confidence the compiler can build every permutation. Success criterion: 100% compile. Tests land in Phase 2.
 
 ## What Are Decorators in Stencil?
 Stencil decorators are special TypeScript annotations that add metadata and behavior to component classes, properties, methods, and events. They enable features like reactive state, property reflection, event emission, and lifecycle hooks. Decorators are a core part of Stencil's API and are used to define how components interact with the DOM and with each other.
