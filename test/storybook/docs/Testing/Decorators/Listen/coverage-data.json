@@ -1,8 +1,8 @@
 {
   "coverage": {
-    "covered": 45,
+    "covered": 44,
     "total": 44,
-    "percent": "102.3"
+    "percent": "100.0"
   },
   "coveredPermutations": [
     {
@@ -14,7 +14,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/body/listen-body-click-capture-false-passive-false.tsx"
+        "body/listen-body-click-capture-false-passive-false.tsx"
       ]
     },
     {
@@ -26,7 +26,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/body/listen-body-click-capture-false-passive.tsx"
+        "body/listen-body-click-capture-false-passive.tsx"
       ]
     },
     {
@@ -38,7 +38,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/body/listen-body-click-capture-passive-false.tsx"
+        "body/listen-body-click-capture-passive-false.tsx"
       ]
     },
     {
@@ -50,7 +50,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/body/listen-body-click-capture-passive.tsx"
+        "body/listen-body-click-capture-passive.tsx"
       ]
     },
     {
@@ -62,7 +62,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/body/listen-body-input-capture-false-passive-false.tsx"
+        "body/listen-body-input-capture-false-passive-false.tsx"
       ]
     },
     {
@@ -74,7 +74,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/body/listen-body-input-capture-false-passive.tsx"
+        "body/listen-body-input-capture-false-passive.tsx"
       ]
     },
     {
@@ -86,7 +86,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/body/listen-body-input-capture-passive-false.tsx"
+        "body/listen-body-input-capture-passive-false.tsx"
       ]
     },
     {
@@ -98,7 +98,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/body/listen-body-input-capture-passive.tsx"
+        "body/listen-body-input-capture-passive.tsx"
       ]
     },
     {
@@ -110,7 +110,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/body/listen-body-keydown-capture-false-passive-false.tsx"
+        "body/listen-body-keydown-capture-false-passive-false.tsx"
       ]
     },
     {
@@ -122,7 +122,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/body/listen-body-keydown-capture-false-passive.tsx"
+        "body/listen-body-keydown-capture-false-passive.tsx"
       ]
     },
     {
@@ -134,7 +134,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/body/listen-body-keydown-capture-passive-false.tsx"
+        "body/listen-body-keydown-capture-passive-false.tsx"
       ]
     },
     {
@@ -146,7 +146,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/body/listen-body-keydown-capture-passive.tsx"
+        "body/listen-body-keydown-capture-passive.tsx"
       ]
     },
     {
@@ -158,7 +158,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/document/listen-document-click-capture-false-passive-false.tsx"
+        "document/listen-document-click-capture-false-passive-false.tsx"
       ]
     },
     {
@@ -170,7 +170,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/document/listen-document-click-capture-false-passive.tsx"
+        "document/listen-document-click-capture-false-passive.tsx"
       ]
     },
     {
@@ -182,7 +182,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/document/listen-document-click-capture-passive-false.tsx"
+        "document/listen-document-click-capture-passive-false.tsx"
       ]
     },
     {
@@ -194,7 +194,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/document/listen-document-click-capture-passive.tsx"
+        "document/listen-document-click-capture-passive.tsx"
       ]
     },
     {
@@ -206,7 +206,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/document/listen-document-input-capture-false-passive-false.tsx"
+        "document/listen-document-input-capture-false-passive-false.tsx"
       ]
     },
     {
@@ -218,7 +218,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/document/listen-document-input-capture-false-passive.tsx"
+        "document/listen-document-input-capture-false-passive.tsx"
       ]
     },
     {
@@ -230,7 +230,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/document/listen-document-input-capture-passive-false.tsx"
+        "document/listen-document-input-capture-passive-false.tsx"
       ]
     },
     {
@@ -242,7 +242,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/document/listen-document-input-capture-passive.tsx"
+        "document/listen-document-input-capture-passive.tsx"
       ]
     },
     {
@@ -254,7 +254,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/document/listen-document-keydown-capture-false-passive-false.tsx"
+        "document/listen-document-keydown-capture-false-passive-false.tsx"
       ]
     },
     {
@@ -266,7 +266,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/document/listen-document-keydown-capture-false-passive.tsx"
+        "document/listen-document-keydown-capture-false-passive.tsx"
       ]
     },
     {
@@ -278,7 +278,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/document/listen-document-keydown-capture-passive-false.tsx"
+        "document/listen-document-keydown-capture-passive-false.tsx"
       ]
     },
     {
@@ -290,7 +290,19 @@
       ],
       "count": 1,
       "files": [
-        "matrix/document/listen-document-keydown-capture-passive.tsx"
+        "document/listen-document-keydown-capture-passive.tsx"
+      ]
+    },
+    {
+      "options": [
+        "host",
+        "click",
+        "✗",
+        "✗"
+      ],
+      "count": 1,
+      "files": [
+        "host/listen-host-click-capture-false-passive-false.tsx"
       ]
     },
     {
@@ -302,7 +314,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/host/listen-host-click-capture-false-passive.tsx"
+        "host/listen-host-click-capture-false-passive.tsx"
       ]
     },
     {
@@ -314,7 +326,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/host/listen-host-click-capture-passive-false.tsx"
+        "host/listen-host-click-capture-passive-false.tsx"
       ]
     },
     {
@@ -326,7 +338,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/host/listen-host-click-capture-passive.tsx"
+        "host/listen-host-click-capture-passive.tsx"
       ]
     },
     {
@@ -338,7 +350,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/host/listen-host-input-capture-false-passive-false.tsx"
+        "host/listen-host-input-capture-false-passive-false.tsx"
       ]
     },
     {
@@ -350,7 +362,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/host/listen-host-input-capture-false-passive.tsx"
+        "host/listen-host-input-capture-false-passive.tsx"
       ]
     },
     {
@@ -362,7 +374,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/host/listen-host-input-capture-passive-false.tsx"
+        "host/listen-host-input-capture-passive-false.tsx"
       ]
     },
     {
@@ -374,7 +386,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/host/listen-host-input-capture-passive.tsx"
+        "host/listen-host-input-capture-passive.tsx"
       ]
     },
     {
@@ -386,7 +398,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/host/listen-host-keydown-capture-false-passive-false.tsx"
+        "host/listen-host-keydown-capture-false-passive-false.tsx"
       ]
     },
     {
@@ -398,7 +410,19 @@
       ],
       "count": 1,
       "files": [
-        "matrix/host/listen-host-keydown-capture-false-passive.tsx"
+        "host/listen-host-keydown-capture-false-passive.tsx"
+      ]
+    },
+    {
+      "options": [
+        "host",
+        "keydown",
+        "✓",
+        "✗"
+      ],
+      "count": 1,
+      "files": [
+        "host/listen-host-keydown-capture-passive-false.tsx"
       ]
     },
     {
@@ -410,7 +434,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/host/listen-host-keydown-capture-passive.tsx"
+        "host/listen-host-keydown-capture-passive.tsx"
       ]
     },
     {
@@ -422,7 +446,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/window/listen-window-click-capture-false-passive-false.tsx"
+        "window/listen-window-click-capture-false-passive-false.tsx"
       ]
     },
     {
@@ -434,7 +458,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/window/listen-window-click-capture-false-passive.tsx"
+        "window/listen-window-click-capture-false-passive.tsx"
       ]
     },
     {
@@ -446,7 +470,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/window/listen-window-click-capture-passive-false.tsx"
+        "window/listen-window-click-capture-passive-false.tsx"
       ]
     },
     {
@@ -458,7 +482,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/window/listen-window-click-capture-passive.tsx"
+        "window/listen-window-click-capture-passive.tsx"
       ]
     },
     {
@@ -470,7 +494,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/window/listen-window-keydown-capture-false-passive-false.tsx"
+        "window/listen-window-keydown-capture-false-passive-false.tsx"
       ]
     },
     {
@@ -482,7 +506,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/window/listen-window-keydown-capture-false-passive.tsx"
+        "window/listen-window-keydown-capture-false-passive.tsx"
       ]
     },
     {
@@ -494,7 +518,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/window/listen-window-keydown-capture-passive-false.tsx"
+        "window/listen-window-keydown-capture-passive-false.tsx"
       ]
     },
     {
@@ -506,43 +530,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/window/listen-window-keydown-capture-passive.tsx"
-      ]
-    },
-    {
-      "options": [
-        "window",
-        "scroll",
-        "✗",
-        "✗"
-      ],
-      "count": 1,
-      "files": [
-        "../../end-to-end/src/app-root/app-root.tsx"
-      ]
-    },
-    {
-      "options": [
-        "host",
-        "keydown",
-        "✓",
-        "✗"
-      ],
-      "count": 1,
-      "files": [
-        "../../end-to-end/src/declarative-shadow-dom/dsd-listen-cmp.tsx"
-      ]
-    },
-    {
-      "options": [
-        "host",
-        "click",
-        "✗",
-        "✗"
-      ],
-      "count": 1,
-      "files": [
-        "../../end-to-end/src/listen-cmp/listen-cmp.tsx"
+        "window/listen-window-keydown-capture-passive.tsx"
       ]
     }
   ],

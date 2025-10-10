@@ -49,7 +49,7 @@ const CONFIG = (() => {
   }
   if (DECORATOR === 'listen') {
     const RULES_PATH = path.resolve(__dirname, 'Listen/rules.json');
-    const DATA_PATH = path.resolve(__dirname, 'listen-coverage-data.json');
+    const DATA_PATH = path.resolve(__dirname, 'Listen/coverage-data.json');
     const COMPONENT_DIR = path.resolve(__dirname, '../../../../../test/wdio/listen/matrix');
     const TEST_DIR = path.resolve(__dirname, '../../../../../test/wdio/listen/tests');
     const OVERLAY_OUT = path.resolve(__dirname, 'Listen/coverage-overlay.json');

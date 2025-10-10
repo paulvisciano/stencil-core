@@ -1,5 +1,6 @@
 import { execSync } from 'child_process';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -16,6 +17,10 @@ const scripts = [
 
 scripts.forEach(script => {
   const scriptPath = path.resolve(__dirname, script);
+  if (!fs.existsSync(scriptPath)) {
+    console.warn(`Skipping missing script: ${script}`);
+    return;
+  }
   console.log(`Running ${script}...`);
   try {
     execSync(`node ${scriptPath}`, { stdio: 'inherit' });

@@ -6,8 +6,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const TEST_DIRS = [
-  path.resolve(__dirname, '../../../../../../test/wdio/listen'),
-  path.resolve(__dirname, '../../../../../../test/end-to-end'),
+  // Only scan generated matrix components to avoid legacy/non-matrix noise
+  path.resolve(__dirname, '../../../../../../test/wdio/listen/matrix'),
 ];
 const OPTIONS = ['target', 'event', 'capture', 'passive'];
 const TARGET_OPTIONS = ['window', 'document', 'body', 'host'];

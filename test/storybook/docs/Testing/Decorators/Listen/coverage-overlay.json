@@ -1,0 +1,718 @@
+{
+  "coverage": {
+    "covered": 44,
+    "total": 44,
+    "percent": "100.0"
+  },
+  "stats": {
+    "totalPermutations": 44,
+    "testedPermutations": 0,
+    "percentTested": "0.00"
+  },
+  "items": [
+    {
+      "group": "body",
+      "options": {
+        "target": "body",
+        "event": "click",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "body|click|✗|✗",
+      "files": [
+        "body/listen-body-click-capture-false-passive-false.tsx"
+      ],
+      "tag": "listen-body-click-capture-false-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "body",
+      "options": {
+        "target": "body",
+        "event": "click",
+        "capture": "✗",
+        "passive": "✓"
+      },
+      "optionsKey": "body|click|✗|✓",
+      "files": [
+        "body/listen-body-click-capture-false-passive.tsx"
+      ],
+      "tag": "listen-body-click-capture-false-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "body",
+      "options": {
+        "target": "body",
+        "event": "click",
+        "capture": "✓",
+        "passive": "✗"
+      },
+      "optionsKey": "body|click|✓|✗",
+      "files": [
+        "body/listen-body-click-capture-passive-false.tsx"
+      ],
+      "tag": "listen-body-click-capture-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "body",
+      "options": {
+        "target": "body",
+        "event": "click",
+        "capture": "✓",
+        "passive": "✓"
+      },
+      "optionsKey": "body|click|✓|✓",
+      "files": [
+        "body/listen-body-click-capture-passive.tsx"
+      ],
+      "tag": "listen-body-click-capture-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "body",
+      "options": {
+        "target": "body",
+        "event": "input",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "body|input|✗|✗",
+      "files": [
+        "body/listen-body-input-capture-false-passive-false.tsx"
+      ],
+      "tag": "listen-body-input-capture-false-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "body",
+      "options": {
+        "target": "body",
+        "event": "input",
+        "capture": "✗",
+        "passive": "✓"
+      },
+      "optionsKey": "body|input|✗|✓",
+      "files": [
+        "body/listen-body-input-capture-false-passive.tsx"
+      ],
+      "tag": "listen-body-input-capture-false-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "body",
+      "options": {
+        "target": "body",
+        "event": "input",
+        "capture": "✓",
+        "passive": "✗"
+      },
+      "optionsKey": "body|input|✓|✗",
+      "files": [
+        "body/listen-body-input-capture-passive-false.tsx"
+      ],
+      "tag": "listen-body-input-capture-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "body",
+      "options": {
+        "target": "body",
+        "event": "input",
+        "capture": "✓",
+        "passive": "✓"
+      },
+      "optionsKey": "body|input|✓|✓",
+      "files": [
+        "body/listen-body-input-capture-passive.tsx"
+      ],
+      "tag": "listen-body-input-capture-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "body",
+      "options": {
+        "target": "body",
+        "event": "keydown",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "body|keydown|✗|✗",
+      "files": [
+        "body/listen-body-keydown-capture-false-passive-false.tsx"
+      ],
+      "tag": "listen-body-keydown-capture-false-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "body",
+      "options": {
+        "target": "body",
+        "event": "keydown",
+        "capture": "✗",
+        "passive": "✓"
+      },
+      "optionsKey": "body|keydown|✗|✓",
+      "files": [
+        "body/listen-body-keydown-capture-false-passive.tsx"
+      ],
+      "tag": "listen-body-keydown-capture-false-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "body",
+      "options": {
+        "target": "body",
+        "event": "keydown",
+        "capture": "✓",
+        "passive": "✗"
+      },
+      "optionsKey": "body|keydown|✓|✗",
+      "files": [
+        "body/listen-body-keydown-capture-passive-false.tsx"
+      ],
+      "tag": "listen-body-keydown-capture-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "body",
+      "options": {
+        "target": "body",
+        "event": "keydown",
+        "capture": "✓",
+        "passive": "✓"
+      },
+      "optionsKey": "body|keydown|✓|✓",
+      "files": [
+        "body/listen-body-keydown-capture-passive.tsx"
+      ],
+      "tag": "listen-body-keydown-capture-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "document",
+      "options": {
+        "target": "document",
+        "event": "click",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "document|click|✗|✗",
+      "files": [
+        "document/listen-document-click-capture-false-passive-false.tsx"
+      ],
+      "tag": "listen-document-click-capture-false-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "document",
+      "options": {
+        "target": "document",
+        "event": "click",
+        "capture": "✗",
+        "passive": "✓"
+      },
+      "optionsKey": "document|click|✗|✓",
+      "files": [
+        "document/listen-document-click-capture-false-passive.tsx"
+      ],
+      "tag": "listen-document-click-capture-false-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "document",
+      "options": {
+        "target": "document",
+        "event": "click",
+        "capture": "✓",
+        "passive": "✗"
+      },
+      "optionsKey": "document|click|✓|✗",
+      "files": [
+        "document/listen-document-click-capture-passive-false.tsx"
+      ],
+      "tag": "listen-document-click-capture-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "document",
+      "options": {
+        "target": "document",
+        "event": "click",
+        "capture": "✓",
+        "passive": "✓"
+      },
+      "optionsKey": "document|click|✓|✓",
+      "files": [
+        "document/listen-document-click-capture-passive.tsx"
+      ],
+      "tag": "listen-document-click-capture-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "document",
+      "options": {
+        "target": "document",
+        "event": "input",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "document|input|✗|✗",
+      "files": [
+        "document/listen-document-input-capture-false-passive-false.tsx"
+      ],
+      "tag": "listen-document-input-capture-false-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "document",
+      "options": {
+        "target": "document",
+        "event": "input",
+        "capture": "✗",
+        "passive": "✓"
+      },
+      "optionsKey": "document|input|✗|✓",
+      "files": [
+        "document/listen-document-input-capture-false-passive.tsx"
+      ],
+      "tag": "listen-document-input-capture-false-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "document",
+      "options": {
+        "target": "document",
+        "event": "input",
+        "capture": "✓",
+        "passive": "✗"
+      },
+      "optionsKey": "document|input|✓|✗",
+      "files": [
+        "document/listen-document-input-capture-passive-false.tsx"
+      ],
+      "tag": "listen-document-input-capture-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "document",
+      "options": {
+        "target": "document",
+        "event": "input",
+        "capture": "✓",
+        "passive": "✓"
+      },
+      "optionsKey": "document|input|✓|✓",
+      "files": [
+        "document/listen-document-input-capture-passive.tsx"
+      ],
+      "tag": "listen-document-input-capture-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "document",
+      "options": {
+        "target": "document",
+        "event": "keydown",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "document|keydown|✗|✗",
+      "files": [
+        "document/listen-document-keydown-capture-false-passive-false.tsx"
+      ],
+      "tag": "listen-document-keydown-capture-false-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "document",
+      "options": {
+        "target": "document",
+        "event": "keydown",
+        "capture": "✗",
+        "passive": "✓"
+      },
+      "optionsKey": "document|keydown|✗|✓",
+      "files": [
+        "document/listen-document-keydown-capture-false-passive.tsx"
+      ],
+      "tag": "listen-document-keydown-capture-false-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "document",
+      "options": {
+        "target": "document",
+        "event": "keydown",
+        "capture": "✓",
+        "passive": "✗"
+      },
+      "optionsKey": "document|keydown|✓|✗",
+      "files": [
+        "document/listen-document-keydown-capture-passive-false.tsx"
+      ],
+      "tag": "listen-document-keydown-capture-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "document",
+      "options": {
+        "target": "document",
+        "event": "keydown",
+        "capture": "✓",
+        "passive": "✓"
+      },
+      "optionsKey": "document|keydown|✓|✓",
+      "files": [
+        "document/listen-document-keydown-capture-passive.tsx"
+      ],
+      "tag": "listen-document-keydown-capture-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "host",
+      "options": {
+        "target": "host",
+        "event": "click",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "host|click|✗|✗",
+      "files": [
+        "host/listen-host-click-capture-false-passive-false.tsx"
+      ],
+      "tag": "listen-host-click-capture-false-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "host",
+      "options": {
+        "target": "host",
+        "event": "click",
+        "capture": "✗",
+        "passive": "✓"
+      },
+      "optionsKey": "host|click|✗|✓",
+      "files": [
+        "host/listen-host-click-capture-false-passive.tsx"
+      ],
+      "tag": "listen-host-click-capture-false-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "host",
+      "options": {
+        "target": "host",
+        "event": "click",
+        "capture": "✓",
+        "passive": "✗"
+      },
+      "optionsKey": "host|click|✓|✗",
+      "files": [
+        "host/listen-host-click-capture-passive-false.tsx"
+      ],
+      "tag": "listen-host-click-capture-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "host",
+      "options": {
+        "target": "host",
+        "event": "click",
+        "capture": "✓",
+        "passive": "✓"
+      },
+      "optionsKey": "host|click|✓|✓",
+      "files": [
+        "host/listen-host-click-capture-passive.tsx"
+      ],
+      "tag": "listen-host-click-capture-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "host",
+      "options": {
+        "target": "host",
+        "event": "input",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "host|input|✗|✗",
+      "files": [
+        "host/listen-host-input-capture-false-passive-false.tsx"
+      ],
+      "tag": "listen-host-input-capture-false-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "host",
+      "options": {
+        "target": "host",
+        "event": "input",
+        "capture": "✗",
+        "passive": "✓"
+      },
+      "optionsKey": "host|input|✗|✓",
+      "files": [
+        "host/listen-host-input-capture-false-passive.tsx"
+      ],
+      "tag": "listen-host-input-capture-false-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "host",
+      "options": {
+        "target": "host",
+        "event": "input",
+        "capture": "✓",
+        "passive": "✗"
+      },
+      "optionsKey": "host|input|✓|✗",
+      "files": [
+        "host/listen-host-input-capture-passive-false.tsx"
+      ],
+      "tag": "listen-host-input-capture-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "host",
+      "options": {
+        "target": "host",
+        "event": "input",
+        "capture": "✓",
+        "passive": "✓"
+      },
+      "optionsKey": "host|input|✓|✓",
+      "files": [
+        "host/listen-host-input-capture-passive.tsx"
+      ],
+      "tag": "listen-host-input-capture-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "host",
+      "options": {
+        "target": "host",
+        "event": "keydown",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "host|keydown|✗|✗",
+      "files": [
+        "host/listen-host-keydown-capture-false-passive-false.tsx"
+      ],
+      "tag": "listen-host-keydown-capture-false-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "host",
+      "options": {
+        "target": "host",
+        "event": "keydown",
+        "capture": "✗",
+        "passive": "✓"
+      },
+      "optionsKey": "host|keydown|✗|✓",
+      "files": [
+        "host/listen-host-keydown-capture-false-passive.tsx"
+      ],
+      "tag": "listen-host-keydown-capture-false-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "host",
+      "options": {
+        "target": "host",
+        "event": "keydown",
+        "capture": "✓",
+        "passive": "✗"
+      },
+      "optionsKey": "host|keydown|✓|✗",
+      "files": [
+        "host/listen-host-keydown-capture-passive-false.tsx"
+      ],
+      "tag": "listen-host-keydown-capture-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "host",
+      "options": {
+        "target": "host",
+        "event": "keydown",
+        "capture": "✓",
+        "passive": "✓"
+      },
+      "optionsKey": "host|keydown|✓|✓",
+      "files": [
+        "host/listen-host-keydown-capture-passive.tsx"
+      ],
+      "tag": "listen-host-keydown-capture-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "window",
+      "options": {
+        "target": "window",
+        "event": "click",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "window|click|✗|✗",
+      "files": [
+        "window/listen-window-click-capture-false-passive-false.tsx"
+      ],
+      "tag": "listen-window-click-capture-false-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "window",
+      "options": {
+        "target": "window",
+        "event": "click",
+        "capture": "✗",
+        "passive": "✓"
+      },
+      "optionsKey": "window|click|✗|✓",
+      "files": [
+        "window/listen-window-click-capture-false-passive.tsx"
+      ],
+      "tag": "listen-window-click-capture-false-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "window",
+      "options": {
+        "target": "window",
+        "event": "click",
+        "capture": "✓",
+        "passive": "✗"
+      },
+      "optionsKey": "window|click|✓|✗",
+      "files": [
+        "window/listen-window-click-capture-passive-false.tsx"
+      ],
+      "tag": "listen-window-click-capture-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "window",
+      "options": {
+        "target": "window",
+        "event": "click",
+        "capture": "✓",
+        "passive": "✓"
+      },
+      "optionsKey": "window|click|✓|✓",
+      "files": [
+        "window/listen-window-click-capture-passive.tsx"
+      ],
+      "tag": "listen-window-click-capture-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "window",
+      "options": {
+        "target": "window",
+        "event": "keydown",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "window|keydown|✗|✗",
+      "files": [
+        "window/listen-window-keydown-capture-false-passive-false.tsx"
+      ],
+      "tag": "listen-window-keydown-capture-false-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "window",
+      "options": {
+        "target": "window",
+        "event": "keydown",
+        "capture": "✗",
+        "passive": "✓"
+      },
+      "optionsKey": "window|keydown|✗|✓",
+      "files": [
+        "window/listen-window-keydown-capture-false-passive.tsx"
+      ],
+      "tag": "listen-window-keydown-capture-false-passive",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "window",
+      "options": {
+        "target": "window",
+        "event": "keydown",
+        "capture": "✓",
+        "passive": "✗"
+      },
+      "optionsKey": "window|keydown|✓|✗",
+      "files": [
+        "window/listen-window-keydown-capture-passive-false.tsx"
+      ],
+      "tag": "listen-window-keydown-capture-passive-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "window",
+      "options": {
+        "target": "window",
+        "event": "keydown",
+        "capture": "✓",
+        "passive": "✓"
+      },
+      "optionsKey": "window|keydown|✓|✓",
+      "files": [
+        "window/listen-window-keydown-capture-passive.tsx"
+      ],
+      "tag": "listen-window-keydown-capture-passive",
+      "tested": false,
+      "testedBy": []
+    }
+  ]
+}
