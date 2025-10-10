@@ -44,7 +44,11 @@ function getAllPermutationKeys() {
   for (const ret of ['void','value','promise']) {
     for (const as of ['✓','✗']) {
       for (const arg of ['none','one']) {
-        all.push([ret, as, arg].join('|'));
+        // Only allow permutations where external method returns a Promise
+        // Valid when async is true (implicit Promise) or explicit 'promise' return
+        if (as === '✓' || ret === 'promise') {
+          all.push([ret, as, arg].join('|'));
+        }
       }
     }
   }
@@ -65,9 +69,12 @@ function main() {
     filesForKey.get(key).add(o.file);
   });
 
-  const covered = Object.entries(map).map(([key, val]) => ({ options: key.split('|'), count: val.count, files: Array.from(filesForKey.get(key) || []) }));
   const allKeys = getAllPermutationKeys();
-  const coveredKeys = new Set(Object.keys(map));
+  const allowed = new Set(allKeys);
+  const covered = Object.entries(map)
+    .filter(([key]) => allowed.has(key))
+    .map(([key, val]) => ({ options: key.split('|'), count: val.count, files: Array.from(filesForKey.get(key) || []) }));
+  const coveredKeys = new Set(covered.map(c => c.options.join('|')));
   const missing = allKeys.filter(k => !coveredKeys.has(k));
 
   const data = {

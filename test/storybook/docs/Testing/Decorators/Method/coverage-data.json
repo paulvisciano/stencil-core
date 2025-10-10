@@ -1,7 +1,7 @@
 {
   "coverage": {
-    "covered": 12,
-    "total": 12,
+    "covered": 8,
+    "total": 8,
     "percent": "100.0"
   },
   "coveredPermutations": [
@@ -52,28 +52,6 @@
     {
       "options": [
         "value",
-        "✗",
-        "none"
-      ],
-      "count": 1,
-      "files": [
-        "value/method-value-async-false-none.tsx"
-      ]
-    },
-    {
-      "options": [
-        "value",
-        "✗",
-        "one"
-      ],
-      "count": 1,
-      "files": [
-        "value/method-value-async-false-one.tsx"
-      ]
-    },
-    {
-      "options": [
-        "value",
         "✓",
         "none"
       ],
@@ -91,28 +69,6 @@
       "count": 1,
       "files": [
         "value/method-value-async-one.tsx"
-      ]
-    },
-    {
-      "options": [
-        "void",
-        "✗",
-        "none"
-      ],
-      "count": 1,
-      "files": [
-        "void/method-void-async-false-none.tsx"
-      ]
-    },
-    {
-      "options": [
-        "void",
-        "✗",
-        "one"
-      ],
-      "count": 1,
-      "files": [
-        "void/method-void-async-false-one.tsx"
       ]
     },
     {

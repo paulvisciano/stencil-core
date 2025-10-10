@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 
 const DATA_PATH = path.resolve(__dirname, 'coverage-data.json');
 const RULES_PATH = path.resolve(__dirname, 'rules.json');
-const OUTPUT_DIR = path.resolve(__dirname, '../../../../../test/wdio/method/matrix');
+const OUTPUT_DIR = path.resolve(__dirname, '../../../../../../test/wdio/method/matrix');
 
 function toPascalCase(tag) {
   return tag.split('-').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join('');
@@ -68,6 +68,41 @@ export class ${className} {
 `;
 }
 
+function extractFromPath(absPath) {
+  const rel = path.relative(OUTPUT_DIR, absPath).replace(/\\/g, '/');
+  const parts = rel.split('/');
+  const returns = parts[0] || 'void';
+  const base = path.basename(rel, path.extname(rel));
+  let async = '✗';
+  if (/-async-false-/.test(base)) async = '✗';
+  else if (/-async-/.test(base)) async = '✓';
+  const args = /-one$/.test(base) ? 'one' : 'none';
+  return { returns, async, args, rel };
+}
+
+function cleanInvalidFiles() {
+  if (!fs.existsSync(OUTPUT_DIR)) return;
+  const stack = [OUTPUT_DIR];
+  const toDelete = [];
+  while (stack.length) {
+    const cur = stack.pop();
+    const entries = fs.readdirSync(cur, { withFileTypes: true });
+    for (const e of entries) {
+      const full = path.join(cur, e.name);
+      if (e.isDirectory()) stack.push(full);
+      else if (e.isFile() && e.name.endsWith('.tsx')) {
+        const o = extractFromPath(full);
+        const allowed = o.async === '✓' || o.returns === 'promise';
+        if (!allowed) toDelete.push(full);
+      }
+    }
+  }
+  toDelete.forEach(f => {
+    try { fs.unlinkSync(f); } catch {}
+  });
+  if (toDelete.length) console.log(`Cleaned ${toDelete.length} invalid Method components`);
+}
+
 function main() {
   if (!fs.existsSync(DATA_PATH)) {
     console.error(`Missing data file: ${DATA_PATH}`);
@@ -79,10 +114,17 @@ function main() {
 
   if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
+  // Remove invalid pre-existing files so file count matches allowed permutations
+  cleanInvalidFiles();
+
   let created = 0;
   for (const entry of missing) {
     const options = entry.options;
     if (!Array.isArray(options) || options.length !== 3) continue;
+
+    const [returns, asyncFlag] = options;
+    const isAllowed = asyncFlag === '✓' || returns === 'promise';
+    if (!isAllowed) continue;
 
     const segs = buildNameSegments(options, rules);
     const baseName = segs.join('-');
