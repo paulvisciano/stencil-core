@@ -9,7 +9,7 @@ This document tracks the progress and effectiveness of the GenAI-powered testing
 
 ---
 
-## Milestone: Decorator Matrix Phase 1 Complete
+## Milestone: Phase 1 Component Generation Complete
 
 **Date:** October 10, 2025
 
@@ -58,8 +58,6 @@ Phase 1 (compile-only) is complete for all decorators with a no-drift, rule-driv
 - Optionally add JSON Schema validation for `rules.json` and CI automation to enforce no-drift (refresh + verify-all).
 
 ---
-
-# Audit Log: GenAI Testing Loop Improvements
 
 ## Manual Verification of Coverage Matrix
 
@@ -115,6 +113,391 @@ This iteration went well beyond expectations. GPT‑5 proposed and implemented a
 - Avoid shell dependencies for portability; prefer `execFileSync(process.execPath, ...)`.
 - A small, deterministic verify guard prevents slow drift and keeps contributors aligned.
 
+# Audit Log: GenAI Testing Loop Improvements
+
+## Manual Verification of Coverage Matrix
+@@ -67,384 +117,4 @@ This iteration went well beyond expectations. GPT‑5 proposed and implemented a
+
 ---
 
-// Remaining content unchanged
+## Iteration 1: `@Prop` Decorator
+
+**Date:** August 19, 2025
+
+### Phase 1: Initial Coverage Push
+
+-   **Target Feature:** `@Prop` decorator.
+-   **Initial Focus:** Permutations of the `type` and `reflect` properties.
+-   **Action:** Utilized the GenAI-powered loop to generate component-level tests (`test/wdio`) for all identified permutations.
+-   **Outcome:** The coverage script reported **100% coverage** for the known permutations. The testing strategy appeared to be a complete success.
+
+### Phase 2: Discovery of a Blind Spot
+
+-   **Action:** A manual review of the `@Prop` feature set revealed that the `mutable` property was not included in our permutation matrix or the coverage analysis script.
+-   **Impact:** The initial 100% coverage metric was misleading. It only reflected the permutations we were aware of, not the complete feature set.
+-   **Outcome:** The `prop-coverage.js` script was updated to recognize the `mutable` property. This immediately doubled the total number of permutations, causing the coverage metric to plummet from **100% to 62.5%**.
+
+### Phase 3: Addressing the Coverage Gap
+
+-   **Action:** Re-engaged the GenAI-powered testing loop with the updated and more accurate permutation matrix. The AI assistant generated a new suite of tests specifically targeting the `mutable` permutations.
+-   **Outcome:** The new tests successfully covered the missing permutations, bringing the total coverage for the `@Prop` decorator back to **100%**.
+
+### Key Learnings:
+
+-   The testing loop proved to be self-correcting. When a blind spot was identified and the "source of truth" (the coverage script) was updated, the strategy seamlessly guided the process of filling the gap.
+-   Static analysis is a powerful but imperfect tool. It is only as good as the patterns it's configured to find, highlighting the need for periodic human review to identify what might be missing.
+-   The exponential cost of comprehensive testing was validated. Adding a single boolean property doubled the testing matrix, reinforcing the need for an efficient and scalable strategy.
+-   **Human-AI Collaboration is Key**: This entire process was a partnership. The AI was a powerful engine for generating code and executing the testing loop, but human insight was required to identify the initial blind spot (`mutable`) and refine the strategy. The most effective approach is one that leverages AI for speed and scale while relying on human expertise for critical thinking and direction.
+
+---
+
+## Iteration 2: Refining `@Prop` Mutation Tests
+
+**Date:** August 19, 2025
+
+### Phase 1: Addressing Mutation Test Failures
+
+-   **Target Feature:** `@Prop` decorator with `mutable: true` and `reflect: true`.
+-   **Initial State:** While coverage was at 100%, it was discovered that tests for complex types (`Array`, `Object`) were not passing as expected after a mutation.
+-   **Action:**
+    1.  Investigated the Stencil runtime to identify the root cause of the reflection issue.
+    2.  Temporarily modified the tests to expect the buggy behavior, allowing the build to pass while documenting the issue.
+    3.  Updated the Storybook documentation to include a "Known Bugs" section, making the issues transparent.
+-   **Outcome:** A reliable pattern for testing mutations was established:
+    -   Render a component with an initial state.
+    -   Verify the initial state and attribute reflection (or lack thereof for known bugs).
+    -   Trigger a mutation (e.g., by clicking a button).
+    -   Verify the component's state and attribute reflection after the mutation.
+
+### Phase 2: Improving Static Analysis and Documentation
+
+-   **Action:**
+    1.  Refined the permutation matrix generation to more accurately capture all `@Prop` variations.
+    2.  Discovered that the static analysis script was not correctly identifying all `@Prop` decorators, leading to an inaccurate coverage report.
+    3.  Improved the testing strategy documentation to be more modular and easier to navigate.
+-   **Outcome:** The static analysis tools and documentation were made more robust, ensuring a more accurate and maintainable testing framework.
+
+### Key Learnings:
+
+-   **Mutation Testing Pattern:** A standardized, reliable pattern for testing mutations was developed and validated.
+-   **Static Analysis Refinement:** The process revealed weaknesses in the static analysis script, which were subsequently improved.
+-   **Iterative Documentation:** The testing strategy documentation itself is part of the iterative loop and should be updated with new learnings as they emerge.
+
+---
+
+## Iteration 3: `@State` Decorator
+
+**Date:** August 21, 2025
+
+### Phase 1: Initial Test Generation
+
+-   **Target Feature:** `@State` decorator.
+-   **Initial Focus:** All permutations of type (`string`, `number`, `boolean`, `array`, `object`, `any`) and default value presence (`true`, `false`).
+-   **Action:** Applied the GenAI-powered testing loop to generate component-level tests in `test/wdio/state/tests` for all 12 identified permutations.
+-   **Outcome:** Successfully generated 10 component files and corresponding tests. All tests passed on first execution.
+
+### Phase 2: Coverage Script Issues
+
+-   **Challenge:** Despite generating all necessary components, the coverage script initially reported only 75% coverage, missing 3 permutations:
+    - `boolean` with default value (`true`)
+    - `object` with default value (`true`) 
+    - `object` without default value (`false`)
+-   **Root Cause:** The regex pattern in `state-coverage.js` was overly greedy (`[\s\S]*?;`) which caused incorrect parsing of initializers, especially in multi-statement contexts.
+-   **Action:** Updated the regex from `/@State\(\)\s+([\w\d_]+)(?::\s*([\w\d\[\]<>{}|.'"]+))?(\s*=\s*[\s\S]*?;)?/g` to `/@State\(\)\s+([\w\d_]+)(?::\s*([\w\d\[\]<>{}|.'"]+))?(\s*=\s*[^;]*;)?/g` to be non-greedy and more precise.
+-   **Outcome:** After the regex fix, coverage improved to 91.67% with only the `boolean` with default value still missing.
+
+### Phase 3: Final Coverage Resolution
+
+-   **Challenge:** The script still failed to identify two permutations: `object` without a default value and `any` with a default value.
+-   **Root Cause:**
+    1.  The test component for `object` without a default value (`state-object-no-default-cmp.tsx`) had an incorrect type annotation (`any` instead of `object`).
+    2.  The test component for `any` with a default value (`state-any-default-cmp.tsx`) was missing a type annotation, causing the script to infer the type as `string` from the default value.
+-   **Action:**
+    1.  Corrected the type annotation in `state-object-no-default-cmp.tsx` to `object`.
+    2.  Added the `: any` type annotation to `state-any-default-cmp.tsx`.
+-   **Outcome:** After these corrections, the coverage script successfully ran and reported **100% coverage**. All 12 permutations for the `@State` decorator are now fully tested.
+
+### Key Learnings:
+
+-   **Test Generation Success:** The AI successfully generated all required test components and tests on the first attempt, showing improvement in the testing loop efficiency.
+-   **Coverage Script Vulnerabilities:** Regex patterns in coverage scripts need careful crafting to avoid false negatives. Greedy patterns can cause incorrect parsing in complex code contexts.
+-   **File Placement Accuracy:** All components were correctly placed under `test/wdio/state/matrix/**` (grouped by type), and tests live in `test/wdio/state/tests`.
+-   **Documentation Workflow Improvements:** The testing workflow documentation was refined to reflect the correct single-step build process (`cd test/wdio && npm run build`) rather than the initially documented two-step process.
+-   **Testing Strategy Evolution:** Added the crucial sixth step to the testing loop: "Document Learnings" to ensure continuous improvement between iterations.
+
+---
+
+## Iteration 4: `@Event` Decorator
+
+**Date:** August 26, 2025
+
+### Phase 1: Initial Misdirection
+
+-   **Target Feature:** `@Event` decorator.
+-   **Initial Action:** The AI assistant was tasked with bringing `@Event` decorator coverage to 100%. However, it immediately went down the wrong path by attempting to generate E2E tests instead of component tests, and placing them in the incorrect directory (`test/end-to-end/` instead of `test/wdio/`).
+-   **Correction:** Human intervention was required to redirect the AI, pointing it to the correct `wdio` directory and the `@State` decorator tests as a pattern to follow.
+
+### Phase 2: Test Implementation Failures
+
+-   **Challenge:** The AI struggled to adopt the correct testing pattern. Its first attempt at creating the test file (`cmp.test.tsx`) used `newSpecPage` from Stencil's unit testing framework, which was incorrect for component tests.
+-   **Correction:** The user again corrected the AI, pointing out the convention mismatch.
+-   **Second Failure:** The AI's next attempt was also flawed. It used a non-existent `browser.spyOn` method, which caused the tests to fail. This led to a frustrating loop where the AI was unable to correct its own mistake.
+
+### Phase 3: File System and Pattern Discovery Issues
+
+-   **Challenge:** The AI entered a persistent failure loop where it was unable to successfully write to the test file (`cmp.test.tsx`). The file repeatedly appeared as empty or corrupted, requiring the user to manually revert changes and suggest workarounds, such as using a temporary file name.
+-   **A Better Pattern Revealed:** The most significant issue was the AI's failure to recognize the simplest existing testing pattern. While the AI was attempting a complex and incorrect solution using `browser.execute`, the user pointed out that existing tests (like `event-basic`) used a much cleaner in-component `@Listen` decorator to verify the event emission.
+-   **Outcome:** This insight was critical. It rendered the AI's complex solution obsolete and highlighted a major blind spot in its ability to learn from the most relevant examples in the codebase.
+
+### Phase 4: Final Refactoring and Success
+
+-   **Action:** Following the user's guidance, the AI refactored all the newly generated components to use the `@Listen` pattern. The test file (`cmp-tests.tsx`) was simplified to check a counter, aligning with the established, simpler convention.
+-   **Outcome:** After adopting the correct pattern as identified by the user, the tests were simplified, and the process was successfully completed.
+
+### Key Learnings:
+
+-   **Pattern Blindness:** This iteration revealed a critical failure in the AI's ability to identify and adopt the best and simplest existing patterns, even when provided with examples. It defaulted to a more complex, generic, and ultimately incorrect solution.
+-   **Tool-Level Instability:** The AI exhibited significant instability with basic file operations, leading to a frustrating user experience and requiring manual workarounds. This points to a need for more robust error handling and self-correction in the AI's tool usage.
+-   **Over-Reliance on Correction:** The AI was entirely dependent on the user for course correction at every major step. The human's role shifted from supervisor to constant troubleshooter and pattern-matcher.
+-   **The Cost of "Almost Right":** The AI's ability to generate code that was syntactically correct but functionally wrong (e.g., using `browser.spyOn`) proved to be a significant time sink, demonstrating that superficial correctness is not a substitute for understanding context and convention.
+
+---
+
+## Iteration 5: `@Method` Decorator (Async Only)
+
+**Date:** August 27, 2025
+
+### Phase 1: Matrix Correction and Coverage Alignment
+- **Target Feature:** Stencil `@Method` decorator (async-only).
+- **Initial State:** Coverage script and test components included invalid permutations (non-async methods), leading to misleading coverage metrics and test failures.
+- **Action:**
+    - Manually audited and removed all non-async permutations from the coverage script and test components.
+    - Updated the coverage script to only generate and track valid async permutations (args/no args, return/no return).
+    - Regenerated all test components to use `@Method() async ...(): Promise<...>` signatures.
+    - Ensured each component updated the DOM for reliable WDIO verification.
+- **Outcome:** Coverage script now accurately reflects only valid async permutations. All test components conform to Stencil requirements.
+
+### Phase 2: Test Implementation and Build Process
+- **Action:**
+    - Generated missing async test components for all valid permutations.
+    - Updated WDIO tests to cover each permutation, using DOM-based assertions.
+    - Documented and followed the correct build process (`cd test/wdio && npm run build`).
+    - Ran WDIO tests and confirmed all pass.
+    - Reran the coverage script, confirming 100% coverage for the async-only matrix.
+- **Outcome:** All async method permutations are covered by both tests and static analysis. No missing cases remain.
+
+### AI-Assisted Test Generation (Copilot GPT-4.1)
+
+During this iteration, we used Copilot GPT-4.1 to automate the generation of component-level tests for the Stencil `@Method` decorator. Key steps and best practices:
+
+- **Context Setup:** Imported the `.ai` folder to provide Copilot with project standards, domain knowledge, and the testing strategy.
+- **Prompt Used:**
+  > Utilizing the testing strategy covered in the .ai folder, let's get the @Method matrix up to 100%, follow the instructions under component_tests Writing and Running Component Tests
+- **Process:**
+  1. Ran the coverage script to identify missing permutations.
+  2. Used Copilot GPT-4.1 to generate missing async test components and WDIO tests, following the documented patterns.
+  3. Built the components and ran the tests to confirm coverage and correctness.
+  4. Documented learnings and process improvements in both the audit log and component test guide.
+
+**Takeaway:**
+AI can rapidly generate standards-compliant tests when provided with clear context and instructions. Always combine AI automation with human review and documentation for best results.
+
+### Key Learnings:
+- **Matrix Validity is Critical:** Coverage metrics are only meaningful if the matrix reflects what is actually supported by the framework. Manual review is essential when framework constraints change.
+- **Build and Test Workflow:** The correct build/test workflow is crucial for reliable results. Documentation should always reflect the latest process.
+- **Pattern Consistency:** All test components should follow a consistent pattern (DOM update via button click) for reliable WDIO verification.
+- **Human-AI Collaboration:** Human review was required to identify invalid permutations and guide the AI to correct the matrix and test suite. The AI efficiently generated and updated code once the correct strategy was established.
+- **Documentation Loop:** Each iteration should end with documentation of learnings and process improvements to ensure future accuracy and efficiency.
+
+### Process Improvements Made:
+1. **Coverage Matrix Correction:** Updated coverage scripts to only include valid permutations.
+2. **Test Component Consistency:** Standardized async method test component patterns for WDIO reliability.
+3. **Build Process Documentation:** Ensured documentation matches the actual build/test workflow.
+4. **Final Coverage Validation:** Confirmed 100% coverage and passing tests for all valid async permutations.
+
+---
+
+## Iteration 6: `@Listen` Decorator (Host Target Tag Name Consistency)
+
+**Date:** September 5, 2025
+
+### Phase 1: Host Target Tag Name Mismatch
+- **Issue:** Automated generation of Stencil components and WDIO tests for `@Listen` permutations resulted in a tag name mismatch for host-targeted components and their tests. Components used the tag `listen-host-click-capture-nopassive`, while tests used `cmp-host-click-capture-nopassive`.
+- **Impact:** Host tests failed because the rendered element did not match the tag name expected by the test, causing the host element not to be found or events not to fire.
+
+### Phase 2: Diagnosis and Correction
+- **Action:** Identified the mismatch by comparing the component's `@Component({ tag })` property and the test's render/selector usage.
+- **Correction:** Updated all host WDIO tests to use the correct tag name as defined in the component, ensuring both render and event dispatch target `listen-host-click-capture-nopassive`.
+- **Outcome:** Host tests now pass as expected, confirming correct event handling and coverage.
+
+### Key Learnings:
+- **Naming Consistency:** Automated test and component generation must derive tag names from the component's `@Component({ tag })` property to ensure consistency.
+- **Validation Step:** Add a validation step to the automation pipeline to check that all tests reference the correct tag name for their component.
+- **Source of Truth:** Use the component's tag property as the single source of truth for naming in both code and tests.
+- **Human-AI Collaboration:** Human review remains essential for catching subtle mismatches that static analysis may miss.
+
+### Process Improvements Made:
+1. **Automation Update:** Update generation scripts to always use the component's tag property for test rendering and selectors.
+2. **Validation Script:** Add a script to audit test/component tag name consistency across the codebase.
+3. **Documentation:** Record this learning in the audit log and update the component test guide to emphasize tag name consistency.
+
+---
+
+## 2025-09-05: Input Event WDIO Test Pattern
+
+- Issue: WDIO `setValue('test')` on an input triggers the `input` event for each character, incrementing the counter multiple times.
+- Solution: For robust Stencil `@Listen('input')` tests, always render the input in the component, select it by id, and use `setValue('t')` for a single event or `setValue('test')` for multiple events. Match the assertion to the expected event count.
+- Pattern applied to all input event tests for reliable coverage.
+- Example:
+  - Component renders `<input id="test-input" />` and output div.
+  - Test waits for input, sets value, and asserts correct count.
+- Result: All input event WDIO tests now pass and coverage is complete.
+
+---
+
+## Stencil 2 Target Update
+
+The `parent` target is no longer supported for the `@Listen` decorator in Stencil 2. All documentation, coverage matrices, and generated components/tests should exclude this target going forward.
+
+---
+
+## 2025-09-08: Script Path Management and Automation
+
+- **Issue:** Frequent errors and confusion occurred when running coverage, build, and test scripts from the wrong working directory, due to different terminal root folders and relative path mismatches.
+- **Solution:** Added a `package.json` file with shortcut scripts to `.ai/testing` that automatically `cd` into the correct directory before running the actual script. This ensures all commands are executed from a consistent location and paths are resolved correctly.
+- **Best Practice:** Always run scripts using the shortcuts in `.ai/testing/package.json` to avoid path issues. Update the overview and documentation to reflect this workflow improvement.
+- **Learning:** Automation and documentation must account for environment and path context. Centralizing script execution via shortcut scripts greatly reduces errors and improves developer experience.
+
+---
+
+## Iteration 7: `@Component` Decorator Permutation Coverage
+
+**Date:** September 8, 2025
+
+### Goals
+- Reach 100% coverage for all valid `@Component` decorator permutations defined by the coverage script.
+- Enforce strict mutual exclusivity: only one of `styleUrl`, `styleUrls`, or `styles` per component.
+- Maintain a one-to-one mapping: exactly one `.tsx` component per unique permutation.
+- Keep file count under `test/wdio/component-decorator/**` equal to the “covered” count in `Component/coverage-data.json` after each run.
+
+### Actions Taken
+- Audited and removed invalid components that set multiple style properties; created canonical `matrix/` for valid permutations.
+- Implemented naming and placement conventions under `test/wdio/component-decorator/matrix/` (descriptive filenames; tag matches filename).
+- Generated batches of valid permutations with exclusivity:
+  - Initial 15 baseline components (shadow/scoped/assetsDirs/formAssociated with single style key when present).
+  - +1 additional specific permutation.
+  - +10 permutations for `shadow: true, scoped: false` across `formAssociated` and style variants.
+  - +20 permutations spanning:
+    - `shadow: true` with assetsDirs/formAssociated combos and style variants
+    - `shadow: false, scoped: true` with assetsDirs/formAssociated and styles
+    - styles-only for `shadow: true, scoped: false`
+  - +20 permutations for `shadow: false, scoped: true` plus `scoped: false` assetsDirs/formAssociated combos.
+- Used the repo’s `.ai` testing scripts to regenerate coverage after each batch.
+
+### Coverage Progress
+- Baseline: 82/216 (38.0%).
+- After batch 1: 102/216 (47.2%).
+- After batch 2: 122/216 (56.5%).
+- Verified file count matches coverage: 122 `.tsx` files under `test/wdio/component-decorator/**` equals `covered = 122`.
+
+### Rules & Conventions
+- Mutual exclusivity is enforced by the coverage script; any component with more than one style property is skipped.
+- Options order for permutation keys: `[shadow, scoped, assetsDirs, formAssociated, styleUrl, styleUrls, styles]` with values `✓ | ✗ | -`.
+- Valid style states: `[✓,-,-]`, `[-,✓,-]`, `[-,-,✓]`, or `[-,-,-]`.
+- Location: `test/wdio/component-decorator/matrix/` only for new permutations.
+- Naming: `component-<shadow|shadow-false>-<scoped|scoped-false>-<assetsdirs?>-<formassociated|formassociated-false?>-<styleurl|styleurls|styles?>.tsx` (omit segments that are `-`).
+- Tag equals filename (without extension). Render includes a `Permutation: ...` string matching the seven-field key to aid audits.
+
+### Model Usage
+- Use GPT-5 (Preview) for code generation of components.
+- Use GPT-4.1 for documentation authoring and maintenance.
+
+### Next Steps
+- Accept newly created files in the UI.
+- Continue generating the next batches by reading `missingPermutations` from `Testing/Decorators/Component/coverage-data.json` and creating exactly one component per missing key.
+- Re-run coverage after each batch and ensure file count equals `covered`.
+- Update this audit and the `@Component` decorator docs as the workflow evolves.
+
+---
+
+## 2025-09-08: Context-First Strategy, GPT-5 Results, and Portability Vision
+
+### Summary
+- Hypothesis validated: investing in the .ai context (standards, coverage scripts, docs, prompts) yields outsized returns versus hand-writing components/tests. As models improve, high-fidelity code and docs follow naturally from a strong context.
+- GPT-5 (Preview) materially outperforms GPT-4.1 on this repo:
+  - Accurately scanned the .ai folder, updated the correct `audit.mdx`, and authored a high-quality `decorators/component.mdx` with minimal prompting.
+  - Generated components from the coverage matrix more reliably and with better adherence to conventions.
+  - Produced stronger documentation with simpler prompts.
+
+### Why this matters
+- The testing loop hinges on a trustworthy coverage matrix. AI uses the matrix to: (1) enumerate missing permutations, (2) generate components, and next (3) generate tests. When the sample set fully represents all permutations, test coverage meaningfully guards compiler/runtime changes.
+- This enables crowdsourcing: contributors can ask AI to add the next missing permutations/tests and submit PRs—guided by the shared context.
+
+### Portability: the .ai Context Pack
+- Goal: make `.ai` a portable, framework-agnostic "Context Pack" others can import into any repo.
+- Adaptation model:
+  1) Drop the `.ai` folder into a target repo.
+  2) Update `project-config.mdx` to align with local tech (unit/component/e2e frameworks, runners, scripts).
+  3) Use `.ai/testing/package.json` script shortcuts to normalize paths and execution.
+  4) Run coverage to discover missing permutations; generate components/tests accordingly.
+- Always reference `AGENT_KEYWORDS.md` for standardized agent keywords and prompt conventions.
+
+### Concrete outcomes observed today
+- GPT-5 authored a high-signal audit entry and created `decorators/component.mdx` that formalizes the `@Component` permutation strategy (naming, exclusivity, workflow).
+- Component generation quality improved and aligned with the matrix rules, enabling the next step (test generation) with confidence.
+
+### Vision: Universal, framework-agnostic GenAI testing
+- Maintain source-of-truth coverage scripts and matrices in `.ai`.
+- Make context-first workflows portable via `project-config.mdx` and script shortcuts.
+- Encourage contributors to use GPT-5 with these artifacts to iteratively close coverage gaps and add tests.
+
+### Risks and mitigations
+- Risk: context drift between repos. Mitigation: version the Context Pack, document required local overrides in `project-config.mdx`, and run a quick "context sanity" script before generation.
+- Risk: false confidence from incomplete matrices. Mitigation: manual verification steps and regular audits (see Manual Verification of Coverage Matrix above).
+
+### Next actions
+- Add a dedicated "Context Pack" guide with import/setup steps (created in `.ai/testing/context-pack.mdx`).
+- Cross-link the guide from `overview.mdx` and `project-config.mdx` in a future pass.
+- Prefer GPT-5 (Preview) for generation; GPT-4.1 for documentation, as currently noted in `decorators/component.mdx`.
+
+---
+
+## Recording Learnings
+
+For every completed GenAI-powered testing loop, ensure that all learnings, mistakes, and improvements are documented in the relevant `.ai` folder file and summarized here in the audit log. This practice helps maintain a robust knowledge base and supports continuous improvement for future contributors.
+
+---
+
+## 2025-10-09: Decorator Folder Convention and No‑Drift Workflow
+
+### Summary
+We standardized a per‑decorator folder convention under `Testing/Decorators/<Decorator>/` and aligned docs, generation, and verification to eliminate drift and make the workflow portable across all decorators.
+
+### Convention (applies to every decorator)
+Each decorator now has a dedicated subfolder with the same files/scripts:
+- `@<Decorator>.mdx` — Storybook docs page
+- `rules.json` — single source of truth for valid options, exclusivity, grouping (modes), naming
+- `generate-components.js` — emits one component per valid permutation under the WDIO matrix folder
+- `coverage.js` — computes Phase 1 compile coverage and writes `coverage-data.json`
+- `coverage-data.json` — compile coverage summary and file lists consumed by docs/verify
+- `coverage-overlay.json` — Phase 2 test overlay (tested/testedBy/group), built by `verify-matrix`
+
+### Docs integration
+- `RulesAtAGlance` renders `rules.json` directly to prevent drift (with `modeLabel` support for non‑Component decorators).
+- Section order standardized: 1) Decorator Properties, 2) Rules (at a glance), 3) Generated Components, 4) Component Grouping, 5) Test Cases.
+- Terminology standardized: “Generated Components” replaces “matrix”.
+- Phase 1 note (“compile‑only”) included; Phase 2 columns are placeholders until tests are propagated.
+
+### Verify pipeline
+- `verify-matrix.js` re‑runs coverage, checks parity (covered === total and `.tsx` count), validates grouping from `rules.modes`, enforces exclusivity, and builds the per‑decorator `coverage-overlay.json`.
+- `run-all-coverage.js` refreshes coverage for all decorators.
+
+### Status
+- Adopted for: `@Component`, `@State`.
+- Cleanup: removed `State/compare-legacy.js` (migration helper no longer needed).
+- Next: align `@Prop`, `@Event`, `@Listen`, `@Method` to this convention; add optional CI rule to validate schema and prevent drift.
+
+### Why this matters
+- Predictable structure enables automation (generation, verification, documentation) per decorator.
+- Rendering rules from `rules.json` removes manual duplication and drift.
+- Makes the `.ai` Context Pack portable; contributors can follow the same pattern for new decorators/features.
