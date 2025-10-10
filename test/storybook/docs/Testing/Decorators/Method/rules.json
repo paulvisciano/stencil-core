@@ -1,0 +1,20 @@
+{
+  "decorator": "@Method",
+  "options": {
+    "returns": ["void", "value", "promise"],
+    "async": ["✓", "✗"],
+    "args": ["none", "one"]
+  },
+  "exclusiveGroups": [],
+  "modes": [
+    { "name": "void", "when": { "returns": "void" } },
+    { "name": "value", "when": { "returns": "value" } },
+    { "name": "promise", "when": { "returns": "promise" } }
+  ],
+  "emit": {
+    "naming": {
+      "prefix": "method",
+      "includeOptions": ["returns", "async", "args"]
+    }
+  }
+}
