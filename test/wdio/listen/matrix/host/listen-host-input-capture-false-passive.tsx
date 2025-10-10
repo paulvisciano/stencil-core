@@ -1,0 +1,36 @@
+// filepath: /Users/paul.visciano/repos/core/test/wdio/listen/matrix/host/listen-host-input-capture-false-passive.tsx
+import { Component, h, Listen, State } from '@stencil/core';
+
+@Component({ tag: 'listen-host-input-capture-false-passive', shadow: true })
+export class ListenHostInputCaptureFalsePassive {
+  @State() counter = 0;
+
+  @Listen('input', { capture: false, passive: true })
+  onEv() {
+    this.counter++;
+  }
+
+  componentDidLoad() {
+    const el = this.host as HTMLElement;
+    const win = window;
+    const doc = document;
+    const body = document.body;
+    // fire event on the appropriate target
+    const ev = new Event('input', { bubbles: true, cancelable: true, composed: true });
+    if ('host' === 'window') win.dispatchEvent(ev);
+    else if ('host' === 'document') doc.dispatchEvent(ev);
+    else if ('host' === 'body') body.dispatchEvent(ev);
+    else el.dispatchEvent(ev);
+  }
+
+  private get host() { return (this as any).el || (this as any).$host$ || this as any; }
+
+  render() {
+    return (
+      <div>
+        <p>Options: target=host event=input capture=false passive=true</p>
+        <p>Counter: <span id="counter">{this.counter}</span></p>
+      </div>
+    );
+  }
+}

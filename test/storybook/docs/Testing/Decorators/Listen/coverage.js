@@ -6,25 +6,22 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const TEST_DIRS = [
-  path.resolve(__dirname, '../../../../../test/end-to-end'),
-  path.resolve(__dirname, '../../../../../test/wdio'),
+  path.resolve(__dirname, '../../../../../../test/wdio/listen'),
+  path.resolve(__dirname, '../../../../../../test/end-to-end'),
 ];
 const OPTIONS = ['target', 'event', 'capture', 'passive'];
-const TARGET_OPTIONS = ['window', 'document', 'body', 'host']; // 'parent' removed
-const EVENT_OPTIONS = ['click', 'keydown', 'input']; // Add more if needed
-const BOOLEAN_OPTIONS = [true, false];
-const jsonPath = path.resolve(__dirname, 'listen-coverage-data.json');
-
-// Map valid events for each target
+const TARGET_OPTIONS = ['window', 'document', 'body', 'host'];
 const VALID_EVENTS = {
   window: ['click', 'keydown'],
   document: ['click', 'keydown', 'input'],
   body: ['click', 'keydown', 'input'],
   host: ['click', 'keydown', 'input'],
 };
+const jsonPath = path.resolve(__dirname, 'coverage-data.json');
 
 function findFiles(dir, ext = '.tsx', excludeDirs = ['node_modules', '.cache']) {
   let results = [];
+  if (!fs.existsSync(dir)) return results;
   fs.readdirSync(dir).forEach(file => {
     const full = path.join(dir, file);
     if (fs.statSync(full).isDirectory()) {
@@ -45,35 +42,25 @@ function extractListenOptions(file) {
   const results = [];
   while ((match = listenRegex.exec(content)) !== null) {
     const optionsStr = match[1] || '';
-    let target = 'host'; // default
-    const targetMatch = optionsStr.match(/target:\s*['"]([^'"]+)['"]/);
-    if (targetMatch) {
-      target = targetMatch[1];
-    }
+    let target = 'host';
+    const targetMatch = optionsStr.match(/target:\s*['"]([^'\"]+)['"]/);
+    if (targetMatch) target = targetMatch[1];
     let event = '';
-    const eventMatch = optionsStr.match(/['"]([^'"]+)['"]/);
-    if (eventMatch) {
-      event = eventMatch[1];
-    }
-    let capture = false; // default
+    const eventMatch = optionsStr.match(/['"]([^'\"]+)['"]/);
+    if (eventMatch) event = eventMatch[1];
+    let capture = false;
     const captureMatch = optionsStr.match(/capture:\s*(true|false)/);
-    if (captureMatch) {
-      capture = captureMatch[1] === 'true';
-    }
-    let passive = false; // default
+    if (captureMatch) capture = captureMatch[1] === 'true';
+    let passive = false;
     const passiveMatch = optionsStr.match(/passive:\s*(true|false)/);
-    if (passiveMatch) {
-      passive = passiveMatch[1] === 'true';
-    }
+    if (passiveMatch) passive = passiveMatch[1] === 'true';
     results.push({ target, event, capture, passive });
   }
   return results;
 }
 
 function normalizeValue(val, opt) {
-  if (opt === 'capture' || opt === 'passive') {
-    return val ? '✓' : '✗';
-  }
+  if (opt === 'capture' || opt === 'passive') return val ? '✓' : '✗';
   return val;
 }
 
@@ -94,47 +81,43 @@ function getAllPermutationKeys() {
 function getCoverageData(coveredCount, totalCount, coveredPermutations, missingPermutations) {
   const percent = totalCount > 0 ? ((coveredCount / totalCount) * 100).toFixed(1) : '0.0';
   return {
-    coverage: {
-      covered: coveredCount,
-      total: totalCount,
-      percent: percent,
-    },
-    coveredPermutations: coveredPermutations.map(p => ({ options: p.options, count: p.count })),
+    coverage: { covered: coveredCount, total: totalCount, percent },
+    coveredPermutations: coveredPermutations.map(p => ({ options: p.options, count: p.count, files: p.files })),
     missingPermutations: missingPermutations.map(p => ({ options: p.split('|') })),
   };
 }
 
 function main() {
-  const allFoundListeners = [];
+  const allFound = [];
   TEST_DIRS.forEach(dir => {
     const files = findFiles(dir);
     files.forEach(file => {
-      const listeners = extractListenOptions(file);
-      if (listeners.length > 0) {
-        allFoundListeners.push(...listeners);
+      const listens = extractListenOptions(file);
+      if (listens.length > 0) {
+        const rel = path.relative(TEST_DIRS[0], file);
+        listens.forEach(l => allFound.push({ ...l, file: rel }));
       }
     });
   });
 
   const permutationMap = {};
-  allFoundListeners.forEach(listener => {
-    const keyArr = [listener.target, listener.event, normalizeValue(listener.capture, 'capture'), normalizeValue(listener.passive, 'passive')];
+  const filesForKey = new Map();
+  allFound.forEach(l => {
+    const keyArr = [l.target, l.event, normalizeValue(l.capture, 'capture'), normalizeValue(l.passive, 'passive')];
     const key = keyArr.join('|');
-    if (!permutationMap[key]) {
-      permutationMap[key] = { count: 0 };
-    }
+    if (!permutationMap[key]) permutationMap[key] = { count: 0 };
     permutationMap[key].count++;
+    if (!filesForKey.has(key)) filesForKey.set(key, new Set());
+    filesForKey.get(key).add(l.file);
+  });
+
+  const uniquePermutations = Object.entries(permutationMap).map(([key, val]) => {
+    const opts = key.split('|');
+    return { options: opts, count: val.count, files: Array.from(filesForKey.get(key) || []) };
   });
 
   const allKeys = getAllPermutationKeys();
-  // Only include permutations that are in the valid matrix
-  const uniquePermutations = allKeys.map(key => {
-    const val = permutationMap[key];
-    const opts = key.split('|');
-    return val ? { options: opts, count: 1 } : null;
-  }).filter(Boolean);
-
-  const coveredKeys = new Set(uniquePermutations.map(p => p.options.join('|')));
+  const coveredKeys = new Set(Object.keys(permutationMap));
   const missingKeys = allKeys.filter(key => !coveredKeys.has(key));
 
   const totalPermutations = allKeys.length;
@@ -143,8 +126,7 @@ function main() {
   const jsonData = getCoverageData(coveredCount, totalPermutations, uniquePermutations, missingKeys);
 
   fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 2));
-
-  console.log(`Coverage data written to ${jsonPath}`);
+  console.log(`Listen coverage data written to ${jsonPath}`);
 }
 
 main();

@@ -9,8 +9,8 @@ const scripts = [
   'Component/coverage.js',
   'Prop/coverage.js',
   'Event/coverage.js',
-  'listen-coverage.js',
-  'method-coverage.js',
+  'Listen/coverage.js',
+  'Method/coverage.js',
   'State/coverage.js',
 ];
 

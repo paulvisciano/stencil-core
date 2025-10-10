@@ -1,0 +1,179 @@
+import rules from './rules.json';
+import { Meta } from '@storybook/addon-docs/blocks';
+import data from '../listen-coverage-data.json';
+import overlay from './coverage-overlay.json';
+import React, { useMemo, useState } from 'react';
+import RulesAtAGlance from '../_shared/RulesAtAGlance.jsx';
+
+<Meta title="Testing/Decorators/@Listen"/>
+
+# @Listen Decorator
+
+The `@Listen` decorator wires an event listener to a target (host, window, document, or body). This page documents options, rules, generated components, grouping, and test cases.
+
+## Decorator Properties
+
+- target: where to listen (default: host)
+- event: the event name (e.g., click, keydown, input)
+- capture: use capture phase when true
+- passive: mark listener as passive when true
+
+## Rules (at a glance)
+<RulesAtAGlance rules={rules} sourcePath="./rules.json" modeLabel="Listen target" />
+
+## Generated Components
+
+<div>
+  <strong>Generated Components:</strong> {data.coverage.covered} of {data.coverage.total} generated (
+  <strong>{data.coverage.percent}%</strong>)
+</div>
+
+<p style={{ marginTop: 8 }}>
+  One row per unique combination of <code>target</code> × <code>event</code> × <code>capture</code> × <code>passive</code>.
+  If a combo fails to compile, capture it in <code>rules.json</code> and regenerate. The “Tested / Test Cases” column is populated in Phase 2.
+</p>
+
+export const GeneratedComponentsTable = () => {
+  const [expanded, setExpanded] = useState(false);
+
+  const rows = useMemo(() => {
+    const items = overlay.items || [];
+    return (data.coveredPermutations || []).map((p, i) => {
+      const [target, event, capture, passive] = p.options || [];
+      const key = `${target}|${event}|${capture}|${passive}`;
+      const oi = items.find(x => x.optionsKey === key) || {};
+      return {
+        index: i,
+        target,
+        event,
+        capture,
+        passive,
+        tested: !!oi.tested,
+        tests: oi.testedBy || [],
+      };
+    });
+  }, []);
+
+  const total = rows.length;
+
+  const renderTable = (rowsToRender) => (
+    <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+        <colgroup>
+          <col style={{ width: '20%' }} />
+          <col style={{ width: '20%' }} />
+          <col style={{ width: '15%' }} />
+          <col style={{ width: '15%' }} />
+          <col style={{ width: '10%' }} />
+          <col style={{ width: '20%' }} />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>target</th>
+            <th>event</th>
+            <th>capture</th>
+            <th>passive</th>
+            <th style={{ textAlign: 'center' }}>Tested</th>
+            <th>Test Cases</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rowsToRender.map((r) => (
+            <tr key={r.index} style={{ background: r.tested ? '#fbfffb' : '#fff' }}>
+              <td>{r.target}</td>
+              <td>{r.event}</td>
+              <td>{r.capture}</td>
+              <td>{r.passive}</td>
+              <td style={{ textAlign: 'center' }}>
+                {r.tested ? <span style={{ color: 'green' }}>✔</span> : <span style={{ color: '#999' }}>—</span>}
+              </td>
+              <td>
+                {r.tests.length ? (
+                  <ul style={{ margin: 0, paddingLeft: 16 }}>
+                    {r.tests.map((t, k) => (
+                      <li key={k}>{t}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <em>—</em>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
+  if (!expanded) {
+    const preview = rows.slice(0, 3);
+    return (
+      <div style={{ position: 'relative' }}>
+        {renderTable(preview)}
+        {total > 3 && (
+          <>
+            <div
+              style={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                bottom: 40,
+                height: 48,
+                background: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 90%)',
+                pointerEvents: 'none',
+              }}
+            />
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: -8 }}>
+              <button
+                onClick={() => setExpanded(true)}
+                style={{
+                  padding: '6px 12px',
+                  border: '1px solid #ddd',
+                  background: '#f8f8f8',
+                  borderRadius: 4,
+                  cursor: 'pointer',
+                  fontSize: 12,
+                }}
+                aria-label={`Show all ${total} components`}
+              >
+                Show all {total} components
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 8 }}>
+        <button
+          onClick={() => setExpanded(false)}
+          style={{
+            padding: '6px 12px',
+            border: '1px solid #ddd',
+            background: '#f8f8f8',
+            borderRadius: 4,
+            cursor: 'pointer',
+            fontSize: 12,
+          }}
+          aria-label="Collapse components table"
+        >
+          Collapse table
+        </button>
+      </div>
+      {renderTable(rows)}
+    </div>
+  );
+};
+
+<GeneratedComponentsTable />
+
+## Component Grouping
+
+Components are grouped by target under `test/wdio/listen/matrix/<host|window|document|body>/`.
+
+## Test Cases
+
+- Phase 2 placeholder: tests will be propagated across generated components and recorded in `coverage-overlay.json`.

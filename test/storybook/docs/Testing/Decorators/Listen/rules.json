@@ -1,0 +1,22 @@
+{
+  "decorator": "@Listen",
+  "options": {
+    "target": ["host", "window", "document", "body"],
+    "event": ["click", "keydown", "input"],
+    "capture": ["✓", "✗"],
+    "passive": ["✓", "✗"]
+  },
+  "exclusiveGroups": [],
+  "modes": [
+    { "name": "host", "when": { "target": "host" } },
+    { "name": "window", "when": { "target": "window" } },
+    { "name": "document", "when": { "target": "document" } },
+    { "name": "body", "when": { "target": "body" } }
+  ],
+  "emit": {
+    "naming": {
+      "prefix": "listen",
+      "includeOptions": ["target", "event", "capture", "passive"]
+    }
+  }
+}
