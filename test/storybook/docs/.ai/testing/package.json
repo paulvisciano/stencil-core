@@ -7,6 +7,7 @@
     "run-component-tests": "cd ../../../../wdio && npm run wdio",
     "run-component-tests:spec": "cd ../../../../wdio && npm run wdio --",
     "refresh-coverage-matrix": "cd ../../Testing/Decorators && node run-all-coverage.js",
+    "generate-components": "npm run component:generate-components && npm run state:generate-components && npm run prop:generate-components && npm run event:generate-components && npm run listen:generate-components && npm run method:generate-components",
     "component:generate-components": "cd ../../Testing/Decorators/Component && node coverage.js && node generate-components.js && node coverage.js",
     "component:verify-matrix": "cd ../../Testing/Decorators && node verify-matrix.js --decorator=component",
     "state:generate-components": "cd ../../Testing/Decorators/State && node coverage.js && node generate-components.js && node coverage.js",
@@ -18,7 +19,6 @@
     "listen:generate-components": "cd ../../Testing/Decorators/Listen && node coverage.js && node generate-components.js && node coverage.js",
     "listen:verify-matrix": "cd ../../Testing/Decorators && node verify-matrix.js --decorator=listen",
     "method:generate-components": "cd ../../Testing/Decorators/Method && node coverage.js && node generate-components.js && node coverage.js",
-    "method:verify-matrix": "cd ../../Testing/Decorators && node verify-matrix.js --decorator=method",
-    "generate-components": "npm run component:generate-components && npm run state:generate-components && npm run prop:generate-components && npm run event:generate-components && npm run listen:generate-components && npm run method:generate-components"
+    "method:verify-matrix": "cd ../../Testing/Decorators && node verify-matrix.js --decorator=method"
   }
 }

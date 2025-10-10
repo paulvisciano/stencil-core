@@ -15,9 +15,10 @@
         "-",
         "-"
       ],
-      "count": 1,
+      "count": 2,
       "files": [
-        "matrix/cmp-base.tsx"
+        "matrix/cmp-base.tsx",
+        "matrix/light/cmp.tsx"
       ]
     },
     {
