@@ -8,6 +8,14 @@
     {
       "options": [
         "true",
+        "false",
+        "false"
+      ],
+      "count": 19
+    },
+    {
+      "options": [
+        "true",
         "true",
         "true"
       ],
@@ -28,14 +36,6 @@
         "true"
       ],
       "count": 2
-    },
-    {
-      "options": [
-        "true",
-        "false",
-        "false"
-      ],
-      "count": 6
     }
   ],
   "missingPermutations": []
