@@ -1,7 +1,3 @@
-import { Meta } from '@storybook/addon-docs/blocks';
-
-<Meta title="Testing/Decorators/@Component Coverage Strategy" tags={['ai','coverage','stable']} />
-
 # @Component Decorator Coverage Strategy
 
 This document outlines the approach to achieve and maintain 100% coverage for valid `@Component` permutations as defined by `Testing/Decorators/Component/coverage.js`.
