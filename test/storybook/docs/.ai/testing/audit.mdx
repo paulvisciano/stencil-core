@@ -235,7 +235,9 @@ AI can rapidly generate standards-compliant tests when provided with clear conte
 
 ---
 
-## 2025-09-05: Input Event WDIO Test Pattern
+## Iteration 7: Input Event WDIO Test Pattern
+
+**Date:** September 5, 2025
 
 - Issue: WDIO `setValue('test')` on an input triggers the `input` event for each character, incrementing the counter multiple times.
 - Solution: For robust Stencil `@Listen('input')` tests, always render the input in the component, select it by id, and use `setValue('t')` for a single event or `setValue('test')` for multiple events. Match the assertion to the expected event count.
@@ -247,13 +249,17 @@ AI can rapidly generate standards-compliant tests when provided with clear conte
 
 ---
 
-## Stencil 2 Target Update
+## Iteration 8: Stencil Target Property Update
+
+**Date:** September 5, 2025
 
 The `parent` target is no longer supported for the `@Listen` decorator in Stencil 2. All documentation, coverage matrices, and generated components/tests should exclude this target going forward.
 
 ---
 
-## 2025-09-08: Script Path Management and Automation
+## Iteration 9: Script Path Management and Automation
+
+**Date:** September 8, 2025
 
 - **Issue:** Frequent errors and confusion occurred when running coverage, build, and test scripts from the wrong working directory, due to different terminal root folders and relative path mismatches.
 - **Solution:** Added a `package.json` file with shortcut scripts to `.ai/testing` that automatically `cd` into the correct directory before running the actual script. This ensures all commands are executed from a consistent location and paths are resolved correctly.
@@ -262,7 +268,7 @@ The `parent` target is no longer supported for the `@Listen` decorator in Stenci
 
 ---
 
-## Iteration 7: `@Component` Decorator Permutation Coverage
+## Iteration 10: `@Component` Decorator Permutation Coverage
 
 **Date:** September 8, 2025
 
@@ -312,7 +318,9 @@ The `parent` target is no longer supported for the `@Listen` decorator in Stenci
 
 ---
 
-## 2025-09-08: Context-First Strategy, GPT-5 Results, and Portability Vision
+## Iteration 11: Context-First Strategy, GPT-5 Results, and Portability Vision
+
+**Date:** September 8, 2025
 
 ### Summary
 - Hypothesis validated: investing in the .ai context (standards, coverage scripts, docs, prompts) yields outsized returns versus hand-writing components/tests. As models improve, high-fidelity code and docs follow naturally from a strong context.
@@ -355,7 +363,7 @@ The `parent` target is no longer supported for the `@Listen` decorator in Stenci
 ---
 
 
-## Iteration: `@Component` — Rule‑driven matrix, generator, and verify guard
+## Iteration 12: `@Component` — Rule‑driven matrix, generator, and verify guard
 
 **Date:** September 14, 2025
 
@@ -400,7 +408,9 @@ This iteration went well beyond expectations. GPT‑5 proposed and implemented a
 
 ---
 
-## 2025-10-09: Decorator Folder Convention and No‑Drift Workflow
+## Iteration 13: Decorator Folder Convention and No‑Drift Workflow
+
+**Date:** October 9, 2025
 
 ### Summary
 We standardized a per‑decorator folder convention under `Testing/Decorators/<Decorator>/` and aligned docs, generation, and verification to eliminate drift and make the workflow portable across all decorators.
