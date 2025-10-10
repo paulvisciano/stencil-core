@@ -11,6 +11,8 @@
     "component:verify-matrix": "cd ../../Testing/Decorators && node verify-matrix.js --decorator=component",
     "state:generate-components": "cd ../../Testing/Decorators/State && node coverage.js && node generate-components.js && node coverage.js",
     "state:verify-matrix": "cd ../../Testing/Decorators && node verify-matrix.js --decorator=state",
-    "generate-components": "npm run component:generate-components && npm run state:generate-components"
+    "prop:generate-components": "cd ../../Testing/Decorators/Prop && node coverage.js && node generate-components.js && node coverage.js",
+    "prop:verify-matrix": "cd ../../Testing/Decorators && node verify-matrix.js --decorator=prop",
+    "generate-components": "npm run component:generate-components && npm run state:generate-components && npm run prop:generate-components"
   }
 }

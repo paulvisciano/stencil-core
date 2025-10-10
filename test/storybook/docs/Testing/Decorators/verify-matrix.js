@@ -20,7 +20,7 @@ function getArg(name, def) {
   return a.slice(pref.length);
 }
 
-const DECORATOR = getArg('decorator', 'component'); // 'component' | 'state'
+const DECORATOR = getArg('decorator', 'component'); // 'component' | 'state' | 'prop'
 
 const CONFIG = (() => {
   if (DECORATOR === 'state') {
@@ -30,6 +30,14 @@ const CONFIG = (() => {
     const TEST_FILE = path.resolve(__dirname, '../../../../../test/wdio/state/tests/cmp.test.tsx');
     const OVERLAY_OUT = path.resolve(__dirname, 'State/coverage-overlay.json');
     return { RULES_PATH, DATA_PATH, COMPONENT_DIR, TEST_FILE, OVERLAY_OUT };
+  }
+  if (DECORATOR === 'prop') {
+    const RULES_PATH = path.resolve(__dirname, 'Prop/rules.json');
+    const DATA_PATH = path.resolve(__dirname, 'Prop/coverage-data.json');
+    const COMPONENT_DIR = path.resolve(__dirname, '../../../../../test/wdio/prop/matrix');
+    const TEST_DIR = path.resolve(__dirname, '../../../../../test/wdio/prop/tests');
+    const OVERLAY_OUT = path.resolve(__dirname, 'Prop/coverage-overlay.json');
+    return { RULES_PATH, DATA_PATH, COMPONENT_DIR, TEST_DIR, OVERLAY_OUT };
   }
   // default: component
   const RULES_PATH = path.resolve(__dirname, 'Component/rules.json');
@@ -258,6 +266,68 @@ function buildComponentOverlay() {
   console.log(`Component coverage overlay written to ${CONFIG.OVERLAY_OUT}`);
 }
 
+// Build prop coverage overlay JSON by parsing WDIO test usage
+function buildPropOverlay() {
+  if (DECORATOR !== 'prop') return;
+  const data = readJson(CONFIG.DATA_PATH);
+  let testSources = '';
+  try {
+    if (fs.existsSync(CONFIG.TEST_DIR)) {
+      const entries = fs.readdirSync(CONFIG.TEST_DIR, { withFileTypes: true });
+      for (const e of entries) {
+        if (e.isFile() && /\.test\.(t|j)sx?$/.test(e.name)) {
+          const p = path.join(CONFIG.TEST_DIR, e.name);
+          testSources += '\n' + fs.readFileSync(p, 'utf8');
+        }
+      }
+    }
+  } catch {}
+
+  const manifest = new Map();
+  const itBlockRe = /it\(\s*([`'\"])\s*([^\1]+?)\s*\1\s*,\s*async\s*\(\)\s*=>\s*\{([\s\S]*?)\}\s*\)/g;
+  let m;
+  while ((m = itBlockRe.exec(testSources)) !== null) {
+    const title = m[2].trim();
+    const body = m[3] || '';
+    const tagRe = /\$\(\s*([`'\"])\s*([a-z0-9-]+)\s*\1\s*\)/gi;
+    let tm;
+    const tagsInThisTest = new Set();
+    while ((tm = tagRe.exec(body)) !== null) tagsInThisTest.add(tm[2]);
+    for (const tag of tagsInThisTest) {
+      if (!manifest.has(tag)) manifest.set(tag, []);
+      manifest.get(tag).push(title);
+    }
+  }
+
+  const rules = readJson(CONFIG.RULES_PATH);
+  const optionOrder = rules.emit?.naming?.includeOptions || ['type','reflect','mutable'];
+
+  const items = [];
+  for (const p of data.coveredPermutations) {
+    const files = p.files || [];
+    const primary = files[0] || null;
+    const base = primary ? path.basename(primary, path.extname(primary)) : null;
+    const tag = base || null;
+    const optsArr = p.options || [];
+    const opts = {};
+    optionOrder.forEach((name, i) => (opts[name] = optsArr[i]));
+    const testedBy = tag && manifest.has(tag) ? manifest.get(tag) : [];
+    const tested = (testedBy && testedBy.length > 0) || (tag && manifest.has(tag));
+    const group = optsArr[0];
+    items.push({ group, options: opts, optionsKey: (optsArr || []).join('|'), files, tag, tested, testedBy });
+  }
+
+  const stats = {
+    totalPermutations: items.length,
+    testedPermutations: items.filter(i => i.tested).length,
+    percentTested: items.length ? ((items.filter(i => i.tested).length / items.length) * 100).toFixed(2) : '0.00',
+  };
+
+  const out = { coverage: readJson(CONFIG.DATA_PATH).coverage, stats, items };
+  fs.writeFileSync(CONFIG.OVERLAY_OUT, JSON.stringify(out, null, 2));
+  console.log(`Prop coverage overlay written to ${CONFIG.OVERLAY_OUT}`);
+}
+
 function main() {
   refreshCoverage();
 
@@ -266,11 +336,13 @@ function main() {
 
   const optionOrder = rules.emit?.naming?.includeOptions || (DECORATOR === 'component'
     ? ['shadow','scoped','assetsDirs','formAssociated','styleUrl','styleUrls','styles']
+    : DECORATOR === 'prop'
+    ? ['type','reflect','mutable']
     : ['type','hasDefault']);
 
   const { covered, total } = data.coverage;
   if (covered !== total) {
-    const hint = DECORATOR === 'component' ? 'Component/generate-components' : 'State/generate-components';
+    const hint = DECORATOR === 'component' ? 'Component/generate-components' : DECORATOR === 'prop' ? 'Prop/generate-components' : 'State/generate-components';
     throw new Error(`Coverage drift for ${DECORATOR}: covered (${covered}) !== total (${total}). Run ${hint} then refresh.`);
   }
   console.log(`Coverage OK for ${DECORATOR}: ${covered}/${total}`);
@@ -311,6 +383,10 @@ function main() {
   // Build overlay for @Component after verification
   if (DECORATOR === 'component') {
     buildComponentOverlay();
+  }
+  // Build overlay for @Prop after verification
+  if (DECORATOR === 'prop') {
+    buildPropOverlay();
   }
 
   console.log('verify-matrix completed successfully.');

@@ -1,0 +1,374 @@
+{
+  "coverage": {
+    "covered": 24,
+    "total": 24,
+    "percent": "100.0"
+  },
+  "stats": {
+    "totalPermutations": 24,
+    "testedPermutations": 0,
+    "percentTested": "0.00"
+  },
+  "items": [
+    {
+      "group": "Array",
+      "options": {
+        "type": "Array",
+        "reflect": "✗",
+        "mutable": "✗"
+      },
+      "optionsKey": "Array|✗|✗",
+      "files": [
+        "matrix/Array/prop-array-reflect-false-mutable-false.tsx"
+      ],
+      "tag": "prop-array-reflect-false-mutable-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "Array",
+      "options": {
+        "type": "Array",
+        "reflect": "✗",
+        "mutable": "✓"
+      },
+      "optionsKey": "Array|✗|✓",
+      "files": [
+        "matrix/Array/prop-array-reflect-false-mutable.tsx"
+      ],
+      "tag": "prop-array-reflect-false-mutable",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "Array",
+      "options": {
+        "type": "Array",
+        "reflect": "✓",
+        "mutable": "✗"
+      },
+      "optionsKey": "Array|✓|✗",
+      "files": [
+        "matrix/Array/prop-array-reflect-mutable-false.tsx"
+      ],
+      "tag": "prop-array-reflect-mutable-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "Array",
+      "options": {
+        "type": "Array",
+        "reflect": "✓",
+        "mutable": "✓"
+      },
+      "optionsKey": "Array|✓|✓",
+      "files": [
+        "matrix/Array/prop-array-reflect-mutable.tsx"
+      ],
+      "tag": "prop-array-reflect-mutable",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "Object",
+      "options": {
+        "type": "Object",
+        "reflect": "✗",
+        "mutable": "✗"
+      },
+      "optionsKey": "Object|✗|✗",
+      "files": [
+        "matrix/Object/prop-object-reflect-false-mutable-false.tsx"
+      ],
+      "tag": "prop-object-reflect-false-mutable-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "Object",
+      "options": {
+        "type": "Object",
+        "reflect": "✗",
+        "mutable": "✓"
+      },
+      "optionsKey": "Object|✗|✓",
+      "files": [
+        "matrix/Object/prop-object-reflect-false-mutable.tsx"
+      ],
+      "tag": "prop-object-reflect-false-mutable",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "Object",
+      "options": {
+        "type": "Object",
+        "reflect": "✓",
+        "mutable": "✗"
+      },
+      "optionsKey": "Object|✓|✗",
+      "files": [
+        "matrix/Object/prop-object-reflect-mutable-false.tsx"
+      ],
+      "tag": "prop-object-reflect-mutable-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "Object",
+      "options": {
+        "type": "Object",
+        "reflect": "✓",
+        "mutable": "✓"
+      },
+      "optionsKey": "Object|✓|✓",
+      "files": [
+        "matrix/Object/prop-object-reflect-mutable.tsx"
+      ],
+      "tag": "prop-object-reflect-mutable",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "Set",
+      "options": {
+        "type": "Set",
+        "reflect": "✗",
+        "mutable": "✗"
+      },
+      "optionsKey": "Set|✗|✗",
+      "files": [
+        "matrix/Set/prop-set-reflect-false-mutable-false.tsx"
+      ],
+      "tag": "prop-set-reflect-false-mutable-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "Set",
+      "options": {
+        "type": "Set",
+        "reflect": "✗",
+        "mutable": "✓"
+      },
+      "optionsKey": "Set|✗|✓",
+      "files": [
+        "matrix/Set/prop-set-reflect-false-mutable.tsx"
+      ],
+      "tag": "prop-set-reflect-false-mutable",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "Set",
+      "options": {
+        "type": "Set",
+        "reflect": "✓",
+        "mutable": "✗"
+      },
+      "optionsKey": "Set|✓|✗",
+      "files": [
+        "matrix/Set/prop-set-reflect-mutable-false.tsx"
+      ],
+      "tag": "prop-set-reflect-mutable-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "Set",
+      "options": {
+        "type": "Set",
+        "reflect": "✓",
+        "mutable": "✓"
+      },
+      "optionsKey": "Set|✓|✓",
+      "files": [
+        "matrix/Set/prop-set-reflect-mutable.tsx"
+      ],
+      "tag": "prop-set-reflect-mutable",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "boolean",
+      "options": {
+        "type": "boolean",
+        "reflect": "✗",
+        "mutable": "✗"
+      },
+      "optionsKey": "boolean|✗|✗",
+      "files": [
+        "matrix/boolean/prop-boolean-reflect-false-mutable-false.tsx"
+      ],
+      "tag": "prop-boolean-reflect-false-mutable-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "boolean",
+      "options": {
+        "type": "boolean",
+        "reflect": "✗",
+        "mutable": "✓"
+      },
+      "optionsKey": "boolean|✗|✓",
+      "files": [
+        "matrix/boolean/prop-boolean-reflect-false-mutable.tsx"
+      ],
+      "tag": "prop-boolean-reflect-false-mutable",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "boolean",
+      "options": {
+        "type": "boolean",
+        "reflect": "✓",
+        "mutable": "✗"
+      },
+      "optionsKey": "boolean|✓|✗",
+      "files": [
+        "matrix/boolean/prop-boolean-reflect-mutable-false.tsx"
+      ],
+      "tag": "prop-boolean-reflect-mutable-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "boolean",
+      "options": {
+        "type": "boolean",
+        "reflect": "✓",
+        "mutable": "✓"
+      },
+      "optionsKey": "boolean|✓|✓",
+      "files": [
+        "matrix/boolean/prop-boolean-reflect-mutable.tsx"
+      ],
+      "tag": "prop-boolean-reflect-mutable",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "number",
+      "options": {
+        "type": "number",
+        "reflect": "✗",
+        "mutable": "✗"
+      },
+      "optionsKey": "number|✗|✗",
+      "files": [
+        "matrix/number/prop-number-reflect-false-mutable-false.tsx"
+      ],
+      "tag": "prop-number-reflect-false-mutable-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "number",
+      "options": {
+        "type": "number",
+        "reflect": "✗",
+        "mutable": "✓"
+      },
+      "optionsKey": "number|✗|✓",
+      "files": [
+        "matrix/number/prop-number-reflect-false-mutable.tsx"
+      ],
+      "tag": "prop-number-reflect-false-mutable",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "number",
+      "options": {
+        "type": "number",
+        "reflect": "✓",
+        "mutable": "✗"
+      },
+      "optionsKey": "number|✓|✗",
+      "files": [
+        "matrix/number/prop-number-reflect-mutable-false.tsx"
+      ],
+      "tag": "prop-number-reflect-mutable-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "number",
+      "options": {
+        "type": "number",
+        "reflect": "✓",
+        "mutable": "✓"
+      },
+      "optionsKey": "number|✓|✓",
+      "files": [
+        "matrix/number/prop-number-reflect-mutable.tsx"
+      ],
+      "tag": "prop-number-reflect-mutable",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "string",
+      "options": {
+        "type": "string",
+        "reflect": "✗",
+        "mutable": "✗"
+      },
+      "optionsKey": "string|✗|✗",
+      "files": [
+        "matrix/string/prop-string-reflect-false-mutable-false.tsx"
+      ],
+      "tag": "prop-string-reflect-false-mutable-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "string",
+      "options": {
+        "type": "string",
+        "reflect": "✗",
+        "mutable": "✓"
+      },
+      "optionsKey": "string|✗|✓",
+      "files": [
+        "matrix/string/prop-string-reflect-false-mutable.tsx"
+      ],
+      "tag": "prop-string-reflect-false-mutable",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "string",
+      "options": {
+        "type": "string",
+        "reflect": "✓",
+        "mutable": "✗"
+      },
+      "optionsKey": "string|✓|✗",
+      "files": [
+        "matrix/string/prop-string-reflect-mutable-false.tsx"
+      ],
+      "tag": "prop-string-reflect-mutable-false",
+      "tested": false,
+      "testedBy": []
+    },
+    {
+      "group": "string",
+      "options": {
+        "type": "string",
+        "reflect": "✓",
+        "mutable": "✓"
+      },
+      "optionsKey": "string|✓|✓",
+      "files": [
+        "matrix/string/prop-string-reflect-mutable.tsx"
+      ],
+      "tag": "prop-string-reflect-mutable",
+      "tested": false,
+      "testedBy": []
+    }
+  ]
+}

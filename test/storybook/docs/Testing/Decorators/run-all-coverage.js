@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 
 const scripts = [
   'Component/coverage.js',
-  'prop-coverage.js',
+  'Prop/coverage.js',
   'event-coverage.js',
   'listen-coverage.js',
   'method-coverage.js',
