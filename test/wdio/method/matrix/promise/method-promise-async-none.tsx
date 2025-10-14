@@ -1,12 +1,10 @@
-// filepath: /Users/paul.visciano/repos/core/test/wdio/method/matrix/promise/method-promise-async-none.tsx
 import { Component, h, Method, State } from '@stencil/core';
 
 @Component({ tag: 'method-promise-async-none', shadow: true })
 export class MethodPromiseAsyncNone {
   @State() value = 0;
-
   @Method() async run() {
-    return new Promise(resolve => setTimeout(() => resolve(x ?? 1), 0));
+    return new Promise(resolve => setTimeout(() => resolve(1), 0));
   }
 
   async componentDidLoad() {
