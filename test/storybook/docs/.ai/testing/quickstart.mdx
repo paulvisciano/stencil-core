@@ -2,50 +2,44 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Testing/Framework/Quickstart" tags={['ai','coverage','stable']} />
 
-# Quickstart: Coverage → Generate → Verify
+# Quickstart: Matrix → Generate → Build → Update Rules → Regenerate → Rebuild → Verify
 
-A concise, repeatable loop to maintain 100% coverage of valid decorator permutations, driven by a single rules file.
+A concise, repeatable loop to reach Phase 1 (compile‑only) and then proceed to Phase 2 tests.
 
 ## Source of truth
 - Rules JSON (per decorator): e.g., `Testing/Decorators/Component/rules.json`
 - Coverage output (per decorator): e.g., `Testing/Decorators/Component/coverage-data.json`
 - Generated artifacts (per decorator): e.g., `test/wdio/component-decorator/matrix/{shadow,scoped,light}/`
 
-## One-pass loop (from `.ai/testing`)
-1. Refresh coverage, generate any missing, refresh again
-   - `npm run coverage-loop`
-2. Verify matrix integrity (coverage parity, grouping, exclusivity) BEFORE building (for the active decorator)
-   - `npm run component:verify-matrix` (use `npm run state:verify-matrix` for @State)
-3. Build the WDIO components
+## Phase 1 loop (from `.ai/testing`)
+1. Generate components for all permutations (and refresh coverage around generation)
+   - `npm run coverage-loop` (alias for per‑decorator generate loops)
+2. Build components to discover invalid permutations (rules discovery)
    - `npm run build-wdio-components`
-4. Run component tests (or target a spec)
+   - Fixes are driven by compiler errors
+3. Update rules to encode constraints discovered by the compiler
+   - Edit the active decorator’s `rules.json`
+4. Refresh matrix and regenerate components from updated rules
+   - `npm run coverage-loop`
+5. Rebuild until the build passes cleanly
+   - `npm run build-wdio-components`
+6. Verify matrix integrity (scripted guard) and write overlays
+   - `npm run <decorator>:verify-matrix`
+
+At this point, Phase 1 (compile‑only) is complete.
+
+## Phase 2 (tests)
+7. Create and propagate WDIO tests across applicable generated components
    - `npm run run-component-tests`
-   - `npm run run-component-tests:spec -- ./<decorator>/**/*.test.tsx` (e.g., `./component-decorator/**/*.test.tsx`)
+   - Use overlays to surface `tested` markers in docs
 
-## When rules change or compiler errors occur
-- Preferred (one-liner to sync data and files):
-  - `npm run coverage-loop` (refresh → generate → refresh)
-- Verify early:
-  - `npm run component:verify-matrix` (or `npm run state:verify-matrix`)
-- If the build reports compiler errors after you generate components:
-  - Tweak the rules JSON for the active decorator (e.g., `Testing/Decorators/Component/rules.json`) to correct the permutation space or exclusivity
-  - Re-run `npm run coverage-loop`
-  - Re-run `npm run component:verify-matrix`
-  - Once the matrix verifies cleanly, build again with `npm run build-wdio-components`
-  - Then move on to tests
-- Optional sanity check (prove rule-driven growth):
-  - `VERIFY_PROBE_ENCAPSULATION=1 npm run component:verify-matrix`
-
-## Guardrails enforced
-For @Component (example):
-- Exclusivity: exactly one of `styleUrl | styleUrls | styles` (or none). Shadow and scoped cannot both be true.
-- Parity: total `.tsx` files under the decorator folder must equal `coverage.covered`.
-- Grouping: files live under `matrix/{shadow|scoped|light}/` with parent‑relative CSS paths.
-
-For other decorators, use their rules JSON to define validity/exclusivity and apply the same loop.
+## Guardrails enforced by verify
+- Re‑runs coverage and requires 100% compile coverage per decorator
+- Parity: `.tsx` count under each `test/wdio/<decorator>/matrix/**` equals `coverage-data.json.coverage.covered`
+- Grouping and exclusivity validated from `rules.json`
+- Builds `coverage-overlay.json` (`tested`/`testedBy`)
 
 ## Tips
-- The generator reads coverage JSON (not rules). Always refresh coverage after changing rules.
-- The coverage script derives the permutation space directly from the rules JSON.
-
-This is the fastest path to keep the matrix healthy and at 100%.
+- The generator reads coverage data; always refresh coverage after changing rules.
+- Prefer running from `.ai/testing` using script shortcuts.
+- Optional probe (component): `VERIFY_PROBE_ENCAPSULATION=1 npm run component:verify-matrix`
