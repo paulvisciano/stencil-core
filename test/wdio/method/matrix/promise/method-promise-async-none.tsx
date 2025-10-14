@@ -4,7 +4,7 @@ import { Component, h, Method, State } from '@stencil/core';
 export class MethodPromiseAsyncNone {
   @State() value = 0;
   @Method() async run() {
-    return new Promise(resolve => setTimeout(() => resolve(1), 0));
+    return new Promise(resolve => setTimeout(() => resolve(1), 1000));
   }
 
   async componentDidLoad() {

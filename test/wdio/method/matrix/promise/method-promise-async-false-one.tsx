@@ -1,4 +1,3 @@
-// filepath: /Users/paul.visciano/repos/core/test/wdio/method/matrix/promise/method-promise-async-false-one.tsx
 import { Component, h, Method, State } from '@stencil/core';
 
 @Component({ tag: 'method-promise-async-false-one', shadow: true })
@@ -6,7 +5,7 @@ export class MethodPromiseAsyncFalseOne {
   @State() value = 0;
 
   @Method() run(x) {
-    return new Promise(resolve => setTimeout(() => resolve(x ?? 1), 0));
+    return new Promise(resolve => setTimeout(() => resolve(x ?? 1), 200));
   }
 
   async componentDidLoad() {
