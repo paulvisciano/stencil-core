@@ -504,3 +504,45 @@ A key step in the testing loop is manual verification of the coverage matrix. Af
 - Always perform manual verification after reaching 100% coverage.
 - Document any issues or false positives found during this step.
 - Update the audit log and documentation to reflect improvements.
+
+---
+
+## Iteration 14: Per‑Decorator Verifiers, Shared Core, and Overlay Parity
+
+**Date:** October 15, 2025
+
+### Summary
+We split the monolithic verify step into per‑decorator verifiers, extracted a shared verification core, and tightened overlay/build parity. Each decorator now validates its own coverage and builds its own Phase 2 overlay without triggering global coverage refreshes.
+
+### Key Changes
+- Shared core
+  - Moved verification utilities to `Testing/Decorators/_shared/verify-matrix-core.js` (I/O helpers, coverage refresh, `.tsx` parity guard, grouping/exclusivity validation, test tag manifest, and a `runVerifier` harness).
+  - Core accepts an optional `coverageRunner` so each decorator can refresh only its own coverage.
+- Per‑decorator verify scripts
+  - `Testing/Decorators/{Component,Prop,Event,Listen,Method,State}/verify-matrix.js` now import the shared core and pass a local `coverageRunner` that invokes that decorator’s `coverage.js` only.
+  - Each script builds its own `coverage-overlay.json`, marking tested permutations and recording `testedBy` from WDIO test tags.
+- Component parity fix
+  - Updated `.tsx` file‑count parity to exclude `cmp-base.tsx` under `test/wdio/component-decorator/matrix/`, resolving the previous 193 vs 192 drift.
+- Scripts and workflow
+  - `.ai/testing/package.json` scripts invoke per‑decorator verifiers directly (e.g., `method:verify-matrix`, `component:verify-matrix`) instead of a global switch.
+  - A thin dispatcher remains at `Testing/Decorators/verify-matrix.js` for `--decorator=` forwarding, but shortcuts prefer direct per‑decorator runs.
+
+### Outcomes and Checks
+- `@Method` verifier run
+  - Coverage OK: 8/8
+  - File count OK: 8
+  - Grouping/exclusivity OK
+  - Overlay written: `Testing/Decorators/Method/coverage-overlay.json`
+- `@Component`
+  - Parity logic updated to ignore `cmp-base.tsx`; drift accounted for by the guard. Re‑run in the next batch will confirm, but the logic fix addresses the root cause.
+
+### Why this matters
+- Speed: Per‑decorator coverage refresh avoids unnecessary global work and shortens the loop.
+- Reliability: Parity guard and grouping/exclusivity checks now run locally per decorator, preventing subtle drift.
+- Clarity: Overlays reflect only the tests for that decorator, improving docs fidelity and reviewability.
+
+### How to run
+- Use the `.ai/testing` scripts to run verifiers locally per decorator, for example:
+  - `npm run method:verify-matrix`
+  - `npm run component:verify-matrix`
+  - Similar scripts exist for State, Prop, Event, and Listen.

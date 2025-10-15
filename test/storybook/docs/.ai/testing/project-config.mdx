@@ -12,8 +12,8 @@ This file documents project-specific details for the coverage matrix workflow. I
 - These files document the decorator's properties, the Permutation Matrix, and a summary table of test cases.
 
 ## Coverage Scripts and Data
-- Each decorator has a `decorator-coverage.js` script to generate the coverage matrix.
-- Coverage data is stored in a corresponding `coverage-data.json` file.
+- Each decorator owns a `Testing/Decorators/<Decorator>/coverage.js` script that regenerates compile coverage directly from its `rules.json`.
+- Coverage output lives beside the script as `<Decorator>/coverage-data.json`; docs and verify guards read from that file.
 
 ## Running Coverage Scripts
 - You can run a coverage script directly for a specific decorator.
@@ -21,9 +21,9 @@ This file documents project-specific details for the coverage matrix workflow. I
 - Alternatively, from `test/storybook`, run `npm run coverage` to execute all coverage scripts.
 
 ## Project Paths and Coverage Script Config
-- **Component Directory:** `test/wdio` (see `COMPONENTS_DIR` in verify-matrix.js)
-- **Coverage Script:** `test/storybook/docs/Testing/Decorators/run-all-coverage.js` (see `COVERAGE_SCRIPT`)
-- **Coverage Data:** `test/storybook/docs/Testing/Decorators/coverage-data.json` (see `COVERAGE_DATA`)
+- **Component Directory Root:** `test/wdio` (per-decorator verify scripts walk this tree via `_shared/verify-matrix-core.js`).
+- **Coverage Scripts:** `Testing/Decorators/run-all-coverage.js` for the aggregate loop, or `Testing/Decorators/<Decorator>/coverage.js` for a single decorator.
+- **Coverage Data:** `Testing/Decorators/<Decorator>/coverage-data.json`.
 
 ## Component Test Directory
 - All component tests are located in `test/wdio`.
@@ -64,7 +64,7 @@ This file documents project-specific details for the coverage matrix workflow. I
 - Coverage scripts enumerate all decorator permutations and scan for coverage in generated components/tests.
 - Missing permutations trigger new component/test generation.
 - Matrix and documentation are updated after each iteration.
-- **Verification process:** Sampling of the matrix will be done manually. (Refer to `verification.mdx` and `verify-matrix.js` for guidance.)
+- **Verification process:** Run `Testing/Decorators/<Decorator>/verify-matrix.js` (or the `npm run <decorator>:verify-matrix` shortcut) to enforce parity/grouping/exclusivity and rebuild `coverage-overlay.json`.
 
 ---
 
