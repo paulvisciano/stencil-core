@@ -242,7 +242,6 @@ export function runVerifier({
   const resolvedOptionOrder = optionOrder || resolveOptionOrder(decorator, rules);
 
   verifyCoverageConsistency({ decorator, rules, data, optionOrder: resolvedOptionOrder, componentDir });
-
   if (typeof afterVerification === 'function') {
     afterVerification({ rules, data, optionOrder: resolvedOptionOrder });
   }
@@ -251,5 +250,5 @@ export function runVerifier({
     overlayBuilder({ rules, data, optionOrder: resolvedOptionOrder });
   }
 
-  console.log(`${logLabel ?? decorator} verify-matrix completed successfully.`);
+  console.log(`${logLabel ?? decorator} verification completed successfully.`);
 }

@@ -1,7 +1,7 @@
-import rules from './rules.json';
+import rules from './data/rules.json';
 import { Meta } from '@storybook/addon-docs/blocks';
-import data from './coverage-data.json';
-import overlay from './coverage-overlay.json';
+import data from './data/components.json';
+import overlay from './data/test-coverage.json';
 import React, { useMemo, useState } from 'react';
 import RulesAtAGlance from '../_shared/RulesAtAGlance.jsx';
 
@@ -19,7 +19,7 @@ The `@State` decorator is used for managing internal data that can change over t
 - **Default Value**: A state property can be initialized with a default value. If no default value is provided, it will be `undefined`. Generation covers both scenarios to ensure the component compiles correctly.
 
 ## Rules (at a glance)
-<RulesAtAGlance rules={rules} sourcePath="./rules.json" modeLabel="State type" />
+<RulesAtAGlance rules={rules} sourcePath="./data/rules.json" modeLabel="State type" />
 
 ## Generated Components
 
@@ -168,7 +168,7 @@ export const GeneratedComponentsTable = () => {
 
 ## Component Grouping
 
-Generated components are organized by state type under `test/wdio/state/matrix/`:
+Generated components are organized by state type under `test/wdio/state/`:
 
 - `string/` — string state values
 - `number/` — numeric state values

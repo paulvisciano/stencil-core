@@ -1,12 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { globSync } from 'glob';
+import { runVerifier, writeJson } from '../_shared/verify-matrix-core.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DATA_PATH = path.resolve(__dirname, 'coverage-data.json');
-const RULES_PATH = path.resolve(__dirname, 'rules.json');
+const DATA_PATH = path.resolve(__dirname, 'data/components.json');
+const RULES_PATH = path.resolve(__dirname, 'data/rules.json');
 const OUTPUT_DIR = path.resolve(__dirname, '../../../../../wdio/state/matrix');
 
 function toPascalCase(tag) {
@@ -101,10 +103,6 @@ export class ${className} {
 }
 
 function main() {
-  if (!fs.existsSync(DATA_PATH)) {
-    console.error(`Missing data file: ${DATA_PATH}`);
-    process.exit(1);
-  }
   if (!fs.existsSync(RULES_PATH)) {
     console.error(`Missing rules file: ${RULES_PATH}`);
     process.exit(1);
@@ -114,8 +112,10 @@ function main() {
   }
 
   const rules = JSON.parse(fs.readFileSync(RULES_PATH, 'utf8'));
-  const data = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
-  const missing = data.missingPermutations || [];
+
+  // Build or refresh components index locally to compute missing permutations
+  const index = buildComponentsIndex();
+  const missing = index.missingPermutations || [];
 
   let created = 0;
   for (const entry of missing) {
@@ -144,6 +144,117 @@ function main() {
   }
 
   console.log(`Generated ${created} components in ${OUTPUT_DIR}`);
+
+  // Rebuild index and verify immediately (merged flow)
+  runVerifier({
+    decorator: 'state',
+    baseDir: path.resolve(__dirname, '..'),
+    rulesPath: RULES_PATH,
+    dataPath: DATA_PATH,
+    componentDir: OUTPUT_DIR,
+    coverageRunner: () => {
+      const refreshed = buildComponentsIndex();
+      writeJson(DATA_PATH, refreshed);
+    },
+    logLabel: '@State (generate+verify)',
+  });
 }
 
 main();
+
+// Local helper: compute components.json structure from files on disk
+function buildComponentsIndex() {
+  const stateRoot = OUTPUT_DIR;
+  const searchDirs = [stateRoot];
+
+  const options = [
+    ['string', 'number', 'boolean', 'array', 'object', 'any'], // type
+    ['true', 'false'], // has default value
+  ];
+
+  function getPermutations(opts) {
+    const results = [];
+    (function permute(current, optionIndex) {
+      if (optionIndex === opts.length) {
+        results.push(current);
+        return;
+      }
+      for (let i = 0; i < opts[optionIndex].length; i++) {
+        permute(current.concat(opts[optionIndex][i]), optionIndex + 1);
+      }
+    })([], 0);
+    return results;
+  }
+
+  const allPermutations = getPermutations(options);
+  const coveredPermutations = new Map();
+  const filesForPermutation = new Map();
+
+  const files = searchDirs.flatMap(dir => globSync(`${dir}/**/*.{ts,tsx}`, {
+    ignore: ['**/*.spec.ts', '**/*.e2e.ts'],
+  }));
+
+  const stateRegex = /@State\(\)\s+([\w\d_]+)\s*(?::\s*([\w\d\[\]<>\{\|\}=.'\"]+))?(\s*=\s*[^;]*;)?/g;
+
+  function getType(typeAnnotation, initializer) {
+    let type = 'any';
+    if (typeAnnotation) {
+      const annotation = String(typeAnnotation).toLowerCase();
+      if (annotation.includes('string')) type = 'string';
+      else if (annotation.includes('number')) type = 'number';
+      else if (annotation.includes('boolean')) type = 'boolean';
+      else if (annotation.includes('[]') || annotation.includes('array')) type = 'array';
+      else if (annotation.includes('{') || annotation.includes('object')) type = 'object';
+    }
+    if (initializer) {
+      const initStr = String(initializer).substring(1).trim().replace(/;$/, '');
+      if (initStr === 'true' || initStr === 'false') type = 'boolean';
+      else if (initStr.startsWith('\'') || initStr.startsWith('"') || initStr.startsWith('`')) type = 'string';
+      else if (!isNaN(parseFloat(initStr)) && isFinite(initStr)) type = 'number';
+      else if (initStr.startsWith('[')) type = 'array';
+      else if (initStr.startsWith('{')) type = 'object';
+    }
+    return type;
+  }
+
+  files.forEach(file => {
+    const content = fs.readFileSync(file, 'utf8');
+    let match;
+    while ((match = stateRegex.exec(content)) !== null) {
+      const typeAnnotation = match[2];
+      const initializer = match[3];
+      const hasDefaultValue = !!initializer;
+      const type = getType(typeAnnotation, initializer);
+      const permutation = [type, String(hasDefaultValue)];
+      const key = permutation.join(',');
+      coveredPermutations.set(key, (coveredPermutations.get(key) || 0) + 1);
+      const rel = path.relative(stateRoot, file);
+      if (!filesForPermutation.has(key)) filesForPermutation.set(key, new Set());
+      filesForPermutation.get(key).add(rel);
+    }
+  });
+
+  const covered = Array.from(coveredPermutations.entries()).map(([key, count]) => ({
+    options: key.split(','),
+    count,
+    files: Array.from(filesForPermutation.get(key) || []),
+  }));
+  const coveredKeys = new Set(coveredPermutations.keys());
+  const missing = allPermutations
+    .map(p => ({ options: p }))
+    .filter(p => !coveredKeys.has(p.options.join(',')));
+
+  const coverageData = {
+    coverage: {
+      covered: covered.length,
+      total: allPermutations.length,
+      percent: ((covered.length / allPermutations.length) * 100).toFixed(2),
+    },
+    coveredPermutations: covered,
+    missingPermutations: missing,
+  };
+
+  // Persist index for other consumers
+  writeJson(DATA_PATH, coverageData);
+  return coverageData;
+}
