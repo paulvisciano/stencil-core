@@ -132,4 +132,69 @@ Components are grouped by return kind under `test/wdio/method/matrix/<void|value
 
 ## Test Cases
 
-- Phase 2 placeholder: tests will be propagated across generated components and recorded in `coverage-overlay.json`.
+<div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+    <colgroup>
+      <col style={{ width: '35%' }} />
+      <col style={{ width: '15%' }} />
+      <col style={{ width: '25%' }} />
+      <col style={{ width: '25%' }} />
+    </colgroup>
+    <thead>
+      <tr style={{ background: 'rgba(242, 242, 242, 1)' }}>
+        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Scenario</th>
+        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
+        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test File(s)</th>
+        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Promise components render and expose a <code>run()</code> API that returns a promise.</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center', color: 'green' }}>Implemented</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+          <code>test/wdio/method/tests/method-promise-api.tests.tsx</code>
+        </td>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Confirms public method availability on all async/non-async promise variants.</td>
+      </tr>
+      <tr>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Promise components update <code>#counter</code> only after the promise resolves.</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center', color: 'green' }}>Implemented</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+          <code>test/wdio/method/tests/method-promise-api.tests.tsx</code>
+        </td>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Verifies resolved values propagate to the DOM across args: none | one.</td>
+      </tr>
+      <tr>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Promise rejection handling.</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center', color: '#999' }}>Planned</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>—</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Verify error UI/state when <code>run()</code> rejects and ensure success content does not render prematurely.</td>
+      </tr>
+      <tr>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Pending-state UX during long-running promises.</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center', color: '#999' }}>Planned</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>—</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Assert buttons/spinners reflect pending work and no DOM change occurs until resolution.</td>
+      </tr>
+      <tr>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Argument-driven value flow (single-argument variants).</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center', color: '#999' }}>Planned</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>—</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Ensure argument values impact resolved output (e.g., counter reflects passed value).</td>
+      </tr>
+      <tr>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Re-entrancy and concurrency safeguards.</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center', color: '#999' }}>Planned</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>—</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Define expected behavior for rapid/overlapping invocations and assert DOM consistency.</td>
+      </tr>
+      <tr>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Timing and cleanup validations.</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center', color: '#999' }}>Planned</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>—</td>
+        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Confirm no residual pending state across sequential calls and that microtask timing is respected.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

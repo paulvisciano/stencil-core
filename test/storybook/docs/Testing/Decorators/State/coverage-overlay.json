@@ -16,6 +16,7 @@
         "type": "string",
         "hasDefault": false
       },
+      "optionsKey": "string|false",
       "files": [
         "string/state-string-no-default.tsx"
       ],
@@ -31,6 +32,7 @@
         "type": "string",
         "hasDefault": true
       },
+      "optionsKey": "string|true",
       "files": [
         "string/state-string-default.tsx"
       ],
@@ -46,6 +48,7 @@
         "type": "object",
         "hasDefault": false
       },
+      "optionsKey": "object|false",
       "files": [
         "object/state-object-no-default.tsx"
       ],
@@ -61,6 +64,7 @@
         "type": "object",
         "hasDefault": true
       },
+      "optionsKey": "object|true",
       "files": [
         "object/state-object-default.tsx"
       ],
@@ -76,6 +80,7 @@
         "type": "number",
         "hasDefault": false
       },
+      "optionsKey": "number|false",
       "files": [
         "number/state-number-no-default.tsx"
       ],
@@ -91,6 +96,7 @@
         "type": "number",
         "hasDefault": true
       },
+      "optionsKey": "number|true",
       "files": [
         "number/state-number-default.tsx"
       ],
@@ -106,6 +112,7 @@
         "type": "boolean",
         "hasDefault": false
       },
+      "optionsKey": "boolean|false",
       "files": [
         "boolean/state-boolean-no-default.tsx"
       ],
@@ -121,6 +128,7 @@
         "type": "boolean",
         "hasDefault": true
       },
+      "optionsKey": "boolean|true",
       "files": [
         "boolean/state-boolean-default.tsx"
       ],
@@ -136,6 +144,7 @@
         "type": "array",
         "hasDefault": false
       },
+      "optionsKey": "array|false",
       "files": [
         "array/state-array-no-default.tsx"
       ],
@@ -151,6 +160,7 @@
         "type": "array",
         "hasDefault": true
       },
+      "optionsKey": "array|true",
       "files": [
         "array/state-array-default.tsx"
       ],
@@ -166,6 +176,7 @@
         "type": "any",
         "hasDefault": false
       },
+      "optionsKey": "any|false",
       "files": [
         "any/state-any-no-default.tsx"
       ],
@@ -181,6 +192,7 @@
         "type": "any",
         "hasDefault": true
       },
+      "optionsKey": "any|true",
       "files": [
         "any/state-any-default.tsx"
       ],

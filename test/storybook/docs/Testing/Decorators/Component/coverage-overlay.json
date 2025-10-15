@@ -23,9 +23,10 @@
       },
       "optionsKey": "-|-|-|-|-|-|-",
       "files": [
-        "matrix/cmp-base.tsx"
+        "matrix/cmp-base.tsx",
+        "matrix/light/cmp.tsx"
       ],
-      "tag": "cmp-base",
+      "tag": "cmp",
       "tested": false,
       "testedBy": []
     },
