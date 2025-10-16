@@ -2,7 +2,7 @@
   "coverage": {
     "covered": 24,
     "total": 24,
-    "percent": "100.0"
+    "percent": "100.00"
   },
   "coveredPermutations": [
     {
@@ -13,7 +13,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/Array/prop-array-reflect-false-mutable-false.tsx"
+        "Array/prop-array-reflect-false-mutable-false.tsx"
       ]
     },
     {
@@ -24,7 +24,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/Array/prop-array-reflect-false-mutable.tsx"
+        "Array/prop-array-reflect-false-mutable.tsx"
       ]
     },
     {
@@ -35,7 +35,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/Array/prop-array-reflect-mutable-false.tsx"
+        "Array/prop-array-reflect-mutable-false.tsx"
       ]
     },
     {
@@ -46,7 +46,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/Array/prop-array-reflect-mutable.tsx"
+        "Array/prop-array-reflect-mutable.tsx"
       ]
     },
     {
@@ -57,7 +57,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/Object/prop-object-reflect-false-mutable-false.tsx"
+        "Object/prop-object-reflect-false-mutable-false.tsx"
       ]
     },
     {
@@ -68,7 +68,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/Object/prop-object-reflect-false-mutable.tsx"
+        "Object/prop-object-reflect-false-mutable.tsx"
       ]
     },
     {
@@ -79,7 +79,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/Object/prop-object-reflect-mutable-false.tsx"
+        "Object/prop-object-reflect-mutable-false.tsx"
       ]
     },
     {
@@ -90,7 +90,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/Object/prop-object-reflect-mutable.tsx"
+        "Object/prop-object-reflect-mutable.tsx"
       ]
     },
     {
@@ -101,7 +101,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/Set/prop-set-reflect-false-mutable-false.tsx"
+        "Set/prop-set-reflect-false-mutable-false.tsx"
       ]
     },
     {
@@ -112,7 +112,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/Set/prop-set-reflect-false-mutable.tsx"
+        "Set/prop-set-reflect-false-mutable.tsx"
       ]
     },
     {
@@ -123,7 +123,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/Set/prop-set-reflect-mutable-false.tsx"
+        "Set/prop-set-reflect-mutable-false.tsx"
       ]
     },
     {
@@ -134,7 +134,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/Set/prop-set-reflect-mutable.tsx"
+        "Set/prop-set-reflect-mutable.tsx"
       ]
     },
     {
@@ -145,7 +145,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/boolean/prop-boolean-reflect-false-mutable-false.tsx"
+        "boolean/prop-boolean-reflect-false-mutable-false.tsx"
       ]
     },
     {
@@ -156,7 +156,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/boolean/prop-boolean-reflect-false-mutable.tsx"
+        "boolean/prop-boolean-reflect-false-mutable.tsx"
       ]
     },
     {
@@ -167,7 +167,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/boolean/prop-boolean-reflect-mutable-false.tsx"
+        "boolean/prop-boolean-reflect-mutable-false.tsx"
       ]
     },
     {
@@ -178,7 +178,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/boolean/prop-boolean-reflect-mutable.tsx"
+        "boolean/prop-boolean-reflect-mutable.tsx"
       ]
     },
     {
@@ -189,7 +189,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/number/prop-number-reflect-false-mutable-false.tsx"
+        "number/prop-number-reflect-false-mutable-false.tsx"
       ]
     },
     {
@@ -200,7 +200,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/number/prop-number-reflect-false-mutable.tsx"
+        "number/prop-number-reflect-false-mutable.tsx"
       ]
     },
     {
@@ -211,7 +211,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/number/prop-number-reflect-mutable-false.tsx"
+        "number/prop-number-reflect-mutable-false.tsx"
       ]
     },
     {
@@ -222,7 +222,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/number/prop-number-reflect-mutable.tsx"
+        "number/prop-number-reflect-mutable.tsx"
       ]
     },
     {
@@ -233,7 +233,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/string/prop-string-reflect-false-mutable-false.tsx"
+        "string/prop-string-reflect-false-mutable-false.tsx"
       ]
     },
     {
@@ -244,7 +244,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/string/prop-string-reflect-false-mutable.tsx"
+        "string/prop-string-reflect-false-mutable.tsx"
       ]
     },
     {
@@ -255,7 +255,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/string/prop-string-reflect-mutable-false.tsx"
+        "string/prop-string-reflect-mutable-false.tsx"
       ]
     },
     {
@@ -266,7 +266,7 @@
       ],
       "count": 1,
       "files": [
-        "matrix/string/prop-string-reflect-mutable.tsx"
+        "string/prop-string-reflect-mutable.tsx"
       ]
     }
   ],
