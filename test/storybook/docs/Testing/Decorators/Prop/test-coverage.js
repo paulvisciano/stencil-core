@@ -29,6 +29,12 @@ function buildPropTestCoverage({ rules, data, optionOrder }) {
     if (t) jsxTags.add(t);
   }
 
+  const normalizeBoolean = (value) => {
+    if (value === true || value === 'true' || value === '✓') return true;
+    if (value === false || value === 'false' || value === '✗') return false;
+    return Boolean(value);
+  };
+
   const items = data.coveredPermutations.map(permutation => {
     const files = permutation.files || [];
     const primary = files[0] || null;
@@ -36,13 +42,27 @@ function buildPropTestCoverage({ rules, data, optionOrder }) {
     const tag = baseName || null;
 
     const type = permutation.options?.[0];
-    const reflect = permutation.options?.[1];
-    const mutable = permutation.options?.[2];
+  const reflect = permutation.options?.[1];
+  const mutable = permutation.options?.[2];
 
     const options = { type, reflect, mutable };
 
-    const tested = Boolean(tag && jsxTags.has(tag));
-    const group = expectedGroupName(permutation.options, rules, optionOrder);
+  const tested = Boolean(tag && jsxTags.has(tag));
+  const group = expectedGroupName(permutation.options, rules, optionOrder);
+
+  // Assign stable case IDs:
+  // #1 = primitive types exercised at runtime
+  // #2 = complex types static/structure
+  // #3 = reflect=true behavior on primitives
+  // #4 = reflect=false behavior on primitives
+  const primitiveSet = new Set(['string', 'number', 'boolean']);
+  const complexSet = new Set(['Array', 'Object', 'Set']);
+  const caseIds = [];
+  if (primitiveSet.has(group)) caseIds.push(1);
+  if (complexSet.has(group)) caseIds.push(2);
+  const isReflect = normalizeBoolean(reflect);
+  if (primitiveSet.has(group) && isReflect === true) caseIds.push(3);
+  if (primitiveSet.has(group) && isReflect === false) caseIds.push(4);
 
     return {
       group,
@@ -51,6 +71,7 @@ function buildPropTestCoverage({ rules, data, optionOrder }) {
       files,
       tag,
       tested,
+      caseIds,
     };
   });
 

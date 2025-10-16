@@ -6,8 +6,8 @@
   },
   "stats": {
     "totalPermutations": 24,
-    "testedPermutations": 0,
-    "percentTested": "0.00"
+    "testedPermutations": 24,
+    "percentTested": "100.00"
   },
   "items": [
     {
@@ -22,7 +22,10 @@
         "Array/prop-array-reflect-false-mutable-false.tsx"
       ],
       "tag": "prop-array-reflect-false-mutable-false",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "Array",
@@ -36,7 +39,10 @@
         "Array/prop-array-reflect-false-mutable.tsx"
       ],
       "tag": "prop-array-reflect-false-mutable",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "Array",
@@ -50,7 +56,10 @@
         "Array/prop-array-reflect-mutable-false.tsx"
       ],
       "tag": "prop-array-reflect-mutable-false",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "Array",
@@ -64,7 +73,10 @@
         "Array/prop-array-reflect-mutable.tsx"
       ],
       "tag": "prop-array-reflect-mutable",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "Object",
@@ -78,7 +90,10 @@
         "Object/prop-object-reflect-false-mutable-false.tsx"
       ],
       "tag": "prop-object-reflect-false-mutable-false",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "Object",
@@ -92,7 +107,10 @@
         "Object/prop-object-reflect-false-mutable.tsx"
       ],
       "tag": "prop-object-reflect-false-mutable",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "Object",
@@ -106,7 +124,10 @@
         "Object/prop-object-reflect-mutable-false.tsx"
       ],
       "tag": "prop-object-reflect-mutable-false",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "Object",
@@ -120,7 +141,10 @@
         "Object/prop-object-reflect-mutable.tsx"
       ],
       "tag": "prop-object-reflect-mutable",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "Set",
@@ -134,7 +158,10 @@
         "Set/prop-set-reflect-false-mutable-false.tsx"
       ],
       "tag": "prop-set-reflect-false-mutable-false",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "Set",
@@ -148,7 +175,10 @@
         "Set/prop-set-reflect-false-mutable.tsx"
       ],
       "tag": "prop-set-reflect-false-mutable",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "Set",
@@ -162,7 +192,10 @@
         "Set/prop-set-reflect-mutable-false.tsx"
       ],
       "tag": "prop-set-reflect-mutable-false",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "Set",
@@ -176,7 +209,10 @@
         "Set/prop-set-reflect-mutable.tsx"
       ],
       "tag": "prop-set-reflect-mutable",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "boolean",
@@ -190,7 +226,11 @@
         "boolean/prop-boolean-reflect-false-mutable-false.tsx"
       ],
       "tag": "prop-boolean-reflect-false-mutable-false",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        1,
+        4
+      ]
     },
     {
       "group": "boolean",
@@ -204,7 +244,11 @@
         "boolean/prop-boolean-reflect-false-mutable.tsx"
       ],
       "tag": "prop-boolean-reflect-false-mutable",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        1,
+        4
+      ]
     },
     {
       "group": "boolean",
@@ -218,7 +262,11 @@
         "boolean/prop-boolean-reflect-mutable-false.tsx"
       ],
       "tag": "prop-boolean-reflect-mutable-false",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        1,
+        3
+      ]
     },
     {
       "group": "boolean",
@@ -232,7 +280,11 @@
         "boolean/prop-boolean-reflect-mutable.tsx"
       ],
       "tag": "prop-boolean-reflect-mutable",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        1,
+        3
+      ]
     },
     {
       "group": "number",
@@ -246,7 +298,11 @@
         "number/prop-number-reflect-false-mutable-false.tsx"
       ],
       "tag": "prop-number-reflect-false-mutable-false",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        1,
+        4
+      ]
     },
     {
       "group": "number",
@@ -260,7 +316,11 @@
         "number/prop-number-reflect-false-mutable.tsx"
       ],
       "tag": "prop-number-reflect-false-mutable",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        1,
+        4
+      ]
     },
     {
       "group": "number",
@@ -274,7 +334,11 @@
         "number/prop-number-reflect-mutable-false.tsx"
       ],
       "tag": "prop-number-reflect-mutable-false",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        1,
+        3
+      ]
     },
     {
       "group": "number",
@@ -288,7 +352,11 @@
         "number/prop-number-reflect-mutable.tsx"
       ],
       "tag": "prop-number-reflect-mutable",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        1,
+        3
+      ]
     },
     {
       "group": "string",
@@ -302,7 +370,11 @@
         "string/prop-string-reflect-false-mutable-false.tsx"
       ],
       "tag": "prop-string-reflect-false-mutable-false",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        1,
+        4
+      ]
     },
     {
       "group": "string",
@@ -316,7 +388,11 @@
         "string/prop-string-reflect-false-mutable.tsx"
       ],
       "tag": "prop-string-reflect-false-mutable",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        1,
+        4
+      ]
     },
     {
       "group": "string",
@@ -330,7 +406,11 @@
         "string/prop-string-reflect-mutable-false.tsx"
       ],
       "tag": "prop-string-reflect-mutable-false",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        1,
+        3
+      ]
     },
     {
       "group": "string",
@@ -344,7 +424,11 @@
         "string/prop-string-reflect-mutable.tsx"
       ],
       "tag": "prop-string-reflect-mutable",
-      "tested": false
+      "tested": true,
+      "caseIds": [
+        1,
+        3
+      ]
     }
   ]
 }
