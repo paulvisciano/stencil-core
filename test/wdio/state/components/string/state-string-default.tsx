@@ -1,17 +1,17 @@
-// filepath: /Users/paul.visciano/repos/core/test/wdio/state/matrix/string/state-string-no-default.tsx
+// filepath: /Users/paul.visciano/repos/core/test/wdio/state/components/string/state-string-default.tsx
 import { Component, h, State } from '@stencil/core';
 
 @Component({
-  tag: 'state-string-no-default',
+  tag: 'state-string-default',
   shadow: true,
 })
-export class StateStringNoDefault {
-  @State() val: string;
+export class StateStringDefault {
+  @State() val: string = 'initial';
 
   render() {
     return (
       <div>
-        <p>Type: string | Default: false</p>
+        <p>Type: string | Default: true</p>
         <p>Value: {this.val}</p>
         <button onClick={() => (this.val = 'changed')}>Change</button>
       </div>

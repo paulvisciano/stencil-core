@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 
 const DATA_PATH = path.resolve(__dirname, 'data/components.json');
 const RULES_PATH = path.resolve(__dirname, 'data/rules.json');
-const OUTPUT_DIR = path.resolve(__dirname, '../../../../../wdio/state/matrix');
+const OUTPUT_DIR = path.resolve(__dirname, '../../../../../wdio/state/components');
 
 function toPascalCase(tag) {
   return tag

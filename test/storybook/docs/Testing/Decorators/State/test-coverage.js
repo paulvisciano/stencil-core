@@ -12,10 +12,8 @@ import {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const BASE_DIR = path.resolve(__dirname, '..');
 const RULES_PATH = path.resolve(__dirname, 'data/rules.json');
 const DATA_PATH = path.resolve(__dirname, 'data/components.json');
-const COMPONENT_DIR = path.resolve(__dirname, '../../../../../../test/wdio/state/matrix');
 const TEST_DIR = path.resolve(__dirname, '../../../../../../test/wdio/state/tests');
 const OUT_PATH = path.resolve(__dirname, 'data/test-coverage.json');
 
