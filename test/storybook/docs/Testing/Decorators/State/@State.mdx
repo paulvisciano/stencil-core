@@ -196,6 +196,11 @@ Generated components are organized by state type under `test/wdio/state/`:
   const primitiveCases = caseNosFor(groupIn(primitiveSet));
   const complexCases = caseNosFor(groupIn(complexSet));
 
+  // Derive dynamic test counts per case (titles may map multiple tests to one case)
+  const uniqueTitles = (arr) => Array.from(new Set(arr.flatMap(i => i.testedBy || [])));
+  const primitiveTestsCount = uniqueTitles(groupIn(primitiveSet)).length;
+  const complexTestsCount = uniqueTitles(groupIn(complexSet)).length;
+
   return (
     <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
@@ -208,8 +213,8 @@ Generated components are organized by state type under `test/wdio/state/`:
         </colgroup>
         <thead>
           <tr style={{ background: '#f2f2f2' }}>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Case #</th>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Case</th>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Case #</th>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Description</th>
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Types Covered</th>
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Folder</th>
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
@@ -240,6 +245,8 @@ Generated components are organized by state type under `test/wdio/state/`:
             </td>
             <td style={{ padding: '8px', border: '1px solid #ddd' }}>
               Static render validation for complex types (<code>any</code>, <code>array</code>, <code>object</code>) with and without defaults.
+              <br/>
+              <small>Tests: {complexTestsCount}</small>
             </td>
             <td style={{ padding: '8px', border: '1px solid #ddd' }}>
               type: any | array | object × default: true/false<br/>

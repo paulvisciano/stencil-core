@@ -2,7 +2,7 @@ import { $, expect } from '@wdio/globals';
 import { h, Fragment } from '@stencil/core';
 import { render } from '@wdio/browser-runner/stencil';
 
-describe('state matrix (@State)', () => {
+describe('@State decorator', () => {
   before(async () => {
     render({
       template: () => (
