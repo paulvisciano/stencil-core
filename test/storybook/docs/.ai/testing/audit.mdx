@@ -546,3 +546,59 @@ We split the monolithic verify step into per‑decorator verifiers, extracted a 
   - `npm run method:verify-matrix`
   - `npm run component:verify-matrix`
   - Similar scripts exist for State, Prop, Event, and Listen.
+
+---
+
+## Iteration 15: `@State` Simplified Flow — data/, merged generate, overlay-only coverage
+
+**Date:** October 16, 2025
+
+### Summary
+We simplified the `@State` decorator workflow to remove confusing "matrix" terminology and split responsibilities cleanly:
+- Components index lives in a `data/` folder alongside rules.
+- Generation and verification happen in one script.
+- The Phase 2 overlay is an overlay-only step that does not trigger coverage refresh.
+- Docs now cross-reference components and tests via stable case numbers instead of test titles.
+
+### Key Changes
+- Per-decorator artifacts relocated
+  - `Testing/Decorators/State/data/` now contains:
+    - `rules.json` (source of truth for options/grouping)
+    - `components.json` (compile index; previously coverage-data)
+    - `test-coverage.json` (overlay; previously coverage-overlay)
+- Merged generation + verification
+  - `State/generate-components.js` now writes `data/components.json` and invokes the shared verifier inline with a local coverage runner (State-only).
+- Overlay-only coverage builder
+  - `State/test-coverage.js` reads `data/components.json` and builds `data/test-coverage.json` without refreshing coverage.
+  - Detection simplified to JSX template scanning (drops parsing of `it()` bodies/selectors).
+  - Stores only `tested` and `caseIds` (no `testedBy` titles). Stable case mapping:
+    - Case #1: primitive mutation (string, number, boolean)
+    - Case #2: complex static render (any, array, object)
+- Shared core cleanup
+  - Removed `quiet` and `skipVerify` flags from `Testing/Decorators/_shared/verify-matrix-core.js` and standardized logs (no "matrix" wording).
+  - Retained the `.tsx` parity adjustment for `@Component` to exclude `cmp-base.tsx`.
+- Scripts update
+  - `.ai/testing/package.json` now exposes `state:generate-components` (merged) and `state:test-coverage` (overlay-only). The obsolete State `verify-matrix`/`coverage.js` scripts were removed from the State flow.
+- Legacy file cleanup
+  - Deleted or stop-writing legacy `coverage-data.json` and `coverage-overlay.json` under State.
+
+### Docs UX updates (`@State.mdx`)
+- Avoids "matrix"; uses "Generated Components" and "Test Cases".
+- Combines "Tested" + "Test Cases" into a single "Tested By" column showing `#1`, `#2`, or `1 & 2` per row.
+- Reorders the Test Cases table columns: "Test Case #" first, "Status" last.
+- Moves the Test Cases section directly under Rules for faster context.
+
+### Outcomes and Checks
+- Ran `npm run state:test-coverage`; wrote `Testing/Decorators/State/data/test-coverage.json` successfully.
+- Static checks on modified files passed; no type/lint errors reported.
+
+### Why this matters
+- Clearer separation of concerns and fewer moving parts.
+- Overlay reflects real behavioral coverage with stable case numbers (no reliance on brittle test titles).
+- Faster local iteration: run generation once, then update overlay as tests evolve.
+
+### Next Steps
+- Propagate this pattern to other decorators (Prop, Event, Listen, Method, Component):
+  - Move artifacts into `data/`, merge generate+verify as applicable, and make overlay builders refresh-free.
+  - Update docs to adopt case-based cross-referencing and section order.
+  - Remove obsolete legacy scripts and terms.
