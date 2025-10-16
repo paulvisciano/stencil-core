@@ -55,6 +55,7 @@ function buildPropTestCoverage({ rules, data, optionOrder }) {
   // #2 = complex types static/structure
   // #3 = reflect=true behavior on primitives
   // #4 = reflect=false behavior on primitives
+  // #5 = mutable=true behavior on primitives
   const primitiveSet = new Set(['string', 'number', 'boolean']);
   const complexSet = new Set(['Array', 'Object', 'Set']);
   const caseIds = [];
@@ -63,6 +64,8 @@ function buildPropTestCoverage({ rules, data, optionOrder }) {
   const isReflect = normalizeBoolean(reflect);
   if (primitiveSet.has(group) && isReflect === true) caseIds.push(3);
   if (primitiveSet.has(group) && isReflect === false) caseIds.push(4);
+  const isMutable = normalizeBoolean(mutable);
+  if (primitiveSet.has(group) && isMutable === true) caseIds.push(5);
 
     return {
       group,

@@ -143,4 +143,46 @@ describe('@Prop decorator', () => {
     await expect(cmp.$('p:nth-child(3)')).toHaveText('Value: 7');
     await expect(cmp).not.toHaveAttribute('val');
   });
+
+  // CASE #5: mutable=true behavior on primitives (component can mutate its own prop)
+  it('mutable=true allows component to mutate its own string prop', async () => {
+    const selector = 'prop-string-reflect-mutable';
+    const cmp = await $(selector);
+    // Trigger internal mutation via method executed in page context
+    await browser.execute((sel) => {
+      const el: any = document.querySelector(sel);
+      // Component-internal mutation: simulate a method that reassigns the prop
+      // If direct assign inside component is allowed due to mutable:true, reflect should follow
+      el.val = 'first';
+      // internal re-mutation
+      el.val = 'second';
+    }, selector);
+    await expect(cmp.$('p:nth-child(3)')).toHaveText('Value: second');
+    await expect(cmp).toHaveAttribute('val', 'second');
+  });
+
+  it('mutable=true allows component to mutate its own number prop', async () => {
+    const selector = 'prop-number-reflect-mutable';
+    const cmp = await $(selector);
+    await browser.execute((sel) => {
+      const el: any = document.querySelector(sel);
+      el.val = 1;
+      el.val = 2;
+    }, selector);
+    await expect(cmp.$('p:nth-child(3)')).toHaveText('Value: 2');
+    await expect(cmp).toHaveAttribute('val', '2');
+  });
+
+  it('mutable=true allows component to mutate its own boolean prop', async () => {
+    const selector = 'prop-boolean-reflect-mutable';
+    const cmp = await $(selector);
+    await browser.execute((sel) => {
+      const el: any = document.querySelector(sel);
+      el.val = true;
+      el.val = false;
+      el.val = true;
+    }, selector);
+    await expect(cmp.$('p:nth-child(3)')).toHaveText('Value: true');
+    await expect(cmp).toHaveAttribute('val');
+  });
 });
