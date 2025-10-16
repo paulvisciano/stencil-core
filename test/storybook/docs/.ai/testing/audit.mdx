@@ -602,3 +602,36 @@ We simplified the `@State` decorator workflow to remove confusing "matrix" termi
   - Move artifacts into `data/`, merge generate+verify as applicable, and make overlay builders refresh-free.
   - Update docs to adopt case-based cross-referencing and section order.
   - Remove obsolete legacy scripts and terms.
+
+---
+
+## Iteration 16: State path alignment and immutable audit policy
+
+**Date:** October 16, 2025
+
+### Summary
+We finalized the State decorator migration by aligning WDIO component paths to the new `components/` folder and verified the merged generate+verify flow plus overlay-only test coverage produce consistent results. We also codified the policy that historic audit entries remain immutable and reflect the repo state at the time they were authored.
+
+### Key Changes
+- Path alignment
+  - Generator emits to `test/wdio/state/components/**` (grouped by type), replacing legacy references to `state/matrix` in new docs only.
+  - WDIO tests remain under `test/wdio/state/tests` with JSX-based tag rendering for coverage detection.
+- Validation runs
+  - Ran `State/generate-components.js`: coverage parity OK (12/12), file count OK (12), grouping/exclusivity OK.
+  - Ran `State/test-coverage.js`: overlay written to `Testing/Decorators/State/data/test-coverage.json`; stats show percentTested = 100% via JSX tag scan.
+- Immutable audit policy
+  - Reaffirmed that older audit entries are historical records and must not be edited to reflect new paths or terms. New terminology appears only in subsequent entries.
+
+### Outcomes
+- `Testing/Decorators/State/data/components.json` and `test-coverage.json` are in sync and stable.
+- State WDIO tests cover all 12 permutations; overlay confirms 100% tested permutations.
+- Historical entries retain prior `state/matrix` wording where applicable; new entries and docs use `state/components`.
+
+### Why this matters
+- Prevents confusion from path drift during the rename by separating historical record from current state.
+- Confirms the simplified State workflow is repeatable: generate+verify once, re-run overlay as tests evolve, no hidden refreshes.
+
+### Next Steps
+- Roll the same path alignment and overlay-only model across other decorators while leaving old audit entries untouched:
+  - Keep artifacts in `data/`, ensure per-decorator generator verifies parity, and build overlays from JSX tags.
+  - Update forward-looking docs and scripts to avoid "matrix" terminology while preserving history in the audit log.
