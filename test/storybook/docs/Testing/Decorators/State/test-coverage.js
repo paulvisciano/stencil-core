@@ -5,7 +5,6 @@ import {
   readJson,
   resolveOptionOrder,
   collectTestSources,
-  buildManifestFromSources,
   expectedGroupName,
   writeJson,
 } from '../_shared/verify-matrix-core.js';
@@ -19,8 +18,6 @@ const DATA_PATH = path.resolve(__dirname, 'data/components.json');
 const COMPONENT_DIR = path.resolve(__dirname, '../../../../../../test/wdio/state/matrix');
 const TEST_DIR = path.resolve(__dirname, '../../../../../../test/wdio/state/tests');
 const OUT_PATH = path.resolve(__dirname, 'data/test-coverage.json');
-
-const TAG_REGEX = /\$\(\s*([`'\"])\s*(state-[a-z0-9-]+)\s*\1\s*\)/gi;
 
 // No refresh/verify here; test coverage only reads existing components.json
 
@@ -36,7 +33,14 @@ function normalizeBoolean(value) {
 
 function buildStateTestCoverage({ rules, data, optionOrder }) {
   const testSources = collectTestSources(TEST_DIR);
-  const manifest = buildManifestFromSources(testSources, TAG_REGEX, { fallback: true });
+  // Detect components included in JSX templates (describe/before render)
+  const JSX_TAG_RE = /<\s*(state-[a-z0-9-]+)\b/gi;
+  const jsxTags = new Set();
+  let jsxMatch;
+  while ((jsxMatch = JSX_TAG_RE.exec(testSources)) !== null) {
+    const t = (jsxMatch[1] || '').trim();
+    if (t) jsxTags.add(t);
+  }
 
   const items = data.coveredPermutations.map(permutation => {
     const files = permutation.files || [];
@@ -49,8 +53,7 @@ function buildStateTestCoverage({ rules, data, optionOrder }) {
 
     const options = { type, hasDefault };
 
-    const testedBy = tag && manifest.has(tag) ? manifest.get(tag) : [];
-    const tested = Boolean(testedBy && testedBy.length) || Boolean(tag && manifest.has(tag));
+    const tested = Boolean(tag && jsxTags.has(tag));
     const group = expectedGroupName(permutation.options, rules, optionOrder);
 
     // Assign stable case IDs for State: #1 = primitive mutation, #2 = complex static
@@ -65,7 +68,6 @@ function buildStateTestCoverage({ rules, data, optionOrder }) {
       files,
       tag,
       tested,
-      testedBy,
       caseIds,
     };
   });

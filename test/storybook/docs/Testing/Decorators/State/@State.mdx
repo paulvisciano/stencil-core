@@ -196,10 +196,9 @@ Generated components are organized by state type under `test/wdio/state/`:
   const primitiveCases = caseNosFor(groupIn(primitiveSet));
   const complexCases = caseNosFor(groupIn(complexSet));
 
-  // Derive dynamic test counts per case (titles may map multiple tests to one case)
-  const uniqueTitles = (arr) => Array.from(new Set(arr.flatMap(i => i.testedBy || [])));
-  const primitiveTestsCount = uniqueTitles(groupIn(primitiveSet)).length;
-  const complexTestsCount = uniqueTitles(groupIn(complexSet)).length;
+  // Case counts are driven by caseIds, not explicit test titles
+  const primitiveTestsCount = primitiveCases.length ? primitive.total : 0;
+  const complexTestsCount = complexCases.length ? complex.total : 0;
 
   return (
     <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
