@@ -22,9 +22,9 @@ The `@Prop` decorator exposes public properties on components. This page documen
 
 ## Test Cases
 
-Note: Test cases are high‑level scenarios, not a 1‑to‑1 mapping to tests (it() blocks). A single WDIO test can exercise many generated components, and a component can participate in multiple tests. The “Tested By” column in the Generated Components table shows which case(s) (#1, #2) each component is covered by.
+Note: Test cases are high‑level scenarios, not a 1‑to‑1 mapping to tests (it() blocks). A single WDIO test can exercise many generated components, and a component can participate in multiple tests. The “Tested By” column in the Generated Components table shows which case(s) (#1, #2) each component is covered by. All @Prop tests reside under <code>test/wdio/prop/tests</code>.
 
-{(() => {
+export const PropTestCasesTable = () => {
   const items = overlay.items || [];
   const groupIn = (set) => items.filter(i => set.has(i.group));
   const count = (arr) => ({ tested: arr.filter(i => i.tested).length, total: arr.length });
@@ -65,6 +65,10 @@ Note: Test cases are high‑level scenarios, not a 1‑to‑1 mapping to tests (
   const mutableFalseCases = caseNosFor(primitiveMutableFalseArr);
 
   const hasCase = (arr, id) => Array.isArray(arr) && arr.includes(id);
+  const case1Implemented = hasCase(primitiveCases, 1);
+  const case2Implemented = hasCase(complexCases, 2);
+  const case3Implemented = hasCase(reflectTrueCases, 3);
+  const case4Implemented = hasCase(reflectFalseCases, 4);
   const mutableTrueImplemented = hasCase(mutableTrueCases, 5);
   const mutableFalseImplemented = hasCase(mutableFalseCases, 6);
 
@@ -76,14 +80,153 @@ Note: Test cases are high‑level scenarios, not a 1‑to‑1 mapping to tests (
   const mutableTrueTestsCount = mutableTrueCases.length ? primitiveMutableTrue.total : 0;
   const mutableFalseTestsCount = mutableFalseCases.length ? primitiveMutableFalse.total : 0;
 
+  
+
+  const allRows = [
+    {
+      id: 1,
+      implemented: case1Implemented,
+      desc: 'Runtime coverage for primitive prop types. Validate render, reflect, and mutability combinations.',
+      types: (
+        <>
+          type: string | number | boolean × reflect: true/false × mutable: true/false<br/>
+          <small>Covered: {primitive.tested}/{primitive.total}</small>
+        </>
+      ),
+      tested: primitive.tested,
+      total: primitive.total,
+      section: case1Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 2,
+      implemented: case2Implemented,
+      desc: (
+        <>
+          Static render and reflection behavior for complex prop types (<code>Array</code>, <code>Object</code>, <code>Set</code>).<br/>
+          <small>Tests: {complexTestsCount}</small>
+        </>
+      ),
+      types: (
+        <>
+          type: Array | Object | Set × reflect: true/false × mutable: true/false<br/>
+          <small>Covered: {complex.tested}/{complex.total}</small>
+        </>
+      ),
+      tested: complex.tested,
+      total: complex.total,
+      section: case2Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 3,
+      implemented: case3Implemented,
+      desc: 'Reflect=true behavior for primitives: attribute presence/value matches prop updates.',
+      types: (
+        <>
+          string | number | boolean × reflect: true<br/>
+          <small>Covered: {primitiveReflectTrue.tested}/{primitiveReflectTrue.total}</small>
+        </>
+      ),
+      tested: primitiveReflectTrue.tested,
+      total: primitiveReflectTrue.total,
+      section: case3Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 4,
+      implemented: case4Implemented,
+      desc: 'Reflect=false behavior for primitives: no attribute is reflected when prop updates.',
+      types: (
+        <>
+          string | number | boolean × reflect: false<br/>
+          <small>Covered: {primitiveReflectFalse.tested}/{primitiveReflectFalse.total}</small>
+        </>
+      ),
+      tested: primitiveReflectFalse.tested,
+      total: primitiveReflectFalse.total,
+      section: case4Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 5,
+      implemented: mutableTrueImplemented,
+      desc: 'Mutable=true behavior for primitives: component can mutate its own prop without errors; verify DOM and attribute state.',
+      types: (
+        <>
+          string | number | boolean × mutable: true<br/>
+          <small>Covered: {primitiveMutableTrue.tested}/{primitiveMutableTrue.total}</small>
+        </>
+      ),
+      tested: primitiveMutableTrue.tested,
+      total: primitiveMutableTrue.total,
+      section: mutableTrueImplemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 6,
+      implemented: mutableFalseImplemented,
+      desc: 'Mutable=false behavior for primitives: component-internal attempts to mutate are ignored; DOM and attribute remain stable.',
+      types: (
+        <>
+          string | number | boolean × mutable: false<br/>
+          <small>Covered: {primitiveMutableFalse.tested}/{primitiveMutableFalse.total}</small>
+        </>
+      ),
+      tested: primitiveMutableFalse.tested,
+      total: primitiveMutableFalse.total,
+      section: mutableFalseImplemented ? 'implemented' : 'missing',
+    },
+  ];
+
+  const missingRows = allRows.filter(r => !r.implemented);
+  const implementedRows = allRows.filter(r => r.implemented);
+  const orderedRows = [...missingRows, ...implementedRows];
+  const totalRows = orderedRows.length;
+
+  const [expanded, setExpanded] = useState(false);
+  const rowsToRender = expanded ? orderedRows : orderedRows.slice(0, 3);
+
+  const renderStatus = (r) => {
+    if (!r.implemented) {
+      return <em>—</em>;
+    }
+    const ok = r.total > 0 && r.tested === r.total;
+    return (
+      <span style={{ color: ok ? 'green' : '#999' }}>{r.total > 0 ? (ok ? '✔' : '✗') : '—'}</span>
+    );
+  };
+
+  const renderCaseRow = (r, idx) => (
+    <tr key={r.id} style={idx % 2 === 1 ? { background: '#f9f9f9' } : undefined}>
+      <td style={{ padding: '8px', border: '1px solid #ddd' }}>#{r.id}</td>
+      <td style={{ padding: '8px', border: '1px solid #ddd' }}>{r.desc}</td>
+      <td style={{ padding: '8px', border: '1px solid #ddd' }}>{r.types}</td>
+      <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>{renderStatus(r)}</td>
+    </tr>
+  );
+
+  const renderSectionedRows = (rows) => {
+    const out = [];
+    let lastSection = null;
+    rows.forEach((r, i) => {
+      if (r.section !== lastSection) {
+        out.push(
+          <tr key={`section-${r.section}-${i}`}>
+            <td colSpan={4} style={{ padding: '8px', border: '1px solid #ddd', background: r.section === 'missing' ? '#fff4e5' : '#eef7ee', fontWeight: 600 }}>
+              {r.section === 'missing' ? 'Not Implemented' : 'Implemented'}
+            </td>
+          </tr>
+        );
+        lastSection = r.section;
+      }
+      out.push(renderCaseRow(r, i));
+    });
+    return out;
+  };
+
   return (
-    <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+    <div style={{ maxWidth: '100%', width: '100%', background: '#fff', position: 'relative' }}>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <colgroup>
           <col style={{ width: '15%' }} />
-          <col style={{ width: '45%' }} />
-          <col style={{ width: '15%' }} />
-          <col style={{ width: '15%' }} />
+          <col style={{ width: '55%' }} />
+          <col style={{ width: '20%' }} />
           <col style={{ width: '10%' }} />
         </colgroup>
         <thead>
@@ -91,122 +234,65 @@ Note: Test cases are high‑level scenarios, not a 1‑to‑1 mapping to tests (
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Case #</th>
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Description</th>
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Types Covered</th>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Folder</th>
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>#1</td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              Runtime coverage for primitive prop types. Validate render, reflect, and mutability combinations.
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              type: string | number | boolean × reflect: true/false × mutable: true/false<br/>
-              <small>Covered: {primitive.tested}/{primitive.total}</small>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              <code>test/wdio/prop/tests</code>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-              <span style={{ color: primitive.tested === primitive.total ? 'green' : '#999' }}>{primitive.total > 0 ? (primitive.tested === primitive.total ? '✔' : '✗') : '—'}</span>
-            </td>
-          </tr>
-          <tr style={{ background: '#f9f9f9' }}>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>#2</td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              Static render and reflection behavior for complex prop types (<code>Array</code>, <code>Object</code>, <code>Set</code>).
-              <br/>
-              <small>Tests: {complexTestsCount}</small>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              type: Array | Object | Set × reflect: true/false × mutable: true/false<br/>
-              <small>Covered: {complex.tested}/{complex.total}</small>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              <code>test/wdio/prop/tests</code>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-              <span style={{ color: complex.tested === complex.total ? 'green' : '#999' }}>{complex.total > 0 ? (complex.tested === complex.total ? '✔' : '✗') : '—'}</span>
-            </td>
-          </tr>
-          <tr>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>#3</td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              Reflect=true behavior for primitives: attribute presence/value matches prop updates.
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              string | number | boolean × reflect: true<br/>
-              <small>Covered: {primitiveReflectTrue.tested}/{primitiveReflectTrue.total}</small>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              <code>test/wdio/prop/tests</code>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-              <span style={{ color: primitiveReflectTrue.tested === primitiveReflectTrue.total ? 'green' : '#999' }}>{primitiveReflectTrue.total > 0 ? (primitiveReflectTrue.tested === primitiveReflectTrue.total ? '✔' : '✗') : '—'}</span>
-            </td>
-          </tr>
-          <tr style={{ background: '#f9f9f9' }}>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>#4</td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              Reflect=false behavior for primitives: no attribute is reflected when prop updates.
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              string | number | boolean × reflect: false<br/>
-              <small>Covered: {primitiveReflectFalse.tested}/{primitiveReflectFalse.total}</small>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              <code>test/wdio/prop/tests</code>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-              <span style={{ color: primitiveReflectFalse.tested === primitiveReflectFalse.total ? 'green' : '#999' }}>{primitiveReflectFalse.total > 0 ? (primitiveReflectFalse.tested === primitiveReflectFalse.total ? '✔' : '✗') : '—'}</span>
-            </td>
-          </tr>
-          <tr>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>#5</td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              Mutable=true behavior for primitives: component can mutate its own prop without errors; verify DOM and attribute state.
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              string | number | boolean × mutable: true<br/>
-              <small>Covered: {primitiveMutableTrue.tested}/{primitiveMutableTrue.total}</small>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              <code>test/wdio/prop/tests</code>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-              {mutableTrueImplemented ? (
-                <span style={{ color: primitiveMutableTrue.tested === primitiveMutableTrue.total ? 'green' : '#999' }}>{primitiveMutableTrue.total > 0 ? (primitiveMutableTrue.tested === primitiveMutableTrue.total ? '✔' : '✗') : '—'}</span>
-              ) : (
-                <em>—</em>
-              )}
-            </td>
-          </tr>
-          <tr style={{ background: '#f9f9f9' }}>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>#6</td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              Mutable=false behavior for primitives: component-internal attempts to mutate are ignored; DOM and attribute remain stable.
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              string | number | boolean × mutable: false<br/>
-              <small>Covered: {primitiveMutableFalse.tested}/{primitiveMutableFalse.total}</small>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              <code>test/wdio/prop/tests</code>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-              {mutableFalseImplemented ? (
-                <span style={{ color: primitiveMutableFalse.tested === primitiveMutableFalse.total ? 'green' : '#999' }}>{primitiveMutableFalse.total > 0 ? (primitiveMutableFalse.tested === primitiveMutableFalse.total ? '✔' : '✗') : '—'}</span>
-              ) : (
-                <em>—</em>
-              )}
-            </td>
-          </tr>
-        </tbody>
+        <tbody>{renderSectionedRows(rowsToRender)}</tbody>
       </table>
+      {!expanded && totalRows > 3 && (
+        <>
+          <div
+            style={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              bottom: 40,
+              height: 48,
+              background: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 90%)',
+              pointerEvents: 'none',
+            }}
+          />
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}>
+            <button
+              onClick={() => setExpanded(true)}
+              style={{
+                padding: '6px 12px',
+                border: '1px solid #ddd',
+                background: '#f8f8f8',
+                borderRadius: 4,
+                cursor: 'pointer',
+                fontSize: 12,
+              }}
+              aria-label={`Show all ${totalRows} test cases`}
+            >
+              Show all {totalRows} test cases
+            </button>
+          </div>
+        </>
+      )}
+      {expanded && (
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 8 }}>
+          <button
+            onClick={() => setExpanded(false)}
+            style={{
+              padding: '6px 12px',
+              border: '1px solid #ddd',
+              background: '#f8f8f8',
+              borderRadius: 4,
+              cursor: 'pointer',
+              fontSize: 12,
+            }}
+            aria-label="Collapse test cases table"
+          >
+            Collapse table
+          </button>
+        </div>
+      )}
     </div>
   );
-})()}
+};
+
+<PropTestCasesTable />
 
 ## Generated Components
 
