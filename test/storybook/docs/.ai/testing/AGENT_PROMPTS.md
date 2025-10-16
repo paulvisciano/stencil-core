@@ -9,18 +9,21 @@ Note: Let the AI infer the exact scripts/commands from the `.ai/testing` docs an
 
 ---
 
-## Coverage workflow
-- "Refresh component coverage, generate any missing @Component matrix components, and verify parity. Stop when coverage is 100%."
-- "List current @Component missing permutations and where new files should be created."
-- "Regenerate the coverage matrix and ensure grouping by render mode (shadow/scoped/light)."
+### Implement missing @Prop test cases
 
-## Build workflow
-- "Build the WDIO components and re-run coverage if needed. Fix any compiler errors you find."
+Copy/paste one of these minimal prompts into ChatGPT/Copilot:
 
-## Targeted testing
-- "Run only the Listen decorator tests."
-- "Run just this spec and debug it until green: ./path/to/spec.test.tsx"
+```
+Implement Test Case #5 for the @Prop decorator following the existing convention.
 
-## Maintenance and summaries
-- "Summarize the current coverage status, totals, and parity with the matrix .tsx count."
-- "Verify matrix components use parent-relative CSS asset paths per conventions. Fix any that don’t."
+Use the current patterns in the repo:
+- Add or extend WDIO specs under test/wdio/prop/tests so the relevant <prop-...> tags are rendered in JSX (overlay detects tags from JSX).
+- Add small, robust assertions (exact text, attribute presence) consistent with other @Prop/@State specs.
+- Re-run the Prop test-coverage.js so data/test-coverage.json updates and the @Prop docs show #5 in the Test Cases table and “Tested By”.
+```
+
+```
+Implement Test Case #6 for the @Prop decorator following the existing convention.
+
+Same guidance: add/extend tests under test/wdio/prop/tests, ensure JSX renders the right tags, keep assertions simple, and re-run the Prop test-coverage.js to update coverage and docs.
+```

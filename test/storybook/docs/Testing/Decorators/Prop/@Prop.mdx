@@ -41,6 +41,12 @@ Note: Test cases are high‑level scenarios, not a 1‑to‑1 mapping to tests (
   const primitiveReflectTrue = count(primitiveReflectTrueArr);
   const primitiveReflectFalse = count(primitiveReflectFalseArr);
 
+  // Future tests (not yet implemented): mutable behavior on primitives
+  const primitiveMutableTrueArr = items.filter(i => primitiveSet.has(i.group) && normalizeBool(i.options?.mutable) === true);
+  const primitiveMutableFalseArr = items.filter(i => primitiveSet.has(i.group) && normalizeBool(i.options?.mutable) === false);
+  const primitiveMutableTrue = count(primitiveMutableTrueArr);
+  const primitiveMutableFalse = count(primitiveMutableFalseArr);
+
   const caseNosFor = (arr) => {
     const s = new Set();
     for (const it of arr) {
@@ -55,12 +61,20 @@ Note: Test cases are high‑level scenarios, not a 1‑to‑1 mapping to tests (
   const complexCases = caseNosFor(groupIn(complexSet));
   const reflectTrueCases = caseNosFor(primitiveReflectTrueArr);
   const reflectFalseCases = caseNosFor(primitiveReflectFalseArr);
+  const mutableTrueCases = caseNosFor(primitiveMutableTrueArr);
+  const mutableFalseCases = caseNosFor(primitiveMutableFalseArr);
+
+  const hasCase = (arr, id) => Array.isArray(arr) && arr.includes(id);
+  const mutableTrueImplemented = hasCase(mutableTrueCases, 5);
+  const mutableFalseImplemented = hasCase(mutableFalseCases, 6);
 
   // Case counts are driven by caseIds, not explicit test titles
   const primitiveTestsCount = primitiveCases.length ? primitive.total : 0;
   const complexTestsCount = complexCases.length ? complex.total : 0;
   const reflectTrueTestsCount = reflectTrueCases.length ? primitiveReflectTrue.total : 0;
   const reflectFalseTestsCount = reflectFalseCases.length ? primitiveReflectFalse.total : 0;
+  const mutableTrueTestsCount = mutableTrueCases.length ? primitiveMutableTrue.total : 0;
+  const mutableFalseTestsCount = mutableFalseCases.length ? primitiveMutableFalse.total : 0;
 
   return (
     <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
@@ -79,6 +93,46 @@ Note: Test cases are high‑level scenarios, not a 1‑to‑1 mapping to tests (
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Types Covered</th>
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Folder</th>
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
+          </tr>
+          <tr>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>#5</td>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+              Mutable=true behavior for primitives: component can mutate its own prop without errors; verify DOM and attribute state.
+            </td>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+              string | number | boolean × mutable: true<br/>
+              <small>Covered: {primitiveMutableTrue.tested}/{primitiveMutableTrue.total}</small>
+            </td>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+              <code>test/wdio/prop/tests</code>
+            </td>
+            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
+              {mutableTrueImplemented ? (
+                <span style={{ color: primitiveMutableTrue.tested === primitiveMutableTrue.total ? 'green' : '#999' }}>{primitiveMutableTrue.total > 0 ? (primitiveMutableTrue.tested === primitiveMutableTrue.total ? '✔' : '✗') : '—'}</span>
+              ) : (
+                <em>—</em>
+              )}
+            </td>
+          </tr>
+          <tr style={{ background: '#f9f9f9' }}>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>#6</td>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+              Mutable=false behavior for primitives: component-internal attempts to mutate are ignored; DOM and attribute remain stable.
+            </td>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+              string | number | boolean × mutable: false<br/>
+              <small>Covered: {primitiveMutableFalse.tested}/{primitiveMutableFalse.total}</small>
+            </td>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+              <code>test/wdio/prop/tests</code>
+            </td>
+            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
+              {mutableFalseImplemented ? (
+                <span style={{ color: primitiveMutableFalse.tested === primitiveMutableFalse.total ? 'green' : '#999' }}>{primitiveMutableFalse.total > 0 ? (primitiveMutableFalse.tested === primitiveMutableFalse.total ? '✔' : '✗') : '—'}</span>
+              ) : (
+                <em>—</em>
+              )}
+            </td>
           </tr>
         </thead>
         <tbody>
