@@ -31,27 +31,27 @@ The `@State` decorator is used for managing internal data that can change over t
 <p style={{ marginTop: 8 }}>
   This section lists the generated components we build to stress the compiler. Each row is one component with a
   unique combination of decorator options (<code>type</code> × <code>hasDefault</code>). If a combo fails to compile,
-  we capture that as a rule in <code>rules.json</code>, update the list, and regenerate. Use the toggle to expand or
+  we capture that as a rule in <code>rules.json</code>, update the list, and regenerate. Use the button to expand or
   collapse the full list.
   <br/>
-  <em>Note:</em> the “Tested / Test Cases” column will be populated in Phase 2 when we add real tests.
 </p>
 
 export const GeneratedComponentsTable = () => {
   const [expanded, setExpanded] = useState(false);
 
   const rows = useMemo(() => {
-    const map = new Map((overlay.items || []).map(i => [`${i.options?.type},${String(i.options?.hasDefault)}`, i]));
+    const items = overlay.items || [];
+    const map = new Map(items.map(i => [`${i.options?.type},${String(i.options?.hasDefault)}`, i]));
     return (data.coveredPermutations || []).map((p, i) => {
       const type = p.options?.[0];
       const hasDefault = p.options?.[1];
       const oi = map.get(`${type},${hasDefault}`) || {};
+      const caseNumbers = Array.isArray(oi.caseIds) ? [...oi.caseIds].sort((a,b) => a-b) : [];
       return {
         index: i,
         type,
         hasDefault,
-        tested: !!oi.tested,
-        tests: oi.testedBy || [],
+        caseNumbers,
       };
     });
   }, []);
@@ -62,37 +62,30 @@ export const GeneratedComponentsTable = () => {
     <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
       <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
         <colgroup>
-          <col style={{ width: '22%' }} />
-          <col style={{ width: '22%' }} />
-          <col style={{ width: '12%' }} />
-          <col style={{ width: '44%' }} />
+          <col style={{ width: '25%' }} />
+          <col style={{ width: '25%' }} />
+          <col style={{ width: '50%' }} />
         </colgroup>
         <thead>
           <tr>
             <th>Type</th>
             <th>Has Default Value</th>
-            <th style={{ textAlign: 'center' }}>Tested</th>
-            <th>Test Cases</th>
+            <th>Tested By</th>
           </tr>
         </thead>
         <tbody>
           {rowsToRender.map((r) => (
-            <tr key={r.index} style={{ background: r.tested ? '#fbfffb' : '#fff' }}>
+            <tr key={r.index}>
               <td>{r.type}</td>
               <td>{r.hasDefault}</td>
-              <td style={{ textAlign: 'center' }}>
-                {r.tested ? <span style={{ color: 'green' }}>✔</span> : <span style={{ color: '#999' }}>—</span>}
-              </td>
               <td>
-                {r.tests.length ? (
-                  <ul style={{ margin: 0, paddingLeft: 16 }}>
-                    {r.tests.map((t, k) => (
-                      <li key={k}>{t}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  <em>—</em>
-                )}
+                {r.caseNumbers && r.caseNumbers.length
+                  ? (
+                      r.caseNumbers.length === 1
+                        ? `#${r.caseNumbers[0]}`
+                        : r.caseNumbers.join(' & ')
+                    )
+                  : <em>—</em>}
               </td>
             </tr>
           ))}
@@ -190,25 +183,43 @@ Generated components are organized by state type under `test/wdio/state/`:
   const primitive = count(groupIn(primitiveSet));
   const complex = count(groupIn(complexSet));
 
+  const caseNosFor = (arr) => {
+    const s = new Set();
+    for (const it of arr) {
+      for (const n of (it.caseIds || [])) {
+        s.add(n);
+      }
+    }
+    return Array.from(s).sort((a, b) => a - b);
+  };
+
+  const primitiveCases = caseNosFor(groupIn(primitiveSet));
+  const complexCases = caseNosFor(groupIn(complexSet));
+
   return (
     <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <colgroup>
-          <col style={{ width: '55%' }} />
-          <col style={{ width: '20%' }} />
-          <col style={{ width: '10%' }} />
           <col style={{ width: '15%' }} />
+          <col style={{ width: '45%' }} />
+          <col style={{ width: '15%' }} />
+          <col style={{ width: '15%' }} />
+          <col style={{ width: '10%' }} />
         </colgroup>
         <thead>
           <tr style={{ background: '#f2f2f2' }}>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Case #</th>
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Case</th>
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Types Covered</th>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
             <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Folder</th>
+            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
           </tr>
         </thead>
         <tbody>
           <tr>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+              {primitiveCases.length ? `#${primitiveCases.join(', #')}` : <em>—</em>}
+            </td>
             <td style={{ padding: '8px', border: '1px solid #ddd' }}>
               Button click mutates a primitive <code>@State</code> value and updates DOM output.
             </td>
@@ -216,14 +227,17 @@ Generated components are organized by state type under `test/wdio/state/`:
               type: string | number | boolean × default: true/false<br/>
               <small>Covered: {primitive.tested}/{primitive.total}</small>
             </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-              <span style={{ color: primitive.tested === primitive.total ? 'green' : '#999' }}>{primitive.total > 0 ? (primitive.tested === primitive.total ? '✔' : '✗') : '—'}</span>
-            </td>
             <td style={{ padding: '8px', border: '1px solid #ddd' }}>
               <code>test/wdio/state/tests</code>
             </td>
+            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
+              <span style={{ color: primitive.tested === primitive.total ? 'green' : '#999' }}>{primitive.total > 0 ? (primitive.tested === primitive.total ? '✔' : '✗') : '—'}</span>
+            </td>
           </tr>
           <tr style={{ background: '#f9f9f9' }}>
+            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
+              {complexCases.length ? `#${complexCases.join(', #')}` : <em>—</em>}
+            </td>
             <td style={{ padding: '8px', border: '1px solid #ddd' }}>
               Static render validation for complex types (<code>any</code>, <code>array</code>, <code>object</code>) with and without defaults.
             </td>
@@ -231,11 +245,11 @@ Generated components are organized by state type under `test/wdio/state/`:
               type: any | array | object × default: true/false<br/>
               <small>Covered: {complex.tested}/{complex.total}</small>
             </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-              <span style={{ color: complex.tested === complex.total ? 'green' : '#999' }}>{complex.total > 0 ? (complex.tested === complex.total ? '✔' : '✗') : '—'}</span>
-            </td>
             <td style={{ padding: '8px', border: '1px solid #ddd' }}>
               <code>test/wdio/state/tests</code>
+            </td>
+            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
+              <span style={{ color: complex.tested === complex.total ? 'green' : '#999' }}>{complex.total > 0 ? (complex.tested === complex.total ? '✔' : '✗') : '—'}</span>
             </td>
           </tr>
         </tbody>

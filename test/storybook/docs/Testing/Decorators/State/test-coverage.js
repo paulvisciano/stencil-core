@@ -53,6 +53,11 @@ function buildStateTestCoverage({ rules, data, optionOrder }) {
     const tested = Boolean(testedBy && testedBy.length) || Boolean(tag && manifest.has(tag));
     const group = expectedGroupName(permutation.options, rules, optionOrder);
 
+    // Assign stable case IDs for State: #1 = primitive mutation, #2 = complex static
+    const primitiveSet = new Set(['string', 'number', 'boolean']);
+    const complexSet = new Set(['any', 'array', 'object']);
+    const caseIds = primitiveSet.has(group) ? [1] : complexSet.has(group) ? [2] : [];
+
     return {
       group,
       options,
@@ -61,6 +66,7 @@ function buildStateTestCoverage({ rules, data, optionOrder }) {
       tag,
       tested,
       testedBy,
+      caseIds,
     };
   });
 
