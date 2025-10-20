@@ -67,7 +67,7 @@ export const config: WebdriverIO.Config = {
   // The path of the spec files will be resolved relative from the directory of
   // of the config file unless it's absolute.
   //
-  specs: [['./method/tests/method-promise-api.tests.tsx']],
+  specs: [['./**/*/tests.tsx']],
   // Patterns to exclude.
   exclude: ['./node_modules/**'],
   //
