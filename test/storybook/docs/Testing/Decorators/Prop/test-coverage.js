@@ -14,7 +14,7 @@ const __dirname = path.dirname(__filename);
 
 const RULES_PATH = path.resolve(__dirname, 'data/rules.json');
 const DATA_PATH = path.resolve(__dirname, 'data/components.json');
-const TEST_DIR = path.resolve(__dirname, '../../../../../../test/wdio/prop/tests');
+const TEST_DIR = path.resolve(__dirname, '../../../../../../test/wdio/prop');
 const OUT_PATH = path.resolve(__dirname, 'data/test-coverage.json');
 
 // Overlay-only builder (no refresh)
