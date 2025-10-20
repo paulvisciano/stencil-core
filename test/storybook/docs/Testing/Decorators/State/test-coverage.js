@@ -14,7 +14,7 @@ const __dirname = path.dirname(__filename);
 
 const RULES_PATH = path.resolve(__dirname, 'data/rules.json');
 const DATA_PATH = path.resolve(__dirname, 'data/components.json');
-const TEST_DIR = path.resolve(__dirname, '../../../../../../test/wdio/state/tests');
+const TEST_DIR = path.resolve(__dirname, '../../../../../../test/wdio/state');
 const OUT_PATH = path.resolve(__dirname, 'data/test-coverage.json');
 
 // No refresh/verify here; test coverage only reads existing components.json

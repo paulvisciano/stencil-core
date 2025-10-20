@@ -170,7 +170,7 @@ export function collectTestSources(rootDir) {
     const fullPath = path.join(rootDir, entry.name);
     if (entry.isDirectory()) {
       buffer += collectTestSources(fullPath);
-    } else if (entry.isFile() && /\.test\.(t|j)sx?$/i.test(entry.name)) {
+    } else if (entry.isFile() && (/\.test\.(t|j)sx?$/i.test(entry.name) || entry.name === 'tests.tsx')) {
       buffer += `\n${fs.readFileSync(fullPath, 'utf8')}`;
     }
   }
