@@ -4,8 +4,7 @@
   "description": "Shortcut scripts for running coverage and build tasks from the .ai/testing folder.",
   "scripts": {
     "components-build": "cd ../../../../wdio && npm run build",
-    "component-tests": "cd ../../../../wdio && npm run wdio",
-    "refresh-coverage-matrix": "cd ../../Testing/Decorators && node run-all-coverage.js",
+    "tests": "cd ../../../../wdio && npm run wdio",
     "generate-components": "npm run component:generate-components && npm run state:generate-components && npm run prop:generate-components && npm run event:generate-components && npm run listen:generate-components && npm run method:generate-components",
     "component:generate-components": "cd ../../Testing/Decorators/Component && node coverage.js && node generate-components.js && node coverage.js",
     "component:verify-matrix": "cd ../../Testing/Decorators/Component && node verify-matrix.js",
