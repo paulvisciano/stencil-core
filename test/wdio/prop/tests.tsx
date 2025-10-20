@@ -51,33 +51,33 @@ describe('@Prop decorator', () => {
   describe('Test Case #1 – Primitive runtime coverage', () => {
     it('renders string reflect+mutable default content', async () => {
       const cmp = await $('prop-string-reflect-mutable');
-      await expect(cmp.$('p:nth-child(2)')).toHaveText('Type: string | reflect: true | mutable: true');
-      await expect(cmp.$('p:nth-child(3)')).toHaveText('Value: init');
+  await expect(cmp.$('p:nth-child(1)')).toHaveText('Type: string | reflect: true | mutable: true');
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: init');
     });
 
     it('renders number reflect+mutable default content', async () => {
       const cmp = await $('prop-number-reflect-mutable');
-      await expect(cmp.$('p:nth-child(2)')).toHaveText('Type: number | reflect: true | mutable: true');
-      await expect(cmp.$('p:nth-child(3)')).toHaveText('Value: 0');
+  await expect(cmp.$('p:nth-child(1)')).toHaveText('Type: number | reflect: true | mutable: true');
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: 0');
     });
 
     it('renders boolean reflect+mutable default content', async () => {
       const cmp = await $('prop-boolean-reflect-mutable');
-      await expect(cmp.$('p:nth-child(2)')).toHaveText('Type: boolean | reflect: true | mutable: true');
-      await expect(cmp.$('p:nth-child(3)')).toHaveText('Value: false');
+  await expect(cmp.$('p:nth-child(1)')).toHaveText('Type: boolean | reflect: true | mutable: true');
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: false');
     });
   });
 
   describe('Test Case #2 – Complex static render', () => {
     it('renders array/object/set statically', async () => {
-      await expect((await $('prop-array-reflect-mutable')).$('p:nth-child(2)')).toHaveText('Type: Array | reflect: true | mutable: true');
-      await expect((await $('prop-array-reflect-mutable')).$('p:nth-child(3)')).toHaveText('Value: []');
+  await expect((await $('prop-array-reflect-mutable')).$('p:nth-child(1)')).toHaveText('Type: Array | reflect: true | mutable: true');
+  await expect((await $('prop-array-reflect-mutable')).$('p:nth-child(2)')).toHaveText('Value: []');
 
-      await expect((await $('prop-object-reflect-mutable')).$('p:nth-child(2)')).toHaveText('Type: Object | reflect: true | mutable: true');
-      await expect((await $('prop-object-reflect-mutable')).$('p:nth-child(3)')).toHaveText('Value: {}');
+  await expect((await $('prop-object-reflect-mutable')).$('p:nth-child(1)')).toHaveText('Type: Object | reflect: true | mutable: true');
+  await expect((await $('prop-object-reflect-mutable')).$('p:nth-child(2)')).toHaveText('Value: {}');
 
-      await expect((await $('prop-set-reflect-mutable')).$('p:nth-child(2)')).toHaveText('Type: Set | reflect: true | mutable: true');
-      await expect((await $('prop-set-reflect-mutable')).$('p:nth-child(3)')).toHaveText('Value: ');
+  await expect((await $('prop-set-reflect-mutable')).$('p:nth-child(1)')).toHaveText('Type: Set | reflect: true | mutable: true');
+  await expect((await $('prop-set-reflect-mutable')).$('p:nth-child(2)')).toHaveText('Value:');
     });
   });
 
@@ -89,7 +89,7 @@ describe('@Prop decorator', () => {
         const el: any = document.querySelector(sel);
         el.val = 'hello';
       }, selector);
-      await expect(cmp.$('p:nth-child(3)')).toHaveText('Value: hello');
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: hello');
       await expect(cmp).toHaveAttribute('val', 'hello');
     });
 
@@ -100,7 +100,7 @@ describe('@Prop decorator', () => {
         const el: any = document.querySelector(sel);
         el.val = 42;
       }, selector);
-      await expect(cmp.$('p:nth-child(3)')).toHaveText('Value: 42');
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: 42');
       await expect(cmp).toHaveAttribute('val', '42');
     });
 
@@ -111,7 +111,7 @@ describe('@Prop decorator', () => {
         const el: any = document.querySelector(sel);
         el.val = true;
       }, selector);
-      await expect(cmp.$('p:nth-child(3)')).toHaveText('Value: true');
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: true');
       await expect(cmp).toHaveAttribute('val');
     });
   });
@@ -124,7 +124,7 @@ describe('@Prop decorator', () => {
         const el: any = document.querySelector(sel);
         el.val = 'world';
       }, selector);
-      await expect(cmp.$('p:nth-child(3)')).toHaveText('Value: world');
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: world');
       await expect(cmp).not.toHaveAttribute('val');
     });
 
@@ -135,7 +135,7 @@ describe('@Prop decorator', () => {
         const el: any = document.querySelector(sel);
         el.val = 7;
       }, selector);
-      await expect(cmp.$('p:nth-child(3)')).toHaveText('Value: 7');
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: 7');
       await expect(cmp).not.toHaveAttribute('val');
     });
   });
@@ -149,7 +149,7 @@ describe('@Prop decorator', () => {
         el.val = 'first';
         el.val = 'second';
       }, selector);
-      await expect(cmp.$('p:nth-child(3)')).toHaveText('Value: second');
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: second');
       await expect(cmp).toHaveAttribute('val', 'second');
     });
 
@@ -161,7 +161,7 @@ describe('@Prop decorator', () => {
         el.val = 1;
         el.val = 2;
       }, selector);
-      await expect(cmp.$('p:nth-child(3)')).toHaveText('Value: 2');
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: 2');
       await expect(cmp).toHaveAttribute('val', '2');
     });
 
@@ -174,7 +174,7 @@ describe('@Prop decorator', () => {
         el.val = false;
         el.val = true;
       }, selector);
-      await expect(cmp.$('p:nth-child(3)')).toHaveText('Value: true');
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: true');
       await expect(cmp).toHaveAttribute('val');
     });
   });
