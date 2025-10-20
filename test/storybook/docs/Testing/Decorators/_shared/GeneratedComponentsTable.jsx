@@ -1,42 +1,49 @@
 import React, { useState } from 'react';
 
-export default function GeneratedComponentsTable({ rows = [], previewCount = 3 }) {
+export default function GeneratedComponentsTable({ rows = [], previewCount = 3, columns }) {
   const [expanded, setExpanded] = useState(false);
   const total = rows.length;
   const rowsToRender = expanded ? rows : rows.slice(0, previewCount);
+
+  const cols = Array.isArray(columns) && columns.length
+    ? columns
+    : [
+        { key: 'type', label: 'Type', width: '30%' },
+        { key: 'reflect', label: 'reflect', width: '20%' },
+        { key: 'mutable', label: 'mutable', width: '20%' },
+        { key: 'testedBy', label: 'Tested By', width: '30%' },
+      ];
+
+  const renderCell = (row, col) => {
+    if (col.key === 'testedBy') {
+      const cn = row.caseNumbers || [];
+      if (!cn.length) return <em>—</em>;
+      return cn.length === 1 ? `#${cn[0]}` : cn.join(' & ');
+    }
+    return row[col.key];
+  };
 
   const renderTable = (rowsSubset) => (
     <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
       <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
         <colgroup>
-          <col style={{ width: '30%' }} />
-          <col style={{ width: '20%' }} />
-          <col style={{ width: '20%' }} />
-          <col style={{ width: '30%' }} />
+          {cols.map((c, i) => (
+            <col key={i} style={{ width: c.width || `${Math.floor(100 / cols.length)}%` }} />
+          ))}
         </colgroup>
         <thead>
           <tr>
-            <th>Type</th>
-            <th>reflect</th>
-            <th>mutable</th>
-            <th>Tested By</th>
+            {cols.map((c, i) => (
+              <th key={i}>{c.label}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
           {rowsSubset.map((r) => (
             <tr key={r.index}>
-              <td>{r.type}</td>
-              <td>{r.reflect}</td>
-              <td>{r.mutable}</td>
-              <td>
-                {r.caseNumbers && r.caseNumbers.length
-                  ? (
-                      r.caseNumbers.length === 1
-                        ? `#${r.caseNumbers[0]}`
-                        : r.caseNumbers.join(' & ')
-                    )
-                  : <em>—</em>}
-              </td>
+              {cols.map((c, i) => (
+                <td key={i}>{renderCell(r, c)}</td>
+              ))}
             </tr>
           ))}
         </tbody>

@@ -4,6 +4,8 @@ import data from './data/components.json';
 import overlay from './data/test-coverage.json';
 import React, { useMemo, useState } from 'react';
 import RulesAtAGlance from '../_shared/RulesAtAGlance.jsx';
+import TestCasesTable from '../_shared/TestCasesTable.jsx';
+import GeneratedComponentsTable from '../_shared/GeneratedComponentsTable.jsx';
 
 <Meta title="Testing/Decorators/@State"/>
 
@@ -23,9 +25,9 @@ The `@State` decorator is used for managing internal data that can change over t
 
 ## Test Cases
 
-Note: Test cases are high‑level scenarios, not a 1‑to‑1 mapping to tests (it() blocks). A single WDIO test can exercise many generated components, and a component can participate in multiple tests. The “Tested By” column in the Generated Components table shows which case(s) (#1, #2) each component is covered by.
+Note: Test cases are high‑level scenarios, not a 1‑to‑1 mapping to tests (it() blocks). A single WDIO test can exercise many generated components, and a component can participate in multiple tests. The “Tested By” column in the Generated Components table shows which case(s) (#1, #2) each component is covered by. All @State tests reside under <code>test/wdio/state/tests</code>.
 
-{(() => {
+export const StateTestCasesTable = () => {
   const items = overlay.items || [];
   const groupIn = (set) => items.filter(i => set.has(i.group));
   const count = (arr) => ({ tested: arr.filter(i => i.tested).length, total: arr.length });
@@ -50,72 +52,44 @@ Note: Test cases are high‑level scenarios, not a 1‑to‑1 mapping to tests (
   const complexCases = caseNosFor(groupIn(complexSet));
 
   // Case counts are driven by caseIds, not explicit test titles
-  const primitiveTestsCount = primitiveCases.length ? primitive.total : 0;
-  const complexTestsCount = complexCases.length ? complex.total : 0;
+  const primitiveImplemented = primitiveCases.length > 0;
+  const complexImplemented = complexCases.length > 0;
 
-  return (
-    <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <colgroup>
-          <col style={{ width: '15%' }} />
-          <col style={{ width: '45%' }} />
-          <col style={{ width: '15%' }} />
-          <col style={{ width: '15%' }} />
-          <col style={{ width: '10%' }} />
-        </colgroup>
-        <thead>
-          <tr style={{ background: '#f2f2f2' }}>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Case #</th>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Description</th>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Types Covered</th>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Folder</th>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              {primitiveCases.length ? `#${primitiveCases.join(', #')}` : <em>—</em>}
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              Button click mutates a primitive <code>@State</code> value and updates DOM output.
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              type: string | number | boolean × default: true/false<br/>
-              <small>Covered: {primitive.tested}/{primitive.total}</small>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              <code>test/wdio/state/tests</code>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-              <span style={{ color: primitive.tested === primitive.total ? 'green' : '#999' }}>{primitive.total > 0 ? (primitive.tested === primitive.total ? '✔' : '✗') : '—'}</span>
-            </td>
-          </tr>
-          <tr style={{ background: '#f9f9f9' }}>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              {complexCases.length ? `#${complexCases.join(', #')}` : <em>—</em>}
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              Static render validation for complex types (<code>any</code>, <code>array</code>, <code>object</code>) with and without defaults.
-              <br/>
-              <small>Tests: {complexTestsCount}</small>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              type: any | array | object × default: true/false<br/>
-              <small>Covered: {complex.tested}/{complex.total}</small>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-              <code>test/wdio/state/tests</code>
-            </td>
-            <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>
-              <span style={{ color: complex.tested === complex.total ? 'green' : '#999' }}>{complex.total > 0 ? (complex.tested === complex.total ? '✔' : '✗') : '—'}</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
-})()}
+  const rows = [
+    {
+      id: 1,
+      implemented: primitiveImplemented,
+      desc: (<>
+        Button click mutates a primitive <code>@State</code> value and updates DOM output.
+      </>),
+      types: (<>
+        type: string | number | boolean × default: true/false<br/>
+        <small>Covered: {primitive.tested}/{primitive.total}</small>
+      </>),
+      tested: primitive.tested,
+      total: primitive.total,
+    },
+    {
+      id: 2,
+      implemented: complexImplemented,
+      desc: (<>
+        Static render validation for complex types (<code>any</code>, <code>array</code>, <code>object</code>) with and without defaults.
+        <br/>
+        <small>Tests: {complexCases.length ? complex.total : 0}</small>
+      </>),
+      types: (<>
+        type: any | array | object × default: true/false<br/>
+        <small>Covered: {complex.tested}/{complex.total}</small>
+      </>),
+      tested: complex.tested,
+      total: complex.total,
+    },
+  ];
+
+  return <TestCasesTable rows={rows} previewCount={2} />;
+};
+
+<StateTestCasesTable />
 
 ## Generated Components
 
@@ -132,9 +106,7 @@ Note: Test cases are high‑level scenarios, not a 1‑to‑1 mapping to tests (
   <br/>
 </p>
 
-export const GeneratedComponentsTable = () => {
-  const [expanded, setExpanded] = useState(false);
-
+export const StateGeneratedComponents = () => {
   const rows = useMemo(() => {
     const items = overlay.items || [];
     const map = new Map(items.map(i => [`${i.options?.type},${String(i.options?.hasDefault)}`, i]));
@@ -152,108 +124,16 @@ export const GeneratedComponentsTable = () => {
     });
   }, []);
 
-  const total = rows.length;
+  const columns = [
+    { key: 'type', label: 'Type', width: '25%' },
+    { key: 'hasDefault', label: 'Has Default Value', width: '25%' },
+    { key: 'testedBy', label: 'Tested By', width: '50%' },
+  ];
 
-  const renderTable = (rowsToRender) => (
-    <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
-        <colgroup>
-          <col style={{ width: '25%' }} />
-          <col style={{ width: '25%' }} />
-          <col style={{ width: '50%' }} />
-        </colgroup>
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Has Default Value</th>
-            <th>Tested By</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rowsToRender.map((r) => (
-            <tr key={r.index}>
-              <td>{r.type}</td>
-              <td>{r.hasDefault}</td>
-              <td>
-                {r.caseNumbers && r.caseNumbers.length
-                  ? (
-                      r.caseNumbers.length === 1
-                        ? `#${r.caseNumbers[0]}`
-                        : r.caseNumbers.join(' & ')
-                    )
-                  : <em>—</em>}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-
-  if (!expanded) {
-    const preview = rows.slice(0, 3);
-    return (
-      <div style={{ position: 'relative' }}>
-        {renderTable(preview)}
-        {total > 3 && (
-          <>
-            <div
-              style={{
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                bottom: 40,
-                height: 48,
-                background: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 90%)',
-                pointerEvents: 'none',
-              }}
-            />
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: -8 }}>
-              <button
-                onClick={() => setExpanded(true)}
-                style={{
-                  padding: '6px 12px',
-                  border: '1px solid #ddd',
-                  background: '#f8f8f8',
-                  borderRadius: 4,
-                  cursor: 'pointer',
-                  fontSize: 12,
-                }}
-                aria-label={`Show all ${total} components`}
-              >
-                Show all {total} components
-              </button>
-            </div>
-          </>
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 8 }}>
-        <button
-          onClick={() => setExpanded(false)}
-          style={{
-            padding: '6px 12px',
-            border: '1px solid #ddd',
-            background: '#f8f8f8',
-            borderRadius: 4,
-            cursor: 'pointer',
-            fontSize: 12,
-          }}
-          aria-label="Collapse components table"
-        >
-          Collapse table
-        </button>
-      </div>
-      {renderTable(rows)}
-    </div>
-  );
+  return <GeneratedComponentsTable rows={rows} columns={columns} previewCount={3} />;
 };
 
-<GeneratedComponentsTable />
+<StateGeneratedComponents />
 
 ## Component Grouping
 
