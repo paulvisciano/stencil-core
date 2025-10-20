@@ -6,14 +6,15 @@ This directory contains version-controlled memories and context for AI assistant
 
 ```
 .cursor/
-├── README.md                 # This file
-├── memories/                 # AI memories organized by topic
-│   ├── testing-framework.md  # Testing framework specific memories
-│   ├── project-structure.md  # Project organization and architecture
-│   └── workflows.md          # Development workflows and processes
-└── context/                  # Additional AI context files
-    ├── key-concepts.md       # Important project concepts
-    └── conventions.md        # Coding and naming conventions
+├── README.md                     # This file
+├── memories/                     # AI memories organized by topic
+│   ├── testing-framework.md      # Testing framework specific memories
+│   ├── project-structure.md      # Project organization and architecture
+│   └── workflows.md              # Development workflows and processes
+└── context/                      # Additional AI context files
+    ├── key-concepts.md           # Important project concepts
+    ├── conventions.md            # Coding and naming conventions
+    └── test-case-conventions.md  # Test case patterns and AI-friendly structures
 ```
 
 ## Purpose

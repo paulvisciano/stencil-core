@@ -84,3 +84,17 @@ export class ComponentName {
 - Interactive elements for state mutation testing
 - Clear labeling of type and default status
 - Shadow DOM enabled for proper encapsulation
+
+## Test Case Conventions
+
+### Structured Test Cases (see test-case-conventions.md)
+- Numbered test cases with descriptive names
+- Complete matrix rendering in before() hooks
+- Consistent assertion patterns and DOM expectations
+- AI-friendly structure for easy documentation and extension
+
+### Test Coverage Patterns
+- **@State**: Primitive mutation, Complex static render
+- **@Prop**: Runtime coverage, Complex render, reflect=true/false, mutable=true
+- Matrix-driven approach ensures comprehensive coverage
+- Component tag patterns follow naming conventions

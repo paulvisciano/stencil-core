@@ -42,6 +42,11 @@ const MEMORY_CONFIG = {
     title: 'Stencil.js Code Conventions and Standards',
     id: null, // Will create new memory
     priority: 'medium'
+  },
+  'context/test-case-conventions.md': {
+    title: 'Stencil.js Test Case Conventions and AI-Friendly Patterns',
+    id: null, // Will create new memory
+    priority: 'high'
   }
 };
 
