@@ -4,6 +4,8 @@ import data from './data/components.json';
 import overlay from './data/test-coverage.json';
 import React, { useMemo, useState } from 'react';
 import RulesAtAGlance from '../_shared/RulesAtAGlance.jsx';
+import TestCasesTable from '../_shared/TestCasesTable.jsx';
+import GeneratedComponentsTable from '../_shared/GeneratedComponentsTable.jsx';
 
 <Meta title="Testing/Decorators/@Prop"/>
 
@@ -176,120 +178,16 @@ export const PropTestCasesTable = () => {
 
   const missingRows = allRows.filter(r => !r.implemented);
   const implementedRows = allRows.filter(r => r.implemented);
-  const orderedRows = [...missingRows, ...implementedRows];
-  const totalRows = orderedRows.length;
+  const rows = [...missingRows, ...implementedRows].map(r => ({
+    id: r.id,
+    implemented: r.implemented,
+    desc: r.desc,
+    types: r.types,
+    tested: r.tested,
+    total: r.total,
+  }));
 
-  const [expanded, setExpanded] = useState(false);
-  const rowsToRender = expanded ? orderedRows : orderedRows.slice(0, 3);
-
-  const renderStatus = (r) => {
-    if (!r.implemented) {
-      return <em>—</em>;
-    }
-    const ok = r.total > 0 && r.tested === r.total;
-    return (
-      <span style={{ color: ok ? 'green' : '#999' }}>{r.total > 0 ? (ok ? '✔' : '✗') : '—'}</span>
-    );
-  };
-
-  const renderCaseRow = (r, idx) => (
-    <tr key={r.id} style={idx % 2 === 1 ? { background: '#f9f9f9' } : undefined}>
-      <td style={{ padding: '8px', border: '1px solid #ddd' }}>#{r.id}</td>
-      <td style={{ padding: '8px', border: '1px solid #ddd' }}>{r.desc}</td>
-      <td style={{ padding: '8px', border: '1px solid #ddd' }}>{r.types}</td>
-      <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>{renderStatus(r)}</td>
-    </tr>
-  );
-
-  const renderSectionedRows = (rows) => {
-    const out = [];
-    let lastSection = null;
-    rows.forEach((r, i) => {
-      if (r.section !== lastSection) {
-        out.push(
-          <tr key={`section-${r.section}-${i}`}>
-            <td colSpan={4} style={{ padding: '8px', border: '1px solid #ddd', background: r.section === 'missing' ? '#fff4e5' : '#eef7ee', fontWeight: 600 }}>
-              {r.section === 'missing' ? 'Not Implemented' : 'Implemented'}
-            </td>
-          </tr>
-        );
-        lastSection = r.section;
-      }
-      out.push(renderCaseRow(r, i));
-    });
-    return out;
-  };
-
-  return (
-    <div style={{ maxWidth: '100%', width: '100%', background: '#fff', position: 'relative' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <colgroup>
-          <col style={{ width: '15%' }} />
-          <col style={{ width: '55%' }} />
-          <col style={{ width: '20%' }} />
-          <col style={{ width: '10%' }} />
-        </colgroup>
-        <thead>
-          <tr style={{ background: '#f2f2f2' }}>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test Case #</th>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Description</th>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Types Covered</th>
-            <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
-          </tr>
-        </thead>
-        <tbody>{renderSectionedRows(rowsToRender)}</tbody>
-      </table>
-      {!expanded && totalRows > 3 && (
-        <>
-          <div
-            style={{
-              position: 'absolute',
-              left: 0,
-              right: 0,
-              bottom: 40,
-              height: 48,
-              background: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 90%)',
-              pointerEvents: 'none',
-            }}
-          />
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 8 }}>
-            <button
-              onClick={() => setExpanded(true)}
-              style={{
-                padding: '6px 12px',
-                border: '1px solid #ddd',
-                background: '#f8f8f8',
-                borderRadius: 4,
-                cursor: 'pointer',
-                fontSize: 12,
-              }}
-              aria-label={`Show all ${totalRows} test cases`}
-            >
-              Show all {totalRows} test cases
-            </button>
-          </div>
-        </>
-      )}
-      {expanded && (
-        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 8 }}>
-          <button
-            onClick={() => setExpanded(false)}
-            style={{
-              padding: '6px 12px',
-              border: '1px solid #ddd',
-              background: '#f8f8f8',
-              borderRadius: 4,
-              cursor: 'pointer',
-              fontSize: 12,
-            }}
-            aria-label="Collapse test cases table"
-          >
-            Collapse table
-          </button>
-        </div>
-      )}
-    </div>
-  );
+  return <TestCasesTable rows={rows} previewCount={3} />;
 };
 
 <PropTestCasesTable />
@@ -308,9 +206,7 @@ export const PropTestCasesTable = () => {
   high‑level test cases cover each component.
 </p>
 
-export const GeneratedComponentsTable = () => {
-  const [expanded, setExpanded] = useState(false);
-
+export const PropGeneratedComponents = () => {
   const rows = useMemo(() => {
     const items = overlay.items || [];
     const map = new Map(items.map(i => [i.optionsKey, i]));
@@ -328,112 +224,10 @@ export const GeneratedComponentsTable = () => {
       };
     });
   }, []);
-
-  const total = rows.length;
-
-  const renderTable = (rowsToRender) => (
-    <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
-        <colgroup>
-          <col style={{ width: '30%' }} />
-          <col style={{ width: '20%' }} />
-          <col style={{ width: '20%' }} />
-          <col style={{ width: '30%' }} />
-        </colgroup>
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>reflect</th>
-            <th>mutable</th>
-            <th>Tested By</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rowsToRender.map((r) => (
-            <tr key={r.index}>
-              <td>{r.type}</td>
-              <td>{r.reflect}</td>
-              <td>{r.mutable}</td>
-              <td>
-                {r.caseNumbers && r.caseNumbers.length
-                  ? (
-                      r.caseNumbers.length === 1
-                        ? `#${r.caseNumbers[0]}`
-                        : r.caseNumbers.join(' & ')
-                    )
-                  : <em>—</em>}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-
-  if (!expanded) {
-    const preview = rows.slice(0, 3);
-    return (
-      <div style={{ position: 'relative' }}>
-        {renderTable(preview)}
-        {total > 3 && (
-          <>
-            <div
-              style={{
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                bottom: 40,
-                height: 48,
-                background: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 90%)',
-                pointerEvents: 'none',
-              }}
-            />
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: -8 }}>
-              <button
-                onClick={() => setExpanded(true)}
-                style={{
-                  padding: '6px 12px',
-                  border: '1px solid #ddd',
-                  background: '#f8f8f8',
-                  borderRadius: 4,
-                  cursor: 'pointer',
-                  fontSize: 12,
-                }}
-                aria-label={`Show all ${total} components`}
-              >
-                Show all {total} components
-              </button>
-            </div>
-          </>
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 8 }}>
-        <button
-          onClick={() => setExpanded(false)}
-          style={{
-            padding: '6px 12px',
-            border: '1px solid #ddd',
-            background: '#f8f8f8',
-            borderRadius: 4,
-            cursor: 'pointer',
-            fontSize: 12,
-          }}
-          aria-label="Collapse components table"
-        >
-          Collapse table
-        </button>
-      </div>
-      {renderTable(rows)}
-    </div>
-  );
+  return <GeneratedComponentsTable rows={rows} previewCount={3} />;
 };
 
-<GeneratedComponentsTable />
+<PropGeneratedComponents />
 
 ## Component Grouping
 
