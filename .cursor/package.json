@@ -1,0 +1,14 @@
+{
+  "name": "stencil-cursor-context",
+  "version": "1.0.0",
+  "description": "Version-controlled AI context and memory management for Stencil.js core project",
+  "scripts": {
+    "memory-sync": "node memory-sync.js",
+    "memory-sync:dry-run": "node memory-sync.js --dry-run",
+    "validate": "echo 'Validating .cursor structure...' && find . -name '*.md' -exec echo 'Found: {}' \\;",
+    "help": "echo 'Available commands:' && echo '  npm run memory-sync       - Sync memories with IDE' && echo '  npm run memory-sync:dry-run - Preview sync changes' && echo '  npm run validate         - Check .cursor structure'"
+  },
+  "keywords": ["stencil", "ai", "context", "memories", "testing"],
+  "author": "Stencil.js Team",
+  "license": "MIT"
+}
