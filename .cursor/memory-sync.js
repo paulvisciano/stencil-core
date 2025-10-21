@@ -47,6 +47,11 @@ const MEMORY_CONFIG = {
     title: 'Stencil.js Test Case Conventions and AI-Friendly Patterns',
     id: null, // Will create new memory
     priority: 'high'
+  },
+  'memories/decorator-refactoring-workflows.md': {
+    title: 'Stencil.js Decorator Refactoring Workflows and Best Practices',
+    id: null, // Will create new memory
+    priority: 'high'
   }
 };
 
