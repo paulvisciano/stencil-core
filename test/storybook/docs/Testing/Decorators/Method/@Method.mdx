@@ -1,9 +1,11 @@
-import rules from './rules.json';
+import rules from './data/rules.json';
 import { Meta } from '@storybook/addon-docs/blocks';
-import data from './coverage-data.json';
-import overlay from './coverage-overlay.json';
+import data from './data/components.json';
+import overlay from './data/test-coverage.json';
 import React, { useMemo, useState } from 'react';
 import RulesAtAGlance from '../_shared/RulesAtAGlance.jsx';
+import TestCasesTable from '../_shared/TestCasesTable.jsx';
+import GeneratedComponentsTable from '../_shared/GeneratedComponentsTable.jsx';
 
 <Meta title="Testing/Decorators/@Method"/>
 
@@ -18,7 +20,89 @@ The `@Method` decorator exposes public instance methods on a Stencil component.
 - args: none | one
 
 ## Rules (at a glance)
-<RulesAtAGlance rules={rules} sourcePath="./rules.json" modeLabel="Return kind" />
+<RulesAtAGlance rules={rules} sourcePath="./data/rules.json" modeLabel="Return kind" />
+
+## Test Cases
+
+Note: Test cases are high‑level scenarios, not a 1‑to‑1 mapping to tests (it() blocks). A single WDIO test can exercise many generated components, and a component can participate in multiple tests. The "Tested By" column in the Generated Components table shows which case(s) (#1, #2) each component is covered by. All @Method tests reside under <code>test/wdio/method</code>.
+
+export const MethodTestCasesTable = () => {
+  const items = overlay.items || [];
+  const groupIn = (set) => items.filter(i => set.has(i.group));
+  const count = (arr) => ({ tested: arr.filter(i => i.tested).length, total: arr.length });
+
+  const promiseSet = new Set(['promise']);
+  const valueSet = new Set(['value']);
+  const voidSet = new Set(['void']);
+
+  const promise = count(groupIn(promiseSet));
+  const value = count(groupIn(valueSet));
+  const void_ = count(groupIn(voidSet));
+
+  const caseNosFor = (arr) => {
+    const s = new Set();
+    for (const it of arr) {
+      for (const n of (it.caseIds || [])) {
+        s.add(n);
+      }
+    }
+    return Array.from(s).sort((a, b) => a - b);
+  };
+
+  const promiseCases = caseNosFor(groupIn(promiseSet));
+  const valueCases = caseNosFor(groupIn(valueSet));
+  const voidCases = caseNosFor(groupIn(voidSet));
+
+  const case1Implemented = promiseCases.length > 0;
+  const case2Implemented = valueCases.length > 0;
+  const case3Implemented = voidCases.length > 0;
+
+  const rows = [
+    {
+      id: 1,
+      implemented: case1Implemented,
+      desc: 'Promise methods expose public API and update DOM after resolution across different async configurations and argument patterns.',
+      types: (
+        <>
+          returns: promise × async: true/false × args: none/one<br/>
+          <small>Covered: {promise.tested}/{promise.total}</small>
+        </>
+      ),
+      tested: promise.tested,
+      total: promise.total,
+    },
+    {
+      id: 2,
+      implemented: case2Implemented,
+      desc: 'Value-returning methods provide immediate results and update component state synchronously.',
+      types: (
+        <>
+          returns: value × async: true × args: none/one<br/>
+          <small>Covered: {value.tested}/{value.total}</small>
+        </>
+      ),
+      tested: value.tested,
+      total: value.total,
+    },
+    {
+      id: 3,
+      implemented: case3Implemented,
+      desc: 'Void methods trigger side effects without return values, updating internal state via async lifecycle.',
+      types: (
+        <>
+          returns: void × async: true × args: none/one<br/>
+          <small>Covered: {void_.tested}/{void_.total}</small>
+        </>
+      ),
+      tested: void_.tested,
+      total: void_.total,
+    },
+  ];
+
+  return <TestCasesTable rows={rows} previewCount={3} />;
+};
+
+<MethodTestCasesTable />
 
 ## Generated Components
 
@@ -28,173 +112,48 @@ The `@Method` decorator exposes public instance methods on a Stencil component.
 </div>
 
 <p style={{ marginTop: 8 }}>
-  One row per unique combination of <code>returns</code> × <code>async</code> × <code>args</code>.
-  The “Tested / Test Cases” column is populated in Phase 2.
+  This section lists the generated components we build to stress the compiler. Each row is one component with a
+  unique combination of decorator options (<code>returns</code> × <code>async</code> × <code>args</code>). If a combo fails to compile,
+  we capture that as a rule in <code>rules.json</code>, update the list, and regenerate. The "Tested By" column reflects which
+  high‑level test cases cover each component.
 </p>
 
-export const GeneratedComponentsTable = () => {
-  const [expanded, setExpanded] = useState(false);
-
+export const MethodGeneratedComponents = () => {
   const rows = useMemo(() => {
     const items = overlay.items || [];
+    const map = new Map(items.map(i => [i.optionsKey, i]));
     return (data.coveredPermutations || []).map((p, i) => {
       const [returns, async, args] = p.options || [];
-      const key = `${returns}|${async}|${args}`;
-      const oi = items.find(x => x.optionsKey === key) || {};
-      return { index: i, returns, async, args, tested: !!oi.tested, tests: oi.testedBy || [] };
+      const key = (p.options || []).join('|');
+      const oi = map.get(key) || {};
+      const caseNumbers = Array.isArray(oi.caseIds) ? [...oi.caseIds].sort((a,b) => a-b) : [];
+      return {
+        index: i,
+        returns,
+        async,
+        args,
+        caseNumbers,
+      };
     });
   }, []);
 
-  const total = rows.length;
+  const columns = [
+    { key: 'returns', label: 'Returns', width: '25%' },
+    { key: 'async', label: 'Async', width: '20%' },
+    { key: 'args', label: 'Args', width: '20%' },
+    { key: 'testedBy', label: 'Tested By', width: '35%' },
+  ];
 
-  const renderTable = (rowsToRender) => (
-    <div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
-        <colgroup>
-          <col style={{ width: '30%' }} />
-          <col style={{ width: '20%' }} />
-          <col style={{ width: '20%' }} />
-          <col style={{ width: '10%' }} />
-          <col style={{ width: '20%' }} />
-        </colgroup>
-        <thead>
-          <tr>
-            <th>returns</th>
-            <th>async</th>
-            <th>args</th>
-            <th style={{ textAlign: 'center' }}>Tested</th>
-            <th>Test Cases</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rowsToRender.map((r) => (
-            <tr key={r.index} style={{ background: r.tested ? '#fbfffb' : '#fff' }}>
-              <td>{r.returns}</td>
-              <td>{r.async}</td>
-              <td>{r.args}</td>
-              <td style={{ textAlign: 'center' }}>
-                {r.tested ? <span style={{ color: 'green' }}>✔</span> : <span style={{ color: '#999' }}>—</span>}
-              </td>
-              <td>
-                {r.tests.length ? (
-                  <ul style={{ margin: 0, paddingLeft: 16 }}>
-                    {r.tests.map((t, k) => (
-                      <li key={k}>{t}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  <em>—</em>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-
-  if (!expanded) {
-    const preview = rows.slice(0, 3);
-    return (
-      <div style={{ position: 'relative' }}>
-        {renderTable(preview)}
-        {total > 3 && (
-          <>
-            <div style={{ position: 'absolute', left: 0, right: 0, bottom: 40, height: 48, background: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 90%)', pointerEvents: 'none' }} />
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: -8 }}>
-              <button onClick={() => setExpanded(true)} style={{ padding: '6px 12px', border: '1px solid #ddd', background: '#f8f8f8', borderRadius: 4, cursor: 'pointer', fontSize: 12 }} aria-label={`Show all ${total} components`}>
-                Show all {total} components
-              </button>
-            </div>
-          </>
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 8 }}>
-        <button onClick={() => setExpanded(false)} style={{ padding: '6px 12px', border: '1px solid #ddd', background: '#f8f8f8', borderRadius: 4, cursor: 'pointer', fontSize: 12 }} aria-label="Collapse components table">
-          Collapse table
-        </button>
-      </div>
-      {renderTable(rows)}
-    </div>
-  );
+  return <GeneratedComponentsTable rows={rows} columns={columns} previewCount={3} />;
 };
 
-<GeneratedComponentsTable />
+<MethodGeneratedComponents />
 
 ## Component Grouping
 
-Components are grouped by return kind under `test/wdio/method/matrix/<void|value|promise>/`.
+Generated components are organized by return type under `test/wdio/method/components/`:
 
-## Test Cases
+- `void/` — void-returning methods
+- `value/` — value-returning methods
+- `promise/` — promise-returning methods
 
-<div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
-  <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-    <colgroup>
-      <col style={{ width: '35%' }} />
-      <col style={{ width: '15%' }} />
-      <col style={{ width: '25%' }} />
-      <col style={{ width: '25%' }} />
-    </colgroup>
-    <thead>
-      <tr style={{ background: 'rgba(242, 242, 242, 1)' }}>
-        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Scenario</th>
-        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center' }}>Status</th>
-        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Test File(s)</th>
-        <th style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'left' }}>Notes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Promise components render and expose a <code>run()</code> API that returns a promise.</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center', color: 'green' }}>Implemented</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-          <code>test/wdio/method/tests/method-promise-api.tests.tsx</code>
-        </td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Confirms public method availability on all async/non-async promise variants.</td>
-      </tr>
-      <tr>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Promise components update <code>#counter</code> only after the promise resolves.</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center', color: 'green' }}>Implemented</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>
-          <code>test/wdio/method/tests/method-promise-api.tests.tsx</code>
-        </td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Verifies resolved values propagate to the DOM across args: none | one.</td>
-      </tr>
-      <tr>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Promise rejection handling.</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center', color: '#999' }}>Planned</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>—</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Verify error UI/state when <code>run()</code> rejects and ensure success content does not render prematurely.</td>
-      </tr>
-      <tr>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Pending-state UX during long-running promises.</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center', color: '#999' }}>Planned</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>—</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Assert buttons/spinners reflect pending work and no DOM change occurs until resolution.</td>
-      </tr>
-      <tr>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Argument-driven value flow (single-argument variants).</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center', color: '#999' }}>Planned</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>—</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Ensure argument values impact resolved output (e.g., counter reflects passed value).</td>
-      </tr>
-      <tr>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Re-entrancy and concurrency safeguards.</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center', color: '#999' }}>Planned</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>—</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Define expected behavior for rapid/overlapping invocations and assert DOM consistency.</td>
-      </tr>
-      <tr>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Timing and cleanup validations.</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd', textAlign: 'center', color: '#999' }}>Planned</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>—</td>
-        <td style={{ padding: '8px', border: '1px solid #ddd' }}>Confirm no residual pending state across sequential calls and that microtask timing is respected.</td>
-      </tr>
-    </tbody>
-  </table>
-</div>

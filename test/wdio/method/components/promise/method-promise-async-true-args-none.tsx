@@ -1,10 +1,12 @@
+// filepath: /Users/paul.visciano/repos/core/test/wdio/method/components/promise/method-promise-async-true-args-none.tsx
 import { Component, h, Method, State } from '@stencil/core';
 
-@Component({ tag: 'method-promise-async-none', shadow: true })
-export class MethodPromiseAsyncNone {
+@Component({ tag: 'method-promise-async-true-args-none', shadow: true })
+export class MethodPromiseAsyncTrueArgsNone {
   @State() value = 0;
+
   @Method() async run() {
-    return new Promise(resolve => setTimeout(() => resolve(1), 1000));
+    return new Promise(resolve => setTimeout(() => resolve( 1), 0));
   }
 
   async componentDidLoad() {

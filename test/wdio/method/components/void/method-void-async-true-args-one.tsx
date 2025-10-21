@@ -1,16 +1,17 @@
+// filepath: /Users/paul.visciano/repos/core/test/wdio/method/components/void/method-void-async-true-args-one.tsx
 import { Component, h, Method, State } from '@stencil/core';
 
-@Component({ tag: 'method-promise-async-false-none', shadow: true })
-export class MethodPromiseAsyncFalseNone {
+@Component({ tag: 'method-void-async-true-args-one', shadow: true })
+export class MethodVoidAsyncTrueArgsOne {
   @State() value = 0;
 
-  @Method() run() {
-    return new Promise(resolve => setTimeout(() => resolve(1), 200));
+  @Method() async run(x) {
+    
   }
 
   async componentDidLoad() {
     const host = this.host as any;
-    const result = await (host as any).run();
+    const result = await (host as any).run(1);
     if (typeof result === 'number') this.value = result; else this.value++;
   }
 
@@ -19,7 +20,7 @@ export class MethodPromiseAsyncFalseNone {
   render() {
     return (
       <div>
-        <p>Options: returns=promise async=false args=none</p>
+        <p>Options: returns=void async=true args=one</p>
         <p>Counter: <span id="counter">{this.value}</span></p>
       </div>
     );

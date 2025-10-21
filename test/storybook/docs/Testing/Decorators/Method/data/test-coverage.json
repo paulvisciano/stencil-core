@@ -5,9 +5,9 @@
     "percent": "100.0"
   },
   "stats": {
-    "totalPermutations": 8,
-    "testedPermutations": 0,
-    "percentTested": "0.00"
+    "totalPermutations": 7,
+    "testedPermutations": 7,
+    "percentTested": "100.00"
   },
   "items": [
     {
@@ -19,11 +19,13 @@
       },
       "optionsKey": "promise|✗|none",
       "files": [
-        "promise/method-promise-async-false-none.tsx"
+        "promise/method-promise-async-false-args-none.tsx"
       ],
-      "tag": "method-promise-async-false-none",
-      "tested": false,
-      "testedBy": []
+      "tag": "method-promise-async-false-args-none",
+      "tested": true,
+      "caseIds": [
+        1
+      ]
     },
     {
       "group": "promise",
@@ -34,11 +36,13 @@
       },
       "optionsKey": "promise|✗|one",
       "files": [
-        "promise/method-promise-async-false-one.tsx"
+        "promise/method-promise-async-false-args-one.tsx"
       ],
-      "tag": "method-promise-async-false-one",
-      "tested": false,
-      "testedBy": []
+      "tag": "method-promise-async-false-args-one",
+      "tested": true,
+      "caseIds": [
+        1
+      ]
     },
     {
       "group": "promise",
@@ -49,11 +53,13 @@
       },
       "optionsKey": "promise|✓|none",
       "files": [
-        "promise/method-promise-async-none.tsx"
+        "promise/method-promise-async-true-args-none.tsx"
       ],
-      "tag": "method-promise-async-none",
-      "tested": false,
-      "testedBy": []
+      "tag": "method-promise-async-true-args-none",
+      "tested": true,
+      "caseIds": [
+        1
+      ]
     },
     {
       "group": "promise",
@@ -64,11 +70,13 @@
       },
       "optionsKey": "promise|✓|one",
       "files": [
-        "promise/method-promise-async-one.tsx"
+        "promise/method-promise-async-true-args-one.tsx"
       ],
-      "tag": "method-promise-async-one",
-      "tested": false,
-      "testedBy": []
+      "tag": "method-promise-async-true-args-one",
+      "tested": true,
+      "caseIds": [
+        1
+      ]
     },
     {
       "group": "value",
@@ -79,11 +87,13 @@
       },
       "optionsKey": "value|✓|none",
       "files": [
-        "value/method-value-async-none.tsx"
+        "value/method-value-async-true-args-none.tsx"
       ],
-      "tag": "method-value-async-none",
-      "tested": false,
-      "testedBy": []
+      "tag": "method-value-async-true-args-none",
+      "tested": true,
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "value",
@@ -94,11 +104,13 @@
       },
       "optionsKey": "value|✓|one",
       "files": [
-        "value/method-value-async-one.tsx"
+        "value/method-value-async-true-args-one.tsx"
       ],
-      "tag": "method-value-async-one",
-      "tested": false,
-      "testedBy": []
+      "tag": "method-value-async-true-args-one",
+      "tested": true,
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "void",
@@ -109,26 +121,13 @@
       },
       "optionsKey": "void|✓|none",
       "files": [
-        "void/method-void-async-none.tsx"
+        "void/method-void-async-true-args-none.tsx"
       ],
-      "tag": "method-void-async-none",
-      "tested": false,
-      "testedBy": []
-    },
-    {
-      "group": "void",
-      "options": {
-        "returns": "void",
-        "async": "✓",
-        "args": "one"
-      },
-      "optionsKey": "void|✓|one",
-      "files": [
-        "void/method-void-async-one.tsx"
-      ],
-      "tag": "method-void-async-one",
-      "tested": false,
-      "testedBy": []
+      "tag": "method-void-async-true-args-none",
+      "tested": true,
+      "caseIds": [
+        3
+      ]
     }
   ]
 }

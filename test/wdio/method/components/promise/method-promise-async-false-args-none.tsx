@@ -1,17 +1,17 @@
-// filepath: /Users/paul.visciano/repos/core/test/wdio/method/matrix/value/method-value-async-one.tsx
+// filepath: /Users/paul.visciano/repos/core/test/wdio/method/components/promise/method-promise-async-false-args-none.tsx
 import { Component, h, Method, State } from '@stencil/core';
 
-@Component({ tag: 'method-value-async-one', shadow: true })
-export class MethodValueAsyncOne {
+@Component({ tag: 'method-promise-async-false-args-none', shadow: true })
+export class MethodPromiseAsyncFalseArgsNone {
   @State() value = 0;
 
-  @Method() async run(x) {
-    return x ?? 1;
+  @Method() run() {
+    return new Promise(resolve => setTimeout(() => resolve( 1), 0));
   }
 
   async componentDidLoad() {
     const host = this.host as any;
-    const result = await (host as any).run(2);
+    const result = await (host as any).run();
     if (typeof result === 'number') this.value = result; else this.value++;
   }
 
@@ -20,7 +20,7 @@ export class MethodValueAsyncOne {
   render() {
     return (
       <div>
-        <p>Options: returns=value async=true args=one</p>
+        <p>Options: returns=promise async=false args=none</p>
         <p>Counter: <span id="counter">{this.value}</span></p>
       </div>
     );

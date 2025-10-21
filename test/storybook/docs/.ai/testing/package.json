@@ -16,7 +16,7 @@
     "event:verify-matrix": "cd ../../Testing/Decorators/Event && node verify-matrix.js",
     "listen:generate-components": "cd ../../Testing/Decorators/Listen && node coverage.js && node generate-components.js && node coverage.js",
     "listen:verify-matrix": "cd ../../Testing/Decorators/Listen && node verify-matrix.js",
-    "method:generate-components": "cd ../../Testing/Decorators/Method && node coverage.js && node generate-components.js && node coverage.js",
-    "method:verify-matrix": "cd ../../Testing/Decorators/Method && node verify-matrix.js"
+    "method:generate-components": "cd ../../Testing/Decorators/Method && node generate-components.js",
+    "method:test-coverage": "cd ../../Testing/Decorators/Method && node test-coverage.js"
   }
 }

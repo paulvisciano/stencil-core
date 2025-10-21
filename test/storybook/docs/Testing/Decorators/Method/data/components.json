@@ -7,79 +7,13 @@
   "coveredPermutations": [
     {
       "options": [
-        "promise",
-        "✗",
-        "none"
-      ],
-      "count": 1,
-      "files": [
-        "promise/method-promise-async-false-none.tsx"
-      ]
-    },
-    {
-      "options": [
-        "promise",
-        "✗",
-        "one"
-      ],
-      "count": 1,
-      "files": [
-        "promise/method-promise-async-false-one.tsx"
-      ]
-    },
-    {
-      "options": [
-        "promise",
-        "✓",
-        "none"
-      ],
-      "count": 1,
-      "files": [
-        "promise/method-promise-async-none.tsx"
-      ]
-    },
-    {
-      "options": [
-        "promise",
-        "✓",
-        "one"
-      ],
-      "count": 1,
-      "files": [
-        "promise/method-promise-async-one.tsx"
-      ]
-    },
-    {
-      "options": [
-        "value",
-        "✓",
-        "none"
-      ],
-      "count": 1,
-      "files": [
-        "value/method-value-async-none.tsx"
-      ]
-    },
-    {
-      "options": [
-        "value",
-        "✓",
-        "one"
-      ],
-      "count": 1,
-      "files": [
-        "value/method-value-async-one.tsx"
-      ]
-    },
-    {
-      "options": [
         "void",
         "✓",
         "none"
       ],
       "count": 1,
       "files": [
-        "void/method-void-async-none.tsx"
+        "void/method-void-async-true-args-none.tsx"
       ]
     },
     {
@@ -90,7 +24,73 @@
       ],
       "count": 1,
       "files": [
-        "void/method-void-async-one.tsx"
+        "void/method-void-async-true-args-one.tsx"
+      ]
+    },
+    {
+      "options": [
+        "value",
+        "✓",
+        "none"
+      ],
+      "count": 1,
+      "files": [
+        "value/method-value-async-true-args-none.tsx"
+      ]
+    },
+    {
+      "options": [
+        "value",
+        "✓",
+        "one"
+      ],
+      "count": 1,
+      "files": [
+        "value/method-value-async-true-args-one.tsx"
+      ]
+    },
+    {
+      "options": [
+        "promise",
+        "✗",
+        "none"
+      ],
+      "count": 1,
+      "files": [
+        "promise/method-promise-async-false-args-none.tsx"
+      ]
+    },
+    {
+      "options": [
+        "promise",
+        "✗",
+        "one"
+      ],
+      "count": 1,
+      "files": [
+        "promise/method-promise-async-false-args-one.tsx"
+      ]
+    },
+    {
+      "options": [
+        "promise",
+        "✓",
+        "none"
+      ],
+      "count": 1,
+      "files": [
+        "promise/method-promise-async-true-args-none.tsx"
+      ]
+    },
+    {
+      "options": [
+        "promise",
+        "✓",
+        "one"
+      ],
+      "count": 1,
+      "files": [
+        "promise/method-promise-async-true-args-one.tsx"
       ]
     }
   ],

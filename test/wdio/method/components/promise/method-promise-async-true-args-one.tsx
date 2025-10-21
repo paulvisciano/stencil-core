@@ -1,15 +1,17 @@
+// filepath: /Users/paul.visciano/repos/core/test/wdio/method/components/promise/method-promise-async-true-args-one.tsx
 import { Component, h, Method, State } from '@stencil/core';
 
-@Component({ tag: 'method-promise-async-one', shadow: true })
-export class MethodPromiseAsyncOne {
+@Component({ tag: 'method-promise-async-true-args-one', shadow: true })
+export class MethodPromiseAsyncTrueArgsOne {
   @State() value = 0;
+
   @Method() async run(x) {
-    return new Promise(resolve => setTimeout(() => resolve(x ?? 1), 200));
+    return new Promise(resolve => setTimeout(() => resolve(x ?? 1), 0));
   }
 
   async componentDidLoad() {
     const host = this.host as any;
-    const result = await (host as any).run(2);
+    const result = await (host as any).run(1);
     if (typeof result === 'number') this.value = result; else this.value++;
   }
 

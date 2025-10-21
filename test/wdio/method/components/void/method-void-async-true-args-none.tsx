@@ -1,8 +1,8 @@
-// filepath: /Users/paul.visciano/repos/core/test/wdio/method/matrix/void/method-void-async-none.tsx
+// filepath: /Users/paul.visciano/repos/core/test/wdio/method/components/void/method-void-async-true-args-none.tsx
 import { Component, h, Method, State } from '@stencil/core';
 
-@Component({ tag: 'method-void-async-none', shadow: true })
-export class MethodVoidAsyncNone {
+@Component({ tag: 'method-void-async-true-args-none', shadow: true })
+export class MethodVoidAsyncTrueArgsNone {
   @State() value = 0;
 
   @Method() async run() {
