@@ -2,44 +2,200 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Testing/Framework/Quickstart" tags={['ai','coverage','stable']} />
 
-# Quickstart: Matrix → Generate → Build → Update Rules → Regenerate → Rebuild → Verify
+# Quickstart: The 3-Step Testing Loop
 
-A concise, repeatable loop to reach Phase 1 (compile‑only) and then proceed to Phase 2 tests.
+The systematic workflow that maintains comprehensive coverage as Stencil.js evolves. This replaces ad-hoc testing with a repeatable, community-driven process.
 
 ## Source of truth
 - Rules JSON (per decorator): e.g., `Testing/Decorators/Component/rules.json`
 - Coverage output (per decorator): e.g., `Testing/Decorators/Component/coverage-data.json`
 - Generated artifacts (per decorator): e.g., `test/wdio/component-decorator/matrix/{shadow,scoped,light}/`
 
-## Phase 1 loop (from `.ai/testing`)
-1. Generate components for all permutations (and refresh coverage around generation)
-   - `npm run coverage-loop` (alias for per‑decorator generate loops)
-2. Build components to discover invalid permutations (rules discovery)
-   - `npm run build-wdio-components`
-   - Fixes are driven by compiler errors
-3. Update rules to encode constraints discovered by the compiler
-   - Edit the active decorator’s `rules.json`
-4. Refresh matrix and regenerate components from updated rules
-   - `npm run coverage-loop`
-5. Rebuild until the build passes cleanly
-   - `npm run build-wdio-components`
-6. Verify matrix integrity (scripted guard) and write overlays
-   - `npm run <decorator>:verify-matrix`
+## Step 1: Rules Discovery 🔍
 
-At this point, Phase 1 (compile‑only) is complete.
+**Purpose**: Discover valid decorator permutations through systematic compiler feedback
 
-## Phase 2 (tests)
-7. Create and propagate WDIO tests across applicable generated components
-   - `npm run run-component-tests`
-   - Use overlays to surface `tested` markers in docs
+**The Discovery Process**:
 
-## Guardrails enforced by verify
-- Re‑runs coverage and requires 100% compile coverage per decorator
-- Parity: `.tsx` count under each `test/wdio/<decorator>/matrix/**` equals `coverage-data.json.coverage.covered`
-- Grouping and exclusivity validated from `rules.json`
-- Builds `coverage-overlay.json` (`tested`/`testedBy`)
+**1. AI Matrix Generation**
+```bash
+# AI generates comprehensive matrix of ALL possible permutations
+# Example: @Prop with type, reflect, mutable, attribute options
+# Results in potentially 100+ initial permutations (many invalid)
+```
 
-## Tips
-- The generator reads coverage data; always refresh coverage after changing rules.
-- Prefer running from `.ai/testing` using script shortcuts.
-- Optional probe (component): `VERIFY_PROBE_ENCAPSULATION=1 npm run component:verify-matrix`
+**2. Broad Component Generation**
+```bash
+# Generate components for ALL permutations (including invalid ones)
+npm run prop:generate-components
+```
+
+**3. Compiler-Driven Rules Discovery**
+```bash
+# Attempt to build - compiler errors reveal constraint violations
+npm run components-build
+# Example errors: "reflect and mutable cannot both be true for complex types"
+```
+
+**4. Rules Encoding**
+```json
+{
+  "constraints": {
+    "mutuallyExclusive": [
+      ["reflect: true", "type: Object"],
+      ["reflect: true", "type: Array"]
+    ]
+  },
+  "emit": {
+    "naming": {
+      "prefix": "prop",
+      "includeOptions": ["type", "reflect", "mutable"]
+    }
+  }
+}
+```
+
+**5. Matrix Refinement**
+```bash
+# Updated rules.json automatically refines matrix
+# Invalid permutations eliminated, valid ones remain
+# Regenerate components from refined matrix
+npm run prop:generate-components
+```
+
+**Key Insight**: The compiler itself becomes the source of truth for valid decorator combinations!
+
+## Step 2: Generate & Build 🏗️
+
+**Final Component Generation**:
+```bash
+# Generate components from refined, validated matrix
+# Only valid permutations remain after Rules Discovery
+cd /test/storybook/docs/.ai/testing
+npm run prop:generate-components
+```
+
+**Clean Build Verification**:
+```bash
+# Should build successfully with no compiler errors
+npm run components-build
+# Result: All generated components compile cleanly
+```
+
+**What This Step Accomplishes**:
+- Generates **only valid** components based on discovered rules
+- Achieves **clean compilation** with zero errors
+- Creates **systematic coverage** of all valid decorator permutations
+- Produces **production-ready** test components
+
+## Step 3: Test & Verify ✅
+
+**Execute Tests**:
+```bash
+# Run comprehensive test suite
+npm run tests
+
+# Verify coverage updates
+npm run prop:test-coverage
+npm run state:test-coverage
+```
+
+**What This Step Validates**:
+- Runtime functionality in browser environment
+- All decorator behaviors and permutations
+- WebDriver I/O test execution
+- Coverage documentation updates
+
+## Complete Loop Example - @Prop Decorator
+
+**Step 1 - Rules Discovery**: 
+- AI generated initial matrix: 6 types × 2 reflect × 2 mutable = 24 permutations
+- Generated all 24 components, attempted build
+- Compiler revealed: Complex types (Array, Object, Set) cannot use reflect=true
+- Created rules.json encoding this constraint
+- Refined matrix eliminated invalid combinations
+- Final valid matrix: 24 permutations (but different combinations)
+
+**Step 2 - Generate & Build**:
+- Generated 24 valid components from refined matrix
+- Clean build with zero compiler errors
+- All components follow systematic naming conventions
+
+**Step 3 - Test & Verify**: 
+- Achieved 100% test coverage with 5 structured test cases
+- All 24 permutations tested across different behavioral scenarios
+- Coverage documentation automatically generated
+
+**Result**: Comprehensive @Prop testing with **compiler-validated** permutations, ready for community contributions
+
+## Community Contribution Integration
+
+### How to Contribute
+
+**1. Identify Gaps**:
+- Review coverage reports: `/test/storybook/docs/Testing/Decorators/{decorator}/data/test-coverage.json`
+- Look for `"tested": false` entries
+- Check coverage percentages < 100%
+
+**2. Follow the Loop**:
+- **Step 1**: Update rules if adding new scenarios
+- **Step 2**: Generate/build components following established patterns
+- **Step 3**: Test and verify functionality
+
+**3. Implementation Patterns**:
+```tsx
+// Example: New @Prop component following conventions
+import { Component, h, Prop } from '@stencil/core';
+
+@Component({
+  tag: 'prop-string-reflect-mutable',
+  shadow: true,
+})
+export class PropStringReflectMutable {
+  @Prop({ reflect: true, mutable: true }) val!: string;
+
+  render() {
+    const v = this.val ?? 'init';
+    return (
+      <div>
+        <p>Type: string | reflect: true | mutable: true</p>
+        <p>Value: {v}</p>
+      </div>
+    );
+  }
+}
+```
+
+### Quality Guardrails
+- **100% compile coverage** required per decorator
+- **File parity**: `.tsx` count matches `coverage-data.json.coverage.covered`
+- **Naming conventions**: Follow established patterns
+- **Test case mapping**: Document which scenarios are covered
+- **Browser compatibility**: Verify cross-browser functionality
+
+### AI-Assisted Contributions
+- **Model-agnostic**: Works with any AI (proprietary or open-source)
+- **Pattern-following**: Use existing components as templates
+- **Systematic verification**: 3-step loop ensures quality
+- **Community review**: Pull request process maintains standards
+
+## Advanced Usage
+
+### Debugging and Troubleshooting
+```bash
+# Debug component generation
+VERIFY_PROBE_ENCAPSULATION=1 npm run component:verify-matrix
+
+# Target specific test files
+npm run run-component-tests:spec -- ./prop/**/*.test.tsx
+
+# Refresh coverage after rule changes
+npm run refresh-coverage-matrix
+```
+
+### Best Practices
+- **Always run from** `.ai/testing` directory for script shortcuts
+- **Refresh coverage** after changing rules.json
+- **Document learnings** in audit.mdx after major iterations
+- **Review coverage reports** before and after contributions
+- **Test cross-browser** compatibility for new components
