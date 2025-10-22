@@ -25,6 +25,9 @@
       "tested": true,
       "caseIds": [
         3
+      ],
+      "testedBy": [
+        "Test Case #3"
       ]
     },
     {
@@ -42,6 +45,9 @@
       "tested": true,
       "caseIds": [
         3
+      ],
+      "testedBy": [
+        "Test Case #3"
       ]
     },
     {
@@ -59,6 +65,9 @@
       "tested": true,
       "caseIds": [
         2
+      ],
+      "testedBy": [
+        "Test Case #2"
       ]
     },
     {
@@ -76,6 +85,9 @@
       "tested": true,
       "caseIds": [
         2
+      ],
+      "testedBy": [
+        "Test Case #2"
       ]
     },
     {
@@ -93,6 +105,9 @@
       "tested": true,
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     },
     {
@@ -110,6 +125,9 @@
       "tested": true,
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     },
     {
@@ -127,6 +145,9 @@
       "tested": true,
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     },
     {
@@ -144,6 +165,9 @@
       "tested": true,
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     }
   ]

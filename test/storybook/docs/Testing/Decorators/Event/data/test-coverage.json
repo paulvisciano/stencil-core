@@ -11,7 +11,7 @@
   },
   "items": [
     {
-      "group": "bubbles",
+      "group": "✓",
       "options": {
         "bubbles": "✓",
         "cancelable": "✓",
@@ -23,15 +23,15 @@
       ],
       "tag": "event-bubbles-cancelable-composed-false",
       "tested": true,
-      "testedBy": [
-        "Test Case #1"
-      ],
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     },
     {
-      "group": "bubbles",
+      "group": "✓",
       "options": {
         "bubbles": "✓",
         "cancelable": "✓",
@@ -43,15 +43,15 @@
       ],
       "tag": "event-bubbles-cancelable-composed",
       "tested": true,
-      "testedBy": [
-        "Test Case #1"
-      ],
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     },
     {
-      "group": "bubbles",
+      "group": "✓",
       "options": {
         "bubbles": "✓",
         "cancelable": "✗",
@@ -63,15 +63,15 @@
       ],
       "tag": "event-bubbles-cancelable-false-composed-false",
       "tested": true,
-      "testedBy": [
-        "Test Case #1"
-      ],
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     },
     {
-      "group": "bubbles",
+      "group": "✓",
       "options": {
         "bubbles": "✓",
         "cancelable": "✗",
@@ -83,15 +83,15 @@
       ],
       "tag": "event-bubbles-cancelable-false-composed",
       "tested": true,
-      "testedBy": [
-        "Test Case #1"
-      ],
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     },
     {
-      "group": "no-bubbles",
+      "group": "✗",
       "options": {
         "bubbles": "✗",
         "cancelable": "✓",
@@ -103,15 +103,15 @@
       ],
       "tag": "event-bubbles-false-cancelable-composed-false",
       "tested": true,
-      "testedBy": [
-        "Test Case #2"
-      ],
       "caseIds": [
         2
+      ],
+      "testedBy": [
+        "Test Case #2"
       ]
     },
     {
-      "group": "no-bubbles",
+      "group": "✗",
       "options": {
         "bubbles": "✗",
         "cancelable": "✓",
@@ -123,15 +123,15 @@
       ],
       "tag": "event-bubbles-false-cancelable-composed",
       "tested": true,
-      "testedBy": [
-        "Test Case #2"
-      ],
       "caseIds": [
         2
+      ],
+      "testedBy": [
+        "Test Case #2"
       ]
     },
     {
-      "group": "no-bubbles",
+      "group": "✗",
       "options": {
         "bubbles": "✗",
         "cancelable": "✗",
@@ -143,15 +143,15 @@
       ],
       "tag": "event-bubbles-false-cancelable-false-composed-false",
       "tested": true,
-      "testedBy": [
-        "Test Case #2"
-      ],
       "caseIds": [
         2
+      ],
+      "testedBy": [
+        "Test Case #2"
       ]
     },
     {
-      "group": "no-bubbles",
+      "group": "✗",
       "options": {
         "bubbles": "✗",
         "cancelable": "✗",
@@ -163,11 +163,11 @@
       ],
       "tag": "event-bubbles-false-cancelable-false-composed",
       "tested": true,
-      "testedBy": [
-        "Test Case #2"
-      ],
       "caseIds": [
         2
+      ],
+      "testedBy": [
+        "Test Case #2"
       ]
     }
   ]
