@@ -177,3 +177,53 @@ function main() {
 - Per-script reduction: 10-25% smaller
 - Total duplication elimination: 179 lines across 4 decorators
 - Main logic reduction: 75% (from 80+ lines to 20 lines per script)
+
+## Test Coverage Script Architecture
+
+**Problem**: Massive duplication across test-coverage.js scripts with ~220 lines of identical code for scanning, stats, and output logic.
+
+**Solution**: Created `_shared/test-coverage-core.js` with configurable architecture similar to generate-components pattern.
+
+**Shared Infrastructure** (`test-coverage-core.js` - 118 lines):
+- `scanTestSources()`: JSX tag and selector scanning with configurable regex patterns
+- `calculateStats()`: Consistent statistics calculation (total/tested/percentage)
+- `cleanupLegacyFiles()`: Remove obsolete coverage files
+- `generateTestCoverage()`: Main orchestrator with decorator-specific callbacks
+- `testCoverageMain()`: Simplified entry point with path setup
+
+**Architecture Benefits**:
+- **Single source of truth** for all common scanning and output logic
+- **Configurable behavior** through decorator-specific callbacks
+- **Consistent output format** across all decorators
+- **Easy to add new decorators** - just provide unique parts
+
+**Implementation Pattern**:
+```javascript
+// Per-decorator script becomes minimal (35-50 lines):
+import { testCoverageMain, normalizeBoolean } from '../_shared/test-coverage-core.js';
+
+function mapOptions(permutation) {
+  // Extract decorator-specific options
+}
+
+function assignCaseIds(options, group) {
+  // Decorator-specific test case assignment logic
+}
+
+testCoverageMain({
+  decorator: 'prop',
+  baseDir: __dirname,
+  tagPatterns: { jsxRegex: /<\s*(prop-[a-z0-9-]+)\b/gi },
+  mapOptions,
+  assignCaseIds
+});
+```
+
+**Dramatic Code Reduction**:
+- @Prop: 106 → 50 lines (53% reduction)
+- @State: 98 → 36 lines (63% reduction)
+- @Method: 103 → 38 lines (63% reduction)
+- @Event: 100 → 37 lines (63% reduction)
+- **Total elimination**: ~220 lines of duplicate code (80% duplication removed)
+
+**Developer Experience**: Adding new decorators now requires only defining `mapOptions()` and `assignCaseIds()` - all scanning, stats, and file I/O handled automatically.
