@@ -6,8 +6,8 @@
   },
   "stats": {
     "totalPermutations": 8,
-    "testedPermutations": 0,
-    "percentTested": "0.00"
+    "testedPermutations": 8,
+    "percentTested": "100.00"
   },
   "items": [
     {
@@ -22,8 +22,13 @@
         "bubbles/event-bubbles-cancelable-composed-false.tsx"
       ],
       "tag": "event-bubbles-cancelable-composed-false",
-      "tested": false,
-      "testedBy": []
+      "tested": true,
+      "testedBy": [
+        "Test Case #1"
+      ],
+      "caseIds": [
+        1
+      ]
     },
     {
       "group": "bubbles",
@@ -37,8 +42,13 @@
         "bubbles/event-bubbles-cancelable-composed.tsx"
       ],
       "tag": "event-bubbles-cancelable-composed",
-      "tested": false,
-      "testedBy": []
+      "tested": true,
+      "testedBy": [
+        "Test Case #1"
+      ],
+      "caseIds": [
+        1
+      ]
     },
     {
       "group": "bubbles",
@@ -52,8 +62,13 @@
         "bubbles/event-bubbles-cancelable-false-composed-false.tsx"
       ],
       "tag": "event-bubbles-cancelable-false-composed-false",
-      "tested": false,
-      "testedBy": []
+      "tested": true,
+      "testedBy": [
+        "Test Case #1"
+      ],
+      "caseIds": [
+        1
+      ]
     },
     {
       "group": "bubbles",
@@ -67,8 +82,13 @@
         "bubbles/event-bubbles-cancelable-false-composed.tsx"
       ],
       "tag": "event-bubbles-cancelable-false-composed",
-      "tested": false,
-      "testedBy": []
+      "tested": true,
+      "testedBy": [
+        "Test Case #1"
+      ],
+      "caseIds": [
+        1
+      ]
     },
     {
       "group": "no-bubbles",
@@ -82,8 +102,13 @@
         "no-bubbles/event-bubbles-false-cancelable-composed-false.tsx"
       ],
       "tag": "event-bubbles-false-cancelable-composed-false",
-      "tested": false,
-      "testedBy": []
+      "tested": true,
+      "testedBy": [
+        "Test Case #2"
+      ],
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "no-bubbles",
@@ -97,8 +122,13 @@
         "no-bubbles/event-bubbles-false-cancelable-composed.tsx"
       ],
       "tag": "event-bubbles-false-cancelable-composed",
-      "tested": false,
-      "testedBy": []
+      "tested": true,
+      "testedBy": [
+        "Test Case #2"
+      ],
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "no-bubbles",
@@ -112,8 +142,13 @@
         "no-bubbles/event-bubbles-false-cancelable-false-composed-false.tsx"
       ],
       "tag": "event-bubbles-false-cancelable-false-composed-false",
-      "tested": false,
-      "testedBy": []
+      "tested": true,
+      "testedBy": [
+        "Test Case #2"
+      ],
+      "caseIds": [
+        2
+      ]
     },
     {
       "group": "no-bubbles",
@@ -127,8 +162,13 @@
         "no-bubbles/event-bubbles-false-cancelable-false-composed.tsx"
       ],
       "tag": "event-bubbles-false-cancelable-false-composed",
-      "tested": false,
-      "testedBy": []
+      "tested": true,
+      "testedBy": [
+        "Test Case #2"
+      ],
+      "caseIds": [
+        2
+      ]
     }
   ]
 }

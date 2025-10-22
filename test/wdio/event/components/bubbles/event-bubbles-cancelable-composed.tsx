@@ -1,9 +1,9 @@
-// filepath: /Users/paul.visciano/repos/core/test/wdio/event/matrix/bubbles/event-bubbles-cancelable-false-composed.tsx
+// filepath: /Users/paul.visciano/repos/core/test/wdio/event/components/bubbles/event-bubbles-cancelable-composed.tsx
 import { Component, Event, EventEmitter, h, Listen, State } from '@stencil/core';
 
-@Component({ tag: 'event-bubbles-cancelable-false-composed', shadow: true })
-export class EventBubblesCancelableFalseComposed {
-  @Event({ bubbles: true, cancelable: false, composed: true }) testEvent!: EventEmitter<void>;
+@Component({ tag: 'event-bubbles-cancelable-composed', shadow: true })
+export class EventBubblesCancelableComposed {
+  @Event({ bubbles: true, cancelable: true, composed: true }) testEvent!: EventEmitter<void>;
   @State() counter = 0;
 
   @Listen('testEvent')
@@ -19,7 +19,7 @@ export class EventBubblesCancelableFalseComposed {
   render() {
     return (
       <div>
-        <p>Options: bubbles=true cancelable=false composed=true</p>
+        <p>Options: bubbles=true cancelable=true composed=true</p>
         <p>Counter: <span id="counter">{this.counter}</span></p>
       </div>
     );
