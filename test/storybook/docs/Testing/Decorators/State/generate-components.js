@@ -111,11 +111,31 @@ function main() {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
 
+  // Check for --help flag
+  if (process.argv.includes('--help') || process.argv.includes('-h')) {
+    console.log('Usage: node generate-components.js [options]');
+    console.log('');
+    console.log('Options:');
+    console.log('  --force    Regenerate all components (even if they exist)');
+    console.log('  --help     Show this help message');
+    console.log('');
+    console.log('By default, only missing components are generated.');
+    console.log('Use --force when you modify the component template in this script.');
+    return;
+  }
+
+  // Check for --force flag
+  const forceRegenerate = process.argv.includes('--force');
+
   const rules = JSON.parse(fs.readFileSync(RULES_PATH, 'utf8'));
 
   // Build or refresh components index locally to compute missing permutations
   const index = buildComponentsIndex();
   const missing = index.missingPermutations || [];
+
+  if (forceRegenerate) {
+    console.log('🔄 Force regeneration enabled - will regenerate all components');
+  }
 
   let created = 0;
   for (const entry of missing) {
@@ -134,7 +154,7 @@ function main() {
     }
 
     const filePath = path.join(targetDir, fileName);
-    if (fs.existsSync(filePath)) continue;
+    if (!forceRegenerate && fs.existsSync(filePath)) continue;
 
     const tag = baseName;
     const src = buildStateComponentSource(options, tag);
