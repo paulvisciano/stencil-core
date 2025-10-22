@@ -68,3 +68,57 @@ if (process.argv.includes('--help')) {
   console.log('Use --force when you modify the component template in this script.');
 }
 ```
+
+## Test Coverage Script Requirements
+
+**Critical Pattern**: Test coverage scripts must analyze actual test files, not just generate component metadata
+- Import `collectTestSources`, `expectedGroupName`, `writeJson` from `_shared/verify-matrix-core.js`
+- Use regex patterns to find JSX components (`/<\s*(decorator-[a-z0-9-]+)\b/gi`) and test selectors in test files
+- Generate `items` array with `tested`, `testedBy`, `caseIds` properties for documentation tables
+- Assign stable case IDs based on logical groupings (e.g., bubbling vs non-bubbling for @Event)
+- Write output to `data/test-coverage.json` with both `coverage` and `items` data
+
+**Example Pattern**:
+```javascript
+const testedTags = new Set([...jsxTags, ...selectorTags]);
+const items = permutations.map(p => ({
+  options: {...},
+  tested: Boolean(tag && testedTags.has(tag)),
+  caseIds: [1], // Assign based on logical grouping
+  testedBy: tested ? ['Test Case #1'] : []
+}));
+```
+
+## Documentation Table Integration
+
+**Data Format Requirements**: Shared components expect specific data structures
+- `TestCasesTable` expects `rows` with `id`, `desc`, `types`, `implemented`, `tested`, `total`
+- `GeneratedComponentsTable` expects `caseNumbers` array (not `testedBy` strings)
+- Map `item.caseIds` to `caseNumbers` for "Tested By" column: `caseNumbers: [...item.caseIds].sort()`
+- Include `index` property for table row identification
+
+## Test Integration Requirements
+
+**WDIO Test Detection**: Test file must be named correctly and located properly
+- Use `tests.tsx` at decorator root, not `tests/cmp.test.tsx` in subdirectory
+- WDIO config pattern: `specs: ['./**/*/tests.tsx']` requires specific naming
+- Organize tests by logical cases with `describe('Test Case #N – Description')`
+- Render all components in single `before()` hook using `Fragment` template
+
+## File Cleanup Checklist
+
+**Remove Obsolete Files**: Always clean up after renaming/restructuring
+- Delete original files after successful rename (e.g., `coverage.js` after creating `test-coverage.js`)
+- Remove unused data files (`coverage-overlay.json`, old JSON formats)
+- Delete obsolete scripts (`verify-matrix.js` when using `runVerifier`)
+- Update npm scripts to reflect new file names and patterns
+
+## Integration Testing Requirements  
+
+**End-to-End Validation**: Verify complete workflow before declaring success
+- Test generation: `npm run {decorator}:generate-components:force`
+- Test coverage: `npm run {decorator}:test-coverage` 
+- Build validation: `npm run components-build`
+- Test execution: `npm run tests` (ensure decorator included in suite)
+- Documentation: Verify both test cases table and generated components table populate correctly
+- All tables must show "implemented" status and proper test case numbers
