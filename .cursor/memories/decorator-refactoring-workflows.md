@@ -116,9 +116,64 @@ const items = permutations.map(p => ({
 ## Integration Testing Requirements  
 
 **End-to-End Validation**: Verify complete workflow before declaring success
-- Test generation: `npm run {decorator}:generate-components:force`
+- Test generation: `npm run {decorator}:generate-components` (always regenerates all)
 - Test coverage: `npm run {decorator}:test-coverage` 
 - Build validation: `npm run components-build`
 - Test execution: `npm run tests` (ensure decorator included in suite)
 - Documentation: Verify both test cases table and generated components table populate correctly
 - All tables must show "implemented" status and proper test case numbers
+
+## Shared Infrastructure Architecture
+
+**Modern Approach**: Use shared `_shared/generate-components-core.js` for all common functionality
+- **164 lines** handle help, setup, generation loop, and verification for ALL decorators
+- **Eliminates duplication**: No more copy-paste of identical logic across scripts
+- **Single source of truth**: Bug fixes and enhancements apply to all decorators instantly
+- **Consistent behavior**: Identical patterns across @Prop/@State/@Method/@Event
+
+**Key Components**:
+- `handleHelp()` - Simplified help text (no complex options)
+- `setupPaths()` - Path validation and data loading
+- `generateComponents()` - Main generation loop (always regenerate)
+- `runPostGeneration()` - Verification and index rebuilding
+- `generateComponentsMain()` - Orchestrator function
+
+**Implementation Pattern**:
+```javascript
+// Per-decorator script becomes minimal:
+function getAllPermutations() { /* decorator-specific logic */ }
+function main() {
+  generateComponentsMain({
+    decorator: 'prop',
+    getAllPermutations,
+    buildNameSegments,
+    buildComponentSource,
+    buildComponentsIndex,
+    // ... paths and config
+  });
+}
+```
+
+## Always Generate Strategy
+
+**Key Innovation**: Eliminate complex missing/force logic by always regenerating all components
+- **Rationale**: Generation is fast (~0.1s per decorator), complexity not worth it
+- **Benefits**: Deterministic, reliable, eliminates sync issues and "forgot --force" errors
+- **Developer Experience**: Single simple command that always works the same way
+
+**Simplified Workflow**:
+- Remove `--force` flag complexity and help text
+- Remove missing permutation detection logic (~50 lines per script)
+- Remove npm `:force` script variants (50% fewer commands)
+- Always generate complete component set from `getAllPermutations()`
+
+**Performance**:
+- @Prop (24 components): ~0.1 seconds
+- @State (12 components): ~0.05 seconds
+- @Method (8 components): ~0.03 seconds  
+- @Event (8 components): ~0.03 seconds
+
+**Code Reduction**:
+- Per-script reduction: 10-25% smaller
+- Total duplication elimination: 179 lines across 4 decorators
+- Main logic reduction: 75% (from 80+ lines to 20 lines per script)
