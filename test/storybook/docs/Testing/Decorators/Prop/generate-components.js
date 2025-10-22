@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { runVerifier, writeJson } from '../_shared/verify-matrix-core.js';
+import { writeJson } from '../_shared/verify-matrix-core.js';
+import { generateComponentsMain, toPascalCase } from '../_shared/generate-components-core.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,12 +11,7 @@ const DATA_PATH = path.resolve(__dirname, 'data/components.json');
 const RULES_PATH = path.resolve(__dirname, 'data/rules.json');
 const OUTPUT_DIR = path.resolve(__dirname, '../../../../../wdio/prop/components');
 
-function toPascalCase(tag) {
-  return tag
-    .split('-')
-    .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
-    .join('');
-}
+// toPascalCase now imported from shared core
 
 function buildNameSegments(options, rules) {
   const include = rules.emit?.naming?.includeOptions || ['type','reflect','mutable'];
@@ -97,89 +93,43 @@ export class ${className} {
 `;
 }
 
-function main() {
-  if (!fs.existsSync(RULES_PATH)) {
-    console.error(`Missing rules file: ${RULES_PATH}`);
-    process.exit(1);
-  }
-  if (!fs.existsSync(OUTPUT_DIR)) {
-    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-  }
-
-  // Check for --help flag
-  if (process.argv.includes('--help') || process.argv.includes('-h')) {
-    console.log('Usage: node generate-components.js [options]');
-    console.log('');
-    console.log('Options:');
-    console.log('  --force    Regenerate all components (even if they exist)');
-    console.log('  --help     Show this help message');
-    console.log('');
-    console.log('By default, only missing components are generated.');
-    console.log('Use --force when you modify the component template in this script.');
-    return;
-  }
-
-  // Check for --force flag
-  const forceRegenerate = process.argv.includes('--force');
-
-  const rules = JSON.parse(fs.readFileSync(RULES_PATH, 'utf8'));
-  let missing;
-  if (forceRegenerate) {
-    // When forcing, generate all possible permutations
-    missing = [];
-    const types = ['string', 'number', 'boolean', 'Array', 'Object', 'Set'];
-    const reflectOptions = ['✓', '✗'];
-    const mutableOptions = ['✓', '✗'];
-    
-    for (const type of types) {
-      for (const reflect of reflectOptions) {
-        for (const mutable of mutableOptions) {
-          missing.push({ options: [type, reflect, mutable] });
-        }
+// Decorator-specific: Generate all possible permutations
+function getAllPermutations() {
+  const permutations = [];
+  const types = ['string', 'number', 'boolean', 'Array', 'Object', 'Set'];
+  const reflectOptions = ['✓', '✗'];
+  const mutableOptions = ['✓', '✗'];
+  
+  for (const type of types) {
+    for (const reflect of reflectOptions) {
+      for (const mutable of mutableOptions) {
+        permutations.push({ options: [type, reflect, mutable] });
       }
     }
-    console.log(`🔄 Forcing regeneration of all ${missing.length} components...`);
-  } else {
-    const index = buildComponentsIndex();
-    missing = index.missingPermutations || [];
   }
+  return permutations;
+}
 
-  let created = 0;
-  for (const entry of missing) {
-    const options = entry.options;
-    if (!Array.isArray(options) || options.length !== 3) continue;
-
-    const segs = buildNameSegments(options, rules);
-    const baseName = segs.join('-');
-    const fileName = `${baseName}.tsx`;
-
-    const groupDir = String(options[0]);
-    const targetDir = path.join(OUTPUT_DIR, groupDir);
-    if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true });
-
-    const filePath = path.join(targetDir, fileName);
-    if (!forceRegenerate && fs.existsSync(filePath)) continue;
-
-    const tag = baseName;
-    const src = buildPropComponentSource(options, tag);
-    fs.writeFileSync(filePath, src);
-    created++;
-  }
-
-  console.log(`Generated ${created} components in ${OUTPUT_DIR}`);
-
-  // Rebuild index and verify immediately (merged flow)
-  runVerifier({
-    decorator: 'prop',
-    baseDir: path.resolve(__dirname, '..'),
+// Use shared main function
+function main() {
+  generateComponentsMain({
+    // Paths
     rulesPath: RULES_PATH,
     dataPath: DATA_PATH,
-    componentDir: OUTPUT_DIR,
-    coverageRunner: () => {
-      const refreshed = buildComponentsIndex();
-      writeJson(DATA_PATH, refreshed);
-    },
-    logLabel: '@Prop (generate+verify)',
+    outputDir: OUTPUT_DIR,
+    
+    // Decorator config
+    decorator: 'prop',
+    
+    // Decorator-specific functions
+    buildNameSegments,
+    buildComponentSource: buildPropComponentSource,
+    buildComponentsIndex,
+    getAllPermutations,
+    
+    // Optional overrides
+    getGroupDir: (options) => String(options[0]), // Group by type (first option)
+    logLabel: '@Prop (generate+verify)'
   });
 }
 
@@ -280,3 +230,4 @@ function buildComponentsIndex() {
   writeJson(DATA_PATH, coverageData);
   return coverageData;
 }
+

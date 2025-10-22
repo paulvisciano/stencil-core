@@ -9,18 +9,14 @@
     "component:generate-components": "cd ../../Testing/Decorators/Component && node coverage.js && node generate-components.js && node coverage.js",
     "component:verify-matrix": "cd ../../Testing/Decorators/Component && node verify-matrix.js",
     "state:generate-components": "cd ../../Testing/Decorators/State && node generate-components.js",
-    "state:generate-components:force": "cd ../../Testing/Decorators/State && node generate-components.js --force",
     "state:test-coverage": "cd ../../Testing/Decorators/State && node test-coverage.js",
     "prop:generate-components": "cd ../../Testing/Decorators/Prop && node generate-components.js",
-    "prop:generate-components:force": "cd ../../Testing/Decorators/Prop && node generate-components.js --force",
     "prop:test-coverage": "cd ../../Testing/Decorators/Prop && node test-coverage.js",
     "event:generate-components": "cd ../../Testing/Decorators/Event && node generate-components.js",
-    "event:generate-components:force": "cd ../../Testing/Decorators/Event && node generate-components.js --force",
     "event:test-coverage": "cd ../../Testing/Decorators/Event && node test-coverage.js",
     "listen:generate-components": "cd ../../Testing/Decorators/Listen && node coverage.js && node generate-components.js && node coverage.js",
     "listen:verify-matrix": "cd ../../Testing/Decorators/Listen && node verify-matrix.js",
     "method:generate-components": "cd ../../Testing/Decorators/Method && node generate-components.js",
-    "method:generate-components:force": "cd ../../Testing/Decorators/Method && node generate-components.js --force",
     "method:test-coverage": "cd ../../Testing/Decorators/Method && node test-coverage.js"
   }
 }

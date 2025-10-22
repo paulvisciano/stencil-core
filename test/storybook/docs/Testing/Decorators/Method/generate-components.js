@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { runVerifier, writeJson } from '../_shared/verify-matrix-core.js';
+import { writeJson } from '../_shared/verify-matrix-core.js';
+import { generateComponentsMain, toPascalCase } from '../_shared/generate-components-core.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,9 +11,7 @@ const DATA_PATH = path.resolve(__dirname, 'data/components.json');
 const RULES_PATH = path.resolve(__dirname, 'data/rules.json');
 const OUTPUT_DIR = path.resolve(__dirname, '../../../../../wdio/method/components');
 
-function toPascalCase(tag) {
-  return tag.split('-').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join('');
-}
+// toPascalCase now imported from shared core
 
 function buildNameSegments(options, rules) {
   const include = rules.emit?.naming?.includeOptions || ['returns','async','args'];
@@ -76,98 +75,47 @@ export class ${className} {
 `;
 }
 
-async function main() {
-  // Check for --help flag
-  if (process.argv.includes('--help') || process.argv.includes('-h')) {
-    console.log('Usage: node generate-components.js [options]');
-    console.log('');
-    console.log('Options:');
-    console.log('  --force    Regenerate all components (even if they exist)');
-    console.log('  --help     Show this help message');
-    console.log('');
-    console.log('By default, only missing components are generated.');
-    console.log('Use --force when you modify the component template in this script.');
-    return;
-  }
-
-  // Check for --force flag
-  const forceRegenerate = process.argv.includes('--force');
+// Decorator-specific: Generate all valid permutations 
+function getAllPermutations() {
+  const permutations = [];
+  const asyncOptions = ['true', 'false'];
+  const argsOptions = ['none', 'one'];
+  const returnsOptions = ['promise', 'value', 'void'];
   
-  // Generate missing components first
-  if (!fs.existsSync(DATA_PATH)) {
-    console.error(`Missing data file: ${DATA_PATH}`);
-    process.exit(1);
-  }
-  
-  const rules = JSON.parse(fs.readFileSync(RULES_PATH, 'utf8'));
-  const data = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
-  
-  let missing;
-  if (forceRegenerate) {
-    // When forcing, generate all possible permutations
-    missing = [];
-    const asyncOptions = ['true', 'false'];
-    const argsOptions = ['none', 'one'];
-    const returnsOptions = ['promise', 'value', 'void'];
-    
-    for (const returns of returnsOptions) {
-      for (const asyncOpt of asyncOptions) {
-        for (const args of argsOptions) {
-          // Check if this combination is valid (same logic as original)
-          const isAllowed = asyncOpt === 'true' || returns === 'promise';
-          if (isAllowed) {
-            missing.push({ options: [returns, asyncOpt === 'true' ? '✓' : '✗', args] });
-          }
+  for (const returns of returnsOptions) {
+    for (const asyncOpt of asyncOptions) {
+      for (const args of argsOptions) {
+        // Check if this combination is valid (async=false only allowed with promise returns)
+        const isAllowed = asyncOpt === 'true' || returns === 'promise';
+        if (isAllowed) {
+          permutations.push({ options: [returns, asyncOpt === 'true' ? '✓' : '✗', args] });
         }
       }
     }
-    console.log(`Forcing regeneration of all ${missing.length} components...`);
-  } else {
-    missing = data.missingPermutations || [];
   }
+  return permutations;
+}
 
-  if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-
-  let created = 0;
-  for (const entry of missing) {
-    const options = entry.options;
-    if (!Array.isArray(options) || options.length !== 3) continue;
-
-    const [returns, asyncFlag] = options;
-    const isAllowed = asyncFlag === '✓' || returns === 'promise';
-    if (!isAllowed) continue;
-
-    const segs = buildNameSegments(options, rules);
-    const baseName = segs.join('-');
-    const fileName = `${baseName}.tsx`;
-
-    const groupDir = options[0];
-    const targetDir = path.join(OUTPUT_DIR, groupDir);
-    if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true });
-
-    const filePath = path.join(targetDir, fileName);
-    if (!forceRegenerate && fs.existsSync(filePath)) continue;
-
-    const tag = baseName;
-    const src = buildMethodComponentSource(options, tag);
-    fs.writeFileSync(filePath, src);
-    created++;
-  }
-
-  console.log(`Generated ${created} components in ${OUTPUT_DIR}`);
-
-  // Rebuild index and verify immediately (merged flow)
-  runVerifier({
-    decorator: 'method',
-    baseDir: path.resolve(__dirname, '..'),
+// Use shared main function
+function main() {
+  generateComponentsMain({
+    // Paths
     rulesPath: RULES_PATH,
     dataPath: DATA_PATH,
-    componentDir: OUTPUT_DIR,
-    coverageRunner: () => {
-      const refreshed = buildComponentsIndex();
-      writeJson(DATA_PATH, refreshed);
-    },
-    logLabel: '@Method (generate+verify)',
+    outputDir: OUTPUT_DIR,
+    
+    // Decorator config
+    decorator: 'method',
+    
+    // Decorator-specific functions
+    buildNameSegments,
+    buildComponentSource: buildMethodComponentSource,
+    buildComponentsIndex,
+    getAllPermutations,
+    
+    // Optional overrides
+    getGroupDir: (options) => options[0], // Group by returns type (first option)
+    logLabel: '@Method (generate+verify)'
   });
 }
 
