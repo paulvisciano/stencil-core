@@ -1,4 +1,3 @@
-// filepath: /Users/paul.visciano/repos/core/test/wdio/method/components/promise/method-promise-async-false-args-one.tsx
 import { Component, h, Method, State } from '@stencil/core';
 
 @Component({ tag: 'method-promise-async-false-args-one', shadow: true })

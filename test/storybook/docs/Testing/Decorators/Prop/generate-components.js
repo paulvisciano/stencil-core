@@ -123,11 +123,25 @@ function main() {
   const forceRegenerate = process.argv.includes('--force');
 
   const rules = JSON.parse(fs.readFileSync(RULES_PATH, 'utf8'));
-  const index = buildComponentsIndex();
-  const missing = index.missingPermutations || [];
-
+  let missing;
   if (forceRegenerate) {
-    console.log('🔄 Force regeneration enabled - will regenerate all components');
+    // When forcing, generate all possible permutations
+    missing = [];
+    const types = ['string', 'number', 'boolean', 'Array', 'Object', 'Set'];
+    const reflectOptions = ['✓', '✗'];
+    const mutableOptions = ['✓', '✗'];
+    
+    for (const type of types) {
+      for (const reflect of reflectOptions) {
+        for (const mutable of mutableOptions) {
+          missing.push({ options: [type, reflect, mutable] });
+        }
+      }
+    }
+    console.log(`🔄 Forcing regeneration of all ${missing.length} components...`);
+  } else {
+    const index = buildComponentsIndex();
+    missing = index.missingPermutations || [];
   }
 
   let created = 0;
@@ -148,7 +162,7 @@ function main() {
 
     const tag = baseName;
     const src = buildPropComponentSource(options, tag);
-    fs.writeFileSync(filePath, `// filepath: ${filePath}\n${src}`);
+    fs.writeFileSync(filePath, src);
     created++;
   }
 

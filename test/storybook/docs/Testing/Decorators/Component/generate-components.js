@@ -124,7 +124,7 @@ function main() {
     const tag = nameSegs.join('-');
     const cssPrefix = '../';
     const src = buildComponentSource(options, tag, cssPrefix);
-    fs.writeFileSync(filePath, `// filepath: ${filePath}\n${src}`);
+    fs.writeFileSync(filePath, src);
     created++;
   }
 

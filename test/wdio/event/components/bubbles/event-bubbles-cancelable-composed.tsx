@@ -1,4 +1,3 @@
-// filepath: /Users/paul.visciano/repos/core/test/wdio/event/components/bubbles/event-bubbles-cancelable-composed.tsx
 import { Component, Event, EventEmitter, h, Listen, State } from '@stencil/core';
 
 @Component({ tag: 'event-bubbles-cancelable-composed', shadow: true })

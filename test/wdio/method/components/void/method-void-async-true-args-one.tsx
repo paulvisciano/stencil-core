@@ -1,4 +1,3 @@
-// filepath: /Users/paul.visciano/repos/core/test/wdio/method/components/void/method-void-async-true-args-one.tsx
 import { Component, h, Method, State } from '@stencil/core';
 
 @Component({ tag: 'method-void-async-true-args-one', shadow: true })

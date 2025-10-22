@@ -1,4 +1,3 @@
-// filepath: /Users/paul.visciano/repos/core/test/wdio/prop/components/number/prop-number-reflect-mutable-false.tsx
 import { Component, h, Prop } from '@stencil/core';
 
 @Component({

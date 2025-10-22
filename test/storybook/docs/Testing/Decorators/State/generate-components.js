@@ -129,12 +129,23 @@ function main() {
 
   const rules = JSON.parse(fs.readFileSync(RULES_PATH, 'utf8'));
 
-  // Build or refresh components index locally to compute missing permutations
-  const index = buildComponentsIndex();
-  const missing = index.missingPermutations || [];
-
+  let missing;
   if (forceRegenerate) {
-    console.log('🔄 Force regeneration enabled - will regenerate all components');
+    // When forcing, generate all possible permutations
+    missing = [];
+    const types = ['string', 'number', 'boolean', 'array', 'object', 'any'];
+    const defaultOptions = ['true', 'false'];
+    
+    for (const type of types) {
+      for (const hasDefault of defaultOptions) {
+        missing.push({ options: [type, hasDefault] });
+      }
+    }
+    console.log(`🔄 Forcing regeneration of all ${missing.length} components...`);
+  } else {
+    // Build or refresh components index locally to compute missing permutations
+    const index = buildComponentsIndex();
+    missing = index.missingPermutations || [];
   }
 
   let created = 0;
@@ -159,7 +170,7 @@ function main() {
     const tag = baseName;
     const src = buildStateComponentSource(options, tag);
 
-    fs.writeFileSync(filePath, `// filepath: ${filePath}\n${src}`);
+    fs.writeFileSync(filePath, src);
     created++;
   }
 

@@ -105,7 +105,7 @@ function main() {
 
     const tag = baseName;
     const src = buildListenComponentSource(options, tag);
-    fs.writeFileSync(filePath, `// filepath: ${filePath}\n${src}`);
+    fs.writeFileSync(filePath, src);
     created++;
   }
 

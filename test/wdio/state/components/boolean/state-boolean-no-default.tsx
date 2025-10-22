@@ -1,4 +1,3 @@
-// filepath: /Users/paul.visciano/repos/core/test/wdio/state/components/boolean/state-boolean-no-default.tsx
 import { Component, h, State } from '@stencil/core';
 
 @Component({
