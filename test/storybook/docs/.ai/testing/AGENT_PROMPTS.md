@@ -9,6 +9,65 @@ Note: Let the AI infer the exact scripts/commands from the `.ai/testing` docs an
 
 ---
 
+### Generate @Prop components
+
+Copy/paste this minimal prompt to generate components:
+
+```
+gen the @Prop components
+```
+
+This will:
+- Generate all 24 @Prop test components (6 types × 2 reflect × 2 mutable)
+- Automatically verify coverage (24/24), file count, grouping, and exclusivity
+- Update component coverage data
+
+### Complete workflow (3-step process)
+
+```
+gen the @Prop components
+build the components  
+test the components
+```
+
+### Build components only
+
+```
+build the components
+```
+
+### Test components only
+
+```
+test the components
+```
+
+---
+
+### Generate other decorator components
+
+```
+gen the @State components
+```
+
+```
+gen the @Event components  
+```
+
+```
+gen the @Method components
+```
+
+```
+gen the @Listen components
+```
+
+```
+gen the @Component components
+```
+
+---
+
 ### Implement missing @Prop test cases
 
 Copy/paste one of these minimal prompts into ChatGPT/Copilot:

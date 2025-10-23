@@ -1,0 +1,53 @@
+# AI Prompt Shortcuts for Stencil Testing Framework
+
+## Component Generation (Super Quick)
+
+### Generation Only (Step 1)
+- **@Prop**: `"gen the @Prop components"` → Generates + verifies all 24 test components
+- **@State**: `"gen the @State components"` → Generates + verifies all 12 state components
+- **@Event**: `"gen the @Event components"` → Generates + verifies all 8 event components
+- **@Method**: `"gen the @Method components"` → Generates + verifies all 8 method components
+- **@Listen**: `"gen the @Listen components"` → Generates + verifies all 44 listener components
+- **@Component**: `"gen the @Component components"` → Generates + verifies all 193 component decorator variants
+
+### Build & Test Steps
+- **Build**: `"build the components"` → Compiles all WDIO test components
+- **Test**: `"test the components"` → Runs WDIO test suite
+
+### Complete 3-Step Workflow
+```
+gen the @Prop components    # Generate component files
+build the components        # Compile with Stencil
+test the components         # Run WDIO tests
+```
+
+## Key Locations
+- **Scripts**: `/test/storybook/docs/.ai/testing/package.json`
+- **Working Directory**: `/test/storybook/docs/.ai/testing/` (REQUIRED for all npm commands)
+- **@Prop Components**: `/test/wdio/prop/components/`
+- **@State Components**: `/test/wdio/state/components/`
+- **Legacy Components**: `/test/wdio/{decorator}/matrix/`
+
+## ⚠️ CRITICAL: Working Directory
+**All testing framework scripts MUST be run from `/test/storybook/docs/.ai/testing/` directory, NOT from the project root.**
+
+## Component Patterns
+- **@Prop**: `prop-{type}-reflect-{boolean}-mutable-{boolean}.tsx`
+- **@State**: `state-{type}-{default-state}.tsx`
+
+## Built-in Verification
+- Generation scripts include automatic verification (coverage, file count, grouping, exclusivity)
+- 100% coverage expected and validated during generation
+- "generate+verify" completes successfully before proceeding
+- Test coverage updates automatically after generation
+
+## Expected Outputs
+- **@Prop**: 24 components (6 types × 2 reflect × 2 mutable)
+- **@State**: 12 components (6 types × 2 default states)
+- **Total Framework**: 289 test components across all decorators
+
+## Build & Test Integration
+- Generation → Build → Test → Coverage verification
+- All steps automated in single prompt workflows
+- WDIO integration for browser testing
+- Stencil compiler integration for component compilation

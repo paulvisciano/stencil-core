@@ -13,10 +13,19 @@
 6. **@Method** - Method exposure testing
 
 ### Generation Process
-**Quick Start**: `npm run generate-components` (generates all decorators)
+**⚠️ CRITICAL: All scripts must be run from `/test/storybook/docs/.ai/testing/` directory, NOT project root**
+
+**Quick Start**: `npm run generate-components` (generates all decorators - from .ai/testing/ directory)
+
+**AI Agent Quick Prompts**:
+- **Generate**: "gen the @{decorator} components" (creates component files only)
+- **Build**: "build the components" (compiles with Stencil)
+- **Test**: "test the components" (runs WDIO test suite)
+- **3-Step Workflow**: gen → build → test for complete validation
 
 **Individual Generation**:
 - Each decorator has its own generate script: `{decorator}:generate-components`
+- **Working Directory**: `/test/storybook/docs/.ai/testing/` (REQUIRED)
 - **Component Locations**:
   - **New convention**: `/test/wdio/{decorator}/components/` (@State, @Prop)
   - **Legacy convention**: `/test/wdio/{decorator}/matrix/` (@Component, @Event, @Listen, @Method)
@@ -25,31 +34,32 @@
 ### Decorator-Specific Component Counts
 
 **@State (12 components)**:
-- Process: `npm run state:generate-components`
+- Process: `npm run state:generate-components` (from .ai/testing/ directory)
 - Pattern: 6 types × 2 default states = 12 components
 - Location: `/test/wdio/state/components/`
 - Organization: By type directories (string, number, boolean, array, object, any)
 
 **@Prop (24 components)**:
-- Process: `npm run prop:generate-components`  
+- Process: `npm run prop:generate-components` (from .ai/testing/ directory)
 - Pattern: 6 types × 2 reflect × 2 mutable = 24 components
 - Location: `/test/wdio/prop/components/`
+- **AI Workflow**: "gen the @Prop components" → generates 24 component files with built-in verification (coverage, file count, grouping, exclusivity)
 
 **@Component (193 components)**:
-- Process: `npm run component:generate-components`
+- Process: `npm run component:generate-components` (from .ai/testing/ directory)
 - Pattern: Complex multi-dimensional matrix
 - Location: `/test/wdio/component-decorator/matrix/`
 
 **@Event (8 components)**:
-- Process: `npm run event:generate-components`
+- Process: `npm run event:generate-components` (from .ai/testing/ directory)
 - Location: `/test/wdio/event/matrix/`
 
 **@Listen (44 components)**:
-- Process: `npm run listen:generate-components`
+- Process: `npm run listen:generate-components` (from .ai/testing/ directory)
 - Location: `/test/wdio/listen/matrix/`
 
 **@Method (8 components)**:
-- Process: `npm run method:generate-components`
+- Process: `npm run method:generate-components` (from .ai/testing/ directory)
 - Location: `/test/wdio/method/matrix/`
 
 **Total Framework: 289 test components**
