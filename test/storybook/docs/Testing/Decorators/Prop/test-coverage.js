@@ -33,6 +33,7 @@ function assignCaseIds(options, group) {
   
   const isMutable = normalizeBoolean(options.mutable);
   if (primitiveSet.has(group) && isMutable === true) caseIds.push(5);
+  if (primitiveSet.has(group) && isMutable === false) caseIds.push(6);
   
   return caseIds;
 }

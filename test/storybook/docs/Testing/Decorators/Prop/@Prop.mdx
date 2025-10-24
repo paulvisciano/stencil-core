@@ -27,60 +27,33 @@ The `@Prop` decorator exposes public properties on components. This page documen
 Note: Test cases are high‑level scenarios, not a 1‑to‑1 mapping to tests (it() blocks). A single WDIO test can exercise many generated components, and a component can participate in multiple tests. The “Tested By” column in the Generated Components table shows which case(s) (#1, #2) each component is covered by. All @Prop tests reside under <code>test/wdio/prop</code>.
 
 export const PropTestCasesTable = () => {
+  // ✨ SIMPLIFIED: Pre-calculated test case status from JSON
+  const testCaseStatus = overlay.testCaseStatus || {};
+  
+  // Simple lookups - no complex filtering needed!
+  const case1Implemented = testCaseStatus[1]?.implemented || false;
+  const case2Implemented = testCaseStatus[2]?.implemented || false; 
+  const case3Implemented = testCaseStatus[3]?.implemented || false;
+  const case4Implemented = testCaseStatus[4]?.implemented || false;
+  const mutableTrueImplemented = testCaseStatus[5]?.implemented || false;
+  const mutableFalseImplemented = testCaseStatus[6]?.implemented || false;
+
+  // Component counts directly from pre-calculated data
+  const primitiveTestsCount = testCaseStatus[1]?.componentCount || 0;
+  const complexTestsCount = testCaseStatus[2]?.componentCount || 0;
+  const reflectTrueTestsCount = testCaseStatus[3]?.componentCount || 0;
+  const reflectFalseTestsCount = testCaseStatus[4]?.componentCount || 0;
+  const mutableTrueTestsCount = testCaseStatus[5]?.componentCount || 0;
+  const mutableFalseTestsCount = testCaseStatus[6]?.componentCount || 0;
+
+  // Legacy stats calculation (still needed for overall coverage display)
   const items = overlay.items || [];
   const groupIn = (set) => items.filter(i => set.has(i.group));
   const count = (arr) => ({ tested: arr.filter(i => i.tested).length, total: arr.length });
-
   const primitiveSet = new Set(['string', 'number', 'boolean']);
   const complexSet = new Set(['Array', 'Object', 'Set']);
-
   const primitive = count(groupIn(primitiveSet));
   const complex = count(groupIn(complexSet));
-
-  const normalizeBool = (v) => v === true || v === 'true' || v === '✓';
-  const primitiveReflectTrueArr = items.filter(i => primitiveSet.has(i.group) && normalizeBool(i.options?.reflect) === true);
-  const primitiveReflectFalseArr = items.filter(i => primitiveSet.has(i.group) && normalizeBool(i.options?.reflect) === false);
-  const primitiveReflectTrue = count(primitiveReflectTrueArr);
-  const primitiveReflectFalse = count(primitiveReflectFalseArr);
-
-  // Future tests (not yet implemented): mutable behavior on primitives
-  const primitiveMutableTrueArr = items.filter(i => primitiveSet.has(i.group) && normalizeBool(i.options?.mutable) === true);
-  const primitiveMutableFalseArr = items.filter(i => primitiveSet.has(i.group) && normalizeBool(i.options?.mutable) === false);
-  const primitiveMutableTrue = count(primitiveMutableTrueArr);
-  const primitiveMutableFalse = count(primitiveMutableFalseArr);
-
-  const caseNosFor = (arr) => {
-    const s = new Set();
-    for (const it of arr) {
-      for (const n of (it.caseIds || [])) {
-        s.add(n);
-      }
-    }
-    return Array.from(s).sort((a, b) => a - b);
-  };
-
-  const primitiveCases = caseNosFor(groupIn(primitiveSet));
-  const complexCases = caseNosFor(groupIn(complexSet));
-  const reflectTrueCases = caseNosFor(primitiveReflectTrueArr);
-  const reflectFalseCases = caseNosFor(primitiveReflectFalseArr);
-  const mutableTrueCases = caseNosFor(primitiveMutableTrueArr);
-  const mutableFalseCases = caseNosFor(primitiveMutableFalseArr);
-
-  const hasCase = (arr, id) => Array.isArray(arr) && arr.includes(id);
-  const case1Implemented = hasCase(primitiveCases, 1);
-  const case2Implemented = hasCase(complexCases, 2);
-  const case3Implemented = hasCase(reflectTrueCases, 3);
-  const case4Implemented = hasCase(reflectFalseCases, 4);
-  const mutableTrueImplemented = hasCase(mutableTrueCases, 5);
-  const mutableFalseImplemented = hasCase(mutableFalseCases, 6);
-
-  // Case counts are driven by caseIds, not explicit test titles
-  const primitiveTestsCount = primitiveCases.length ? primitive.total : 0;
-  const complexTestsCount = complexCases.length ? complex.total : 0;
-  const reflectTrueTestsCount = reflectTrueCases.length ? primitiveReflectTrue.total : 0;
-  const reflectFalseTestsCount = reflectFalseCases.length ? primitiveReflectFalse.total : 0;
-  const mutableTrueTestsCount = mutableTrueCases.length ? primitiveMutableTrue.total : 0;
-  const mutableFalseTestsCount = mutableFalseCases.length ? primitiveMutableFalse.total : 0;
 
   
 
@@ -105,7 +78,7 @@ export const PropTestCasesTable = () => {
       desc: (
         <>
           Static render and reflection behavior for complex prop types (<code>Array</code>, <code>Object</code>, <code>Set</code>).<br/>
-          <small>Tests: {complexTestsCount}</small>
+          <small>Components: {complexTestsCount}</small>
         </>
       ),
       types: (
@@ -125,11 +98,11 @@ export const PropTestCasesTable = () => {
       types: (
         <>
           string | number | boolean × reflect: true<br/>
-          <small>Covered: {primitiveReflectTrue.tested}/{primitiveReflectTrue.total}</small>
+          <small>Components: {reflectTrueTestsCount}</small>
         </>
       ),
-      tested: primitiveReflectTrue.tested,
-      total: primitiveReflectTrue.total,
+      tested: reflectTrueTestsCount,
+      total: reflectTrueTestsCount,
       section: case3Implemented ? 'implemented' : 'missing',
     },
     {
@@ -139,11 +112,11 @@ export const PropTestCasesTable = () => {
       types: (
         <>
           string | number | boolean × reflect: false<br/>
-          <small>Covered: {primitiveReflectFalse.tested}/{primitiveReflectFalse.total}</small>
+          <small>Components: {reflectFalseTestsCount}</small>
         </>
       ),
-      tested: primitiveReflectFalse.tested,
-      total: primitiveReflectFalse.total,
+      tested: reflectFalseTestsCount,
+      total: reflectFalseTestsCount,
       section: case4Implemented ? 'implemented' : 'missing',
     },
     {
@@ -153,11 +126,11 @@ export const PropTestCasesTable = () => {
       types: (
         <>
           string | number | boolean × mutable: true<br/>
-          <small>Covered: {primitiveMutableTrue.tested}/{primitiveMutableTrue.total}</small>
+          <small>Components: {mutableTrueTestsCount}</small>
         </>
       ),
-      tested: primitiveMutableTrue.tested,
-      total: primitiveMutableTrue.total,
+      tested: mutableTrueTestsCount,
+      total: mutableTrueTestsCount,
       section: mutableTrueImplemented ? 'implemented' : 'missing',
     },
     {
@@ -167,11 +140,11 @@ export const PropTestCasesTable = () => {
       types: (
         <>
           string | number | boolean × mutable: false<br/>
-          <small>Covered: {primitiveMutableFalse.tested}/{primitiveMutableFalse.total}</small>
+          <small>Components: {mutableFalseTestsCount}</small>
         </>
       ),
-      tested: primitiveMutableFalse.tested,
-      total: primitiveMutableFalse.total,
+      tested: mutableFalseTestsCount,
+      total: mutableFalseTestsCount,
       section: mutableFalseImplemented ? 'implemented' : 'missing',
     },
   ];

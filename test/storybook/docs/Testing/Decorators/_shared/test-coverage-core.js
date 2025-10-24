@@ -56,6 +56,65 @@ export function calculateStats(items) {
   };
 }
 
+export function calculateTestCaseStatus(items, testDir) {
+  // Collect all case IDs that appear in the data
+  const allCaseIds = new Set();
+  items.forEach(item => {
+    if (item.caseIds) {
+      item.caseIds.forEach(id => allCaseIds.add(id));
+    }
+  });
+
+  // Check if WDIO tests exist
+  const testsExist = checkWdioTestsExist(testDir);
+
+  // For each case ID, calculate implementation status
+  const testCaseStatus = {};
+  Array.from(allCaseIds).sort((a, b) => a - b).forEach(caseId => {
+    const componentsWithCase = items.filter(item => 
+      item.caseIds && item.caseIds.includes(caseId)
+    );
+    
+    const hasComponents = componentsWithCase.length > 0;
+    const hasWdioTest = testsExist && checkTestCaseExists(testDir, caseId);
+    
+    testCaseStatus[caseId] = {
+      implemented: hasComponents && hasWdioTest,
+      componentCount: componentsWithCase.length,
+      hasComponents,
+      hasWdioTest,
+      components: componentsWithCase.map(item => ({
+        tag: item.tag,
+        group: item.group,
+        optionsKey: item.optionsKey
+      }))
+    };
+  });
+
+  return testCaseStatus;
+}
+
+function checkWdioTestsExist(testDir) {
+  if (!testDir || !fs.existsSync(testDir)) return false;
+  const testsFile = path.resolve(testDir, 'tests.tsx');
+  return fs.existsSync(testsFile);
+}
+
+function checkTestCaseExists(testDir, caseId) {
+  if (!testDir || !fs.existsSync(testDir)) return false;
+  const testsFile = path.resolve(testDir, 'tests.tsx');
+  if (!fs.existsSync(testsFile)) return false;
+  
+  try {
+    const content = fs.readFileSync(testsFile, 'utf8');
+    // Look for "Test Case #N" in describe blocks
+    const regex = new RegExp(`Test Case #${caseId}\\b`, 'i');
+    return regex.test(content);
+  } catch (error) {
+    return false;
+  }
+}
+
 export function cleanupLegacyFiles(baseDir) {
   const legacyFiles = [
     path.resolve(baseDir, 'coverage-data.json'),
@@ -133,10 +192,14 @@ export function generateTestCoverage({
   // Calculate statistics
   const stats = calculateStats(items);
   
+  // Calculate test case implementation status
+  const testCaseStatus = calculateTestCaseStatus(items, testDir);
+  
   // Write output
   const output = {
     coverage: data.coverage || {},
     stats,
+    testCaseStatus,
     items
   };
   
