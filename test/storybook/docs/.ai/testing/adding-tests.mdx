@@ -1,0 +1,566 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Testing/Framework/Adding Tests" tags={['pending-review']} />
+
+# Adding Tests - Stencil Testing Framework
+
+<h2 style={{
+  fontSize: '24px', 
+  fontWeight: 'bold', 
+  color: '#1f2937', 
+  marginBottom: '24px',
+  paddingBottom: '12px',
+  borderBottom: '2px solid #e5e7eb'
+}}>Options</h2>
+
+<style>
+{`
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+  details > summary::before {
+    content: '▶';
+    color: #6b7280;
+    margin-right: 8px;
+    transition: transform 0.2s ease;
+    display: inline-block;
+  }
+  details[open] > summary::before {
+    transform: rotate(90deg);
+  }
+`}
+</style>
+
+<details style={{marginBottom: '24px', border: '1px solid #e5e7eb', borderRadius: '8px', padding: '16px'}}>
+<summary style={{cursor: 'pointer', padding: '8px', borderRadius: '4px', backgroundColor: '#f9fafb'}}>
+  <strong style={{fontSize: '18px', color: '#1f2937', fontWeight: 'bold'}}>
+    AI-Assisted Test Case Implementation
+    <span style={{backgroundColor: '#22c55e', color: 'white', padding: '4px 12px', borderRadius: '16px', fontSize: '11px', fontWeight: 'bold', marginLeft: '12px'}}>AVAILABLE TODAY</span>
+  </strong>
+  <div style={{marginTop: '8px', color: '#6b7280', fontSize: '14px', lineHeight: '1.5'}}>
+    Use the existing query system to identify missing test cases and leverage AI to implement them following established patterns.
+  </div>
+</summary>
+
+#### Vision
+Use the existing query system to identify missing test cases and leverage AI to implement them following established patterns.
+
+#### Current Capability
+```bash
+npm run query-missing-tests
+# Output:
+🔍 Missing Test Cases Summary
+
+✅ @Event: All test cases implemented
+⚠️  @Prop: Missing cases #6
+❌ @Method: No testCaseStatus found (needs script update)
+❌ @State: No testCaseStatus found (needs script update)
+```
+
+#### AI-Assisted Implementation Workflow
+
+##### Step 1: Query Missing Tests
+```bash
+# Natural language prompts available:
+"query missing test cases"
+"show me the missing test cases" 
+"what test cases are missing"
+"check Phase 2 progress"
+```
+
+##### Step 2: AI-Guided Implementation
+Developer can say:
+> *"I see test case #6 is missing for @Prop. Help me implement it following the existing patterns."*
+
+AI can then:
+1. **Reference Existing Tests**: Analyze cases #1-#5 for structure and patterns
+2. **Follow Naming Conventions**: Use established component naming (`prop-{type}-reflect-{boolean}-mutable-{boolean}`)
+3. **Use Shared Utilities**: Leverage existing WDIO patterns and test-coverage-core.js
+4. **Auto-Verify Implementation**: Regenerate coverage and show updated status
+
+##### Step 3: Immediate Feedback Loop
+```bash
+# After implementation
+npm run query-missing-tests
+# Expected output:
+✅ @Prop: All test cases implemented  # ← Status updated!
+```
+
+#### Benefits of This Approach
+
+##### Immediate Action
+- No need to wait for complex ingestion system
+- Can start implementing missing tests today
+- Uses existing infrastructure
+
+##### Pattern Consistency  
+- AI ensures new tests follow established conventions
+- Automatic validation through existing scripts
+- Consistent with current framework architecture
+
+##### Developer Friendly
+- Clear identification of what needs to be done
+- AI guidance reduces learning curve
+- Instant feedback on implementation success
+
+#### Implementation Strategy
+
+##### For Any Developer
+1. **Query Status**: Use natural language prompt to see missing tests
+2. **Pick a Test Case**: Choose specific missing case to implement
+3. **AI Assistance**: Request help following existing patterns
+4. **Verify Success**: Re-run query to confirm implementation
+5. **Iterate**: Move to next missing test case
+
+##### For Jacob (New Team Member)
+- Perfect learning exercise to understand framework patterns
+- AI guidance makes implementation accessible
+- Immediate feedback builds confidence
+- Establishes familiarity with testing infrastructure
+
+</details>
+
+<details style={{marginBottom: '24px', border: '1px solid #e5e7eb', borderRadius: '8px', padding: '16px'}}>
+<summary style={{cursor: 'pointer', padding: '8px', borderRadius: '4px', backgroundColor: '#f9fafb'}}>
+  <strong style={{fontSize: '18px', color: '#1f2937', fontWeight: 'bold'}}>
+    Manual Test Addition
+    <span style={{backgroundColor: '#22c55e', color: 'white', padding: '4px 12px', borderRadius: '16px', fontSize: '11px', fontWeight: 'bold', marginLeft: '12px'}}>AVAILABLE TODAY</span>
+  </strong>
+  <div style={{marginTop: '8px', color: '#6b7280', fontSize: '14px', lineHeight: '1.5'}}>
+    Add tests directly to existing test folders without using the testing framework. This is how most open source contributors currently operate.
+  </div>
+</summary>
+
+#### Vision
+Bypass the testing framework entirely and add tests using traditional approaches in existing test directories.
+
+#### Current Reality
+Most open source developers are unaware of the new testing framework and continue adding tests using established patterns in:
+
+- `test/wdio/` - WebDriver tests  
+- `test/e2e/` - End-to-end tests
+- `src/**/*.spec` - Scattered spec files
+- `test/unit/` - Unit tests
+- `test/sample-apps/` - Sample application tests
+
+#### Benefits of This Approach
+
+##### Immediate Contribution
+- No learning curve for existing contributors
+- Uses familiar testing patterns and tools
+- Can implement tests right away using known approaches
+
+##### Open Source Friendly
+- Doesn't require knowledge of internal testing framework
+- Compatible with existing contributor workflows
+- Follows established patterns in the codebase
+
+##### No Dependencies
+- No need to understand framework architecture
+- No special scripts or setup required
+- Works with existing build and test infrastructure
+
+#### Implementation Strategy
+
+##### For Open Source Contributors
+1. **Choose Test Location**: Pick appropriate existing test directory
+2. **Follow Existing Patterns**: Use same structure as nearby tests
+3. **Standard Tools**: Use WDIO, Jest, or other established test frameworks
+4. **Regular PR Process**: Submit through normal contribution channels
+
+##### For Internal Development
+- Quick tests that don't fit framework scope
+- Prototype testing approaches
+- Legacy test maintenance
+- Urgent bug fixes requiring immediate test coverage
+
+#### Considerations
+
+##### Pros
+- ✅ **Zero Learning Curve**: Uses existing knowledge
+- ✅ **Immediate Action**: No setup or framework understanding needed
+- ✅ **Community Friendly**: Accessible to all contributors
+- ✅ **Proven Patterns**: Leverages established testing approaches
+
+##### Cons
+- ❌ **No Framework Benefits**: Misses systematic organization and tooling
+- ❌ **Potential Duplication**: May duplicate coverage without visibility
+- ❌ **Scattered Organization**: Contributes to test maze complexity
+- ❌ **Limited Discoverability**: Tests may be hard to find and maintain
+
+</details>
+
+<details style={{marginBottom: '24px', border: '1px solid #e5e7eb', borderRadius: '8px', padding: '16px'}}>
+<summary style={{cursor: 'pointer', padding: '8px', borderRadius: '4px', backgroundColor: '#f9fafb'}}>
+  <strong style={{fontSize: '18px', color: '#1f2937', fontWeight: 'bold'}}>
+    Existing Test Ingestion
+    <span style={{backgroundColor: '#6b7280', color: 'white', padding: '4px 12px', borderRadius: '16px', fontSize: '11px', fontWeight: 'bold', marginLeft: '12px'}}>FUTURE PLAN</span>
+  </strong>
+  <div style={{marginTop: '8px', color: '#6b7280', fontSize: '14px', lineHeight: '1.5'}}>
+    Transform the scattered test ecosystem into a unified, queryable framework by automatically ingesting and categorizing existing tests from across the codebase.
+  </div>
+</summary>
+
+#### Vision
+Transform the scattered test ecosystem into a unified, queryable framework by automatically ingesting and categorizing existing tests from across the codebase.
+
+#### Current Problem: The "Test Scattered-verse"
+```
+test/
+├── wdio/               # Some organized tests
+├── e2e/                # E2E tests (unknown structure)  
+├── src/**/*.spec       # Hidden Labyrinth scattered tests
+├── test/sample-apps/   # Sample app tests
+├── test/perf/          # Performance tests
+└── test/unit/          # Unit tests
+```
+
+#### Post-Ingestion Vision: Unified Query System
+```bash
+npm run query-missing-tests
+# Output:
+🔍 Comprehensive Test Coverage Summary
+
+✅ @Prop: All test cases implemented (6 cases, 24 components)
+⚠️  @State: Missing cases #3, #7 (ingested 4 existing tests)  
+✅ @Event: All test cases implemented (ingested 2 legacy E2E tests)
+🆕 @Lifecycle: 3 ingested tests → new decorator category discovered
+🆕 SSR: 5 ingested tests → new behavior category discovered
+🆕 Performance: 12 ingested tests → new test type discovered
+```
+
+#### The Ingestion Process Architecture
+
+##### Phase 1: Discovery & Classification
+- **Scan All Test Files**: WDIO, E2E, hidden .spec files, unit tests, sample apps
+- **AI Classification**: Automatically categorize tests by decorator, behavior, or new categories
+- **Pattern Recognition**: Identify what each test actually validates
+
+##### Phase 2: Framework Integration  
+- **Generate Missing Components**: Create components needed for ingested tests
+- **Create Test Case Definitions**: Add to formal test case documentation
+- **Update Coverage Tracking**: Integrate into unified query system
+- **Standardize Structure**: Convert to established patterns
+
+##### Phase 3: Consolidation Benefits
+- **Unified Discovery**: All tests queryable through single command
+- **Standardized Patterns**: Consistent structure across all test types
+- **Gap Identification**: Clear view of what's missing vs. what exists
+- **Maintainable Growth**: New tests follow established conventions
+
+#### Expected Ingestion Categories
+
+##### Decorator Tests (Fit Existing Framework)
+- `@Prop`, `@State`, `@Event`, `@Method`, `@Listen`, `@Watch`, `@Element`, `@Component`, `@AttachInternals`
+
+##### New Categories (Expand Framework)
+- **Lifecycle**: `componentWillLoad`, `componentDidLoad`, `componentWillUpdate`, etc.
+- **SSR**: Server-side rendering, hydration, client-side takeover  
+- **Performance**: Bundle size, runtime performance, memory usage
+- **Render Functions**: Complex rendering scenarios, conditionals, loops
+- **Browser Compatibility**: Cross-browser behavior verification
+- **Build Process**: Compilation, bundling, optimization tests
+
+#### Implementation Approach
+
+##### For Framework Expert (Paul + AI)
+1. **Run Discovery**: `"scan and classify all existing tests"`
+2. **Review Classifications**: Validate AI categorization suggestions
+3. **Refine Framework**: Add new categories/behaviors as discovered
+4. **Integrate Tests**: Ensure all tests fit framework structure
+5. **Update Documentation**: Reflect expanded scope and coverage
+
+##### For Other Developers (Post-Ingestion)
+```bash
+# Complete visibility into all tests
+npm run query-missing-tests
+# → See comprehensive view including all ingested tests
+# → Implement missing pieces following established patterns
+```
+
+#### Success Metrics
+
+##### Before Ingestion
+- Tests scattered across unknown locations
+- No unified coverage view
+- Manual effort to understand what's tested
+- Difficult to identify gaps or duplicates
+
+##### After Ingestion  
+- ✅ **100% Test Visibility**: Every test discoverable through query system
+- ✅ **Categorized Structure**: All tests properly classified and organized
+- ✅ **Gap Analysis**: Clear identification of missing test coverage
+- ✅ **Standardized Patterns**: Consistent structure and maintainability
+- ✅ **Scalable Growth**: Framework guides future test development
+
+#### Technical Requirements
+
+##### AI Capabilities Needed
+- **Static Analysis**: Parse test files to understand intent
+- **Pattern Recognition**: Identify common testing scenarios
+- **Classification Logic**: Categorize tests by type and behavior
+- **Component Mapping**: Match tests to required component permutations
+
+##### Framework Extensions
+- **New Category Support**: Expand beyond decorators to lifecycle, SSR, etc.
+- **Enhanced Query System**: Support for broader test types
+- **Migration Utilities**: Tools to convert legacy tests to new patterns
+- **Validation Scripts**: Ensure ingested tests maintain quality standards
+
+#### Future Workflow
+
+##### The AI-Powered Test Ecosystem
+1. **Discovery**: "What tests exist for X feature?"
+2. **Implementation**: "Add test case Y following established patterns"  
+3. **Validation**: "Verify test coverage is complete"
+4. **Maintenance**: "Update tests when framework changes"
+
+##### Universal Test Management
+Every test in the codebase becomes:
+- ✅ **Discoverable**: Through unified query system
+- ✅ **Categorized**: By decorator, behavior, or test type
+- ✅ **Standardized**: Following established patterns  
+- ✅ **Maintainable**: Through shared infrastructure
+- ✅ **Expandable**: New tests follow same conventions
+
+---
+
+*This ingestion system transforms the "Test Maze" and "Hidden Labyrinth" into a "Unified Test Observatory" where everything is visible, queryable, and maintainable.*
+
+</details>
+
+<details style={{marginBottom: '24px', border: '1px solid #e5e7eb', borderRadius: '8px', padding: '16px'}}>
+<summary style={{cursor: 'pointer', padding: '8px', borderRadius: '4px', backgroundColor: '#f9fafb'}}>
+  <strong style={{fontSize: '18px', color: '#1f2937', fontWeight: 'bold'}}>
+    GitHub Issues Mining
+    <span style={{backgroundColor: '#6b7280', color: 'white', padding: '4px 12px', borderRadius: '16px', fontSize: '11px', fontWeight: 'bold', marginLeft: '12px'}}>FUTURE PLAN</span>
+  </strong>
+  <div style={{marginTop: '8px', color: '#6b7280', fontSize: '14px', lineHeight: '1.5'}}>
+    AI-powered extraction of test cases from GitHub issues in the Stencil and Ionic repositories to automatically generate comprehensive test coverage based on real-world problems.
+  </div>
+</summary>
+
+#### Vision
+AI-powered extraction of test cases from GitHub issues in the Stencil and Ionic repositories to automatically generate comprehensive test coverage based on real-world problems.
+
+##### The Opportunity
+```
+GitHub Issues → AI Analysis → Test Case Generation → Framework Integration
+```
+
+Thousands of issues contain:
+- **Bug Reports**: Specific scenarios that broke
+- **Feature Requests**: Expected behaviors to validate  
+- **Edge Cases**: Real-world usage patterns
+- **Regression Examples**: Previously working scenarios
+- **Browser Compatibility Issues**: Cross-platform test needs
+
+##### AI-Powered Issue Analysis
+
+###### Phase 1: Issue Classification
+- **Bug Reports**: Extract reproduction steps and expected vs. actual behavior
+- **Feature Requests**: Identify testable acceptance criteria
+- **Performance Issues**: Create performance regression tests
+- **Browser Issues**: Generate cross-browser compatibility tests
+
+###### Phase 2: Test Case Generation
+- **Component Extraction**: Identify which decorators/components are involved
+- **Scenario Replication**: Convert issue descriptions into test code
+- **Edge Case Discovery**: Find unusual usage patterns worth testing
+- **Regression Prevention**: Create tests to prevent reported bugs from recurring
+
+###### Phase 3: Framework Integration
+- **Automatic Categorization**: Sort into appropriate decorator folders
+- **Component Generation**: Create required test components
+- **Test Implementation**: Generate WDIO tests following established patterns
+- **Documentation Updates**: Add test cases to coverage tracking
+
+##### Benefits
+
+###### Comprehensive Coverage
+- Tests based on **real user problems** rather than theoretical scenarios
+- **Historical bug prevention** through regression test generation
+- **Community-driven** test priorities based on actual pain points
+
+###### Automated Discovery
+- **Thousands of issues** converted to systematic test coverage
+- **Edge cases** that developers might not think of
+- **Browser compatibility** tests based on real user reports
+
+###### Continuous Enhancement
+- **New issues** automatically analyzed and converted to tests
+- **Evolving coverage** that grows with community feedback
+- **Proactive testing** of commonly reported problem areas
+
+##### Implementation Strategy
+
+###### Data Sources
+- **Stencil Repository**: Core framework issues and bug reports
+- **Ionic Repository**: Related component and usage issues  
+- **Community Forums**: Additional real-world scenarios
+- **Stack Overflow**: Common problem patterns
+
+###### AI Processing Pipeline
+```bash
+# Theoretical future workflow
+npm run ingest-github-issues
+# → Scans recent issues
+# → Extracts testable scenarios  
+# → Generates components and tests
+# → Updates framework coverage
+# → Provides summary of new test cases added
+```
+
+###### Quality Assurance
+- **Human Review**: AI suggestions reviewed before implementation
+- **Test Validation**: Generated tests must pass existing quality standards
+- **Deduplication**: Avoid creating redundant test coverage
+- **Prioritization**: Focus on most critical and common issues
+
+##### Expected Outcomes
+
+###### Massive Test Expansion
+- **Real-world coverage** beyond what developers might imagine
+- **Bug regression prevention** through systematic issue-based testing
+- **Community validation** of framework robustness
+
+###### Continuous Improvement
+- **Self-updating test suite** that grows with community feedback
+- **Proactive issue prevention** through comprehensive edge case coverage
+- **Data-driven testing priorities** based on actual user problems
+
+---
+
+*This GitHub Issues Mining approach transforms community feedback into systematic test coverage, ensuring the framework is bulletproof against real-world usage patterns.*
+
+</details>
+
+<details style={{marginBottom: '24px', border: '1px solid #e5e7eb', borderRadius: '8px', padding: '16px'}}>
+<summary style={{cursor: 'pointer', padding: '8px', borderRadius: '4px', backgroundColor: '#f9fafb'}}>
+  <strong style={{fontSize: '18px', color: '#1f2937', fontWeight: 'bold'}}>
+    Cross-Framework Test Ingestion
+    <span style={{backgroundColor: '#6b7280', color: 'white', padding: '4px 12px', borderRadius: '16px', fontSize: '11px', fontWeight: 'bold', marginLeft: '12px'}}>FUTURE PLAN</span>
+  </strong>
+  <div style={{marginTop: '8px', color: '#6b7280', fontSize: '14px', lineHeight: '1.5'}}>
+    Mine comprehensive test suites and component patterns from Ionic and other frameworks that extensively use Stencil to discover advanced usage patterns and edge cases.
+  </div>
+</summary>
+
+#### Vision
+Extract and adapt comprehensive test coverage from mature frameworks that extensively use Stencil, starting with Ionic, to capture battle-tested patterns and advanced usage scenarios.
+
+#### The Opportunity
+```
+Framework Test Suites → Pattern Analysis → Stencil Test Generation → Advanced Coverage
+```
+
+Mature frameworks contain:
+- **Production-Grade Components**: Real-world complexity and edge cases
+- **Advanced Patterns**: Sophisticated decorator usage combinations  
+- **Performance Optimizations**: Patterns that have been battle-tested at scale
+- **Browser Compatibility**: Cross-platform solutions already validated
+- **Accessibility Features**: A11y patterns and testing approaches
+
+#### Target Frameworks
+
+##### Primary Target: Ionic
+- **Same Team**: Built by Stencil creators, represents intended usage patterns
+- **Extensive Usage**: Hundreds of components showcasing advanced Stencil features
+- **Mature Test Suite**: Years of production refinement and edge case handling
+- **Real-World Scale**: Used by millions of developers in production apps
+- **Advanced Patterns**: Complex decorator combinations, lifecycle management, state handling
+
+##### Secondary Targets
+- **Other Stencil-Based Frameworks**: Companies building component libraries with Stencil
+- **Open Source Projects**: Community projects using advanced Stencil patterns
+- **Enterprise Solutions**: Internal frameworks from companies using Stencil at scale
+
+#### AI-Powered Framework Analysis
+
+##### Phase 1: Pattern Discovery
+- **Component Architecture**: How Ionic structures complex components
+- **Decorator Combinations**: Advanced usage patterns not obvious from documentation
+- **State Management**: Sophisticated state handling and lifecycle patterns
+- **Performance Patterns**: Optimizations and best practices at scale
+- **Testing Strategies**: How Ionic tests complex component interactions
+
+##### Phase 2: Test Suite Mining
+- **Unit Tests**: Component-level testing patterns and edge cases
+- **Integration Tests**: Multi-component interaction patterns
+- **E2E Tests**: Full application flow testing approaches
+- **Visual Regression**: UI consistency testing methodologies
+- **Performance Tests**: Runtime performance validation patterns
+
+##### Phase 3: Pattern Adaptation
+- **Stencil-Specific Extraction**: Focus on Stencil-related testing patterns
+- **Framework-Agnostic Conversion**: Adapt Ionic-specific tests to pure Stencil
+- **Edge Case Discovery**: Identify complex scenarios not covered in basic testing
+- **Performance Optimization**: Learn from production-proven optimizations
+
+#### Expected Benefits
+
+##### Advanced Pattern Coverage
+- **Production-Proven Patterns**: Tests based on real-world, scaled usage
+- **Complex Decorator Interactions**: Sophisticated combinations that work in practice
+- **Performance Edge Cases**: Scenarios that cause issues at scale
+- **Browser Quirks**: Cross-platform compatibility solutions
+
+##### Accelerated Maturity
+- **Years of Learning**: Compress Ionic's years of testing evolution into systematic coverage
+- **Battle-Tested Scenarios**: Skip theoretical tests, focus on proven problem areas
+- **Enterprise-Grade Quality**: Production-level robustness from day one
+
+##### Framework Validation
+- **Intended Usage Verification**: Ensure Stencil works as designed by its creators
+- **Advanced Feature Testing**: Comprehensive coverage of sophisticated features
+- **Regression Prevention**: Protect against breaking changes that affect major frameworks
+
+#### Implementation Strategy
+
+##### Data Mining Pipeline
+```bash
+# Theoretical future workflow
+npm run ingest-ionic-tests
+# → Scans Ionic test suites
+# → Extracts Stencil-specific patterns
+# → Adapts to pure Stencil test cases
+# → Generates components and tests
+# → Updates framework coverage
+```
+
+##### Quality Assurance
+- **Pattern Validation**: Ensure extracted patterns are Stencil-appropriate
+- **Deduplication**: Avoid overlap with existing framework tests
+- **Licensing Compliance**: Respect open source licensing requirements
+- **Attribution**: Properly credit source frameworks for patterns
+
+##### Continuous Learning
+- **Framework Updates**: Track changes in source frameworks
+- **New Pattern Discovery**: Identify emerging usage patterns
+- **Community Feedback**: Validate extracted patterns with framework authors
+
+#### Expected Outcomes
+
+##### Comprehensive Advanced Coverage
+- **Production-Grade Testing**: Enterprise-level test robustness from start
+- **Complex Scenario Handling**: Tests for sophisticated real-world usage
+- **Performance Validation**: Scale-proven performance characteristics
+
+##### Framework Ecosystem Strength
+- **Cross-Framework Compatibility**: Ensure Stencil works well across its ecosystem
+- **Best Practice Propagation**: Share proven patterns across framework community
+- **Innovation Acceleration**: Build on existing solutions rather than reinventing
+
+##### Strategic Advantages
+- **Competitive Intelligence**: Learn from successful Stencil implementations
+- **Quality Benchmarking**: Match or exceed quality of leading Stencil-based frameworks
+- **Community Alignment**: Ensure framework serves its major users well
+
+---
+
+*This Cross-Framework Test Ingestion approach leverages the collective wisdom of mature Stencil-based frameworks, ensuring the testing framework captures production-proven patterns and advanced usage scenarios.*
+
+</details>
