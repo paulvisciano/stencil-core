@@ -68,6 +68,8 @@ export namespace Components {
     }
     interface ExtendsLifecycleBasic {
     }
+    interface ExtendsLifecycleMultilevel {
+    }
     interface ExtendsMixinCmp {
         "method1": () => Promise<void>;
         "method2": () => Promise<void>;
@@ -135,6 +137,12 @@ declare global {
         prototype: HTMLExtendsLifecycleBasicElement;
         new (): HTMLExtendsLifecycleBasicElement;
     };
+    interface HTMLExtendsLifecycleMultilevelElement extends Components.ExtendsLifecycleMultilevel, HTMLStencilElement {
+    }
+    var HTMLExtendsLifecycleMultilevelElement: {
+        prototype: HTMLExtendsLifecycleMultilevelElement;
+        new (): HTMLExtendsLifecycleMultilevelElement;
+    };
     interface HTMLExtendsMixinCmpElement extends Components.ExtendsMixinCmp, HTMLStencilElement {
     }
     var HTMLExtendsMixinCmpElement: {
@@ -154,6 +162,7 @@ declare global {
         "extends-cmp-cmp": HTMLExtendsCmpCmpElement;
         "extends-external": HTMLExtendsExternalElement;
         "extends-lifecycle-basic": HTMLExtendsLifecycleBasicElement;
+        "extends-lifecycle-multilevel": HTMLExtendsLifecycleMultilevelElement;
         "extends-mixin-cmp": HTMLExtendsMixinCmpElement;
         "ts-target-props": HTMLTsTargetPropsElement;
     }
@@ -211,6 +220,8 @@ declare namespace LocalJSX {
     }
     interface ExtendsLifecycleBasic {
     }
+    interface ExtendsLifecycleMultilevel {
+    }
     interface ExtendsMixinCmp {
         /**
           * @default 'default text'
@@ -244,6 +255,7 @@ declare namespace LocalJSX {
         "extends-cmp-cmp": ExtendsCmpCmp;
         "extends-external": ExtendsExternal;
         "extends-lifecycle-basic": ExtendsLifecycleBasic;
+        "extends-lifecycle-multilevel": ExtendsLifecycleMultilevel;
         "extends-mixin-cmp": ExtendsMixinCmp;
         "ts-target-props": TsTargetProps;
     }
@@ -258,6 +270,7 @@ declare module "@stencil/core" {
             "extends-cmp-cmp": LocalJSX.ExtendsCmpCmp & JSXBase.HTMLAttributes<HTMLExtendsCmpCmpElement>;
             "extends-external": LocalJSX.ExtendsExternal & JSXBase.HTMLAttributes<HTMLExtendsExternalElement>;
             "extends-lifecycle-basic": LocalJSX.ExtendsLifecycleBasic & JSXBase.HTMLAttributes<HTMLExtendsLifecycleBasicElement>;
+            "extends-lifecycle-multilevel": LocalJSX.ExtendsLifecycleMultilevel & JSXBase.HTMLAttributes<HTMLExtendsLifecycleMultilevelElement>;
             "extends-mixin-cmp": LocalJSX.ExtendsMixinCmp & JSXBase.HTMLAttributes<HTMLExtendsMixinCmpElement>;
             "ts-target-props": LocalJSX.TsTargetProps & JSXBase.HTMLAttributes<HTMLTsTargetPropsElement>;
         }

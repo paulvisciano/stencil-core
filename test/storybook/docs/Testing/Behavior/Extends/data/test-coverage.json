@@ -29,22 +29,45 @@
     "2": {
       "implemented": true,
       "componentCount": 1,
+      "description": "Multi-Level Lifecycle Inheritance - Tests lifecycle events through inheritance chains (Component → Base → GrandparentBase)",
+      "specPath": "test/wdio/ts-target/extends-lifecycle-multilevel/cmp.test.ts",
+      "lifecycleEvents": [
+        {
+          "category": "Load Lifecycle",
+          "events": ["componentWillLoad", "componentDidLoad"],
+          "purpose": "Test lifecycle inheritance through multiple inheritance levels"
+        },
+        {
+          "category": "Render Lifecycle", 
+          "events": ["componentWillRender", "componentDidRender"],
+          "purpose": "Test render lifecycle inheritance in multi-level chains"
+        },
+        {
+          "category": "Update Lifecycle",
+          "events": ["componentWillUpdate", "componentDidUpdate"],
+          "purpose": "Test update lifecycle inheritance with super() call chains"
+        }
+      ]
+    },
+    "3": {
+      "implemented": true,
+      "componentCount": 1,
       "description": "Abstract Base Class Inheritance - Components extending Stencil-decorated abstract classes",
       "specPath": "test/wdio/ts-target/extends-abstract/cmp.test.ts"
     },
-    "3": {
+    "4": {
       "implemented": true,
       "componentCount": 1,
       "description": "Component-to-Component Inheritance - Components extending other component classes",
       "specPath": "test/wdio/ts-target/extends-cmp/cmp.test.ts"
     },
-    "4": {
+    "5": {
       "implemented": true,
       "componentCount": 1,
       "description": "External Library Inheritance - Components extending classes from external Stencil libraries",
       "specPath": "test/wdio/ts-target/extends-external/cmp.test.ts"
     },
-    "5": {
+    "6": {
       "implemented": true,
       "componentCount": 1,
       "description": "Mixin Composition - Components extending via Stencil Mixin function for behavior composition",
@@ -61,31 +84,38 @@
     },
     {
       "index": 2,
-      "group": "abstract",
+      "group": "multilevel",
       "tested": true,
-      "tag": "extends-abstract",
+      "tag": "extends-lifecycle-multilevel",
       "caseNumbers": [2]
     },
     {
       "index": 3,
-      "group": "component",
+      "group": "abstract",
       "tested": true,
-      "tag": "extends-cmp",
+      "tag": "extends-abstract",
       "caseNumbers": [3]
     },
     {
       "index": 4,
-      "group": "external",
+      "group": "component",
       "tested": true,
-      "tag": "extends-external",  
+      "tag": "extends-cmp",
       "caseNumbers": [4]
     },
     {
       "index": 5,
+      "group": "external",
+      "tested": true,
+      "tag": "extends-external",  
+      "caseNumbers": [5]
+    },
+    {
+      "index": 6,
       "group": "mixin",
       "tested": true,
       "tag": "extends-mixin",
-      "caseNumbers": [5]
+      "caseNumbers": [6]
     }
   ]
 }

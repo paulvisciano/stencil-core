@@ -1,47 +1,7 @@
 {
-  "description": "Generated extends test components for lifecycle inheritance testing - includes working extends-lifecycle-basic implementation",
-  "version": "1.1.0",
+  "description": "Generated extends test components for lifecycle inheritance testing - includes working implementations for Test Cases #1 and #2",
+  "version": "1.2.0",
   "generatedComponents": [
-    {
-      "options": [
-        "multi-level",
-        "lifecycle",
-        "complete"
-      ],
-      "tag": "extends-multilevel-lifecycle-complete",
-      "group": "multi-level",
-      "description": "Test Case #1: Complete lifecycle inheritance - GrandParent -> Parent -> Component with all lifecycle hooks"
-    },
-    {
-      "options": [
-        "multi-level",
-        "lifecycle",
-        "minimal"
-      ],
-      "tag": "extends-multilevel-lifecycle-minimal",
-      "group": "multi-level",
-      "description": "Test Case #1: Minimal lifecycle inheritance - core hooks only (willLoad, didLoad, willUpdate, didUpdate)"
-    },
-    {
-      "options": [
-        "multi-level",
-        "lifecycle",
-        "custom-elements"
-      ],
-      "tag": "extends-multilevel-lifecycle-customelements",
-      "group": "multi-level",
-      "description": "Test Case #1: Custom Elements lifecycle only - connectedCallback, disconnectedCallback"
-    },
-    {
-      "options": [
-        "multi-level",
-        "lifecycle",
-        "render-focused"
-      ],
-      "tag": "extends-multilevel-lifecycle-renderfocused",
-      "group": "multi-level",
-      "description": "Test Case #1: Render lifecycle focus - willRender, didRender with multiple render cycles"
-    },
     {
       "options": [
         "direct",
@@ -66,13 +26,28 @@
     },
     {
       "options": [
-        "multi-level",
+        "multilevel",
         "lifecycle",
-        "super-chain"
+        "inheritance"
       ],
-      "tag": "extends-multilevel-lifecycle-superchain",
-      "group": "multi-level",
-      "description": "Test Case #1: Verify super() call chains work correctly at each inheritance level"
+      "tag": "extends-lifecycle-multilevel",
+      "group": "multilevel",
+      "description": "Test Case #2: Multi-level inheritance (Component → ParentBase → GrandparentBase) with comprehensive lifecycle coverage - 7 passing tests covering inheritance chain integrity, event ordering, and super() call verification using Global Array Pattern",
+      "inheritance": {
+        "baseClass": "ParentBase (extends GrandparentBase)",
+        "component": "extends-lifecycle-multilevel",
+        "location": "test/wdio/ts-target/extends-lifecycle-multilevel/",
+        "buildTarget": "ES2022",
+        "testingPattern": "Global Array Pattern (window.lifecycleCalls)",
+        "coverageAreas": [
+          "Multi-level componentWillLoad / componentDidLoad",
+          "Multi-level componentWillRender / componentDidRender", 
+          "Multi-level componentWillUpdate / componentDidUpdate",
+          "Inheritance chain order verification",
+          "Event count validation (12+ lifecycle events)",
+          "Super() call resolution testing"
+        ]
+      }
     }
   ],
   "missingPermutations": []

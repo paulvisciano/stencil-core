@@ -57,6 +57,22 @@ export const ExtendsTestCasesTable = () => {
       desc: testCaseStatus[2]?.description || '',
       types: (
         <>
+          <strong>Multi-Level Inheritance:</strong> Component → ParentBase → GrandparentBase<br/>
+          <strong>Lifecycle Chain:</strong> All lifecycle events fire at each inheritance level with super() calls<br/>
+          <strong>Verification:</strong> Event order, count validation (12+ events), inheritance chain integrity<br/>
+          <small>Uses Global Array Pattern | ES2022 Build Target | 7 passing tests</small>
+        </>
+      ),
+      tested: getGroupStats('multilevel').tested,
+      total: getGroupStats('multilevel').total,
+      section: testCaseStatus[2]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 3,
+      implemented: testCaseStatus[3]?.implemented || false,
+      desc: testCaseStatus[3]?.description || '',
+      types: (
+        <>
           <strong>Abstract Classes:</strong> Components extend Stencil-decorated abstract base classes<br/>
           <strong>Property Inheritance:</strong> @Prop, @State, @Method inheritance<br/>
           <small>Smoke tests for basic extends functionality</small>
@@ -64,12 +80,12 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('abstract').tested,
       total: getGroupStats('abstract').total,
-      section: testCaseStatus[2]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[3]?.implemented ? 'implemented' : 'missing',
     },
     {
-      id: 3,
-      implemented: testCaseStatus[3]?.implemented || false,
-      desc: testCaseStatus[3]?.description || '',
+      id: 4,
+      implemented: testCaseStatus[4]?.implemented || false,
+      desc: testCaseStatus[4]?.description || '',
       types: (
         <>
           <strong>Component Classes:</strong> Components extend other component classes<br/>
@@ -79,12 +95,12 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('component').tested,
       total: getGroupStats('component').total,
-      section: testCaseStatus[3]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[4]?.implemented ? 'implemented' : 'missing',
     },
     {
-      id: 4,
-      implemented: testCaseStatus[4]?.implemented || false,
-      desc: testCaseStatus[4]?.description || '',
+      id: 5,
+      implemented: testCaseStatus[5]?.implemented || false,
+      desc: testCaseStatus[5]?.description || '',
       types: (
         <>
           <strong>External Libraries:</strong> Components extend classes from external Stencil projects<br/>
@@ -94,12 +110,12 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('external').tested,
       total: getGroupStats('external').total,
-      section: testCaseStatus[4]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[5]?.implemented ? 'implemented' : 'missing',
     },
     {
-      id: 5,
-      implemented: testCaseStatus[5]?.implemented || false,
-      desc: testCaseStatus[5]?.description || '',
+      id: 6,
+      implemented: testCaseStatus[6]?.implemented || false,
+      desc: testCaseStatus[6]?.description || '',
       types: (
         <>
           <strong>Mixin Functions:</strong> Components extend via Stencil Mixin function<br/>
@@ -109,11 +125,11 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('mixin').tested,
       total: getGroupStats('mixin').total,
-      section: testCaseStatus[5]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[6]?.implemented ? 'implemented' : 'missing',
     }
   ];
 
-  return <TestCasesTable rows={allRows} previewCount={5} />;
+  return <TestCasesTable rows={allRows} previewCount={6} />;
 };
 
 <ExtendsTestCasesTable />
@@ -165,14 +181,11 @@ export const ExtendsCoverageSummary = () => {
 
 ## Next Steps
 
-1. ✅ **All 5 Test Cases Implemented**: Comprehensive extends functionality coverage including:
-   - Test Case #1: Lifecycle inheritance (6 passing tests with detailed lifecycle coverage)
-   - Test Cases #2-5: Abstract classes, component-to-component, external libraries, and mixin composition (smoke tests)
-
-2. **Enhance Test Depth**: Build upon the existing smoke tests to add comprehensive coverage:
-   - Expand lifecycle testing to other inheritance patterns
+1. ✅ **Test Case #1 Complete**: Lifecycle inheritance fully implemented (6 passing tests)
+2. ✅ **Test Case #2 Complete**: Multi-level lifecycle inheritance fully implemented (7 passing tests)
+3. **Enhance Existing Test Cases**: Build upon the existing smoke tests to add comprehensive coverage:
+   - Expand lifecycle testing to abstract class and component inheritance patterns
    - Add property and state mutation tests for all scenarios  
-   - Test multi-level inheritance chains (Component → Base → GrandparentBase)
    - Add edge case and error condition testing
 
 ## Related Documentation
