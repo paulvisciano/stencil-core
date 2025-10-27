@@ -6,7 +6,7 @@
     "1": {
       "implemented": true,
       "componentCount": 1,
-      "description": "Direct Inheritance (Component → LifecycleBase) - Tests comprehensive lifecycle event inheritance",
+      "description": "Lifecycle Inheritance - Tests comprehensive lifecycle event inheritance from base classes",
       "specPath": "test/wdio/ts-target/extends-lifecycle-basic/cmp.test.ts",
       "lifecycleEvents": [
         {
@@ -24,26 +24,68 @@
           "events": ["componentWillUpdate", "componentDidUpdate"],
           "purpose": "Test state-change inheritance - ensures lifecycle events fire when state updates"
         }
-      ],
-      "excluded": [
-        {
-          "event": "connectedCallback",
-          "reason": "Happens automatically when component mounts - inheritance difficult to observe in single component test"
-        },
-        {
-          "event": "disconnectedCallback", 
-          "reason": "Better tested in parent-child scenarios where component removal is natural and realistic"
-        }
       ]
+    },
+    "2": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "Abstract Base Class Inheritance - Components extending Stencil-decorated abstract classes",
+      "specPath": "test/wdio/ts-target/extends-abstract/cmp.test.ts"
+    },
+    "3": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "Component-to-Component Inheritance - Components extending other component classes",
+      "specPath": "test/wdio/ts-target/extends-cmp/cmp.test.ts"
+    },
+    "4": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "External Library Inheritance - Components extending classes from external Stencil libraries",
+      "specPath": "test/wdio/ts-target/extends-external/cmp.test.ts"
+    },
+    "5": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "Mixin Composition - Components extending via Stencil Mixin function for behavior composition",
+      "specPath": "test/wdio/ts-target/extends-mixin/cmp.test.ts"
     }
   },
   "items": [
     {
       "index": 1,
-      "group": "inheritance",
+      "group": "lifecycle",
       "tested": true,
       "tag": "extends-lifecycle-basic",
       "caseNumbers": [1]
+    },
+    {
+      "index": 2,
+      "group": "abstract",
+      "tested": true,
+      "tag": "extends-abstract",
+      "caseNumbers": [2]
+    },
+    {
+      "index": 3,
+      "group": "component",
+      "tested": true,
+      "tag": "extends-cmp",
+      "caseNumbers": [3]
+    },
+    {
+      "index": 4,
+      "group": "external",
+      "tested": true,
+      "tag": "extends-external",  
+      "caseNumbers": [4]
+    },
+    {
+      "index": 5,
+      "group": "mixin",
+      "tested": true,
+      "tag": "extends-mixin",
+      "caseNumbers": [5]
     }
   ]
 }
