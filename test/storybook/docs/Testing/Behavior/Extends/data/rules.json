@@ -1,0 +1,65 @@
+{
+  "description": "Rules for extends functionality testing matrix",
+  "version": "1.0.0",
+  "emit": {
+    "naming": {
+      "prefix": "extends",
+      "includeOptions": ["inheritanceType", "baseFeatures", "derivedFeatures"]
+    }
+  },
+  "constraints": {
+    "mutuallyExclusive": [],
+    "conditionalRequirements": {
+      "mixins": {
+        "condition": { "inheritanceType": "mixin" },
+        "requires": { "baseFeatures": ["lifecycle", "methods"] }
+      }
+    }
+  },
+  "dimensions": {
+    "inheritanceType": {
+      "description": "Type of inheritance pattern",
+      "values": ["direct", "multi-level", "mixin", "abstract"]
+    },
+    "baseFeatures": {
+      "description": "Features defined in base class",
+      "values": ["props", "state", "methods", "lifecycle", "watchers", "minimal"]
+    },
+    "derivedFeatures": {
+      "description": "Features added/overridden in derived class", 
+      "values": ["props", "state", "methods", "lifecycle", "watchers", "minimal", "override"]
+    }
+  },
+  "testScenarios": [
+    {
+      "name": "Basic Inheritance",
+      "description": "Simple component extending base with props/state",
+      "covers": ["direct", "props", "state"]
+    },
+    {
+      "name": "Lifecycle Inheritance", 
+      "description": "Base class defines lifecycle hooks, derived inherits",
+      "covers": ["direct", "lifecycle", "methods"]
+    },
+    {
+      "name": "Method Override",
+      "description": "Derived class overrides base methods with super calls",
+      "covers": ["direct", "methods", "override"]
+    },
+    {
+      "name": "Multi-level Inheritance",
+      "description": "Component -> Base -> GrandparentBase inheritance chain",
+      "covers": ["multi-level", "props", "methods"]
+    },
+    {
+      "name": "Mixin Composition",
+      "description": "Component uses multiple mixins for behavior composition",
+      "covers": ["mixin", "lifecycle", "methods"]
+    },
+    {
+      "name": "Abstract Base",
+      "description": "Component extends abstract base class with Stencil decorators",
+      "covers": ["abstract", "props", "state", "methods"]
+    }
+  ]
+}

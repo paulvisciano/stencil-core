@@ -1,0 +1,66 @@
+{
+  "description": "Extends functionality test matrix - inheritance patterns and composition scenarios",
+  "version": "1.0.0",
+  "generatedComponents": [
+    {
+      "index": 1,
+      "options": ["direct", "lifecycle", "basic"],
+      "inheritanceType": "direct",
+      "baseFeatures": "lifecycle",
+      "derivedFeatures": "basic",
+      "tag": "extends-direct-lifecycle-basic",
+      "group": "inheritance",
+      "description": "Component extends base class with lifecycle hooks"
+    },
+    {
+      "index": 2,
+      "options": ["direct", "methods", "props"],
+      "inheritanceType": "direct", 
+      "baseFeatures": "methods",
+      "derivedFeatures": "props",
+      "tag": "extends-direct-methods-props",
+      "group": "inheritance", 
+      "description": "Component extends base with methods, adds props"
+    },
+    {
+      "index": 3,
+      "options": ["direct", "state", "override"],
+      "inheritanceType": "direct",
+      "baseFeatures": "state", 
+      "derivedFeatures": "override",
+      "tag": "extends-direct-state-override",
+      "group": "inheritance",
+      "description": "Component extends base with state, overrides methods"
+    },
+    {
+      "index": 4,
+      "options": ["multi-level", "props", "methods"],
+      "inheritanceType": "multi-level",
+      "baseFeatures": "props",
+      "derivedFeatures": "methods", 
+      "tag": "extends-multilevel-props-methods",
+      "group": "multi-level",
+      "description": "Three-level inheritance: Component -> Base -> GrandparentBase"
+    },
+    {
+      "index": 5,
+      "options": ["abstract", "decorators", "lifecycle"],
+      "inheritanceType": "abstract",
+      "baseFeatures": "decorators",
+      "derivedFeatures": "lifecycle",
+      "tag": "extends-abstract-decorators-lifecycle", 
+      "group": "abstract",
+      "description": "Component extends abstract base with Stencil decorators"
+    },
+    {
+      "index": 6,
+      "options": ["mixin", "behaviors", "composition"],
+      "inheritanceType": "mixin",
+      "baseFeatures": "behaviors",
+      "derivedFeatures": "composition",
+      "tag": "extends-mixin-behaviors-composition",
+      "group": "mixins",
+      "description": "Component composes multiple mixin behaviors"
+    }
+  ]
+}

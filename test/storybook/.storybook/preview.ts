@@ -26,6 +26,8 @@ const preview: Preview = {
             ],
             'Decorators',
             ['Overview', 'Matrix Generation', '@Component', '@Prop', '@State'],
+            'Behavior',
+            ['Extends', ['Overview']]
           ],
         ],
       },

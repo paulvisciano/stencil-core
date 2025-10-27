@@ -1,0 +1,246 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import data from './data/components.json';
+import overlay from './data/test-coverage.json';
+import rules from './data/rules.json';
+import React, { useMemo, useState } from 'react';
+import TestCasesTable from '../../Decorators/_shared/TestCasesTable.jsx';
+import GeneratedComponentsTable from '../../Decorators/_shared/GeneratedComponentsTable.jsx';
+
+<Meta title="Testing/Behavior/Extends/Overview"/>
+
+# Extends Functionality Testing
+
+The `extends` functionality enables component inheritance and composition patterns in Stencil. This page documents the test coverage, patterns, generated components, and implementation status.
+
+## Inheritance Patterns
+
+- **Direct**: Component extends base class (`class Child extends Base`)
+- **Multi-level**: Component -> Base -> GrandparentBase inheritance chains  
+- **Abstract**: Component extends abstract base class with Stencil decorators
+- **Mixin**: Component composes multiple behaviors via mixin functions
+
+## Test Cases
+
+Note: Test cases are high‑level scenarios covering inheritance patterns and composition behaviors. The "Tested By" column in the Generated Components table shows which case(s) (#1, #2, etc.) each component participates in. All extends tests reside under <code>test/wdio/extends</code> and <code>test/wdio/service-inheritance</code>.
+
+export const ExtendsTestCasesTable = () => {
+  // Pre-calculated test case status from JSON
+  const testCaseStatus = overlay.testCaseStatus || {};
+  
+  // Simple lookups for implementation status
+  const case1Implemented = testCaseStatus[1]?.implemented || false;
+  const case2Implemented = testCaseStatus[2]?.implemented || false; 
+  const case3Implemented = testCaseStatus[3]?.implemented || false;
+  const case4Implemented = testCaseStatus[4]?.implemented || false;  
+  const case5Implemented = testCaseStatus[5]?.implemented || false;
+  const case6Implemented = testCaseStatus[6]?.implemented || false;
+
+  // Component counts from pre-calculated data
+  const basicInheritanceCount = testCaseStatus[1]?.componentCount || 0;
+  const methodLifecycleCount = testCaseStatus[2]?.componentCount || 0;
+  const propertyStateCount = testCaseStatus[3]?.componentCount || 0;
+  const multiLevelCount = testCaseStatus[4]?.componentCount || 0;
+  const abstractBaseCount = testCaseStatus[5]?.componentCount || 0;
+  const mixinCompositionCount = testCaseStatus[6]?.componentCount || 0;
+
+  // Stats calculation for group-based coverage
+  const items = overlay.items || [];
+  const groupIn = (set) => items.filter(i => set.has(i.group));
+  const count = (arr) => ({ tested: arr.filter(i => i.tested).length, total: arr.length });
+  
+  const inheritanceSet = new Set(['inheritance']);
+  const multiLevelSet = new Set(['multi-level']);
+  const abstractSet = new Set(['abstract']);
+  const mixinsSet = new Set(['mixins']);
+  
+  const inheritance = count(groupIn(inheritanceSet));
+  const multiLevel = count(groupIn(multiLevelSet));
+  const abstract = count(groupIn(abstractSet));
+  const mixins = count(groupIn(mixinsSet));
+
+  const allRows = [
+    {
+      id: 1,
+      implemented: case1Implemented,
+      desc: 'Basic inheritance - component extends base class with lifecycle hooks and shared methods.',
+      types: (
+        <>
+          Direct inheritance patterns: lifecycle + methods + state<br/>
+          <small>Components: {basicInheritanceCount} | Covered: {inheritance.tested}/{inheritance.total}</small>
+        </>
+      ),
+      tested: inheritance.tested,
+      total: inheritance.total,
+      section: case1Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 2,
+      implemented: case2Implemented,
+      desc: (
+        <>
+          Method inheritance and lifecycle tapping - base class defines lifecycle methods, derived components inherit behavior.<br/>
+          <small>Components: {methodLifecycleCount}</small>
+        </>
+      ),
+      types: (
+        <>
+          Base lifecycle hooks: willLoad, didLoad, willUpdate, didUpdate<br/>
+          <small>Method override with super() chaining</small>
+        </>
+      ),
+      tested: inheritance.tested,
+      total: inheritance.total,
+      section: case2Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 3,
+      implemented: case3Implemented,
+      desc: 'Property and state inheritance - base defines @Prop/@State, derived components inherit and extend.',
+      types: (
+        <>
+          @Prop/@State inheritance + @Watch handlers<br/>
+          <small>Components: {propertyStateCount}</small>
+        </>
+      ),
+      tested: inheritance.tested,
+      total: inheritance.total,
+      section: case3Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 4,
+      implemented: case4Implemented,
+      desc: 'Multi-level inheritance chains - Component -> Base -> GrandparentBase with method resolution.',
+      types: (
+        <>
+          Three+ level inheritance chains<br/>
+          <small>Components: {multiLevelCount} | Covered: {multiLevel.tested}/{multiLevel.total}</small>
+        </>
+      ),
+      tested: multiLevel.tested,
+      total: multiLevel.total,
+      section: case4Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 5,
+      implemented: case5Implemented,
+      desc: 'Abstract base class inheritance - component extends abstract base with Stencil decorators.',
+      types: (
+        <>
+          Abstract base classes with @Component decorators<br/>
+          <small>Components: {abstractBaseCount} | Covered: {abstract.tested}/{abstract.total}</small>
+        </>
+      ),
+      tested: abstract.tested,
+      total: abstract.total,
+      section: case5Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 6,
+      implemented: case6Implemented,
+      desc: 'Mixin composition and behavior merging - multiple behaviors composed into single component.',
+      types: (
+        <>
+          Multi-behavior composition via mixins<br/>
+          <small>Components: {mixinCompositionCount} | Covered: {mixins.tested}/{mixins.total}</small>
+        </>
+      ),
+      tested: mixins.tested,  
+      total: mixins.total,
+      section: case6Implemented ? 'implemented' : 'missing',
+    },
+  ];
+
+  return <TestCasesTable rows={allRows} previewCount={6} />;
+};
+
+<ExtendsTestCasesTable />
+
+## Generated Components
+
+The following components are generated to test various extends functionality scenarios systematically.
+
+export const ExtendsGeneratedComponentsTable = () => {
+  const components = data.generatedComponents || [];
+  const overlayItems = overlay.items || [];
+  
+  // Map overlay data to components
+  const enrichedComponents = components.map(comp => {
+    const overlayItem = overlayItems.find(item => item.index === comp.index) || {};
+    return {
+      ...comp,
+      tested: overlayItem.tested || false,
+      caseNumbers: overlayItem.caseNumbers || [],
+    };
+  });
+
+  const columns = [
+    { key: 'inheritanceType', label: 'Inheritance Type', width: '25%' },
+    { key: 'baseFeatures', label: 'Base Features', width: '20%' }, 
+    { key: 'derivedFeatures', label: 'Derived Features', width: '20%' },
+    { key: 'group', label: 'Group', width: '15%' },
+    { key: 'testedBy', label: 'Tested By', width: '20%' },
+  ];
+
+  return <GeneratedComponentsTable rows={enrichedComponents} columns={columns} previewCount={6} />;
+};
+
+<ExtendsGeneratedComponentsTable />
+
+## Coverage Summary
+
+export const ExtendsCoverageSummary = () => {
+  const items = overlay.items || [];
+  const totalComponents = items.length;
+  const testedComponents = items.filter(item => item.tested).length;
+  const coveragePercentage = totalComponents > 0 ? Math.round((testedComponents / totalComponents) * 100) : 0;
+  
+  const testCases = Object.values(overlay.testCaseStatus || {});
+  const implementedCases = testCases.filter(tc => tc.implemented).length;
+  const totalCases = testCases.length;
+  
+  return (
+    <div style={{ background: '#f8f9fa', padding: '16px', borderRadius: '8px', marginBottom: '24px' }}>
+      <h3 style={{ margin: '0 0 12px 0' }}>Coverage Status</h3>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+        <div>
+          <strong>Component Coverage</strong><br/>
+          <span style={{ fontSize: '24px', color: coveragePercentage === 100 ? '#16a34a' : '#f59e0b' }}>
+            {testedComponents}/{totalComponents} ({coveragePercentage}%)
+          </span>
+        </div>
+        <div>
+          <strong>Test Cases</strong><br/>
+          <span style={{ fontSize: '24px', color: implementedCases === totalCases ? '#16a34a' : '#f59e0b' }}>
+            {implementedCases}/{totalCases} implemented
+          </span>
+        </div>
+        <div>
+          <strong>Status</strong><br/>
+          <span style={{ 
+            fontSize: '14px', 
+            padding: '4px 8px', 
+            borderRadius: '12px',
+            background: coveragePercentage >= 80 ? '#16a34a' : '#f59e0b',
+            color: '#fff'
+          }}>
+            {coveragePercentage >= 80 ? 'GOOD' : 'IN PROGRESS'}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+<ExtendsCoverageSummary />
+
+## Next Steps
+
+1. **Complete Missing Test Cases**: Implement test cases #4 (multi-level inheritance) and #6 (mixin composition)
+2. **Generate Test Components**: Create systematic test components following the decorator pattern
+3. **Add WDIO Integration**: Ensure extends test suites are included in `test/wdio/wdio.conf.ts`
+4. **Build Verification**: Verify all generated extends components compile successfully
+
+## Related Documentation
+
+- [Extends Evaluation](?path=/docs/testing-behavior-extends-extends-evaluation--docs) - Detailed evaluation and planning
+- [Historical Context](?path=/docs/testing-behavior-extends-historical-controller-context--docs) - Background on @Controller proposal
