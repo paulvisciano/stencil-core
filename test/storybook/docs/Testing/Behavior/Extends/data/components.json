@@ -1,66 +1,67 @@
 {
-  "description": "Extends functionality test matrix - inheritance patterns and composition scenarios",
+  "description": "Generated extends test components for lifecycle inheritance testing",
   "version": "1.0.0",
   "generatedComponents": [
     {
-      "index": 1,
-      "options": ["direct", "lifecycle", "basic"],
-      "inheritanceType": "direct",
-      "baseFeatures": "lifecycle",
-      "derivedFeatures": "basic",
-      "tag": "extends-direct-lifecycle-basic",
-      "group": "inheritance",
-      "description": "Component extends base class with lifecycle hooks"
-    },
-    {
-      "index": 2,
-      "options": ["direct", "methods", "props"],
-      "inheritanceType": "direct", 
-      "baseFeatures": "methods",
-      "derivedFeatures": "props",
-      "tag": "extends-direct-methods-props",
-      "group": "inheritance", 
-      "description": "Component extends base with methods, adds props"
-    },
-    {
-      "index": 3,
-      "options": ["direct", "state", "override"],
-      "inheritanceType": "direct",
-      "baseFeatures": "state", 
-      "derivedFeatures": "override",
-      "tag": "extends-direct-state-override",
-      "group": "inheritance",
-      "description": "Component extends base with state, overrides methods"
-    },
-    {
-      "index": 4,
-      "options": ["multi-level", "props", "methods"],
-      "inheritanceType": "multi-level",
-      "baseFeatures": "props",
-      "derivedFeatures": "methods", 
-      "tag": "extends-multilevel-props-methods",
+      "options": [
+        "multi-level",
+        "lifecycle",
+        "complete"
+      ],
+      "tag": "extends-multilevel-lifecycle-complete",
       "group": "multi-level",
-      "description": "Three-level inheritance: Component -> Base -> GrandparentBase"
+      "description": "Test Case #1: Complete lifecycle inheritance - GrandParent -> Parent -> Component with all lifecycle hooks"
     },
     {
-      "index": 5,
-      "options": ["abstract", "decorators", "lifecycle"],
-      "inheritanceType": "abstract",
-      "baseFeatures": "decorators",
-      "derivedFeatures": "lifecycle",
-      "tag": "extends-abstract-decorators-lifecycle", 
-      "group": "abstract",
-      "description": "Component extends abstract base with Stencil decorators"
+      "options": [
+        "multi-level",
+        "lifecycle",
+        "minimal"
+      ],
+      "tag": "extends-multilevel-lifecycle-minimal",
+      "group": "multi-level",
+      "description": "Test Case #1: Minimal lifecycle inheritance - core hooks only (willLoad, didLoad, willUpdate, didUpdate)"
     },
     {
-      "index": 6,
-      "options": ["mixin", "behaviors", "composition"],
-      "inheritanceType": "mixin",
-      "baseFeatures": "behaviors",
-      "derivedFeatures": "composition",
-      "tag": "extends-mixin-behaviors-composition",
-      "group": "mixins",
-      "description": "Component composes multiple mixin behaviors"
+      "options": [
+        "multi-level",
+        "lifecycle",
+        "custom-elements"
+      ],
+      "tag": "extends-multilevel-lifecycle-customelements",
+      "group": "multi-level",
+      "description": "Test Case #1: Custom Elements lifecycle only - connectedCallback, disconnectedCallback"
+    },
+    {
+      "options": [
+        "multi-level",
+        "lifecycle",
+        "render-focused"
+      ],
+      "tag": "extends-multilevel-lifecycle-renderfocused",
+      "group": "multi-level",
+      "description": "Test Case #1: Render lifecycle focus - willRender, didRender with multiple render cycles"
+    },
+    {
+      "options": [
+        "direct",
+        "lifecycle",
+        "basic"
+      ],
+      "tag": "extends-direct-lifecycle-basic",
+      "group": "direct",
+      "description": "Baseline: Direct inheritance with basic lifecycle hooks for comparison"
+    },
+    {
+      "options": [
+        "multi-level",
+        "lifecycle",
+        "super-chain"
+      ],
+      "tag": "extends-multilevel-lifecycle-superchain",
+      "group": "multi-level",
+      "description": "Test Case #1: Verify super() call chains work correctly at each inheritance level"
     }
-  ]
+  ],
+  "missingPermutations": []
 }

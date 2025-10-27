@@ -62,11 +62,13 @@ export const ExtendsTestCasesTable = () => {
     {
       id: 1,
       implemented: case1Implemented,
-      desc: 'Basic inheritance - component extends base class with lifecycle hooks and shared methods.',
+      desc: 'Direct Inheritance (Component → ServiceBase) - Tests comprehensive lifecycle event inheritance from a simple base class.',
       types: (
         <>
-          Direct inheritance patterns: lifecycle + methods + state<br/>
-          <small>Components: {basicInheritanceCount} | Covered: {inheritance.tested}/{inheritance.total}</small>
+          <strong>Load Lifecycle:</strong> componentWillLoad, componentDidLoad<br/>
+          <strong>Render Lifecycle:</strong> componentWillRender, componentDidRender<br/>
+          <strong>Update Lifecycle:</strong> componentWillUpdate, componentDidUpdate<br/>
+          <small>Components: {basicInheritanceCount} | Excludes: connectedCallback, disconnectedCallback (tested in parent-child scenarios)</small>
         </>
       ),
       tested: inheritance.tested,

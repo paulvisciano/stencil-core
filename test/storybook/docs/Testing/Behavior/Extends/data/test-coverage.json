@@ -5,9 +5,36 @@
   "testCaseStatus": {
     "1": {
       "implemented": true,
-      "componentCount": 3,
-      "description": "Basic inheritance - component extends base class",
-      "specPath": "test/wdio/service-inheritance/lifecycle-events/cmp.test.tsx"
+      "componentCount": 1,
+      "description": "Direct Inheritance (Component → ServiceBase) - Tests comprehensive lifecycle event inheritance",
+      "specPath": "test/wdio/extends/extends.test.tsx",
+      "lifecycleEvents": [
+        {
+          "category": "Load Lifecycle",
+          "events": ["componentWillLoad", "componentDidLoad"],
+          "purpose": "Test initial inheritance - ensures lifecycle events fire when component first loads"
+        },
+        {
+          "category": "Render Lifecycle", 
+          "events": ["componentWillRender", "componentDidRender"],
+          "purpose": "Test render inheritance - ensures lifecycle events fire on each render cycle"
+        },
+        {
+          "category": "Update Lifecycle",
+          "events": ["componentWillUpdate", "componentDidUpdate"],
+          "purpose": "Test state-change inheritance - ensures lifecycle events fire when state updates"
+        }
+      ],
+      "excluded": [
+        {
+          "event": "connectedCallback",
+          "reason": "Happens automatically when component mounts - inheritance difficult to observe in single component test"
+        },
+        {
+          "event": "disconnectedCallback", 
+          "reason": "Better tested in parent-child scenarios where component removal is natural and realistic"
+        }
+      ]
     },
     "2": {
       "implemented": true, 
