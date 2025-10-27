@@ -52,22 +52,42 @@
     "3": {
       "implemented": true,
       "componentCount": 1,
+      "description": "Controller-Initiated Updates - Base class triggering host component updates (Clock Controller pattern)",
+      "specPath": "test/wdio/ts-target/extends-controller-updates/cmp.test.ts",
+      "controllerFeatures": [
+        {
+          "feature": "requestUpdate Pattern",
+          "description": "Base class calls abstract requestUpdate() method - simulates Lit's this.host.requestUpdate()"
+        },
+        {
+          "feature": "Component-Owned State",
+          "description": "@State lives on component, not controller - component controls its own state updates"
+        },
+        {
+          "feature": "Explicit Update Requests",
+          "description": "Controller requests updates, doesn't force them - component decides how to respond"
+        }
+      ]
+    },
+    "4": {
+      "implemented": true,
+      "componentCount": 1,
       "description": "Abstract Base Class Inheritance - Components extending Stencil-decorated abstract classes",
       "specPath": "test/wdio/ts-target/extends-abstract/cmp.test.ts"
     },
-    "4": {
+    "5": {
       "implemented": true,
       "componentCount": 1,
       "description": "Component-to-Component Inheritance - Components extending other component classes",
       "specPath": "test/wdio/ts-target/extends-cmp/cmp.test.ts"
     },
-    "5": {
+    "6": {
       "implemented": true,
       "componentCount": 1,
       "description": "External Library Inheritance - Components extending classes from external Stencil libraries",
       "specPath": "test/wdio/ts-target/extends-external/cmp.test.ts"
     },
-    "6": {
+    "7": {
       "implemented": true,
       "componentCount": 1,
       "description": "Mixin Composition - Components extending via Stencil Mixin function for behavior composition",
@@ -91,31 +111,38 @@
     },
     {
       "index": 3,
-      "group": "abstract",
+      "group": "controller",
       "tested": true,
-      "tag": "extends-abstract",
+      "tag": "extends-controller-updates",
       "caseNumbers": [3]
     },
     {
       "index": 4,
-      "group": "component",
+      "group": "abstract",
       "tested": true,
-      "tag": "extends-cmp",
+      "tag": "extends-abstract",
       "caseNumbers": [4]
     },
     {
       "index": 5,
-      "group": "external",
+      "group": "component",
       "tested": true,
-      "tag": "extends-external",  
+      "tag": "extends-cmp",
       "caseNumbers": [5]
     },
     {
       "index": 6,
+      "group": "external",
+      "tested": true,
+      "tag": "extends-external",  
+      "caseNumbers": [6]
+    },
+    {
+      "index": 7,
       "group": "mixin",
       "tested": true,
       "tag": "extends-mixin",
-      "caseNumbers": [6]
+      "caseNumbers": [7]
     }
   ]
 }

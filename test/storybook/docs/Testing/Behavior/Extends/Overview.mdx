@@ -73,6 +73,22 @@ export const ExtendsTestCasesTable = () => {
       desc: testCaseStatus[3]?.description || '',
       types: (
         <>
+          <strong>requestUpdate Pattern:</strong> Base class calls this.requestUpdate() - simulates Lit's this.host.requestUpdate()<br/>
+          <strong>Component-Owned State:</strong> @State lives on component, controller requests updates explicitly<br/>
+          <strong>Abstract Method:</strong> Component implements requestUpdate() - decides how to handle update requests<br/>
+          <small>Explicit update requests like <a href="https://lit.dev/docs/composition/controllers/" target="_blank">Lit's ClockController</a></small>
+        </>
+      ),
+      tested: getGroupStats('controller').tested,
+      total: getGroupStats('controller').total,
+      section: testCaseStatus[3]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 4,
+      implemented: testCaseStatus[4]?.implemented || false,
+      desc: testCaseStatus[4]?.description || '',
+      types: (
+        <>
           <strong>Abstract Classes:</strong> Components extend Stencil-decorated abstract base classes<br/>
           <strong>Property Inheritance:</strong> @Prop, @State, @Method inheritance<br/>
           <small>Smoke tests for basic extends functionality</small>
@@ -80,12 +96,12 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('abstract').tested,
       total: getGroupStats('abstract').total,
-      section: testCaseStatus[3]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[4]?.implemented ? 'implemented' : 'missing',
     },
     {
-      id: 4,
-      implemented: testCaseStatus[4]?.implemented || false,
-      desc: testCaseStatus[4]?.description || '',
+      id: 5,
+      implemented: testCaseStatus[5]?.implemented || false,
+      desc: testCaseStatus[5]?.description || '',
       types: (
         <>
           <strong>Component Classes:</strong> Components extend other component classes<br/>
@@ -95,12 +111,12 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('component').tested,
       total: getGroupStats('component').total,
-      section: testCaseStatus[4]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[5]?.implemented ? 'implemented' : 'missing',
     },
     {
-      id: 5,
-      implemented: testCaseStatus[5]?.implemented || false,
-      desc: testCaseStatus[5]?.description || '',
+      id: 6,
+      implemented: testCaseStatus[6]?.implemented || false,
+      desc: testCaseStatus[6]?.description || '',
       types: (
         <>
           <strong>External Libraries:</strong> Components extend classes from external Stencil projects<br/>
@@ -110,12 +126,12 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('external').tested,
       total: getGroupStats('external').total,
-      section: testCaseStatus[5]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[6]?.implemented ? 'implemented' : 'missing',
     },
     {
-      id: 6,
-      implemented: testCaseStatus[6]?.implemented || false,
-      desc: testCaseStatus[6]?.description || '',
+      id: 7,
+      implemented: testCaseStatus[7]?.implemented || false,
+      desc: testCaseStatus[7]?.description || '',
       types: (
         <>
           <strong>Mixin Functions:</strong> Components extend via Stencil Mixin function<br/>
@@ -125,11 +141,11 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('mixin').tested,
       total: getGroupStats('mixin').total,
-      section: testCaseStatus[6]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[7]?.implemented ? 'implemented' : 'missing',
     }
   ];
 
-  return <TestCasesTable rows={allRows} previewCount={6} />;
+  return <TestCasesTable rows={allRows} previewCount={7} />;
 };
 
 <ExtendsTestCasesTable />
@@ -183,7 +199,8 @@ export const ExtendsCoverageSummary = () => {
 
 1. ✅ **Test Case #1 Complete**: Lifecycle inheritance fully implemented (6 passing tests)
 2. ✅ **Test Case #2 Complete**: Multi-level lifecycle inheritance fully implemented (7 passing tests)
-3. **Enhance Existing Test Cases**: Build upon the existing smoke tests to add comprehensive coverage:
+3. ✅ **Test Case #3 Complete**: Controller-initiated updates (requestUpdate pattern) fully implemented (5 passing tests)
+4. **Enhance Existing Test Cases**: Build upon the existing smoke tests to add comprehensive coverage:
    - Expand lifecycle testing to abstract class and component inheritance patterns
    - Add property and state mutation tests for all scenarios  
    - Add edge case and error condition testing
