@@ -1,6 +1,6 @@
 {
-  "description": "Generated extends test components for lifecycle inheritance testing",
-  "version": "1.0.0",
+  "description": "Generated extends test components for lifecycle inheritance testing - includes working extends-lifecycle-basic implementation",
+  "version": "1.1.0",
   "generatedComponents": [
     {
       "options": [
@@ -48,9 +48,21 @@
         "lifecycle",
         "basic"
       ],
-      "tag": "extends-direct-lifecycle-basic",
-      "group": "direct",
-      "description": "Baseline: Direct inheritance with basic lifecycle hooks for comparison"
+      "tag": "extends-lifecycle-basic",
+      "group": "inheritance",
+      "description": "Test Case #1: Direct inheritance (Component → LifecycleBase) with comprehensive lifecycle coverage - 6 passing tests covering Load, Render, and Update lifecycle events using Global Array Pattern for reliable verification",
+      "inheritance": {
+        "baseClass": "LifecycleBase",
+        "component": "extends-lifecycle-basic",
+        "location": "test/wdio/ts-target/extends-lifecycle-basic/",
+        "buildTarget": "ES2022",
+        "testingPattern": "Global Array Pattern (window.lifecycleCalls)",
+        "coverageAreas": [
+          "componentWillLoad / componentDidLoad",
+          "componentWillRender / componentDidRender", 
+          "componentWillUpdate / componentDidUpdate"
+        ]
+      }
     },
     {
       "options": [

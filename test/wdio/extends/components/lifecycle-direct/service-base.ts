@@ -1,42 +1,36 @@
-// Stencil-decorated base class for proper inheritance - LIFECYCLE FOCUSED
-// Following the working pattern from ts-target extends tests
-import { State } from '@stencil/core';
+// A plain base "service" class (not decorated with @Component)
+// Following the WORKING pattern from service-inheritance/lifecycle-events/service-base.ts
+// Provides lifecycle hooks via inheritance with proper ES2022 compatibility
 
 export class ServiceBase {
-  @State() willLoad = 0;
-  @State() didLoad = 0;
-  @State() willUpdate = 0;
-  @State() didUpdate = 0;
-  @State() willRender = 0;
-  @State() didRender = 0;
-
-  componentWillLoad() {
-    this.willLoad++;
+  // Lifecycle hooks executed on derived components via prototype inheritance
+  componentWillLoad(this: any) {
+    this.willLoad = (this.willLoad ?? 0) + 1;
     console.info('ServiceBase componentWillLoad:', this.willLoad);
   }
 
-  componentDidLoad() {
-    this.didLoad++;
+  componentDidLoad(this: any) {
+    this.didLoad = (this.didLoad ?? 0) + 1;
     console.info('ServiceBase componentDidLoad:', this.didLoad);
   }
 
-  componentWillRender() {
-    this.willRender++;
+  componentWillRender(this: any) {
+    this.willRender = (this.willRender ?? 0) + 1;
     console.info('ServiceBase componentWillRender:', this.willRender);
   }
 
-  componentDidRender() {
-    this.didRender++;
+  componentDidRender(this: any) {
+    this.didRender = (this.didRender ?? 0) + 1;
     console.info('ServiceBase componentDidRender:', this.didRender);
   }
 
-  componentWillUpdate() {
-    this.willUpdate++;
+  componentWillUpdate(this: any) {
+    this.willUpdate = (this.willUpdate ?? 0) + 1;
     console.info('ServiceBase componentWillUpdate:', this.willUpdate);
   }
 
-  componentDidUpdate() {
-    this.didUpdate++;
+  componentDidUpdate(this: any) {
+    this.didUpdate = (this.didUpdate ?? 0) + 1;
     console.info('ServiceBase componentDidUpdate:', this.didUpdate);
   }
 }

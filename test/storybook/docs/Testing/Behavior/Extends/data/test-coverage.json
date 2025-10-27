@@ -1,13 +1,13 @@
 {
   "description": "Test coverage status for extends functionality",
   "version": "1.0.0",
-  "lastUpdated": "2024-10-27",
+  "lastUpdated": "2025-10-27",
   "testCaseStatus": {
     "1": {
       "implemented": true,
       "componentCount": 1,
-      "description": "Direct Inheritance (Component → ServiceBase) - Tests comprehensive lifecycle event inheritance",
-      "specPath": "test/wdio/extends/extends.test.tsx",
+      "description": "Direct Inheritance (Component → LifecycleBase) - Tests comprehensive lifecycle event inheritance",
+      "specPath": "test/wdio/ts-target/extends-lifecycle-basic/cmp.test.ts",
       "lifecycleEvents": [
         {
           "category": "Load Lifecycle",
@@ -35,36 +35,6 @@
           "reason": "Better tested in parent-child scenarios where component removal is natural and realistic"
         }
       ]
-    },
-    "2": {
-      "implemented": true, 
-      "componentCount": 4,
-      "description": "Method inheritance and lifecycle tapping",
-      "specPath": "test/wdio/ts-target/extends-*/cmp.test.ts"
-    },
-    "3": {
-      "implemented": true,
-      "componentCount": 2,
-      "description": "Property and state inheritance patterns",
-      "specPath": "test/wdio/ts-target/extends-*/cmp.test.ts"
-    },
-    "4": {
-      "implemented": false,
-      "componentCount": 0,
-      "description": "Multi-level inheritance chains",
-      "specPath": "test/wdio/extends/multi-level/*.test.tsx"
-    },
-    "5": {
-      "implemented": true,
-      "componentCount": 1, 
-      "description": "Abstract base class inheritance",
-      "specPath": "test/wdio/ts-target/extends-abstract/cmp.test.ts"
-    },
-    "6": {
-      "implemented": false,
-      "componentCount": 0,
-      "description": "Mixin composition and behavior merging",
-      "specPath": "test/wdio/service-mixins/*.test.tsx"
     }
   },
   "items": [
@@ -72,43 +42,8 @@
       "index": 1,
       "group": "inheritance",
       "tested": true,
-      "tag": "extends-direct-lifecycle-basic",
-      "caseNumbers": [1, 2]
-    },
-    {
-      "index": 2,
-      "group": "inheritance", 
-      "tested": true,
-      "tag": "extends-direct-methods-props",
-      "caseNumbers": [2, 3]
-    },
-    {
-      "index": 3,
-      "group": "inheritance",
-      "tested": true,
-      "tag": "extends-direct-state-override", 
-      "caseNumbers": [2, 3]
-    },
-    {
-      "index": 4,
-      "group": "multi-level",
-      "tested": false,
-      "tag": "extends-multilevel-props-methods",
-      "caseNumbers": [4]
-    },
-    {
-      "index": 5,
-      "group": "abstract",
-      "tested": true,
-      "tag": "extends-abstract-decorators-lifecycle",
-      "caseNumbers": [5]
-    },
-    {
-      "index": 6,
-      "group": "mixins",
-      "tested": false,
-      "tag": "extends-mixin-behaviors-composition",
-      "caseNumbers": [6]
+      "tag": "extends-lifecycle-basic",
+      "caseNumbers": [1]
     }
   ]
 }
