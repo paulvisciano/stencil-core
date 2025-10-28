@@ -65,16 +65,16 @@ export const ExtendsCoverageSummary = () => {
 <ExtendsCoverageSummary />
 
 
-### **🟢 Basic Inheritance (1-2)**
-Foundation patterns for lifecycle and multi-level inheritance.
+### **🟢 Basic Inheritance (1-5)**
+Foundation patterns for lifecycle inheritance, property/state basics, method inheritance, and render composition.
 
-### **🟡 Standard Patterns (3-8)** 
+### **🟡 Standard Patterns (6-11)** 
 Common inheritance scenarios including abstract classes, component-to-component, external libraries, mixins, event handling, and watch decorators.
 
-### **🔴 Advanced Real-World Controllers (9-11)**
+### **🔴 Advanced Real-World Controllers (12-14)**
 Production-ready reactive controller examples demonstrating real business value.
 
-### **🟠 Robustness & Production (12-13)**
+### **🟠 Robustness & Production (15-16)**
 Decorator conflicts, compiler behavior, SSR/hydration, and production-critical edge cases.
 
 export const ExtendsTestCasesTable = () => {
@@ -180,15 +180,121 @@ export const ExtendsTestCasesTable = () => {
           <small>Smoke tests for mixin-based composition</small>
         </>
       ),
-      tested: getGroupStats('mixin').tested,
-      total: getGroupStats('mixin').total,
+      tested: getGroupStats('abstract').tested,
+      total: getGroupStats('abstract').total,
       section: testCaseStatus[6]?.implemented ? 'implemented' : 'missing',
     },
-    // 🟡 Standard Patterns (7-8)
+    // 🟢 Basic Inheritance (3-5)
+    {
+      id: 3,
+      implemented: testCaseStatus[3]?.implemented || false,
+      desc: testCaseStatus[3]?.description || '',
+      types: (
+        <>
+          <strong>🟢 Basic:</strong> Property & State inheritance basics - @Prop and @State without conflicts<br/>
+          <strong>Foundation Features:</strong> @Prop inheritance, @State inheritance, additional properties, property reactivity<br/>
+          <small>Basic property passing and rendering | No conflicts | Foundation for complex scenarios</small>
+        </>
+      ),
+      tested: getGroupStats('props-state').tested,
+      total: getGroupStats('props-state').total,
+      section: testCaseStatus[3]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 4,
+      implemented: testCaseStatus[4]?.implemented || false,
+      desc: testCaseStatus[4]?.description || '',
+      types: (
+        <>
+          <strong>🟢 Basic:</strong> Method inheritance basics - @Method inheritance and super() calls<br/>
+          <strong>Foundation Features:</strong> @Method inheritance, super() calls, method override, method composition<br/>
+          <small>Basic method exposure | Parent method invocation | Foundation for complex methods</small>
+        </>
+      ),
+      tested: getGroupStats('methods').tested,
+      total: getGroupStats('methods').total,
+      section: testCaseStatus[4]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 5,
+      implemented: testCaseStatus[5]?.implemented || false,
+      desc: testCaseStatus[5]?.description || '',
+      types: (
+        <>
+          <strong>🟢 Basic:</strong> Render method inheritance - Basic render() inheritance and template composition<br/>
+          <strong>Foundation Features:</strong> Render inheritance, template composition, slot integration, CSS class inheritance<br/>
+          <small>Parent template inclusion | Template composition | Foundation for complex rendering</small>
+        </>
+      ),
+      tested: getGroupStats('render').tested,
+      total: getGroupStats('render').total,
+      section: testCaseStatus[5]?.implemented ? 'implemented' : 'missing',
+    },
+    // 🟡 Standard Patterns (6-11)
+    {
+      id: 6,
+      implemented: testCaseStatus[6]?.implemented || false,
+      desc: testCaseStatus[6]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Components extend Stencil-decorated abstract base classes<br/>
+          <strong>Property Inheritance:</strong> @Prop, @State, @Method inheritance<br/>
+          <small>Smoke tests for basic extends functionality</small>
+        </>
+      ),
+      tested: getGroupStats('abstract').tested,
+      total: getGroupStats('abstract').total,
+      section: testCaseStatus[6]?.implemented ? 'implemented' : 'missing',
+    },
     {
       id: 7,
       implemented: testCaseStatus[7]?.implemented || false,
       desc: testCaseStatus[7]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Components extend other component classes<br/>
+          <strong>Property Inheritance:</strong> @Prop, @State, @Method inheritance<br/>
+          <small>Smoke tests for component-to-component inheritance</small>
+        </>
+      ),
+      tested: getGroupStats('component').tested,
+      total: getGroupStats('component').total,
+      section: testCaseStatus[7]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 8,
+      implemented: testCaseStatus[8]?.implemented || false,
+      desc: testCaseStatus[8]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Components extend classes from external Stencil projects<br/>
+          <strong>Cross-Package Inheritance:</strong> test-sibling library integration<br/>
+          <small>Smoke tests for external library inheritance</small>
+        </>
+      ),
+      tested: getGroupStats('external').tested,
+      total: getGroupStats('external').total,
+      section: testCaseStatus[8]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 9,
+      implemented: testCaseStatus[9]?.implemented || false,
+      desc: testCaseStatus[9]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Components extend via Stencil Mixin function<br/>
+          <strong>Behavior Composition:</strong> Multiple behaviors composed into single component<br/>
+          <small>Smoke tests for mixin-based composition</small>
+        </>
+      ),
+      tested: getGroupStats('mixin').tested,
+      total: getGroupStats('mixin').total,
+      section: testCaseStatus[9]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 10,
+      implemented: testCaseStatus[10]?.implemented || false,
+      desc: testCaseStatus[10]?.description || '',
       types: (
         <>
           <strong>🟡 Standard:</strong> Event handling inheritance - @Listen decorators and event propagation<br/>
@@ -198,12 +304,12 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('events').tested,
       total: getGroupStats('events').total,
-      section: testCaseStatus[7]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[10]?.implemented ? 'implemented' : 'missing',
     },
     {
-      id: 8,
-      implemented: testCaseStatus[8]?.implemented || false,
-      desc: testCaseStatus[8]?.description || '',
+      id: 11,
+      implemented: testCaseStatus[11]?.implemented || false,
+      desc: testCaseStatus[11]?.description || '',
       types: (
         <>
           <strong>🟡 Standard:</strong> Watch decorator inheritance - @Watch behavior through inheritance chains<br/>
@@ -213,13 +319,13 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('watch').tested,
       total: getGroupStats('watch').total,
-      section: testCaseStatus[8]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[11]?.implemented ? 'implemented' : 'missing',
     },
-    // 🔴 Advanced Real-World Controllers (9-11)
+    // 🔴 Advanced Real-World Controllers (12-14)
     {
-      id: 9,
-      implemented: testCaseStatus[9]?.implemented || false,
-      desc: testCaseStatus[9]?.description || '',
+      id: 12,
+      implemented: testCaseStatus[12]?.implemented || false,
+      desc: testCaseStatus[12]?.description || '',
       types: (
         <>
           <strong>🔴 Advanced:</strong> requestUpdate pattern - simulates Lit's this.host.requestUpdate()<br/>
@@ -229,12 +335,12 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('controller').tested,
       total: getGroupStats('controller').total,
-      section: testCaseStatus[9]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[12]?.implemented ? 'implemented' : 'missing',
     },
     {
-      id: 10,
-      implemented: testCaseStatus[10]?.implemented || false,
-      desc: testCaseStatus[10]?.description || '',
+      id: 13,
+      implemented: testCaseStatus[13]?.implemented || false,
+      desc: testCaseStatus[13]?.description || '',
       types: (
         <>
           <strong>🔴 Advanced:</strong> FloatingUI Controller - Real-world Popper.js integration for Bricks components<br/>
@@ -244,12 +350,12 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('floating-ui').tested,
       total: getGroupStats('floating-ui').total,
-      section: testCaseStatus[10]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[13]?.implemented ? 'implemented' : 'missing',
     },
     {
-      id: 11,
-      implemented: testCaseStatus[11]?.implemented || false,
-      desc: testCaseStatus[11]?.description || '',
+      id: 14,
+      implemented: testCaseStatus[14]?.implemented || false,
+      desc: testCaseStatus[14]?.description || '',
       types: (
         <>
           <strong>🔴 Advanced:</strong> ValidationController - Real-world form validation for Bricks components<br/>
@@ -259,13 +365,13 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('validation').tested,
       total: getGroupStats('validation').total,
-      section: testCaseStatus[11]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[14]?.implemented ? 'implemented' : 'missing',
     },
-    // 🟠 Robustness & Production (12-13)
+    // 🟠 Robustness & Production (15-16)
     {
-      id: 12,
-      implemented: testCaseStatus[12]?.implemented || false,
-      desc: testCaseStatus[12]?.description || '',
+      id: 15,
+      implemented: testCaseStatus[15]?.implemented || false,
+      desc: testCaseStatus[15]?.description || '',
       types: (
         <>
           <strong>🟠 Robustness:</strong> Decorator conflicts and compiler behavior testing<br/>
@@ -275,12 +381,12 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('conflicts').tested,
       total: getGroupStats('conflicts').total,
-      section: testCaseStatus[12]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[15]?.implemented ? 'implemented' : 'missing',
     },
     {
-      id: 13,
-      implemented: testCaseStatus[13]?.implemented || false,
-      desc: testCaseStatus[13]?.description || '',
+      id: 16,
+      implemented: testCaseStatus[16]?.implemented || false,
+      desc: testCaseStatus[16]?.description || '',
       types: (
         <>
           <strong>🟠 Production:</strong> SSR & Hydration - Server-side rendering and hydration behavior with inheritance<br/>
@@ -290,11 +396,11 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('ssr').tested,
       total: getGroupStats('ssr').total,
-      section: testCaseStatus[13]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[16]?.implemented ? 'implemented' : 'missing',
     }
   ];
 
-  return <TestCasesTable rows={allRows} previewCount={13} />;
+  return <TestCasesTable rows={allRows} previewCount={16} />;
 };
 
 <ExtendsTestCasesTable />
@@ -302,29 +408,32 @@ export const ExtendsTestCasesTable = () => {
 
 ## Next Steps
 
-**🟢 Basic Inheritance (Complete):**
+**🟢 Basic Inheritance (2/5 Complete):**
 1. ✅ **Test Case #1**: Lifecycle inheritance fully implemented (6 passing tests)
 2. ✅ **Test Case #2**: Multi-level lifecycle inheritance fully implemented (7 passing tests)
+3. **📋 Test Case #3 TODO**: Property & State Inheritance Basics - @Prop and @State without conflicts
+4. **📋 Test Case #4 TODO**: Method Inheritance Basics - @Method inheritance and super() calls
+5. **📋 Test Case #5 TODO**: Render Method Inheritance - Basic render() inheritance and template composition
 
-**🟡 Standard Patterns (Complete + New TODOs):**
-3. ✅ **Test Case #3**: Abstract base class inheritance (smoke tests)
-4. ✅ **Test Case #4**: Component-to-component inheritance (smoke tests)
-5. ✅ **Test Case #5**: External library inheritance (smoke tests) 
-6. ✅ **Test Case #6**: Mixin composition (smoke tests)
-7. **📋 Test Case #7 TODO**: Event Handling Inheritance - @Listen decorators and event propagation
-8. **📋 Test Case #8 TODO**: Watch Decorator Inheritance - @Watch behavior through inheritance chains
+**🟡 Standard Patterns (4/6 Complete):**
+6. ✅ **Test Case #6**: Abstract base class inheritance (smoke tests)
+7. ✅ **Test Case #7**: Component-to-component inheritance (smoke tests)
+8. ✅ **Test Case #8**: External library inheritance (smoke tests) 
+9. ✅ **Test Case #9**: Mixin composition (smoke tests)
+10. **📋 Test Case #10 TODO**: Event Handling Inheritance - @Listen decorators and event propagation
+11. **📋 Test Case #11 TODO**: Watch Decorator Inheritance - @Watch behavior through inheritance chains
 
-**🔴 Advanced Real-World Controllers:**
-9. ✅ **Test Case #9**: Controller-initiated updates (requestUpdate pattern) - **5 passing tests**
-10. **📋 Test Case #10 TODO**: FloatingUI Controller - Real-world Popper.js integration for Bricks components
-11. **📋 Test Case #11 TODO**: ValidationController - Real-world form validation for Bricks components
+**🔴 Advanced Real-World Controllers (1/3 Complete):**
+12. ✅ **Test Case #12**: Controller-initiated updates (requestUpdate pattern) - **5 passing tests**
+13. **📋 Test Case #13 TODO**: FloatingUI Controller - Real-world Popper.js integration for Bricks components
+14. **📋 Test Case #14 TODO**: ValidationController - Real-world form validation for Bricks components
 
-**🟠 Robustness & Production:**
-12. **📋 Test Case #12 TODO**: Decorator Conflicts & Edge Cases - Duplicate decorators, compiler behavior, inheritance conflicts
-13. **📋 Test Case #13 TODO**: SSR & Hydration - Server-side rendering and hydration behavior with inheritance chains
+**🟠 Robustness & Production (0/2 Complete):**
+15. **📋 Test Case #15 TODO**: Decorator Conflicts & Edge Cases - Duplicate decorators, compiler behavior, inheritance conflicts
+16. **📋 Test Case #16 TODO**: SSR & Hydration - Server-side rendering and hydration behavior with inheritance chains
 
 **Next Steps:**
-   - **Test Cases #7-8**: Core decorator inheritance (Event handling, Watch decorators) 
-   - **Test Case #12**: Critical robustness testing for decorator conflicts and edge cases
-   - **Test Case #13**: Production-critical SSR & hydration testing
-   - Add property and state mutation tests for existing scenarios
+   - **Test Cases #3-5**: Complete foundational Basic Inheritance patterns (Properties, Methods, Render)
+   - **Test Cases #10-11**: Core decorator inheritance (Event handling, Watch decorators) 
+   - **Test Case #15**: Critical robustness testing for decorator conflicts and edge cases
+   - **Test Case #16**: Production-critical SSR & hydration testing

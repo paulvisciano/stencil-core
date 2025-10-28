@@ -1,46 +1,46 @@
 {
-  "description": "Test coverage status for extends functionality",
-  "version": "1.0.0",
-  "lastUpdated": "2025-10-27",
+  "extends": "Stencil component inheritance and composition testing",
+  "description": "Comprehensive testing framework for Stencil extends functionality covering lifecycle, decorators, controllers, and edge cases",
+  "version": "2025-01-25",
   "testCaseStatus": {
     "1": {
       "implemented": true,
       "componentCount": 1,
-      "description": "Lifecycle Inheritance - Tests comprehensive lifecycle event inheritance from base classes",
+      "description": "Lifecycle Inheritance - Component lifecycle events inherited from base class",
       "specPath": "test/wdio/ts-target/extends-lifecycle-basic/cmp.test.ts",
       "lifecycleEvents": [
         {
           "category": "Load Lifecycle",
           "events": ["componentWillLoad", "componentDidLoad"],
-          "purpose": "Test initial inheritance - ensures lifecycle events fire when component first loads"
+          "purpose": "Test load lifecycle inheritance with base class event propagation"
         },
         {
-          "category": "Render Lifecycle", 
+          "category": "Render Lifecycle",
           "events": ["componentWillRender", "componentDidRender"],
-          "purpose": "Test render inheritance - ensures lifecycle events fire on each render cycle"
+          "purpose": "Test render lifecycle inheritance with base class event propagation"
         },
         {
           "category": "Update Lifecycle",
           "events": ["componentWillUpdate", "componentDidUpdate"],
-          "purpose": "Test state-change inheritance - ensures lifecycle events fire when state updates"
+          "purpose": "Test update lifecycle inheritance with super() call chains"
         }
       ]
     },
     "2": {
       "implemented": true,
       "componentCount": 1,
-      "description": "Multi-Level Lifecycle Inheritance - Tests lifecycle events through inheritance chains (Component → Base → GrandparentBase)",
+      "description": "Multi-Level Lifecycle Inheritance - Lifecycle events through multi-level inheritance chains",
       "specPath": "test/wdio/ts-target/extends-lifecycle-multilevel/cmp.test.ts",
       "lifecycleEvents": [
         {
           "category": "Load Lifecycle",
           "events": ["componentWillLoad", "componentDidLoad"],
-          "purpose": "Test lifecycle inheritance through multiple inheritance levels"
+          "purpose": "Test load lifecycle inheritance with multi-level inheritance chains and super() calls"
         },
         {
-          "category": "Render Lifecycle", 
+          "category": "Render Lifecycle",
           "events": ["componentWillRender", "componentDidRender"],
-          "purpose": "Test render lifecycle inheritance in multi-level chains"
+          "purpose": "Test render lifecycle inheritance with multi-level inheritance chains and super() calls"
         },
         {
           "category": "Update Lifecycle",
@@ -50,98 +50,102 @@
       ]
     },
     "3": {
+      "implemented": false,
+      "componentCount": 0,
+      "description": "Property & State Inheritance Basics - Basic @Prop and @State inheritance without conflicts",
+      "specPath": "test/wdio/ts-target/extends-props-state/cmp.test.ts",
+      "basicFeatures": [
+        {
+          "feature": "@Prop Inheritance",
+          "description": "Base class @Prop properties inherited by component - basic property passing and rendering"
+        },
+        {
+          "feature": "@State Inheritance", 
+          "description": "Base class @State properties inherited by component - basic reactive state management"
+        },
+        {
+          "feature": "Additional Properties",
+          "description": "Component defines additional @Prop and @State alongside inherited ones - no conflicts"
+        },
+        {
+          "feature": "Property Reactivity",
+          "description": "Inherited properties trigger re-renders correctly in component hierarchy"
+        }
+      ]
+    },
+    "4": {
+      "implemented": false,
+      "componentCount": 0,
+      "description": "Method Inheritance Basics - Basic @Method inheritance and super() calls",
+      "specPath": "test/wdio/ts-target/extends-methods/cmp.test.ts",
+      "basicFeatures": [
+        {
+          "feature": "@Method Inheritance",
+          "description": "Base class @Method decorators inherited by component - basic method exposure"
+        },
+        {
+          "feature": "Super() Calls",
+          "description": "Component methods call super() to invoke parent method logic before/after extension"
+        },
+        {
+          "feature": "Method Override",
+          "description": "Component overrides base class methods while maintaining @Method decorator behavior"
+        },
+        {
+          "feature": "Method Composition",
+          "description": "Component combines base class method logic with its own implementation"
+        }
+      ]
+    },
+    "5": {
+      "implemented": false,
+      "componentCount": 0,
+      "description": "Render Method Inheritance - Basic render() inheritance and template composition",
+      "specPath": "test/wdio/ts-target/extends-render/cmp.test.ts",
+      "basicFeatures": [
+        {
+          "feature": "Render Inheritance",
+          "description": "Component render() method calls super.render() to include parent template"
+        },
+        {
+          "feature": "Template Composition",
+          "description": "Component composes parent template with additional content and structure"
+        },
+        {
+          "feature": "Slot Integration",
+          "description": "Parent template slots work correctly when inherited and extended"
+        },
+        {
+          "feature": "CSS Class Inheritance",
+          "description": "CSS classes from parent template maintained in component extension"
+        }
+      ]
+    },
+    "6": {
       "implemented": true,
       "componentCount": 1,
       "description": "Abstract Base Class Inheritance - Components extending Stencil-decorated abstract classes",
       "specPath": "test/wdio/ts-target/extends-abstract/cmp.test.ts"
     },
-    "4": {
+    "7": {
       "implemented": true,
       "componentCount": 1,
       "description": "Component-to-Component Inheritance - Components extending other component classes",
       "specPath": "test/wdio/ts-target/extends-cmp/cmp.test.ts"
     },
-    "5": {
+    "8": {
       "implemented": true,
       "componentCount": 1,
       "description": "External Library Inheritance - Components extending classes from external Stencil libraries",
       "specPath": "test/wdio/ts-target/extends-external/cmp.test.ts"
     },
-    "6": {
+    "9": {
       "implemented": true,
       "componentCount": 1,
       "description": "Mixin Composition - Components extending via Stencil Mixin function for behavior composition",
       "specPath": "test/wdio/ts-target/extends-mixin/cmp.test.ts"
     },
-    "7": {
-      "implemented": true,
-      "componentCount": 1,
-      "description": "Controller-Initiated Updates - Base class triggering host component updates (ClockController pattern)",
-      "specPath": "test/wdio/ts-target/extends-controller-updates/cmp.test.ts",
-      "controllerFeatures": [
-        {
-          "feature": "requestUpdate Pattern",
-          "description": "Base class calls abstract requestUpdate() method - simulates Lit's this.host.requestUpdate()"
-        },
-        {
-          "feature": "Component-Owned State",
-          "description": "@State lives on component, not controller - component controls its own state updates"
-        },
-        {
-          "feature": "Explicit Update Requests",
-          "description": "Controller requests updates, doesn't force them - component decides how to respond"
-        }
-      ]
-    },
-    "8": {
-      "implemented": false,
-      "componentCount": 0,
-      "description": "FloatingUI Controller - Real-world reactive controller for Popper.js integration (Bricks components)",
-      "specPath": "test/wdio/ts-target/extends-floating-ui/cmp.test.ts",
-      "controllerFeatures": [
-        {
-          "feature": "Popper Instance Management",
-          "description": "Controller creates and manages Popper class instance in componentDidLoad lifecycle"
-        },
-        {
-          "feature": "Update Methods",
-          "description": "Provides update()/updateInstance() methods to replace updatePopoverInstance() in host components"
-        },
-        {
-          "feature": "Lifecycle Cleanup",
-          "description": "Handles popper.destroy() cleanup in disconnectedCallback"
-        },
-        {
-          "feature": "Real-world Integration",
-          "description": "Used by bricks-tooltip and bricks-menu-button components from Bricks component library"
-        }
-      ]
-    },
-    "9": {
-      "implemented": false,
-      "componentCount": 0,
-      "description": "ValidationController - Real-world reactive controller for form validation (Bricks components)", 
-      "specPath": "test/wdio/ts-target/extends-validation/cmp.test.ts",
-      "controllerFeatures": [
-        {
-          "feature": "Validation State Management",
-          "description": "Controller maintains validation errors, isValid, and isDirty states"
-        },
-        {
-          "feature": "Reusable Validation Logic",
-          "description": "onBlur handling, validation timing, and error rendering shared across components"
-        },
-        {
-          "feature": "Abstract Validation Rules",
-          "description": "Host components define validation logic via abstract validateValue() method"
-        },
-        {
-          "feature": "Real-world Integration",
-          "description": "Used by bricks-radio-button-group and bricks-checkbox-group components"
-        }
-      ]
-    },
-    "7": {
+    "10": {
       "implemented": false,
       "componentCount": 0,
       "description": "Event Handling Inheritance - @Listen decorators and event propagation through inheritance chains",
@@ -165,7 +169,7 @@
         }
       ]
     },
-    "8": {
+    "11": {
       "implemented": false,
       "componentCount": 0,
       "description": "Watch Decorator Inheritance - @Watch behavior through inheritance chains and reactive patterns",
@@ -189,7 +193,7 @@
         }
       ]
     },
-    "9": {
+    "12": {
       "implemented": true,
       "componentCount": 1,
       "description": "Controller-Initiated Updates - Base class triggering host component updates (ClockController pattern)",
@@ -209,7 +213,7 @@
         }
       ]
     },
-    "10": {
+    "13": {
       "implemented": false,
       "componentCount": 0,
       "description": "FloatingUI Controller - Real-world reactive controller for Popper.js integration (Bricks components)",
@@ -233,7 +237,7 @@
         }
       ]
     },
-    "11": {
+    "14": {
       "implemented": false,
       "componentCount": 0,
       "description": "ValidationController - Real-world reactive controller for form validation (Bricks components)", 
@@ -257,7 +261,7 @@
         }
       ]
     },
-    "12": {
+    "15": {
       "implemented": false,
       "componentCount": 0,
       "description": "Decorator Conflicts & Edge Cases - Testing inheritance chain conflicts and compiler behavior",
@@ -289,7 +293,7 @@
         }
       ]
     },
-    "13": {
+    "16": {
       "implemented": false,
       "componentCount": 0,
       "description": "SSR & Hydration - Server-side rendering and hydration behavior with inheritance chains",
@@ -331,80 +335,101 @@
     },
     {
       "index": 3,
-      "group": "abstract",
-      "tested": true,
-      "tag": "extends-abstract",
+      "group": "props-state",
+      "tested": false,
+      "tag": "extends-props-state",
       "caseNumbers": [3]
     },
     {
       "index": 4,
-      "group": "component",
-      "tested": true,
-      "tag": "extends-cmp",
+      "group": "methods",
+      "tested": false,
+      "tag": "extends-methods",
       "caseNumbers": [4]
     },
     {
       "index": 5,
-      "group": "external",
-      "tested": true,
-      "tag": "extends-external",  
+      "group": "render",
+      "tested": false,
+      "tag": "extends-render",
       "caseNumbers": [5]
     },
     {
       "index": 6,
-      "group": "mixin",
+      "group": "abstract",
       "tested": true,
-      "tag": "extends-mixin",
+      "tag": "extends-abstract",
       "caseNumbers": [6]
     },
     {
       "index": 7,
-      "group": "events",
-      "tested": false,
-      "tag": "extends-events",
+      "group": "component",
+      "tested": true,
+      "tag": "extends-cmp",
       "caseNumbers": [7]
     },
     {
       "index": 8,
-      "group": "watch",
-      "tested": false,
-      "tag": "extends-watch",
+      "group": "external",
+      "tested": true,
+      "tag": "extends-external",  
       "caseNumbers": [8]
     },
     {
       "index": 9,
-      "group": "controller",
+      "group": "mixin",
       "tested": true,
-      "tag": "extends-controller-updates",
+      "tag": "extends-mixin",
       "caseNumbers": [9]
     },
     {
       "index": 10,
-      "group": "floating-ui",
+      "group": "events",
       "tested": false,
-      "tag": "extends-floating-ui",
+      "tag": "extends-events",
       "caseNumbers": [10]
     },
     {
       "index": 11,
-      "group": "validation",
+      "group": "watch",
       "tested": false,
-      "tag": "extends-validation",
+      "tag": "extends-watch",
       "caseNumbers": [11]
     },
     {
       "index": 12,
-      "group": "conflicts",
-      "tested": false,
-      "tag": "extends-conflicts",
+      "group": "controller",
+      "tested": true,
+      "tag": "extends-controller-updates",
       "caseNumbers": [12]
     },
     {
       "index": 13,
+      "group": "floating-ui",
+      "tested": false,
+      "tag": "extends-floating-ui",
+      "caseNumbers": [13]
+    },
+    {
+      "index": 14,
+      "group": "validation",
+      "tested": false,
+      "tag": "extends-validation",
+      "caseNumbers": [14]
+    },
+    {
+      "index": 15,
+      "group": "conflicts",
+      "tested": false,
+      "tag": "extends-conflicts",
+      "caseNumbers": [15]
+    },
+    {
+      "index": 16,
       "group": "ssr",
       "tested": false,
       "tag": "extends-ssr",
-      "caseNumbers": [13]
+      "caseNumbers": [16]
     }
   ]
 }
