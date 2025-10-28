@@ -52,7 +52,31 @@
     "3": {
       "implemented": true,
       "componentCount": 1,
-      "description": "Controller-Initiated Updates - Base class triggering host component updates (Clock Controller pattern)",
+      "description": "Abstract Base Class Inheritance - Components extending Stencil-decorated abstract classes",
+      "specPath": "test/wdio/ts-target/extends-abstract/cmp.test.ts"
+    },
+    "4": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "Component-to-Component Inheritance - Components extending other component classes",
+      "specPath": "test/wdio/ts-target/extends-cmp/cmp.test.ts"
+    },
+    "5": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "External Library Inheritance - Components extending classes from external Stencil libraries",
+      "specPath": "test/wdio/ts-target/extends-external/cmp.test.ts"
+    },
+    "6": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "Mixin Composition - Components extending via Stencil Mixin function for behavior composition",
+      "specPath": "test/wdio/ts-target/extends-mixin/cmp.test.ts"
+    },
+    "7": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "Controller-Initiated Updates - Base class triggering host component updates (ClockController pattern)",
       "specPath": "test/wdio/ts-target/extends-controller-updates/cmp.test.ts",
       "controllerFeatures": [
         {
@@ -69,29 +93,53 @@
         }
       ]
     },
-    "4": {
-      "implemented": true,
-      "componentCount": 1,
-      "description": "Abstract Base Class Inheritance - Components extending Stencil-decorated abstract classes",
-      "specPath": "test/wdio/ts-target/extends-abstract/cmp.test.ts"
+    "8": {
+      "implemented": false,
+      "componentCount": 0,
+      "description": "FloatingUI Controller - Real-world reactive controller for Popper.js integration (Bricks components)",
+      "specPath": "test/wdio/ts-target/extends-floating-ui/cmp.test.ts",
+      "controllerFeatures": [
+        {
+          "feature": "Popper Instance Management",
+          "description": "Controller creates and manages Popper class instance in componentDidLoad lifecycle"
+        },
+        {
+          "feature": "Update Methods",
+          "description": "Provides update()/updateInstance() methods to replace updatePopoverInstance() in host components"
+        },
+        {
+          "feature": "Lifecycle Cleanup",
+          "description": "Handles popper.destroy() cleanup in disconnectedCallback"
+        },
+        {
+          "feature": "Real-world Integration",
+          "description": "Used by bricks-tooltip and bricks-menu-button components from Bricks component library"
+        }
+      ]
     },
-    "5": {
-      "implemented": true,
-      "componentCount": 1,
-      "description": "Component-to-Component Inheritance - Components extending other component classes",
-      "specPath": "test/wdio/ts-target/extends-cmp/cmp.test.ts"
-    },
-    "6": {
-      "implemented": true,
-      "componentCount": 1,
-      "description": "External Library Inheritance - Components extending classes from external Stencil libraries",
-      "specPath": "test/wdio/ts-target/extends-external/cmp.test.ts"
-    },
-    "7": {
-      "implemented": true,
-      "componentCount": 1,
-      "description": "Mixin Composition - Components extending via Stencil Mixin function for behavior composition",
-      "specPath": "test/wdio/ts-target/extends-mixin/cmp.test.ts"
+    "9": {
+      "implemented": false,
+      "componentCount": 0,
+      "description": "ValidationController - Real-world reactive controller for form validation (Bricks components)", 
+      "specPath": "test/wdio/ts-target/extends-validation/cmp.test.ts",
+      "controllerFeatures": [
+        {
+          "feature": "Validation State Management",
+          "description": "Controller maintains validation errors, isValid, and isDirty states"
+        },
+        {
+          "feature": "Reusable Validation Logic",
+          "description": "onBlur handling, validation timing, and error rendering shared across components"
+        },
+        {
+          "feature": "Abstract Validation Rules",
+          "description": "Host components define validation logic via abstract validateValue() method"
+        },
+        {
+          "feature": "Real-world Integration",
+          "description": "Used by bricks-radio-button-group and bricks-checkbox-group components"
+        }
+      ]
     }
   },
   "items": [
@@ -111,38 +159,52 @@
     },
     {
       "index": 3,
-      "group": "controller",
+      "group": "abstract",
       "tested": true,
-      "tag": "extends-controller-updates",
+      "tag": "extends-abstract",
       "caseNumbers": [3]
     },
     {
       "index": 4,
-      "group": "abstract",
+      "group": "component",
       "tested": true,
-      "tag": "extends-abstract",
+      "tag": "extends-cmp",
       "caseNumbers": [4]
     },
     {
       "index": 5,
-      "group": "component",
+      "group": "external",
       "tested": true,
-      "tag": "extends-cmp",
+      "tag": "extends-external",  
       "caseNumbers": [5]
     },
     {
       "index": 6,
-      "group": "external",
+      "group": "mixin",
       "tested": true,
-      "tag": "extends-external",  
+      "tag": "extends-mixin",
       "caseNumbers": [6]
     },
     {
       "index": 7,
-      "group": "mixin",
+      "group": "controller",
       "tested": true,
-      "tag": "extends-mixin",
+      "tag": "extends-controller-updates",
       "caseNumbers": [7]
+    },
+    {
+      "index": 8,
+      "group": "floating-ui",
+      "tested": false,
+      "tag": "extends-floating-ui",
+      "caseNumbers": [8]
+    },
+    {
+      "index": 9,
+      "group": "validation",
+      "tested": false,
+      "tag": "extends-validation",
+      "caseNumbers": [9]
     }
   ]
 }

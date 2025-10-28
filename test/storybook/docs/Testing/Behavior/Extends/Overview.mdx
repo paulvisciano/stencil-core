@@ -18,137 +18,7 @@ The `extends` functionality enables component inheritance and composition patter
 
 ## Test Cases
 
-Note: Test cases are high‑level scenarios covering inheritance patterns and composition behaviors. All extends tests reside under <code>test/wdio/ts-target/extends-*</code>.
-
-export const ExtendsTestCasesTable = () => {
-  // Pre-calculated test case status from JSON
-  const testCaseStatus = overlay.testCaseStatus || {};
-  const items = overlay.items || [];
-  
-  // Helper function to get stats for a group
-  const getGroupStats = (groupName) => {
-    const groupItems = items.filter(i => i.group === groupName);
-    return {
-      tested: groupItems.filter(i => i.tested).length,
-      total: groupItems.length
-    };
-  };
-
-  const allRows = [
-    {
-      id: 1,
-      implemented: testCaseStatus[1]?.implemented || false,
-      desc: testCaseStatus[1]?.description || '',
-      types: (
-        <>
-          <strong>Load Lifecycle:</strong> componentWillLoad, componentDidLoad<br/>
-          <strong>Render Lifecycle:</strong> componentWillRender, componentDidRender<br/>
-          <strong>Update Lifecycle:</strong> componentWillUpdate, componentDidUpdate<br/>
-          <small>Uses Global Array Pattern | ES2022 Build Target | 6 passing tests</small>
-        </>
-      ),
-      tested: getGroupStats('lifecycle').tested,
-      total: getGroupStats('lifecycle').total,
-      section: testCaseStatus[1]?.implemented ? 'implemented' : 'missing',
-    },
-    {
-      id: 2,
-      implemented: testCaseStatus[2]?.implemented || false,
-      desc: testCaseStatus[2]?.description || '',
-      types: (
-        <>
-          <strong>Multi-Level Inheritance:</strong> Component → ParentBase → GrandparentBase<br/>
-          <strong>Lifecycle Chain:</strong> All lifecycle events fire at each inheritance level with super() calls<br/>
-          <strong>Verification:</strong> Event order, count validation (12+ events), inheritance chain integrity<br/>
-          <small>Uses Global Array Pattern | ES2022 Build Target | 7 passing tests</small>
-        </>
-      ),
-      tested: getGroupStats('multilevel').tested,
-      total: getGroupStats('multilevel').total,
-      section: testCaseStatus[2]?.implemented ? 'implemented' : 'missing',
-    },
-    {
-      id: 3,
-      implemented: testCaseStatus[3]?.implemented || false,
-      desc: testCaseStatus[3]?.description || '',
-      types: (
-        <>
-          <strong>requestUpdate Pattern:</strong> Base class calls this.requestUpdate() - simulates Lit's this.host.requestUpdate()<br/>
-          <strong>Component-Owned State:</strong> @State lives on component, controller requests updates explicitly<br/>
-          <strong>Abstract Method:</strong> Component implements requestUpdate() - decides how to handle update requests<br/>
-          <small>Explicit update requests like <a href="https://lit.dev/docs/composition/controllers/" target="_blank">Lit's ClockController</a></small>
-        </>
-      ),
-      tested: getGroupStats('controller').tested,
-      total: getGroupStats('controller').total,
-      section: testCaseStatus[3]?.implemented ? 'implemented' : 'missing',
-    },
-    {
-      id: 4,
-      implemented: testCaseStatus[4]?.implemented || false,
-      desc: testCaseStatus[4]?.description || '',
-      types: (
-        <>
-          <strong>Abstract Classes:</strong> Components extend Stencil-decorated abstract base classes<br/>
-          <strong>Property Inheritance:</strong> @Prop, @State, @Method inheritance<br/>
-          <small>Smoke tests for basic extends functionality</small>
-        </>
-      ),
-      tested: getGroupStats('abstract').tested,
-      total: getGroupStats('abstract').total,
-      section: testCaseStatus[4]?.implemented ? 'implemented' : 'missing',
-    },
-    {
-      id: 5,
-      implemented: testCaseStatus[5]?.implemented || false,
-      desc: testCaseStatus[5]?.description || '',
-      types: (
-        <>
-          <strong>Component Classes:</strong> Components extend other component classes<br/>
-          <strong>Property Inheritance:</strong> @Prop, @State, @Method inheritance<br/>
-          <small>Smoke tests for component-to-component inheritance</small>
-        </>
-      ),
-      tested: getGroupStats('component').tested,
-      total: getGroupStats('component').total,
-      section: testCaseStatus[5]?.implemented ? 'implemented' : 'missing',
-    },
-    {
-      id: 6,
-      implemented: testCaseStatus[6]?.implemented || false,
-      desc: testCaseStatus[6]?.description || '',
-      types: (
-        <>
-          <strong>External Libraries:</strong> Components extend classes from external Stencil projects<br/>
-          <strong>Cross-Package Inheritance:</strong> test-sibling library integration<br/>
-          <small>Smoke tests for external library inheritance</small>
-        </>
-      ),
-      tested: getGroupStats('external').tested,
-      total: getGroupStats('external').total,
-      section: testCaseStatus[6]?.implemented ? 'implemented' : 'missing',
-    },
-    {
-      id: 7,
-      implemented: testCaseStatus[7]?.implemented || false,
-      desc: testCaseStatus[7]?.description || '',
-      types: (
-        <>
-          <strong>Mixin Functions:</strong> Components extend via Stencil Mixin function<br/>
-          <strong>Behavior Composition:</strong> Multiple behaviors composed into single component<br/>
-          <small>Smoke tests for mixin-based composition</small>
-        </>
-      ),
-      tested: getGroupStats('mixin').tested,
-      total: getGroupStats('mixin').total,
-      section: testCaseStatus[7]?.implemented ? 'implemented' : 'missing',
-    }
-  ];
-
-  return <TestCasesTable rows={allRows} previewCount={7} />;
-};
-
-<ExtendsTestCasesTable />
+Test cases are organized by **complexity** - from basic inheritance patterns to advanced real-world reactive controllers. All `extends` tests reside under <code>test/wdio/ts-target/extends-*</code>.
 
 export const ExtendsCoverageSummary = () => {
   const items = overlay.items || [];
@@ -162,7 +32,6 @@ export const ExtendsCoverageSummary = () => {
   
   return (
     <div style={{ background: '#f8f9fa', padding: '16px', borderRadius: '8px', marginBottom: '24px' }}>
-      <h3 style={{ margin: '0 0 12px 0' }}>Coverage Status</h3>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
         <div>
           <strong>Component Coverage</strong><br/>
@@ -195,17 +64,195 @@ export const ExtendsCoverageSummary = () => {
 
 <ExtendsCoverageSummary />
 
+
+### **🟢 Basic Inheritance (1-2)**
+Foundation patterns for lifecycle and multi-level inheritance.
+
+### **🟡 Standard Patterns (3-6)** 
+Common inheritance scenarios including abstract classes, component-to-component, external libraries, and mixins.
+
+### **🔴 Advanced Real-World Controllers (7-9)**
+Production-ready reactive controller examples demonstrating real business value.
+
+export const ExtendsTestCasesTable = () => {
+  // Pre-calculated test case status from JSON
+  const testCaseStatus = overlay.testCaseStatus || {};
+  const items = overlay.items || [];
+  
+  // Helper function to get stats for a group
+  const getGroupStats = (groupName) => {
+    const groupItems = items.filter(i => i.group === groupName);
+    return {
+      tested: groupItems.filter(i => i.tested).length,
+      total: groupItems.length
+    };
+  };
+
+  const allRows = [
+    // 🟢 Basic Inheritance (1-2)
+    {
+      id: 1,
+      implemented: testCaseStatus[1]?.implemented || false,
+      desc: testCaseStatus[1]?.description || '',
+      types: (
+        <>
+          <strong>🟢 Basic:</strong> Foundation lifecycle inheritance pattern<br/>
+          <strong>Coverage:</strong> componentWillLoad, componentDidLoad, componentWillRender, componentDidRender, componentWillUpdate, componentDidUpdate<br/>
+          <small>Uses Global Array Pattern | ES2022 Build Target | 6 passing tests</small>
+        </>
+      ),
+      tested: getGroupStats('lifecycle').tested,
+      total: getGroupStats('lifecycle').total,
+      section: testCaseStatus[1]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 2,
+      implemented: testCaseStatus[2]?.implemented || false,
+      desc: testCaseStatus[2]?.description || '',
+      types: (
+        <>
+          <strong>🟢 Basic:</strong> Multi-level inheritance chains (Component → ParentBase → GrandparentBase)<br/>
+          <strong>Advanced Features:</strong> super() call chains, event ordering, inheritance chain integrity<br/>
+          <small>Uses Global Array Pattern | ES2022 Build Target | 7 passing tests</small>
+        </>
+      ),
+      tested: getGroupStats('multilevel').tested,
+      total: getGroupStats('multilevel').total,
+      section: testCaseStatus[2]?.implemented ? 'implemented' : 'missing',
+    },
+    // 🟡 Standard Patterns (3-6)
+    {
+      id: 3,
+      implemented: testCaseStatus[3]?.implemented || false,
+      desc: testCaseStatus[3]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Components extend Stencil-decorated abstract base classes<br/>
+          <strong>Property Inheritance:</strong> @Prop, @State, @Method inheritance<br/>
+          <small>Smoke tests for basic extends functionality</small>
+        </>
+      ),
+      tested: getGroupStats('abstract').tested,
+      total: getGroupStats('abstract').total,
+      section: testCaseStatus[3]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 4,
+      implemented: testCaseStatus[4]?.implemented || false,
+      desc: testCaseStatus[4]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Components extend other component classes<br/>
+          <strong>Property Inheritance:</strong> @Prop, @State, @Method inheritance<br/>
+          <small>Smoke tests for component-to-component inheritance</small>
+        </>
+      ),
+      tested: getGroupStats('component').tested,
+      total: getGroupStats('component').total,
+      section: testCaseStatus[4]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 5,
+      implemented: testCaseStatus[5]?.implemented || false,
+      desc: testCaseStatus[5]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Components extend classes from external Stencil projects<br/>
+          <strong>Cross-Package Inheritance:</strong> test-sibling library integration<br/>
+          <small>Smoke tests for external library inheritance</small>
+        </>
+      ),
+      tested: getGroupStats('external').tested,
+      total: getGroupStats('external').total,
+      section: testCaseStatus[5]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 6,
+      implemented: testCaseStatus[6]?.implemented || false,
+      desc: testCaseStatus[6]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Components extend via Stencil Mixin function<br/>
+          <strong>Behavior Composition:</strong> Multiple behaviors composed into single component<br/>
+          <small>Smoke tests for mixin-based composition</small>
+        </>
+      ),
+      tested: getGroupStats('mixin').tested,
+      total: getGroupStats('mixin').total,
+      section: testCaseStatus[6]?.implemented ? 'implemented' : 'missing',
+    },
+    // 🔴 Advanced Real-World Controllers (7-9)
+    {
+      id: 7,
+      implemented: testCaseStatus[7]?.implemented || false,
+      desc: testCaseStatus[7]?.description || '',
+      types: (
+        <>
+          <strong>🔴 Advanced:</strong> requestUpdate pattern - simulates Lit's this.host.requestUpdate()<br/>
+          <strong>Production Pattern:</strong> Component-owned state, explicit update requests, abstract methods<br/>
+          <small>Real-world reactive controller | <a href="https://lit.dev/docs/composition/controllers/" target="_blank">Lit ClockController</a> equivalent | 5 passing tests</small>
+        </>
+      ),
+      tested: getGroupStats('controller').tested,
+      total: getGroupStats('controller').total,
+      section: testCaseStatus[7]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 8,
+      implemented: testCaseStatus[8]?.implemented || false,
+      desc: testCaseStatus[8]?.description || '',
+      types: (
+        <>
+          <strong>🔴 Advanced:</strong> FloatingUI Controller - Real-world Popper.js integration for Bricks components<br/>
+          <strong>Production Use:</strong> bricks-tooltip and bricks-menu-button, instance management, lifecycle cleanup<br/>
+          <small>Third-party library integration | Replaces updatePopoverInstance() | Real business value</small>
+        </>
+      ),
+      tested: getGroupStats('floating-ui').tested,
+      total: getGroupStats('floating-ui').total,
+      section: testCaseStatus[8]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 9,
+      implemented: testCaseStatus[9]?.implemented || false,
+      desc: testCaseStatus[9]?.description || '',
+      types: (
+        <>
+          <strong>🔴 Advanced:</strong> ValidationController - Real-world form validation for Bricks components<br/>
+          <strong>Production Use:</strong> bricks-radio-button-group and bricks-checkbox-group, validation state management<br/>
+          <small>Eliminates code duplication | onBlur handling | Validation error rendering | Real business value</small>
+        </>
+      ),
+      tested: getGroupStats('validation').tested,
+      total: getGroupStats('validation').total,
+      section: testCaseStatus[9]?.implemented ? 'implemented' : 'missing',
+    }
+  ];
+
+  return <TestCasesTable rows={allRows} previewCount={9} />;
+};
+
+<ExtendsTestCasesTable />
+
+
 ## Next Steps
 
-1. ✅ **Test Case #1 Complete**: Lifecycle inheritance fully implemented (6 passing tests)
-2. ✅ **Test Case #2 Complete**: Multi-level lifecycle inheritance fully implemented (7 passing tests)
-3. ✅ **Test Case #3 Complete**: Controller-initiated updates (requestUpdate pattern) fully implemented (5 passing tests)
-4. **Enhance Existing Test Cases**: Build upon the existing smoke tests to add comprehensive coverage:
+**🟢 Basic Inheritance (Complete):**
+1. ✅ **Test Case #1**: Lifecycle inheritance fully implemented (6 passing tests)
+2. ✅ **Test Case #2**: Multi-level lifecycle inheritance fully implemented (7 passing tests)
+
+**🟡 Standard Patterns (Complete):**
+3. ✅ **Test Case #3**: Abstract base class inheritance (smoke tests)
+4. ✅ **Test Case #4**: Component-to-component inheritance (smoke tests)
+5. ✅ **Test Case #5**: External library inheritance (smoke tests) 
+6. ✅ **Test Case #6**: Mixin composition (smoke tests)
+
+**🔴 Advanced Real-World Controllers:**
+7. ✅ **Test Case #7**: Controller-initiated updates (requestUpdate pattern) - **5 passing tests**
+8. **📋 Test Case #8 TODO**: FloatingUI Controller - Real-world Popper.js integration for Bricks components
+9. **📋 Test Case #9 TODO**: ValidationController - Real-world form validation for Bricks components
+
+**Next Steps:**
    - Expand lifecycle testing to abstract class and component inheritance patterns
    - Add property and state mutation tests for all scenarios  
    - Add edge case and error condition testing
-
-## Related Documentation
-
-- [Extends Evaluation](?path=/docs/testing-behavior-extends-extends-evaluation--docs) - Detailed evaluation and planning
-- [Historical Context](?path=/docs/testing-behavior-extends-historical-controller-context--docs) - Background on @Controller proposal
