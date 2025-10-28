@@ -68,11 +68,14 @@ export const ExtendsCoverageSummary = () => {
 ### **🟢 Basic Inheritance (1-2)**
 Foundation patterns for lifecycle and multi-level inheritance.
 
-### **🟡 Standard Patterns (3-6)** 
-Common inheritance scenarios including abstract classes, component-to-component, external libraries, and mixins.
+### **🟡 Standard Patterns (3-8)** 
+Common inheritance scenarios including abstract classes, component-to-component, external libraries, mixins, event handling, and watch decorators.
 
-### **🔴 Advanced Real-World Controllers (7-9)**
+### **🔴 Advanced Real-World Controllers (9-11)**
 Production-ready reactive controller examples demonstrating real business value.
+
+### **🟠 Robustness & Production (12-13)**
+Decorator conflicts, compiler behavior, SSR/hydration, and production-critical edge cases.
 
 export const ExtendsTestCasesTable = () => {
   // Pre-calculated test case status from JSON
@@ -181,11 +184,42 @@ export const ExtendsTestCasesTable = () => {
       total: getGroupStats('mixin').total,
       section: testCaseStatus[6]?.implemented ? 'implemented' : 'missing',
     },
-    // 🔴 Advanced Real-World Controllers (7-9)
+    // 🟡 Standard Patterns (7-8)
     {
       id: 7,
       implemented: testCaseStatus[7]?.implemented || false,
       desc: testCaseStatus[7]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Event handling inheritance - @Listen decorators and event propagation<br/>
+          <strong>Event Features:</strong> Multiple @Listen decorators, event bubbling, global vs local listeners, handler override<br/>
+          <small>Core interactive functionality | Event handling order and precedence | Component event behavior</small>
+        </>
+      ),
+      tested: getGroupStats('events').tested,
+      total: getGroupStats('events').total,
+      section: testCaseStatus[7]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 8,
+      implemented: testCaseStatus[8]?.implemented || false,
+      desc: testCaseStatus[8]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Watch decorator inheritance - @Watch behavior through inheritance chains<br/>
+          <strong>Reactive Features:</strong> Multiple @Watch decorators, execution order, reactive property chains, handler override<br/>
+          <small>Core reactive functionality | Property watching behavior | Reactive pattern inheritance</small>
+        </>
+      ),
+      tested: getGroupStats('watch').tested,
+      total: getGroupStats('watch').total,
+      section: testCaseStatus[8]?.implemented ? 'implemented' : 'missing',
+    },
+    // 🔴 Advanced Real-World Controllers (9-11)
+    {
+      id: 9,
+      implemented: testCaseStatus[9]?.implemented || false,
+      desc: testCaseStatus[9]?.description || '',
       types: (
         <>
           <strong>🔴 Advanced:</strong> requestUpdate pattern - simulates Lit's this.host.requestUpdate()<br/>
@@ -195,12 +229,12 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('controller').tested,
       total: getGroupStats('controller').total,
-      section: testCaseStatus[7]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[9]?.implemented ? 'implemented' : 'missing',
     },
     {
-      id: 8,
-      implemented: testCaseStatus[8]?.implemented || false,
-      desc: testCaseStatus[8]?.description || '',
+      id: 10,
+      implemented: testCaseStatus[10]?.implemented || false,
+      desc: testCaseStatus[10]?.description || '',
       types: (
         <>
           <strong>🔴 Advanced:</strong> FloatingUI Controller - Real-world Popper.js integration for Bricks components<br/>
@@ -210,12 +244,12 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('floating-ui').tested,
       total: getGroupStats('floating-ui').total,
-      section: testCaseStatus[8]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[10]?.implemented ? 'implemented' : 'missing',
     },
     {
-      id: 9,
-      implemented: testCaseStatus[9]?.implemented || false,
-      desc: testCaseStatus[9]?.description || '',
+      id: 11,
+      implemented: testCaseStatus[11]?.implemented || false,
+      desc: testCaseStatus[11]?.description || '',
       types: (
         <>
           <strong>🔴 Advanced:</strong> ValidationController - Real-world form validation for Bricks components<br/>
@@ -225,11 +259,42 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('validation').tested,
       total: getGroupStats('validation').total,
-      section: testCaseStatus[9]?.implemented ? 'implemented' : 'missing',
+      section: testCaseStatus[11]?.implemented ? 'implemented' : 'missing',
+    },
+    // 🟠 Robustness & Production (12-13)
+    {
+      id: 12,
+      implemented: testCaseStatus[12]?.implemented || false,
+      desc: testCaseStatus[12]?.description || '',
+      types: (
+        <>
+          <strong>🟠 Robustness:</strong> Decorator conflicts and compiler behavior testing<br/>
+          <strong>Conflict Testing:</strong> Duplicate @Prop/@State/@Method names, mixed decorator types, invalid patterns<br/>
+          <small>Compiler precedence rules | Error handling validation | Robustness testing | Edge case coverage</small>
+        </>
+      ),
+      tested: getGroupStats('conflicts').tested,
+      total: getGroupStats('conflicts').total,
+      section: testCaseStatus[12]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 13,
+      implemented: testCaseStatus[13]?.implemented || false,
+      desc: testCaseStatus[13]?.description || '',
+      types: (
+        <>
+          <strong>🟠 Production:</strong> SSR & Hydration - Server-side rendering and hydration behavior with inheritance<br/>
+          <strong>Enterprise Critical:</strong> Server rendering, client hydration, SSR/client mismatch, production deployment<br/>
+          <small>Production deployment critical | Enterprise SSR | Hydration state synchronization | Real-world deployment</small>
+        </>
+      ),
+      tested: getGroupStats('ssr').tested,
+      total: getGroupStats('ssr').total,
+      section: testCaseStatus[13]?.implemented ? 'implemented' : 'missing',
     }
   ];
 
-  return <TestCasesTable rows={allRows} previewCount={9} />;
+  return <TestCasesTable rows={allRows} previewCount={13} />;
 };
 
 <ExtendsTestCasesTable />
@@ -241,18 +306,25 @@ export const ExtendsTestCasesTable = () => {
 1. ✅ **Test Case #1**: Lifecycle inheritance fully implemented (6 passing tests)
 2. ✅ **Test Case #2**: Multi-level lifecycle inheritance fully implemented (7 passing tests)
 
-**🟡 Standard Patterns (Complete):**
+**🟡 Standard Patterns (Complete + New TODOs):**
 3. ✅ **Test Case #3**: Abstract base class inheritance (smoke tests)
 4. ✅ **Test Case #4**: Component-to-component inheritance (smoke tests)
 5. ✅ **Test Case #5**: External library inheritance (smoke tests) 
 6. ✅ **Test Case #6**: Mixin composition (smoke tests)
+7. **📋 Test Case #7 TODO**: Event Handling Inheritance - @Listen decorators and event propagation
+8. **📋 Test Case #8 TODO**: Watch Decorator Inheritance - @Watch behavior through inheritance chains
 
 **🔴 Advanced Real-World Controllers:**
-7. ✅ **Test Case #7**: Controller-initiated updates (requestUpdate pattern) - **5 passing tests**
-8. **📋 Test Case #8 TODO**: FloatingUI Controller - Real-world Popper.js integration for Bricks components
-9. **📋 Test Case #9 TODO**: ValidationController - Real-world form validation for Bricks components
+9. ✅ **Test Case #9**: Controller-initiated updates (requestUpdate pattern) - **5 passing tests**
+10. **📋 Test Case #10 TODO**: FloatingUI Controller - Real-world Popper.js integration for Bricks components
+11. **📋 Test Case #11 TODO**: ValidationController - Real-world form validation for Bricks components
+
+**🟠 Robustness & Production:**
+12. **📋 Test Case #12 TODO**: Decorator Conflicts & Edge Cases - Duplicate decorators, compiler behavior, inheritance conflicts
+13. **📋 Test Case #13 TODO**: SSR & Hydration - Server-side rendering and hydration behavior with inheritance chains
 
 **Next Steps:**
-   - Expand lifecycle testing to abstract class and component inheritance patterns
-   - Add property and state mutation tests for all scenarios  
-   - Add edge case and error condition testing
+   - **Test Cases #7-8**: Core decorator inheritance (Event handling, Watch decorators) 
+   - **Test Case #12**: Critical robustness testing for decorator conflicts and edge cases
+   - **Test Case #13**: Production-critical SSR & hydration testing
+   - Add property and state mutation tests for existing scenarios

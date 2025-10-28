@@ -140,6 +140,178 @@
           "description": "Used by bricks-radio-button-group and bricks-checkbox-group components"
         }
       ]
+    },
+    "7": {
+      "implemented": false,
+      "componentCount": 0,
+      "description": "Event Handling Inheritance - @Listen decorators and event propagation through inheritance chains",
+      "specPath": "test/wdio/ts-target/extends-events/cmp.test.ts",
+      "eventFeatures": [
+        {
+          "feature": "@Listen Decorator Inheritance",
+          "description": "Multiple @Listen decorators at different inheritance levels - event handling order and precedence"
+        },
+        {
+          "feature": "Event Bubbling & Propagation",
+          "description": "How custom events bubble through inheritance chains and component hierarchies"
+        },
+        {
+          "feature": "Global vs Local Listeners",
+          "description": "Document and window listeners in base classes vs component-specific listeners"
+        },
+        {
+          "feature": "Event Handler Override",
+          "description": "When base class and component define same event handler - which executes and in what order"
+        }
+      ]
+    },
+    "8": {
+      "implemented": false,
+      "componentCount": 0,
+      "description": "Watch Decorator Inheritance - @Watch behavior through inheritance chains and reactive patterns",
+      "specPath": "test/wdio/ts-target/extends-watch/cmp.test.ts",
+      "watchFeatures": [
+        {
+          "feature": "@Watch Decorator Inheritance",
+          "description": "Multiple @Watch decorators for same property at different inheritance levels"
+        },
+        {
+          "feature": "Watch Execution Order",
+          "description": "Order of watch handler execution: base class first, component second, or override behavior"
+        },
+        {
+          "feature": "Reactive Property Chains",
+          "description": "Watch handlers triggering other property changes through inheritance hierarchy"
+        },
+        {
+          "feature": "Watch Handler Override",
+          "description": "When base class and component both watch same property - execution behavior and conflicts"
+        }
+      ]
+    },
+    "9": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "Controller-Initiated Updates - Base class triggering host component updates (ClockController pattern)",
+      "specPath": "test/wdio/ts-target/extends-controller-updates/cmp.test.ts",
+      "controllerFeatures": [
+        {
+          "feature": "requestUpdate Pattern",
+          "description": "Base class calls abstract requestUpdate() method - simulates Lit's this.host.requestUpdate()"
+        },
+        {
+          "feature": "Component-Owned State",
+          "description": "@State lives on component, not controller - component controls its own state updates"
+        },
+        {
+          "feature": "Explicit Update Requests",
+          "description": "Controller requests updates, doesn't force them - component decides how to respond"
+        }
+      ]
+    },
+    "10": {
+      "implemented": false,
+      "componentCount": 0,
+      "description": "FloatingUI Controller - Real-world reactive controller for Popper.js integration (Bricks components)",
+      "specPath": "test/wdio/ts-target/extends-floating-ui/cmp.test.ts",
+      "controllerFeatures": [
+        {
+          "feature": "Popper Instance Management",
+          "description": "Controller creates and manages Popper class instance in componentDidLoad lifecycle"
+        },
+        {
+          "feature": "Update Methods",
+          "description": "Provides update()/updateInstance() methods to replace updatePopoverInstance() in host components"
+        },
+        {
+          "feature": "Lifecycle Cleanup",
+          "description": "Handles popper.destroy() cleanup in disconnectedCallback"
+        },
+        {
+          "feature": "Real-world Integration",
+          "description": "Used by bricks-tooltip and bricks-menu-button components from Bricks component library"
+        }
+      ]
+    },
+    "11": {
+      "implemented": false,
+      "componentCount": 0,
+      "description": "ValidationController - Real-world reactive controller for form validation (Bricks components)", 
+      "specPath": "test/wdio/ts-target/extends-validation/cmp.test.ts",
+      "controllerFeatures": [
+        {
+          "feature": "Validation State Management",
+          "description": "Controller maintains validation errors, isValid, and isDirty states"
+        },
+        {
+          "feature": "Reusable Validation Logic",
+          "description": "onBlur handling, validation timing, and error rendering shared across components"
+        },
+        {
+          "feature": "Abstract Validation Rules",
+          "description": "Host components define validation logic via abstract validateValue() method"
+        },
+        {
+          "feature": "Real-world Integration",
+          "description": "Used by bricks-radio-button-group and bricks-checkbox-group components"
+        }
+      ]
+    },
+    "12": {
+      "implemented": false,
+      "componentCount": 0,
+      "description": "Decorator Conflicts & Edge Cases - Testing inheritance chain conflicts and compiler behavior",
+      "specPath": "test/wdio/ts-target/extends-conflicts/cmp.test.ts",
+      "conflictScenarios": [
+        {
+          "scenario": "Duplicate @Prop Names",
+          "description": "Same prop name defined in base class and component - compiler precedence rules"
+        },
+        {
+          "scenario": "Duplicate @State Names", 
+          "description": "Same state name defined in base class and component - runtime behavior and conflicts"
+        },
+        {
+          "scenario": "Duplicate @Method Names",
+          "description": "Same method name defined in base class and component - override behavior"
+        },
+        {
+          "scenario": "Mixed Decorator Types",
+          "description": "Same name used as @Prop in base, @State in component - compiler error handling"
+        },
+        {
+          "scenario": "Invalid Inheritance Patterns",
+          "description": "Unsupported inheritance scenarios and error conditions"
+        },
+        {
+          "scenario": "Compiler Error Validation",
+          "description": "Verify appropriate compiler errors for invalid decorator conflicts"
+        }
+      ]
+    },
+    "13": {
+      "implemented": false,
+      "componentCount": 0,
+      "description": "SSR & Hydration - Server-side rendering and hydration behavior with inheritance chains",
+      "specPath": "test/wdio/ts-target/extends-ssr/cmp.test.ts",
+      "ssrFeatures": [
+        {
+          "feature": "Server-Side Rendering",
+          "description": "How inheritance chains render on the server - component hierarchy and lifecycle execution"
+        },
+        {
+          "feature": "Hydration Behavior",
+          "description": "Client-side hydration of server-rendered components with inheritance - state synchronization"
+        },
+        {
+          "feature": "SSR/Client Mismatch",
+          "description": "Handling differences between server and client rendering of inherited components"
+        },
+        {
+          "feature": "Production Deployment",
+          "description": "Critical for enterprise applications using SSR - ensure inheritance works in production"
+        }
+      ]
     }
   },
   "items": [
@@ -187,24 +359,52 @@
     },
     {
       "index": 7,
-      "group": "controller",
-      "tested": true,
-      "tag": "extends-controller-updates",
+      "group": "events",
+      "tested": false,
+      "tag": "extends-events",
       "caseNumbers": [7]
     },
     {
       "index": 8,
-      "group": "floating-ui",
+      "group": "watch",
       "tested": false,
-      "tag": "extends-floating-ui",
+      "tag": "extends-watch",
       "caseNumbers": [8]
     },
     {
       "index": 9,
+      "group": "controller",
+      "tested": true,
+      "tag": "extends-controller-updates",
+      "caseNumbers": [9]
+    },
+    {
+      "index": 10,
+      "group": "floating-ui",
+      "tested": false,
+      "tag": "extends-floating-ui",
+      "caseNumbers": [10]
+    },
+    {
+      "index": 11,
       "group": "validation",
       "tested": false,
       "tag": "extends-validation",
-      "caseNumbers": [9]
+      "caseNumbers": [11]
+    },
+    {
+      "index": 12,
+      "group": "conflicts",
+      "tested": false,
+      "tag": "extends-conflicts",
+      "caseNumbers": [12]
+    },
+    {
+      "index": 13,
+      "group": "ssr",
+      "tested": false,
+      "tag": "extends-ssr",
+      "caseNumbers": [13]
     }
   ]
 }
