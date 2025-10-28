@@ -71,12 +71,6 @@ Foundation patterns for lifecycle inheritance, property/state basics, method inh
 ### **🟡 Standard Patterns (6-11)** 
 Common inheritance scenarios including abstract classes, component-to-component, external libraries, mixins, event handling, and watch decorators.
 
-### **🔴 Advanced Real-World Controllers (12-14)**
-Production-ready reactive controller examples demonstrating real business value.
-
-### **🟠 Robustness & Production (15-16)**
-Decorator conflicts, compiler behavior, SSR/hydration, and production-critical edge cases.
-
 export const ExtendsTestCasesTable = () => {
   // Pre-calculated test case status from JSON
   const testCaseStatus = overlay.testCaseStatus || {};
@@ -320,83 +314,6 @@ export const ExtendsTestCasesTable = () => {
       tested: getGroupStats('watch').tested,
       total: getGroupStats('watch').total,
       section: testCaseStatus[11]?.implemented ? 'implemented' : 'missing',
-    },
-    // 🔴 Advanced Real-World Controllers (12-14)
-    {
-      id: 12,
-      implemented: testCaseStatus[12]?.implemented || false,
-      desc: testCaseStatus[12]?.description || '',
-      types: (
-        <>
-          <strong>🔴 Advanced:</strong> requestUpdate pattern - simulates Lit's this.host.requestUpdate()<br/>
-          <strong>Production Pattern:</strong> Component-owned state, explicit update requests, abstract methods<br/>
-          <small>Real-world reactive controller | <a href="https://lit.dev/docs/composition/controllers/" target="_blank">Lit ClockController</a> equivalent | 5 passing tests</small>
-        </>
-      ),
-      tested: getGroupStats('controller').tested,
-      total: getGroupStats('controller').total,
-      section: testCaseStatus[12]?.implemented ? 'implemented' : 'missing',
-    },
-    {
-      id: 13,
-      implemented: testCaseStatus[13]?.implemented || false,
-      desc: testCaseStatus[13]?.description || '',
-      types: (
-        <>
-          <strong>🔴 Advanced:</strong> FloatingUI Controller - Real-world Popper.js integration for Bricks components<br/>
-          <strong>Production Use:</strong> bricks-tooltip and bricks-menu-button, instance management, lifecycle cleanup<br/>
-          <small>Third-party library integration | Replaces updatePopoverInstance() | Real business value</small>
-        </>
-      ),
-      tested: getGroupStats('floating-ui').tested,
-      total: getGroupStats('floating-ui').total,
-      section: testCaseStatus[13]?.implemented ? 'implemented' : 'missing',
-    },
-    {
-      id: 14,
-      implemented: testCaseStatus[14]?.implemented || false,
-      desc: testCaseStatus[14]?.description || '',
-      types: (
-        <>
-          <strong>🔴 Advanced:</strong> ValidationController - Real-world form validation for Bricks components<br/>
-          <strong>Production Use:</strong> bricks-radio-button-group and bricks-checkbox-group, validation state management<br/>
-          <small>Eliminates code duplication | onBlur handling | Validation error rendering | Real business value</small>
-        </>
-      ),
-      tested: getGroupStats('validation').tested,
-      total: getGroupStats('validation').total,
-      section: testCaseStatus[14]?.implemented ? 'implemented' : 'missing',
-    },
-    // 🟠 Robustness & Production (15-16)
-    {
-      id: 15,
-      implemented: testCaseStatus[15]?.implemented || false,
-      desc: testCaseStatus[15]?.description || '',
-      types: (
-        <>
-          <strong>🟠 Robustness:</strong> Decorator conflicts and compiler behavior testing<br/>
-          <strong>Conflict Testing:</strong> Duplicate @Prop/@State/@Method names, mixed decorator types, invalid patterns<br/>
-          <small>Compiler precedence rules | Error handling validation | Robustness testing | Edge case coverage</small>
-        </>
-      ),
-      tested: getGroupStats('conflicts').tested,
-      total: getGroupStats('conflicts').total,
-      section: testCaseStatus[15]?.implemented ? 'implemented' : 'missing',
-    },
-    {
-      id: 16,
-      implemented: testCaseStatus[16]?.implemented || false,
-      desc: testCaseStatus[16]?.description || '',
-      types: (
-        <>
-          <strong>🟠 Production:</strong> SSR & Hydration - Server-side rendering and hydration behavior with inheritance<br/>
-          <strong>Enterprise Critical:</strong> Server rendering, client hydration, SSR/client mismatch, production deployment<br/>
-          <small>Production deployment critical | Enterprise SSR | Hydration state synchronization | Real-world deployment</small>
-        </>
-      ),
-      tested: getGroupStats('ssr').tested,
-      total: getGroupStats('ssr').total,
-      section: testCaseStatus[16]?.implemented ? 'implemented' : 'missing',
     }
   ];
 
@@ -423,17 +340,8 @@ export const ExtendsTestCasesTable = () => {
 10. **📋 Test Case #10 TODO**: Event Handling Inheritance - @Listen decorators and event propagation
 11. **📋 Test Case #11 TODO**: Watch Decorator Inheritance - @Watch behavior through inheritance chains
 
-**🔴 Advanced Real-World Controllers (1/3 Complete):**
-12. ✅ **Test Case #12**: Controller-initiated updates (requestUpdate pattern) - **5 passing tests**
-13. **📋 Test Case #13 TODO**: FloatingUI Controller - Real-world Popper.js integration for Bricks components
-14. **📋 Test Case #14 TODO**: ValidationController - Real-world form validation for Bricks components
-
-**🟠 Robustness & Production (0/2 Complete):**
-15. **📋 Test Case #15 TODO**: Decorator Conflicts & Edge Cases - Duplicate decorators, compiler behavior, inheritance conflicts
-16. **📋 Test Case #16 TODO**: SSR & Hydration - Server-side rendering and hydration behavior with inheritance chains
-
 **Next Steps:**
    - **Test Cases #3-5**: Complete foundational Basic Inheritance patterns (Properties, Methods, Render)
-   - **Test Cases #10-11**: Core decorator inheritance (Event handling, Watch decorators) 
-   - **Test Case #15**: Critical robustness testing for decorator conflicts and edge cases
-   - **Test Case #16**: Production-critical SSR & hydration testing
+   - **Test Cases #10-11**: Core decorator inheritance (Event handling, Watch decorators)
+   - **Advanced Real-World Controllers**: Implement production-ready reactive controller examples demonstrating real business value
+   - **Robustness & Production**: Add decorator conflicts, compiler behavior, SSR/hydration, and production-critical edge cases

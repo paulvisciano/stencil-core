@@ -17,6 +17,7 @@ const preview: Preview = {
             [
               'Overview',
               'Quickstart',
+              'Adding Tests',
               'Project Config',
               'Coverage Matrix',
               ['Overview', 'Config', 'Generation', 'Verification'],
