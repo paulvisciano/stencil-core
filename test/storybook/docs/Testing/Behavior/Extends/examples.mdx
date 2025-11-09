@@ -1,0 +1,89 @@
+import { Meta, Source } from '@storybook/addon-docs/blocks';
+import { useState } from 'react';
+import './examples.css';
+
+<Meta title="Testing/Behavior/Extends/Examples"/>
+
+<div class="code-tabset">
+  <input type="radio" id="tab-code-component" name="code-classic" defaultChecked />
+  <input type="radio" id="tab-code-controller" name="code-classic" />
+
+      <div className="tab-labels" role="tablist">
+        <label htmlFor="tab-code-component" role="tab" aria-controls="panel-code-component">
+          Component (cmp.ts)
+        </label>
+        <label htmlFor="tab-code-controller" role="tab" aria-controls="panel-code-controller">
+          Controller (clock-controller.ts)
+        </label>
+      </div>
+
+      <div className="tab-panel component" id="panel-code-component" role="tabpanel" aria-labelledby="tab-code-component">
+        <Source
+          language="ts"
+          code={`import {LitElement, html} from 'lit';
+import {customElement} from 'lit/decorators.js';
+import {ClockController} from './clock-controller.js';
+
+@customElement('my-element')
+class MyElement extends LitElement {
+  // Create the controller and store it
+  private clock = new ClockController(this, 100);
+
+  // Use the controller in render()
+  render() {
+    const formattedTime = timeFormat.format(this.clock.value);
+    return html\`Current time: \${formattedTime}\`;
+  }
+}
+
+const timeFormat = new Intl.DateTimeFormat('en-US', {
+  hour: 'numeric', minute: 'numeric', second: 'numeric',
+});`}
+        />
+      </div>
+
+      <div className="tab-panel controller" id="panel-code-controller" role="tabpanel" aria-labelledby="tab-code-controller">
+        <Source
+          language="ts"
+          code={`import {ReactiveController, ReactiveControllerHost} from 'lit';
+
+export class ClockController implements ReactiveController {
+  host: ReactiveControllerHost;
+
+  value = new Date();
+  timeout: number;
+  private _timerID?: number;
+
+  constructor(host: ReactiveControllerHost, timeout = 1000) {
+    (this.host = host).addController(this);
+    this.timeout = timeout;
+  }
+  hostConnected() {
+    // Start a timer when the host is connected
+    this._timerID = setInterval(() => {
+      this.value = new Date();
+      // Update the host with new value
+      this.host.requestUpdate();
+    }, this.timeout);
+  }
+  hostDisconnected() {
+    // Clear the timer when the host is disconnected
+    clearInterval(this._timerID);
+    this._timerID = undefined;
+  }
+}`}
+        />
+      </div>
+
+      <div className="tab-footer">
+        <button type="button" className="tab-copy" onClick={handleCopy}>
+          {copied ? 'Copied!' : 'Copy'}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+<CodeTabset />
+
+For background on reactive controllers in Lit, see the official docs: [`lit.dev/docs/composition/controllers/`](https://lit.dev/docs/composition/controllers/).
