@@ -48,9 +48,9 @@ export default function TestCasesTable({ rows = [], previewCount = 3 }) {
     <div style={{ maxWidth: '100%', width: '100%', background: '#fff', position: 'relative' }}>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <colgroup>
-          <col style={{ width: '15%' }} />
-          <col style={{ width: '55%' }} />
-          <col style={{ width: '20%' }} />
+          <col style={{ width: '10%' }} />
+          <col style={{ width: '45%' }} />
+          <col style={{ width: '35%' }} />
           <col style={{ width: '10%' }} />
         </colgroup>
         <thead>
