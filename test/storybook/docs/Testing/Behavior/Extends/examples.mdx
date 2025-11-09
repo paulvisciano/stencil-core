@@ -4,9 +4,23 @@ import './examples.css';
 
 <Meta title="Testing/Behavior/Extends/Examples"/>
 
-<div class="code-tabset">
-  <input type="radio" id="tab-code-component" name="code-classic" defaultChecked />
-  <input type="radio" id="tab-code-controller" name="code-classic" />
+export const CodeTabset = () => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    const active = document.querySelector('.code-tabset input:checked');
+    const targetPanel = active?.id === 'tab-code-controller' ? '#panel-code-controller' : '#panel-code-component';
+    const hiddenCopyBtn = document.querySelector(`${targetPanel} .docblock-source button`);
+    hiddenCopyBtn?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="code-tabset">
+      <input type="radio" id="tab-code-component" name="code-classic" defaultChecked />
+      <input type="radio" id="tab-code-controller" name="code-classic" />
 
       <div className="tab-labels" role="tablist">
         <label htmlFor="tab-code-component" role="tab" aria-controls="panel-code-component">
