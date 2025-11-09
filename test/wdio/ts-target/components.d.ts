@@ -56,6 +56,8 @@ export namespace Components {
     }
     interface ExtendsControllerUpdates {
     }
+    interface ExtendsDirectState {
+    }
     interface ExtendsExternal {
         "method1": () => Promise<void>;
         "method2": () => Promise<void>;
@@ -133,6 +135,12 @@ declare global {
         prototype: HTMLExtendsControllerUpdatesElement;
         new (): HTMLExtendsControllerUpdatesElement;
     };
+    interface HTMLExtendsDirectStateElement extends Components.ExtendsDirectState, HTMLStencilElement {
+    }
+    var HTMLExtendsDirectStateElement: {
+        prototype: HTMLExtendsDirectStateElement;
+        new (): HTMLExtendsDirectStateElement;
+    };
     interface HTMLExtendsExternalElement extends Components.ExtendsExternal, HTMLStencilElement {
     }
     var HTMLExtendsExternalElement: {
@@ -169,6 +177,7 @@ declare global {
         "extends-abstract": HTMLExtendsAbstractElement;
         "extends-cmp-cmp": HTMLExtendsCmpCmpElement;
         "extends-controller-updates": HTMLExtendsControllerUpdatesElement;
+        "extends-direct-state": HTMLExtendsDirectStateElement;
         "extends-external": HTMLExtendsExternalElement;
         "extends-lifecycle-basic": HTMLExtendsLifecycleBasicElement;
         "extends-lifecycle-multilevel": HTMLExtendsLifecycleMultilevelElement;
@@ -219,6 +228,8 @@ declare namespace LocalJSX {
     }
     interface ExtendsControllerUpdates {
     }
+    interface ExtendsDirectState {
+    }
     interface ExtendsExternal {
         /**
           * @default 'default text'
@@ -265,6 +276,7 @@ declare namespace LocalJSX {
         "extends-abstract": ExtendsAbstract;
         "extends-cmp-cmp": ExtendsCmpCmp;
         "extends-controller-updates": ExtendsControllerUpdates;
+        "extends-direct-state": ExtendsDirectState;
         "extends-external": ExtendsExternal;
         "extends-lifecycle-basic": ExtendsLifecycleBasic;
         "extends-lifecycle-multilevel": ExtendsLifecycleMultilevel;
@@ -281,6 +293,7 @@ declare module "@stencil/core" {
             "extends-abstract": LocalJSX.ExtendsAbstract & JSXBase.HTMLAttributes<HTMLExtendsAbstractElement>;
             "extends-cmp-cmp": LocalJSX.ExtendsCmpCmp & JSXBase.HTMLAttributes<HTMLExtendsCmpCmpElement>;
             "extends-controller-updates": LocalJSX.ExtendsControllerUpdates & JSXBase.HTMLAttributes<HTMLExtendsControllerUpdatesElement>;
+            "extends-direct-state": LocalJSX.ExtendsDirectState & JSXBase.HTMLAttributes<HTMLExtendsDirectStateElement>;
             "extends-external": LocalJSX.ExtendsExternal & JSXBase.HTMLAttributes<HTMLExtendsExternalElement>;
             "extends-lifecycle-basic": LocalJSX.ExtendsLifecycleBasic & JSXBase.HTMLAttributes<HTMLExtendsLifecycleBasicElement>;
             "extends-lifecycle-multilevel": LocalJSX.ExtendsLifecycleMultilevel & JSXBase.HTMLAttributes<HTMLExtendsLifecycleMultilevelElement>;
