@@ -118,6 +118,7 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('lifecycle').tested,
       total: getGroupStats('lifecycle').total,
+      testCount: testCaseStatus[1]?.testCount || 0,
       section: testCaseStatus[1]?.implemented ? 'implemented' : 'missing',
     },
     {
@@ -133,6 +134,7 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('multilevel').tested,
       total: getGroupStats('multilevel').total,
+      testCount: testCaseStatus[2]?.testCount || 0,
       section: testCaseStatus[2]?.implemented ? 'implemented' : 'missing',
     },
     // 🟡 Standard Patterns (6-9)
@@ -149,6 +151,7 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('abstract').tested,
       total: getGroupStats('abstract').total,
+      testCount: testCaseStatus[6]?.testCount || 0,
       section: testCaseStatus[6]?.implemented ? 'implemented' : 'missing',
     },
     {
@@ -164,6 +167,7 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('component').tested,
       total: getGroupStats('component').total,
+      testCount: testCaseStatus[7]?.testCount || 0,
       section: testCaseStatus[7]?.implemented ? 'implemented' : 'missing',
     },
     {
@@ -179,6 +183,7 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('external').tested,
       total: getGroupStats('external').total,
+      testCount: testCaseStatus[8]?.testCount || 0,
       section: testCaseStatus[8]?.implemented ? 'implemented' : 'missing',
     },
     {
@@ -194,6 +199,7 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('mixin').tested,
       total: getGroupStats('mixin').total,
+      testCount: testCaseStatus[9]?.testCount || 0,
       section: testCaseStatus[9]?.implemented ? 'implemented' : 'missing',
     },
     // 🔵 Advanced Reactive Controllers (12-12a)
@@ -210,6 +216,7 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('controller').tested,
       total: getGroupStats('controller').total,
+      testCount: testCaseStatus[12]?.testCount || 0,
       section: testCaseStatus[12]?.implemented ? 'implemented' : 'missing',
     },
     {
@@ -225,6 +232,7 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('direct-state').tested,
       total: getGroupStats('direct-state').total,
+      testCount: testCaseStatus['12a']?.testCount || 0,
       section: testCaseStatus['12a']?.implemented ? 'implemented' : 'missing',
     },
     // 🟢 Basic Inheritance (3-5) - TODO
@@ -241,6 +249,7 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('props-state').tested,
       total: getGroupStats('props-state').total,
+      testCount: testCaseStatus[3]?.testCount || 0,
       section: testCaseStatus[3]?.implemented ? 'implemented' : 'missing',
     },
     {
@@ -256,6 +265,7 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('methods').tested,
       total: getGroupStats('methods').total,
+      testCount: testCaseStatus[4]?.testCount || 0,
       section: testCaseStatus[4]?.implemented ? 'implemented' : 'missing',
     },
     {
@@ -271,6 +281,7 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('render').tested,
       total: getGroupStats('render').total,
+      testCount: testCaseStatus[5]?.testCount || 0,
       section: testCaseStatus[5]?.implemented ? 'implemented' : 'missing',
     },
     {
@@ -286,6 +297,7 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('events').tested,
       total: getGroupStats('events').total,
+      testCount: testCaseStatus[10]?.testCount || 0,
       section: testCaseStatus[10]?.implemented ? 'implemented' : 'missing',
     },
     {
@@ -301,6 +313,7 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('watch').tested,
       total: getGroupStats('watch').total,
+      testCount: testCaseStatus[11]?.testCount || 0,
       section: testCaseStatus[11]?.implemented ? 'implemented' : 'missing',
     }
   ];
@@ -309,33 +322,6 @@ export const ExtendsTestCasesTable = () => {
 };
 
 <ExtendsTestCasesTable />
-
-
-## Test Summary
-
-### ✅ Implemented & Passing (66 Total Tests)
-
-#### 🟢 Basic Lifecycle (2/2 Complete - 13 tests)
-
-1. ✅ **Test Case #1**: Lifecycle inheritance (6 tests: 5 dist + 1 CE)
-
-2. ✅ **Test Case #2**: Multi-level lifecycle inheritance (7 tests: 6 dist + 1 CE)
-
-#### 🟡 Standard Patterns (4/4 Complete - 48 tests)
-
-6. ✅ **Test Case #6**: Abstract base class inheritance (12 tests: 5 dist + 5 CE + 2 hydrate)
-
-7. ✅ **Test Case #7**: Component-to-component inheritance (12 tests: 5 dist + 5 CE + 2 hydrate)
-
-8. ✅ **Test Case #8**: External library inheritance (12 tests: 5 dist + 5 CE + 2 hydrate)
-
-9. ✅ **Test Case #9**: Mixin composition (12 tests: 5 dist + 5 CE + 2 hydrate)
-
-#### 🔵 Advanced Reactive Controllers (1/2 Complete - 5 tests)
-
-12. ✅ **Test Case #12**: Controller-initiated updates (5 tests: 4 dist + 1 CE)
-
-12a. 📋 **Test Case #12a TODO**: Direct state management - component built, tests exist but not in suite
 
 ---
 

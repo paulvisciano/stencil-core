@@ -11,8 +11,15 @@ export default function TestCasesTable({ rows = [], previewCount = 3 }) {
 
   const renderStatus = (r) => {
     if (!r.implemented) return <em>—</em>;
-    const ok = r.total > 0 && r.tested === r.total;
-    return <span style={{ color: ok ? 'green' : '#999' }}>{r.total > 0 ? (ok ? '✔' : '✗') : '—'}</span>;
+    // Show test count if available
+    if (r.testCount > 0) {
+      return (
+        <span style={{ color: '#16a34a', fontWeight: '600' }}>
+          {r.testCount} {r.testCount === 1 ? 'test' : 'tests'}
+        </span>
+      );
+    }
+    return <span style={{ color: '#16a34a' }}>✔</span>;
   };
 
   const renderCaseRow = (r, idx) => (
