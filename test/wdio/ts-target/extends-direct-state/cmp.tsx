@@ -51,7 +51,7 @@ export class DirectStateCmp extends ClockBase {
           <p class="lit-pattern">Lit: private clock = new ClockController(this, 100);</p>
           <p class="stencil-pattern">Stencil: extends ClockBase // Just extend!</p>
           <p class="lit-render">Lit: html`Time: ${"${this.clock.value}"}`</p>
-          <p class="stencil-render">Stencil: &lt;p&gt;Time: {this.currentTime}&lt;/p&gt;</p>
+          <p class="stencil-render">Stencil: &lt;p&gt;Time: {'{this.currentTime}'}&lt;/p&gt;</p>
         </div>
       </div>
     );
