@@ -25,41 +25,71 @@ export const ExtendsCoverageSummary = () => {
   const implementedCases = testCases.filter(tc => tc.implemented).length;
   const totalCases = testCases.length;
   const coveragePercentage = totalCases > 0 ? Math.round((implementedCases / totalCases) * 100) : 0;
-  
-  // Calculate total test count from implemented test cases
   const totalTests = testCases.reduce((sum, tc) => sum + (tc.testCount || 0), 0);
   
   return (
-    <div style={{ background: '#f8f9fa', padding: '16px', borderRadius: '8px', marginBottom: '24px' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
-        <div>
-          <strong>Test Cases Implemented</strong><br/>
-          <span style={{ fontSize: '24px', color: implementedCases === totalCases ? '#16a34a' : '#f59e0b' }}>
-            {implementedCases}/{totalCases}
-          </span><br/>
-          <span style={{ fontSize: '14px', color: '#6b7280' }}>({coveragePercentage}% complete)</span>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '32px' }}>
+      <div style={{ 
+        background: '#fff', 
+        padding: '20px', 
+        borderRadius: '8px', 
+        border: '2px solid #e5e7eb',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{ fontSize: '13px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
+          Test Cases Implemented
         </div>
-        <div>
-          <strong>Total Tests Passing</strong><br/>
-          <span style={{ fontSize: '24px', color: '#16a34a' }}>
-            {totalTests}
-          </span><br/>
-          <span style={{ fontSize: '14px', color: '#6b7280' }}>across all test cases</span>
+        <div style={{ fontSize: '36px', fontWeight: '700', color: '#111827', lineHeight: '1', marginBottom: '6px' }}>
+          {implementedCases}<span style={{ color: '#d1d5db' }}>/{totalCases}</span>
         </div>
-        <div>
-          <strong>Status</strong><br/>
-          <span style={{ 
-            fontSize: '18px', 
-            fontWeight: 'bold',
-            padding: '6px 16px', 
-            borderRadius: '16px',
-            background: coveragePercentage >= 50 ? '#16a34a' : '#f59e0b',
-            color: '#fff',
-            display: 'inline-block',
-            marginTop: '4px'
-          }}>
-            {coveragePercentage >= 50 ? '✓ GOOD' : 'IN PROGRESS'}
-          </span>
+        <div style={{ fontSize: '13px', color: '#6b7280' }}>
+          {coveragePercentage}% complete
+        </div>
+      </div>
+      
+      <div style={{ 
+        background: '#f0fdf4', 
+        padding: '20px', 
+        borderRadius: '8px', 
+        border: '2px solid #86efac',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{ fontSize: '13px', fontWeight: '600', color: '#15803d', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
+          Total Tests Passing
+        </div>
+        <div style={{ fontSize: '36px', fontWeight: '700', color: '#16a34a', lineHeight: '1', marginBottom: '6px' }}>
+          {totalTests}
+        </div>
+        <div style={{ fontSize: '13px', color: '#15803d' }}>
+          All tests passing ✓
+        </div>
+      </div>
+      
+      <div style={{ 
+        background: coveragePercentage >= 50 ? '#f0fdf4' : '#fff7ed', 
+        padding: '20px', 
+        borderRadius: '8px', 
+        border: coveragePercentage >= 50 ? '2px solid #86efac' : '2px solid #fdba74',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <div style={{ fontSize: '13px', fontWeight: '600', color: coveragePercentage >= 50 ? '#15803d' : '#9a3412', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>
+          Status
+        </div>
+        <div style={{ 
+          fontSize: '20px', 
+          fontWeight: '700',
+          padding: '10px 24px', 
+          borderRadius: '24px',
+          background: coveragePercentage >= 50 ? '#16a34a' : '#f97316',
+          color: '#fff',
+          textTransform: 'uppercase',
+          letterSpacing: '1px'
+        }}>
+          {coveragePercentage >= 50 ? '✓ Good' : 'In Progress'}
         </div>
       </div>
     </div>
@@ -67,13 +97,6 @@ export const ExtendsCoverageSummary = () => {
 };
 
 <ExtendsCoverageSummary />
-
-
-### **🟢 Basic Inheritance (1-5)**
-Foundation patterns for lifecycle inheritance, property/state basics, method inheritance, and render composition.
-
-### **🟡 Standard Patterns (6-11)** 
-Common inheritance scenarios including abstract classes, component-to-component, external libraries, mixins, event handling, and watch decorators.
 
 export const ExtendsTestCasesTable = () => {
   // Pre-calculated test case status from JSON
@@ -325,6 +348,22 @@ export const ExtendsTestCasesTable = () => {
 
 ---
 
+## Test Categories
+
+### **🟢 Basic Inheritance (1-5)**
+Foundation patterns for lifecycle inheritance, property/state basics, method inheritance, and render composition.
+
+### **🟡 Standard Patterns (6-11)** 
+Common inheritance scenarios including abstract classes, component-to-component, external libraries, mixins, event handling, and watch decorators.
+
+### **🔵 Advanced Real-World (12-14)**
+Real-world reactive controller patterns comparing Stencil's extends capabilities with other frameworks like Lit, demonstrating practical use cases.
+
+### **🔴 Robustness & Production (15-17)**
+Edge cases, decorator conflicts, SSR behavior, and production-ready scenarios to ensure extends works reliably in all environments.
+
+---
+
 ## 📋 TODO - Remaining Test Cases
 
 ### 🟢 Basic Inheritance (3/5 remaining)
@@ -338,9 +377,9 @@ export const ExtendsTestCasesTable = () => {
 10. **Test Case #10 TODO**: Event Handling Inheritance (@Listen decorators)
 11. **Test Case #11 TODO**: Watch Decorator Inheritance (@Watch behavior)
 
-### 🔵 Advanced Real-World (3 remaining)
+### 🔵 Advanced Real-World (2 remaining)
 
-12a. **Test Case #12a TODO**: Direct State Management - component and tests exist, need to add to suite  
+12a. ✅ **Test Case #12a**: Direct State Management (5 tests, all passing)  
 13. **Test Case #13 TODO**: FloatingUI Controller (Popper.js integration)  
 14. **Test Case #14 TODO**: ValidationController (Form validation)
 
