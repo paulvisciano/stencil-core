@@ -28,7 +28,7 @@ const preview: Preview = {
             'Decorators',
             ['Overview', 'Matrix Generation', '@Component', '@Prop', '@State'],
             'Behavior',
-            ['Extends', ['Overview']]
+            ['Extends', ['Overview', 'Extends vs @Controller', 'Examples']]
           ],
         ],
       },

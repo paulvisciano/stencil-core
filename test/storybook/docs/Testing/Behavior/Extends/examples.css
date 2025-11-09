@@ -179,8 +179,9 @@
   background: var(--code-tab-hover);
 }
 
-#tab-code-component:checked ~ .tab-labels label[for="tab-code-component"],
-#tab-code-controller:checked ~ .tab-labels label[for="tab-code-controller"] {
+/* Active tab styling - uses :has() to check which radio is checked */
+.code-tabset:has(input[id$="-1"]:checked) .tab-labels label:first-child,
+.code-tabset:has(input[id$="-2"]:checked) .tab-labels label:last-child {
   color: var(--code-sample-accent);
   background: var(--code-tab-active);
   transform: translateY(-1px);
@@ -227,8 +228,9 @@
   color: #1e3a8a;
 }
 
-#tab-code-component:checked ~ .tab-panel.component,
-#tab-code-controller:checked ~ .tab-panel.controller {
+/* Show the correct tab panel based on which radio is checked */
+.code-tabset:has(input[id$="-1"]:checked) .tab-panel.component,
+.code-tabset:has(input[id$="-2"]:checked) .tab-panel.controller {
   display: block;
   opacity: 1;
 }
