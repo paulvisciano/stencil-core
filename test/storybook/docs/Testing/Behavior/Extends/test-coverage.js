@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename);
 
 const TEST_DIR = path.resolve(__dirname, '../../../../../..', 'test/wdio/ts-target');
 const JSON_PATH = path.resolve(__dirname, 'data/test-coverage.json');
+const OVERVIEW_PATH = path.resolve(__dirname, 'Overview.mdx');
 
 // Test case mapping based on directory names
 const DIRECTORY_TO_TEST_CASE = {
@@ -214,6 +215,38 @@ function mergeCoverageData() {
 }
 
 /**
+ * Update timestamp in Overview.mdx
+ */
+function updateOverviewTimestamp() {
+  if (!fs.existsSync(OVERVIEW_PATH)) {
+    console.log('   ⚠ Overview.mdx not found, skipping timestamp update');
+    return;
+  }
+  
+  const timestamp = new Date().toLocaleString('en-US', { 
+    timeZone: 'America/Los_Angeles',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZoneName: 'short'
+  });
+  
+  let content = fs.readFileSync(OVERVIEW_PATH, 'utf8');
+  
+  // Update the timestamp in the "Last run" line
+  const timestampRegex = /(📅 Last run:)[^<]*/;
+  if (timestampRegex.test(content)) {
+    content = content.replace(timestampRegex, `$1 ${timestamp}`);
+    fs.writeFileSync(OVERVIEW_PATH, content);
+    console.log(`   ✓ Updated Overview.mdx timestamp: ${timestamp}`);
+  } else {
+    console.log('   ⚠ Timestamp marker not found in Overview.mdx');
+  }
+}
+
+/**
  * Main execution
  */
 function main() {
@@ -229,6 +262,8 @@ function main() {
   console.log(`   Components: ${mergedData.summary.componentsTested}/${mergedData.summary.componentsBuilt}`);
   console.log(`   Breakdown: ${mergedData.summary.testBreakdown.lifecycle} lifecycle, ${mergedData.summary.testBreakdown.standardPatterns} standard, ${mergedData.summary.testBreakdown.reactiveControllers} reactive`);
   console.log(`   ✓ Saved to: test-coverage.json`);
+  
+  updateOverviewTimestamp();
 }
 
 main();
