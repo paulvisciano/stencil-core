@@ -28,7 +28,7 @@ export const ExtendsCoverageSummary = () => {
   const totalTests = testCases.reduce((sum, tc) => sum + (tc.testCount || 0), 0);
   
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '32px' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '32px' }}>
       <div style={{ 
         background: '#fff', 
         padding: '20px', 
@@ -64,35 +64,7 @@ export const ExtendsCoverageSummary = () => {
           All tests passing ✓
         </div>
         <div style={{ fontSize: '11px', color: '#15803d', opacity: 0.8, borderTop: '1px solid #86efac', paddingTop: '8px', marginTop: '8px' }}>
-          📅 Last run: Nov 9, 2025, 4:39 PM PST</div>
-      </div>
-      
-      <div style={{ 
-        background: coveragePercentage >= 50 ? '#f0fdf4' : '#fff7ed', 
-        padding: '20px', 
-        borderRadius: '8px', 
-        border: coveragePercentage >= 50 ? '2px solid #86efac' : '2px solid #fdba74',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        <div style={{ fontSize: '13px', fontWeight: '600', color: coveragePercentage >= 50 ? '#15803d' : '#9a3412', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>
-          Status
-        </div>
-        <div style={{ 
-          fontSize: '20px', 
-          fontWeight: '700',
-          padding: '10px 24px', 
-          borderRadius: '24px',
-          background: coveragePercentage >= 50 ? '#16a34a' : '#f97316',
-          color: '#fff',
-          textTransform: 'uppercase',
-          letterSpacing: '1px'
-        }}>
-          {coveragePercentage >= 50 ? '✓ Good' : 'In Progress'}
-        </div>
+          📅 Last run: Nov 10, 2025, 1:36 AM PST</div>
       </div>
     </div>
   );
