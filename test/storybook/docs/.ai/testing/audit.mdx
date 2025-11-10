@@ -635,3 +635,230 @@ We finalized the State decorator migration by aligning WDIO component paths to t
 - Roll the same path alignment and overlay-only model across other decorators while leaving old audit entries untouched:
   - Keep artifacts in `data/`, ensure per-decorator generator verifies parity, and build overlays from JSX tags.
   - Update forward-looking docs and scripts to avoid "matrix" terminology while preserving history in the audit log.
+
+---
+
+## Iteration 17: Shared Test Infrastructure and Script Modernization
+
+**Date:** October 22-24, 2025
+
+### Summary
+We refactored test-coverage infrastructure to be shared across all decorators and modernized component generation scripts, setting the foundation for extending the testing strategy to new feature areas like component inheritance (`extends`).
+
+### Key Changes
+- Shared infrastructure
+  - Created shared test-coverage infrastructure that can be reused across decorators and new testing domains (e.g., Extends functionality).
+  - Modernized generate-components scripts to use shared patterns and utilities.
+  - Enhanced test coverage architecture with better planning and tracking systems.
+- Script improvements
+  - Added force flags to all generation scripts for easier iteration.
+  - Removed user-specific filepath comments from generated components for cleaner code.
+  - Improved memory and documentation for AI-assisted workflows.
+- Documentation
+  - Updated workflow documentation to reflect latest steps and best practices.
+  - Added comprehensive planning documentation for new test areas.
+
+### Why this matters
+- Reusable infrastructure enables rapid expansion to new testing domains (decorators, behaviors, patterns).
+- Consistent patterns across scripts reduce cognitive load and improve maintainability.
+- Better planning systems help identify coverage gaps and prioritize work.
+
+### Outcomes
+- All decorator generation scripts now use shared utilities.
+- Foundation in place for testing component inheritance patterns (extends).
+- Improved developer experience with cleaner, more consistent tooling.
+
+---
+
+## Iteration 18: Extends Functionality — Initial Implementation and Documentation
+
+**Date:** October 27-28, 2025
+
+### Summary
+Implemented comprehensive testing and documentation for Stencil's `extends` functionality, enabling component inheritance patterns. This represents a new testing domain beyond decorators, covering how components can extend base classes, abstract classes, and other components.
+
+### Phase 1: Foundation and Structure (Oct 27)
+- Documentation structure
+  - Created `Testing/Behavior/Extends/` subfolder following decorator pattern.
+  - Added `Overview.mdx` with coverage summary and test case matrix.
+  - Established test case numbering system (1-17 planned cases).
+  - Created `README.md` with workflow documentation.
+- Test infrastructure
+  - Moved extends tests to `test/wdio/ts-target/extends-*/` following ES2022 target pattern.
+  - Created automated test-coverage tracking script (`test-coverage.js`).
+  - Established HTML test pages for dist and custom-elements outputs.
+
+### Phase 2: Initial Test Cases (Oct 27-28)
+- Test Case #1: Lifecycle Inheritance (Basic)
+  - Component extends base class with lifecycle methods.
+  - Tests: componentWillLoad, componentDidLoad, componentWillRender, componentDidRender, componentWillUpdate, componentDidUpdate.
+  - 6 tests passing (5 dist, 1 custom-elements).
+- Test Case #2: Multi-Level Lifecycle Inheritance
+  - Component → Base → GrandparentBase inheritance chain.
+  - Tests multi-level super() call chains and event ordering.
+  - 7 tests passing (6 dist, 1 custom-elements).
+- Additional test cases implemented
+  - Test Case #6: Abstract base class inheritance (12 tests).
+  - Test Case #7: Component-to-component inheritance (12 tests).
+  - Test Case #8: External library inheritance (12 tests).
+  - Test Case #9: Mixin composition (12 tests).
+  - Test Case #12: Controller-initiated updates (5 tests).
+  - Test Case #12a: Direct state management (5 tests).
+
+### Phase 3: Examples and Patterns (Oct 27-28)
+- Implemented Lit's ClockController example using Stencil extends
+  - Demonstrates reactive controller pattern from Lit translated to Stencil.
+  - Shows both controller-initiated updates and direct state management.
+  - Validates that Stencil's extends is simpler and more powerful than Lit's approach.
+- Added collapsible code examples with syntax highlighting.
+- Documented real-world use cases and patterns.
+
+### Coverage at End of Phase
+- 8/17 test cases implemented (47%)
+- 71 tests passing
+- Breakdown: 13 lifecycle, 48 standard patterns, 10 reactive controllers
+
+### Key Learnings
+- Extends functionality requires different testing patterns than decorators
+  - Focus on inheritance chains, super() calls, and property/method propagation.
+  - Need to test across multiple output targets (dist, custom-elements, hydrate).
+- ES2022 target required
+  - Component classes can only extend when targeting ES2022+.
+  - Build warnings surface when targeting older JavaScript versions.
+- Documentation strategy
+  - Test case matrix approach from decorators works well for extends.
+  - Visual coverage summary helps track progress toward 100%.
+- Real-world validation
+  - Comparing with Lit's patterns validates Stencil's approach.
+  - Examples from other frameworks (Lit) help identify missing test cases.
+
+### Next Steps
+- Implement remaining 9 test cases:
+  - #3: Property & State inheritance
+  - #4: Method inheritance
+  - #5: Render method inheritance
+  - #10-11: Event handling and Watch decorators
+  - #13-14: Real-world controllers (FloatingUI, Validation)
+  - #15-16: Edge cases and SSR
+
+---
+
+## Iteration 19: Strategic Decision — Extends vs @Controller
+
+**Date:** October 30, 2025
+
+### Summary
+Documented the strategic decision to move forward with `extends` functionality over implementing a new `@Controller` decorator, providing clarity on architectural direction and rationale.
+
+### Key Points
+- Extends provides more idiomatic JavaScript inheritance patterns
+- No new decorators needed — uses standard ES6+ class syntax
+- More flexible and powerful than controller-specific decorator
+- Better alignment with web standards and framework-agnostic patterns
+- Simpler mental model for developers familiar with OOP
+
+### Documentation
+- Added comprehensive analysis document explaining the decision.
+- Included comparison with other frameworks (Lit, Angular).
+- Provided migration guidance for patterns that might use @Controller.
+
+### Why this matters
+- Clarifies long-term architectural direction for component composition.
+- Helps contributors understand design philosophy.
+- Guides future feature prioritization and testing strategy.
+
+---
+
+## Iteration 20: Extends Automation, Test Case #3, and Documentation Improvements
+
+**Date:** November 10, 2025
+
+### Summary
+Major automation improvements for extends testing, implementation of Test Case #3 for property/state inheritance, and comprehensive documentation enhancements. This iteration brought extends coverage above 50% (9/17 cases) and demonstrated the maturity of the testing infrastructure.
+
+### Phase 1: Test Coverage Automation
+- Automated coverage tracking
+  - Created `test-coverage.js` script that auto-scans extends test directories.
+  - Detects test counts per component by parsing `it()` blocks.
+  - Identifies output target breakdowns (dist, customElements, hydrate) from `describe` blocks.
+  - Updates `test-coverage.json` with current stats and timestamps.
+- Integration with test workflow
+  - Added `postextends:test` hook to auto-update coverage after test runs.
+  - Created shortcut scripts in `.ai/testing/package.json`:
+    - `extends:test` — runs all extends tests
+    - `extends:test-coverage` — manually updates coverage data
+    - `query-missing-tests` — shows missing test cases across all decorators AND extends
+- Query utility enhancement
+  - Extended `query-missing-tests.js` to include extends functionality alongside decorators.
+  - Output format: `⚠️ Extends: X/17 implemented, missing #Y, #Z... (N tests passing)`
+
+### Phase 2: Test Case #3 Implementation
+- Target: Property & State Inheritance Basics
+- Files created
+  - `test/wdio/ts-target/extends-props-state/props-state-base.ts` — base class with @Prop and @State
+  - `test/wdio/ts-target/extends-props-state/cmp.tsx` — component extending base
+  - `test/wdio/ts-target/extends-props-state/cmp.test.ts` — 15 comprehensive tests
+  - HTML test pages for dist and custom-elements outputs
+- Test coverage (15 tests)
+  - @Prop inheritance: default values, attribute updates, property updates
+  - @State inheritance: default values, method updates, reactivity
+  - No conflicts: component-specific props/state alongside inherited ones
+  - Property reactivity: inherited properties trigger re-renders correctly
+  - Output targets: 12 dist tests, 3 custom-elements tests
+- All tests passing on first run
+
+### Phase 3: Documentation and UX Improvements
+- Overview documentation
+  - Removed redundant status card (showing "✓ Good" at 50%+ coverage).
+  - Simplified to 2-card layout: Test Cases Implemented + Total Tests Passing.
+  - Updated timestamp tracking to show last test run.
+- AI prompt improvements
+  - Updated `ai-prompt-shortcuts.md` to handle "what test cases are missing" queries automatically.
+  - Added explicit instruction: "When asked about missing test cases, ALWAYS run the query script first."
+  - Listed all common variations of the query ("show missing tests", "query missing tests", etc.).
+  - Added memory to prevent asking for clarification in future sessions.
+- Test suite organization
+  - Standardized test naming: "Test Case #N – Feature Description"
+  - Consistent describe block structure for output targets
+  - DOM-based assertions for reliable WDIO verification
+
+### Coverage Metrics
+- Before: 8/17 test cases (47%), 71 tests passing
+- After: 9/17 test cases (53%), 86 tests passing
+- New tests added: 15 (all for Test Case #3)
+- Test breakdown: 13 lifecycle, 63 standard patterns, 10 reactive controllers
+
+### Key Learnings
+- Test-first infrastructure
+  - Automated coverage tracking saves time and reduces manual errors.
+  - Integration with test workflow (postextends:test hook) ensures stats stay current.
+  - Query utility provides instant visibility into missing coverage across entire testing framework.
+- AI collaboration patterns
+  - Clear documentation of common queries ("what test cases are missing") enables better AI assistance.
+  - Memory system prevents repeated clarification loops.
+  - Pattern recognition from existing tests (lifecycle, abstract) accelerates new test creation.
+- Property/State inheritance testing
+  - Need to test both inherited and component-specific properties to ensure no conflicts.
+  - Reactivity must work for both base class and component state changes.
+  - Multiple output targets (dist, custom-elements) required for comprehensive coverage.
+- Documentation evolution
+  - Less is more: removed status card that provided redundant information.
+  - Timestamp tracking helps teams coordinate and understand freshness of data.
+
+### Process Improvements Made
+1. **Automation First**: Coverage tracking now happens automatically after every test run.
+2. **Query Integration**: Missing test case queries work across decorators AND extends functionality.
+3. **Pattern Library**: Test Case #3 establishes patterns for property/state inheritance that can guide Cases #4 and #5.
+4. **Documentation Standards**: Consistent test naming and structure across all extends tests.
+
+### Next Steps (8 test cases remaining)
+- #4: Method Inheritance Basics (@Method inheritance, super() calls)
+- #5: Render Method Inheritance (template composition, slots)
+- #10: Event Handling Inheritance (@Listen decorators)
+- #11: Watch Decorator Inheritance (@Watch behavior)
+- #13: FloatingUI Controller (real-world Popper.js integration)
+- #14: ValidationController (real-world form validation)
+- #15: Decorator Conflicts & Edge Cases
+- #16: SSR & Hydration
+
+---
