@@ -91,6 +91,36 @@ export namespace Components {
          */
         "prop3": string;
     }
+    /**
+     * Test Case #3: Property & State Inheritance Basics
+     * This component extends PropsStateBase to test:
+     * -
+     * @Prop inheritance from base class
+     * -
+     * @State inheritance from base class
+     * - Additional
+     * @Prop and
+     * @State without conflicts
+     * - Property reactivity (inherited props/state trigger re-renders)
+     */
+    interface ExtendsPropsState {
+        /**
+          * @default 0
+         */
+        "baseCount": number;
+        /**
+          * @default 'base prop value'
+         */
+        "baseProp": string;
+        /**
+          * @default 'component prop value'
+         */
+        "componentProp": string;
+        "incrementBaseCount": () => Promise<void>;
+        "toggleBaseEnabled": () => Promise<void>;
+        "updateBaseState": (value: string) => Promise<void>;
+        "updateComponentState": (value: string) => Promise<void>;
+    }
     interface TsTargetProps {
         /**
           * @default 'basicProp'
@@ -165,6 +195,24 @@ declare global {
         prototype: HTMLExtendsMixinCmpElement;
         new (): HTMLExtendsMixinCmpElement;
     };
+    /**
+     * Test Case #3: Property & State Inheritance Basics
+     * This component extends PropsStateBase to test:
+     * -
+     * @Prop inheritance from base class
+     * -
+     * @State inheritance from base class
+     * - Additional
+     * @Prop and
+     * @State without conflicts
+     * - Property reactivity (inherited props/state trigger re-renders)
+     */
+    interface HTMLExtendsPropsStateElement extends Components.ExtendsPropsState, HTMLStencilElement {
+    }
+    var HTMLExtendsPropsStateElement: {
+        prototype: HTMLExtendsPropsStateElement;
+        new (): HTMLExtendsPropsStateElement;
+    };
     interface HTMLTsTargetPropsElement extends Components.TsTargetProps, HTMLStencilElement {
     }
     var HTMLTsTargetPropsElement: {
@@ -182,6 +230,7 @@ declare global {
         "extends-lifecycle-basic": HTMLExtendsLifecycleBasicElement;
         "extends-lifecycle-multilevel": HTMLExtendsLifecycleMultilevelElement;
         "extends-mixin-cmp": HTMLExtendsMixinCmpElement;
+        "extends-props-state": HTMLExtendsPropsStateElement;
         "ts-target-props": HTMLTsTargetPropsElement;
     }
 }
@@ -258,6 +307,32 @@ declare namespace LocalJSX {
          */
         "prop3"?: string;
     }
+    /**
+     * Test Case #3: Property & State Inheritance Basics
+     * This component extends PropsStateBase to test:
+     * -
+     * @Prop inheritance from base class
+     * -
+     * @State inheritance from base class
+     * - Additional
+     * @Prop and
+     * @State without conflicts
+     * - Property reactivity (inherited props/state trigger re-renders)
+     */
+    interface ExtendsPropsState {
+        /**
+          * @default 0
+         */
+        "baseCount"?: number;
+        /**
+          * @default 'base prop value'
+         */
+        "baseProp"?: string;
+        /**
+          * @default 'component prop value'
+         */
+        "componentProp"?: string;
+    }
     interface TsTargetProps {
         /**
           * @default 'basicProp'
@@ -281,6 +356,7 @@ declare namespace LocalJSX {
         "extends-lifecycle-basic": ExtendsLifecycleBasic;
         "extends-lifecycle-multilevel": ExtendsLifecycleMultilevel;
         "extends-mixin-cmp": ExtendsMixinCmp;
+        "extends-props-state": ExtendsPropsState;
         "ts-target-props": TsTargetProps;
     }
 }
@@ -298,6 +374,19 @@ declare module "@stencil/core" {
             "extends-lifecycle-basic": LocalJSX.ExtendsLifecycleBasic & JSXBase.HTMLAttributes<HTMLExtendsLifecycleBasicElement>;
             "extends-lifecycle-multilevel": LocalJSX.ExtendsLifecycleMultilevel & JSXBase.HTMLAttributes<HTMLExtendsLifecycleMultilevelElement>;
             "extends-mixin-cmp": LocalJSX.ExtendsMixinCmp & JSXBase.HTMLAttributes<HTMLExtendsMixinCmpElement>;
+            /**
+             * Test Case #3: Property & State Inheritance Basics
+             * This component extends PropsStateBase to test:
+             * -
+             * @Prop inheritance from base class
+             * -
+             * @State inheritance from base class
+             * - Additional
+             * @Prop and
+             * @State without conflicts
+             * - Property reactivity (inherited props/state trigger re-renders)
+             */
+            "extends-props-state": LocalJSX.ExtendsPropsState & JSXBase.HTMLAttributes<HTMLExtendsPropsStateElement>;
             "ts-target-props": LocalJSX.TsTargetProps & JSXBase.HTMLAttributes<HTMLTsTargetPropsElement>;
         }
     }

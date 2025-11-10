@@ -3,17 +3,17 @@
   "description": "Comprehensive testing framework for Stencil extends functionality covering lifecycle, decorators, controllers, and edge cases",
   "version": "2025-11-10",
   "summary": {
-    "totalTests": 71,
-    "implementedTestCases": 8,
+    "totalTests": 86,
+    "implementedTestCases": 9,
     "totalTestCases": 17,
-    "componentsBuilt": 8,
-    "componentsTested": 8,
+    "componentsBuilt": 9,
+    "componentsTested": 9,
     "testBreakdown": {
       "lifecycle": 13,
-      "standardPatterns": 48,
+      "standardPatterns": 63,
       "reactiveControllers": 10
     },
-    "note": "Last updated: November 9, 2025 at 4:39 PM PST"
+    "note": "Last updated: November 10, 2025 at 1:43 AM PST"
   },
   "testCaseStatus": {
     "1": {
@@ -91,8 +91,8 @@
       ]
     },
     "3": {
-      "implemented": false,
-      "componentCount": 0,
+      "implemented": true,
+      "componentCount": 1,
       "description": "Property & State Inheritance Basics - Basic @Prop and @State inheritance without conflicts",
       "specPath": "test/wdio/ts-target/extends-props-state/cmp.test.ts",
       "basicFeatures": [
@@ -112,7 +112,12 @@
           "feature": "Property Reactivity",
           "description": "Inherited properties trigger re-renders correctly in component hierarchy"
         }
-      ]
+      ],
+      "testCount": 15,
+      "testBreakdown": {
+        "dist": 12,
+        "customElements": 3
+      }
     },
     "4": {
       "implemented": false,
