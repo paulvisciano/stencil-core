@@ -338,6 +338,72 @@ export const ExtendsTestCasesTable = () => {
       total: getGroupStats('watch').total,
       testCount: testCaseStatus[11]?.testCount || 0,
       section: testCaseStatus[11]?.implemented ? 'implemented' : 'missing',
+    },
+    // 🔵 Advanced Real-World (13-14) - TODO
+    {
+      id: 13,
+      implemented: testCaseStatus[13]?.implemented || false,
+      desc: testCaseStatus[13]?.description || '',
+      types: (
+        <>
+          <strong>🔵 Advanced:</strong> FloatingUI Controller - Real-world Popper.js integration via extends<br/>
+          <strong>Controller Features:</strong> Positioning logic, lifecycle integration, dynamic updates, cleanup<br/>
+          <small>Demonstrates practical controller pattern | Real library integration | Production use case</small>
+        </>
+      ),
+      tested: getGroupStats('floatingui').tested,
+      total: getGroupStats('floatingui').total,
+      testCount: testCaseStatus[13]?.testCount || 0,
+      section: testCaseStatus[13]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 14,
+      implemented: testCaseStatus[14]?.implemented || false,
+      desc: testCaseStatus[14]?.description || '',
+      types: (
+        <>
+          <strong>🔵 Advanced:</strong> ValidationController - Form validation logic via extends<br/>
+          <strong>Controller Features:</strong> Validation rules, error state, async validation, form integration<br/>
+          <small>Demonstrates practical validation pattern | Business logic reuse | Real-world forms</small>
+        </>
+      ),
+      tested: getGroupStats('validation').tested,
+      total: getGroupStats('validation').total,
+      testCount: testCaseStatus[14]?.testCount || 0,
+      section: testCaseStatus[14]?.implemented ? 'implemented' : 'missing',
+    },
+    // 🔴 Robustness & Production (15-17) - TODO
+    {
+      id: 15,
+      implemented: testCaseStatus[15]?.implemented || false,
+      desc: testCaseStatus[15]?.description || '',
+      types: (
+        <>
+          <strong>🔴 Robustness:</strong> Decorator Conflicts & Edge Cases - Duplicate decorators, override conflicts<br/>
+          <strong>Edge Cases:</strong> Multiple @Prop/@State same name, @Method conflicts, @Watch duplication<br/>
+          <small>Ensures reliability | Error handling | Conflict resolution | Developer experience</small>
+        </>
+      ),
+      tested: getGroupStats('conflicts').tested,
+      total: getGroupStats('conflicts').total,
+      testCount: testCaseStatus[15]?.testCount || 0,
+      section: testCaseStatus[15]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 16,
+      implemented: testCaseStatus[16]?.implemented || false,
+      desc: testCaseStatus[16]?.description || '',
+      types: (
+        <>
+          <strong>🔴 Production:</strong> SSR & Hydration - Server-side rendering with inheritance<br/>
+          <strong>SSR Features:</strong> Hydrate output, state serialization, lifecycle during SSR, hydration consistency<br/>
+          <small>Production-ready | Server rendering | Hydration safety | Framework completeness</small>
+        </>
+      ),
+      tested: getGroupStats('ssr').tested,
+      total: getGroupStats('ssr').total,
+      testCount: testCaseStatus[16]?.testCount || 0,
+      section: testCaseStatus[16]?.implemented ? 'implemented' : 'missing',
     }
   ];
 
@@ -350,16 +416,16 @@ export const ExtendsTestCasesTable = () => {
 
 ## Test Categories
 
-### **🟢 Basic Inheritance (1-5)**
+### **🟢 Basic Inheritance (1-5)** — 5 test cases
 Foundation patterns for lifecycle inheritance, property/state basics, method inheritance, and render composition.
 
-### **🟡 Standard Patterns (6-11)** 
+### **🟡 Standard Patterns (6-11)** — 6 test cases
 Common inheritance scenarios including abstract classes, component-to-component, external libraries, mixins, event handling, and watch decorators.
 
-### **🔵 Advanced Real-World (12-14)**
+### **🔵 Advanced Real-World (12, 12a, 13-14)** — 4 test cases
 Real-world reactive controller patterns comparing Stencil's extends capabilities with other frameworks like Lit, demonstrating practical use cases.
 
-### **🔴 Robustness & Production (15-17)**
+### **🔴 Robustness & Production (15-16)** — 2 test cases
 Edge cases, decorator conflicts, SSR behavior, and production-ready scenarios to ensure extends works reliably in all environments.
 
 ---
@@ -379,7 +445,6 @@ Edge cases, decorator conflicts, SSR behavior, and production-ready scenarios to
 
 ### 🔵 Advanced Real-World (2 remaining)
 
-12a. ✅ **Test Case #12a**: Direct State Management (5 tests, all passing)  
 13. **Test Case #13 TODO**: FloatingUI Controller (Popper.js integration)  
 14. **Test Case #14 TODO**: ValidationController (Form validation)
 
