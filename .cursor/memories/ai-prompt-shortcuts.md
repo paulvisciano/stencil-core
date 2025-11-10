@@ -17,15 +17,21 @@
 ## Test Case Status Queries
 
 ### Missing Test Cases
-- **Query Status**: `"query missing test cases"` → Shows complete missing test case summary across all decorators AND Extends
-- **Show Missing**: `"show me the missing test cases"` → Displays holistic view of unimplemented tests (Decorators + Behavior)
-- **Test Coverage**: `"what test cases are missing"` → Runs enhanced query utility with detailed status
+When asked about missing test cases, ALWAYS run the query script first:
+
+- **Primary Queries** (all run `/test/storybook/docs/Testing/Decorators/_shared/query-missing-tests.js`):
+  - `"what test cases are missing"` → Run query script to show missing tests
+  - `"query missing test cases"` → Run query script to show missing tests
+  - `"show me the missing test cases"` → Run query script to show missing tests
+  - `"what tests are missing"` → Run query script to show missing tests
 - **Phase 2 Status**: `"check Phase 2 progress"` → Shows WDIO test implementation status for all decorators
+
+**Note**: DO NOT ask for clarification when the user asks about missing tests - immediately search for and run the query-missing-tests.js script.
 
 ### Extends Functionality (Behavior Testing)
 - **Test Extends**: `"test extends functionality"` → Runs extends tests and auto-updates coverage + timestamp
 - **Update Extends Coverage**: `"update extends coverage"` → Manually updates extends test-coverage.json without running tests
-- **Status**: 8/17 test cases implemented, 71 tests passing
+- **Status**: 9/17 test cases implemented, 86 tests passing (✅ Test Case #3: Props & State Inheritance added Nov 10, 2025)
 
 ### Complete 3-Step Workflow
 ```
@@ -67,10 +73,10 @@ test the components         # Run WDIO tests
 ### Test Case Status Query
 - **Format**: 
   - Decorators: `✅ @Event: All test cases implemented` | `⚠️ @Prop: Missing cases #6` | `❌ @Method: No testCaseStatus found`
-  - Behavior: `⚠️ Extends: 8/17 implemented, missing #3, #4, #5... (71 tests passing)`
+  - Behavior: `⚠️ Extends: 9/17 implemented, missing #4, #5, #10, #11, #13, #14, #15, #16 (86 tests passing)`
 - **Details**: Shows both component assignment AND actual WDIO test implementation status
 - **Breakdown**: Identifies specific missing test case numbers for immediate action
-- **Coverage**: Now includes Extends functionality alongside decorator tests
+- **Coverage**: Includes Extends functionality alongside decorator tests
 
 ## Build & Test Integration
 - Generation → Build → Test → Coverage verification
