@@ -24,18 +24,18 @@ The extends approach was chosen over a @Controller decorator based on technical 
 3. **Performance & Bundle Size**
    - Zero additional runtime overhead
    - No framework bloat for unused features
-   - Smaller bundle sizes for Apple's applications
+   - Smaller bundle sizes for production applications
 
 4. **Developer Experience Benefits**
    - Just JavaScript - easy to understand and debug
    - No vendor lock-in to proprietary Stencil APIs
-   - Full flexibility to implement exactly what Apple needs
+   - Full flexibility to implement exactly what teams need
    - Future-proof approach that won't break with framework updates
 
 ### The Perfect Timing Discovery
-John Jenkins had recently implemented extends functionality for general inheritance patterns. When we discussed Reactive Controller requirements with him, he immediately recognized that **the extends feature provides the necessary foundation for Reactive Controllers**.
+John Jenkins had recently implemented extends functionality for general inheritance patterns. When we discussed the functional requirements for Reactive Controllers, he immediately recognized that **the extends feature provides the necessary foundation for Reactive Controllers**.
 
-**John's Assessment**: *"Stencil should get out of the way; let people write and run their own javascript. The extends functionality I built provides the foundation for Reactive Controllers - the testing you're doing will validate it works for Apple's specific scenarios."*
+**John's Assessment**: *"Stencil should get out of the way; let people write and run their own javascript. The extends functionality I built provides the foundation for Reactive Controllers - the testing will validate it works for real-world implementation scenarios."*
 
 ## Implementation Approach
 
@@ -111,4 +111,4 @@ This decision exemplifies Stencil's core philosophy: *"Get out of the way; let p
 
 ---
 
-*This technical decision was validated through collaboration with John Jenkins (extends functionality implementer) and comprehensive testing of real-world usage patterns.*
+*This technical decision was validated through collaboration with John Jenkins (extends functionality implementer) on functional requirements and comprehensive testing of real-world usage patterns.*
