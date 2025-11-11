@@ -155,6 +155,16 @@ export namespace Components {
         "updateBaseState": (value: string) => Promise<void>;
         "updateComponentState": (value: string) => Promise<void>;
     }
+    /**
+     * Test Case #5: Render Method Inheritance
+     * This component extends RenderBase to test:
+     * - Render Inheritance: Component render() method calls super.render() to include parent template
+     * - Template Composition: Component composes parent template with additional content and structure
+     * - Slot Integration: Parent template slots work correctly when inherited and extended
+     * - CSS Class Inheritance: CSS classes from parent template maintained in component extension
+     */
+    interface ExtendsRender {
+    }
     interface TsTargetProps {
         /**
           * @default 'basicProp'
@@ -253,6 +263,20 @@ declare global {
         prototype: HTMLExtendsPropsStateElement;
         new (): HTMLExtendsPropsStateElement;
     };
+    /**
+     * Test Case #5: Render Method Inheritance
+     * This component extends RenderBase to test:
+     * - Render Inheritance: Component render() method calls super.render() to include parent template
+     * - Template Composition: Component composes parent template with additional content and structure
+     * - Slot Integration: Parent template slots work correctly when inherited and extended
+     * - CSS Class Inheritance: CSS classes from parent template maintained in component extension
+     */
+    interface HTMLExtendsRenderElement extends Components.ExtendsRender, HTMLStencilElement {
+    }
+    var HTMLExtendsRenderElement: {
+        prototype: HTMLExtendsRenderElement;
+        new (): HTMLExtendsRenderElement;
+    };
     interface HTMLTsTargetPropsElement extends Components.TsTargetProps, HTMLStencilElement {
     }
     var HTMLTsTargetPropsElement: {
@@ -272,6 +296,7 @@ declare global {
         "extends-methods": HTMLExtendsMethodsElement;
         "extends-mixin-cmp": HTMLExtendsMixinCmpElement;
         "extends-props-state": HTMLExtendsPropsStateElement;
+        "extends-render": HTMLExtendsRenderElement;
         "ts-target-props": HTMLTsTargetPropsElement;
     }
 }
@@ -376,6 +401,16 @@ declare namespace LocalJSX {
          */
         "componentProp"?: string;
     }
+    /**
+     * Test Case #5: Render Method Inheritance
+     * This component extends RenderBase to test:
+     * - Render Inheritance: Component render() method calls super.render() to include parent template
+     * - Template Composition: Component composes parent template with additional content and structure
+     * - Slot Integration: Parent template slots work correctly when inherited and extended
+     * - CSS Class Inheritance: CSS classes from parent template maintained in component extension
+     */
+    interface ExtendsRender {
+    }
     interface TsTargetProps {
         /**
           * @default 'basicProp'
@@ -401,6 +436,7 @@ declare namespace LocalJSX {
         "extends-methods": ExtendsMethods;
         "extends-mixin-cmp": ExtendsMixinCmp;
         "extends-props-state": ExtendsPropsState;
+        "extends-render": ExtendsRender;
         "ts-target-props": TsTargetProps;
     }
 }
@@ -432,6 +468,15 @@ declare module "@stencil/core" {
              * - Property reactivity (inherited props/state trigger re-renders)
              */
             "extends-props-state": LocalJSX.ExtendsPropsState & JSXBase.HTMLAttributes<HTMLExtendsPropsStateElement>;
+            /**
+             * Test Case #5: Render Method Inheritance
+             * This component extends RenderBase to test:
+             * - Render Inheritance: Component render() method calls super.render() to include parent template
+             * - Template Composition: Component composes parent template with additional content and structure
+             * - Slot Integration: Parent template slots work correctly when inherited and extended
+             * - CSS Class Inheritance: CSS classes from parent template maintained in component extension
+             */
+            "extends-render": LocalJSX.ExtendsRender & JSXBase.HTMLAttributes<HTMLExtendsRenderElement>;
             "ts-target-props": LocalJSX.TsTargetProps & JSXBase.HTMLAttributes<HTMLTsTargetPropsElement>;
         }
     }
