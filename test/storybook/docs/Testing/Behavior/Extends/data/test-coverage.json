@@ -3,17 +3,17 @@
   "description": "Comprehensive testing framework for Stencil extends functionality covering lifecycle, decorators, controllers, and edge cases",
   "version": "2025-11-10",
   "summary": {
-    "totalTests": 86,
-    "implementedTestCases": 9,
+    "totalTests": 99,
+    "implementedTestCases": 10,
     "totalTestCases": 17,
-    "componentsBuilt": 9,
-    "componentsTested": 9,
+    "componentsBuilt": 10,
+    "componentsTested": 10,
     "testBreakdown": {
       "lifecycle": 13,
-      "standardPatterns": 63,
+      "standardPatterns": 76,
       "reactiveControllers": 10
     },
-    "note": "Last updated: November 10, 2025 at 1:43 AM PST"
+    "note": "Last updated: November 10, 2025 at 2:41 AM PST"
   },
   "testCaseStatus": {
     "1": {
@@ -120,8 +120,8 @@
       }
     },
     "4": {
-      "implemented": false,
-      "componentCount": 0,
+      "implemented": true,
+      "componentCount": 1,
       "description": "Method Inheritance Basics - Basic @Method inheritance and super() calls",
       "specPath": "test/wdio/ts-target/extends-methods/cmp.test.ts",
       "basicFeatures": [
@@ -141,7 +141,12 @@
           "feature": "Method Composition",
           "description": "Component combines base class method logic with its own implementation"
         }
-      ]
+      ],
+      "testCount": 13,
+      "testBreakdown": {
+        "dist": 9,
+        "customElements": 4
+      }
     },
     "5": {
       "implemented": false,
