@@ -74,6 +74,40 @@ export namespace Components {
     }
     interface ExtendsLifecycleMultilevel {
     }
+    interface ExtendsMethods {
+        /**
+          * Base method that can be called by child components
+         */
+        "baseMethod": () => Promise<string>;
+        /**
+          * Child-specific method that uses parent's protected helper
+         */
+        "childMethod": () => Promise<string>;
+        /**
+          * Method that composes parent and child behavior
+         */
+        "composedMethod": () => Promise<string>;
+        /**
+          * Method to get the call log for testing
+         */
+        "getCallLog": () => Promise<string[]>;
+        /**
+          * Method to get internal value for testing
+         */
+        "getInternalValue": () => Promise<string>;
+        /**
+          * Override parent method with super() call
+         */
+        "overridableMethod": () => Promise<string>;
+        /**
+          * Method to reset state for testing
+         */
+        "reset": () => Promise<void>;
+        /**
+          * Method to trigger display update from test
+         */
+        "updateDisplay": (value: string) => Promise<void>;
+    }
     interface ExtendsMixinCmp {
         "method1": () => Promise<void>;
         "method2": () => Promise<void>;
@@ -189,6 +223,12 @@ declare global {
         prototype: HTMLExtendsLifecycleMultilevelElement;
         new (): HTMLExtendsLifecycleMultilevelElement;
     };
+    interface HTMLExtendsMethodsElement extends Components.ExtendsMethods, HTMLStencilElement {
+    }
+    var HTMLExtendsMethodsElement: {
+        prototype: HTMLExtendsMethodsElement;
+        new (): HTMLExtendsMethodsElement;
+    };
     interface HTMLExtendsMixinCmpElement extends Components.ExtendsMixinCmp, HTMLStencilElement {
     }
     var HTMLExtendsMixinCmpElement: {
@@ -229,6 +269,7 @@ declare global {
         "extends-external": HTMLExtendsExternalElement;
         "extends-lifecycle-basic": HTMLExtendsLifecycleBasicElement;
         "extends-lifecycle-multilevel": HTMLExtendsLifecycleMultilevelElement;
+        "extends-methods": HTMLExtendsMethodsElement;
         "extends-mixin-cmp": HTMLExtendsMixinCmpElement;
         "extends-props-state": HTMLExtendsPropsStateElement;
         "ts-target-props": HTMLTsTargetPropsElement;
@@ -293,6 +334,8 @@ declare namespace LocalJSX {
     }
     interface ExtendsLifecycleMultilevel {
     }
+    interface ExtendsMethods {
+    }
     interface ExtendsMixinCmp {
         /**
           * @default 'default text'
@@ -355,6 +398,7 @@ declare namespace LocalJSX {
         "extends-external": ExtendsExternal;
         "extends-lifecycle-basic": ExtendsLifecycleBasic;
         "extends-lifecycle-multilevel": ExtendsLifecycleMultilevel;
+        "extends-methods": ExtendsMethods;
         "extends-mixin-cmp": ExtendsMixinCmp;
         "extends-props-state": ExtendsPropsState;
         "ts-target-props": TsTargetProps;
@@ -373,6 +417,7 @@ declare module "@stencil/core" {
             "extends-external": LocalJSX.ExtendsExternal & JSXBase.HTMLAttributes<HTMLExtendsExternalElement>;
             "extends-lifecycle-basic": LocalJSX.ExtendsLifecycleBasic & JSXBase.HTMLAttributes<HTMLExtendsLifecycleBasicElement>;
             "extends-lifecycle-multilevel": LocalJSX.ExtendsLifecycleMultilevel & JSXBase.HTMLAttributes<HTMLExtendsLifecycleMultilevelElement>;
+            "extends-methods": LocalJSX.ExtendsMethods & JSXBase.HTMLAttributes<HTMLExtendsMethodsElement>;
             "extends-mixin-cmp": LocalJSX.ExtendsMixinCmp & JSXBase.HTMLAttributes<HTMLExtendsMixinCmpElement>;
             /**
              * Test Case #3: Property & State Inheritance Basics
