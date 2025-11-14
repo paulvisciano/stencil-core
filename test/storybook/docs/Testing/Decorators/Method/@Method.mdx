@@ -221,8 +221,6 @@ Void methods that trigger side effects without return values, updating internal 
 
 ---
 
-## 📋 TODO - Remaining Test Cases
-
 export const MethodTODOSection = () => {
   const items = overlay.items || [];
   const groupIn = (set) => items.filter(i => set.has(i.group));
@@ -256,17 +254,7 @@ export const MethodTODOSection = () => {
   }
   
   if (missingCases.length === 0) {
-    return (
-      <div style={{ 
-        background: '#f0fdf4', 
-        padding: '16px', 
-        borderRadius: '8px', 
-        border: '2px solid #86efac',
-        marginBottom: '24px'
-      }}>
-        <strong>✓ All test cases implemented!</strong>
-      </div>
-    );
+    return null;
   }
   
   return (
@@ -280,7 +268,34 @@ export const MethodTODOSection = () => {
   );
 };
 
-<MethodTODOSection />
+{(() => {
+  const items = overlay.items || [];
+  const groupIn = (set) => items.filter(i => set.has(i.group));
+  const promiseSet = new Set(['promise']);
+  const valueSet = new Set(['value']);
+  const voidSet = new Set(['void']);
+  
+  const caseNosFor = (arr) => {
+    const s = new Set();
+    for (const it of arr) {
+      for (const n of (it.caseIds || [])) {
+        s.add(n);
+      }
+    }
+    return Array.from(s).sort((a, b) => a - b);
+  };
+  
+  const promiseCases = caseNosFor(groupIn(promiseSet));
+  const valueCases = caseNosFor(groupIn(valueSet));
+  const voidCases = caseNosFor(groupIn(voidSet));
+  if (promiseCases.length > 0 && valueCases.length > 0 && voidCases.length > 0) return null;
+  return (
+    <>
+      <h2>📋 TODO - Remaining Test Cases</h2>
+      <MethodTODOSection />
+    </>
+  );
+})()}
 
 ---
 

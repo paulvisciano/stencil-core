@@ -155,8 +155,6 @@ Events isolated to their target element, testing event emission and handling wit
 
 ---
 
-## 📋 TODO - Remaining Test Cases
-
 export const EventTODOSection = () => {
   const items = testCoverage.items || [];
   const bubblingItems = items.filter(item => item.caseIds && item.caseIds.includes(1));
@@ -171,17 +169,7 @@ export const EventTODOSection = () => {
   }
   
   if (missingCases.length === 0) {
-    return (
-      <div style={{ 
-        background: '#f0fdf4', 
-        padding: '16px', 
-        borderRadius: '8px', 
-        border: '2px solid #86efac',
-        marginBottom: '24px'
-      }}>
-        <strong>✓ All test cases implemented!</strong>
-      </div>
-    );
+    return null;
   }
   
   return (
@@ -195,7 +183,18 @@ export const EventTODOSection = () => {
   );
 };
 
-<EventTODOSection />
+{(() => {
+  const items = testCoverage.items || [];
+  const bubblingItems = items.filter(item => item.caseIds && item.caseIds.includes(1));
+  const nonBubblingItems = items.filter(item => item.caseIds && item.caseIds.includes(2));
+  if (bubblingItems.some(item => item.tested) && nonBubblingItems.some(item => item.tested)) return null;
+  return (
+    <>
+      <h2>📋 TODO - Remaining Test Cases</h2>
+      <EventTODOSection />
+    </>
+  );
+})()}
 
 ---
 

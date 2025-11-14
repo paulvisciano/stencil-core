@@ -203,8 +203,6 @@ Complex state types (any, array, object) with static render validation and defau
 
 ---
 
-## 📋 TODO - Remaining Test Cases
-
 export const StateTODOSection = () => {
   const items = overlay.items || [];
   const groupIn = (set) => items.filter(i => set.has(i.group));
@@ -235,17 +233,7 @@ export const StateTODOSection = () => {
   }
   
   if (missingCases.length === 0) {
-    return (
-      <div style={{ 
-        background: '#f0fdf4', 
-        padding: '16px', 
-        borderRadius: '8px', 
-        border: '2px solid #86efac',
-        marginBottom: '24px'
-      }}>
-        <strong>✓ All test cases implemented!</strong>
-      </div>
-    );
+    return null;
   }
   
   return (
@@ -259,7 +247,34 @@ export const StateTODOSection = () => {
   );
 };
 
-<StateTODOSection />
+{(() => {
+  const items = overlay.items || [];
+  const groupIn = (set) => items.filter(i => set.has(i.group));
+  const primitiveSet = new Set(['string', 'number', 'boolean']);
+  const complexSet = new Set(['any', 'array', 'object']);
+  const primitive = groupIn(primitiveSet);
+  const complex = groupIn(complexSet);
+  
+  const caseNosFor = (arr) => {
+    const s = new Set();
+    for (const it of arr) {
+      for (const n of (it.caseIds || [])) {
+        s.add(n);
+      }
+    }
+    return Array.from(s).sort((a, b) => a - b);
+  };
+  
+  const primitiveCases = caseNosFor(primitive);
+  const complexCases = caseNosFor(complex);
+  if (primitiveCases.length > 0 && complexCases.length > 0) return null;
+  return (
+    <>
+      <h2>📋 TODO - Remaining Test Cases</h2>
+      <StateTODOSection />
+    </>
+  );
+})()}
 
 ---
 
