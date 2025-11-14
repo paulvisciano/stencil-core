@@ -13,6 +13,7 @@
     "1": {
       "implemented": true,
       "componentCount": 12,
+      "testCount": 3,
       "hasComponents": true,
       "hasWdioTest": true,
       "components": [
@@ -81,6 +82,7 @@
     "2": {
       "implemented": true,
       "componentCount": 12,
+      "testCount": 1,
       "hasComponents": true,
       "hasWdioTest": true,
       "components": [
@@ -149,6 +151,7 @@
     "3": {
       "implemented": true,
       "componentCount": 6,
+      "testCount": 3,
       "hasComponents": true,
       "hasWdioTest": true,
       "components": [
@@ -187,6 +190,7 @@
     "4": {
       "implemented": true,
       "componentCount": 6,
+      "testCount": 2,
       "hasComponents": true,
       "hasWdioTest": true,
       "components": [
@@ -225,6 +229,7 @@
     "5": {
       "implemented": true,
       "componentCount": 6,
+      "testCount": 3,
       "hasComponents": true,
       "hasWdioTest": true,
       "components": [
@@ -263,6 +268,7 @@
     "6": {
       "implemented": false,
       "componentCount": 6,
+      "testCount": 0,
       "hasComponents": true,
       "hasWdioTest": false,
       "components": [

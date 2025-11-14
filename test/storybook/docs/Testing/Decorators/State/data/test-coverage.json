@@ -9,6 +9,86 @@
     "testedPermutations": 12,
     "percentTested": "100.00"
   },
+  "testCaseStatus": {
+    "1": {
+      "implemented": true,
+      "componentCount": 6,
+      "testCount": 6,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "state-string-no-default",
+          "group": "string",
+          "optionsKey": "string|false"
+        },
+        {
+          "tag": "state-string-default",
+          "group": "string",
+          "optionsKey": "string|true"
+        },
+        {
+          "tag": "state-number-no-default",
+          "group": "number",
+          "optionsKey": "number|false"
+        },
+        {
+          "tag": "state-number-default",
+          "group": "number",
+          "optionsKey": "number|true"
+        },
+        {
+          "tag": "state-boolean-no-default",
+          "group": "boolean",
+          "optionsKey": "boolean|false"
+        },
+        {
+          "tag": "state-boolean-default",
+          "group": "boolean",
+          "optionsKey": "boolean|true"
+        }
+      ]
+    },
+    "2": {
+      "implemented": true,
+      "componentCount": 6,
+      "testCount": 6,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "state-object-no-default",
+          "group": "object",
+          "optionsKey": "object|false"
+        },
+        {
+          "tag": "state-object-default",
+          "group": "object",
+          "optionsKey": "object|true"
+        },
+        {
+          "tag": "state-array-no-default",
+          "group": "array",
+          "optionsKey": "array|false"
+        },
+        {
+          "tag": "state-array-default",
+          "group": "array",
+          "optionsKey": "array|true"
+        },
+        {
+          "tag": "state-any-no-default",
+          "group": "any",
+          "optionsKey": "any|false"
+        },
+        {
+          "tag": "state-any-default",
+          "group": "any",
+          "optionsKey": "any|true"
+        }
+      ]
+    }
+  },
   "items": [
     {
       "group": "string",

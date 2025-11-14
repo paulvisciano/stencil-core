@@ -9,6 +9,75 @@
     "testedPermutations": 8,
     "percentTested": "100.00"
   },
+  "testCaseStatus": {
+    "1": {
+      "implemented": true,
+      "componentCount": 4,
+      "testCount": 4,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "method-promise-async-false-args-none",
+          "group": "promise",
+          "optionsKey": "promise|✗|none"
+        },
+        {
+          "tag": "method-promise-async-false-args-one",
+          "group": "promise",
+          "optionsKey": "promise|✗|one"
+        },
+        {
+          "tag": "method-promise-async-true-args-none",
+          "group": "promise",
+          "optionsKey": "promise|✓|none"
+        },
+        {
+          "tag": "method-promise-async-true-args-one",
+          "group": "promise",
+          "optionsKey": "promise|✓|one"
+        }
+      ]
+    },
+    "2": {
+      "implemented": true,
+      "componentCount": 2,
+      "testCount": 2,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "method-value-async-true-args-none",
+          "group": "value",
+          "optionsKey": "value|✓|none"
+        },
+        {
+          "tag": "method-value-async-true-args-one",
+          "group": "value",
+          "optionsKey": "value|✓|one"
+        }
+      ]
+    },
+    "3": {
+      "implemented": true,
+      "componentCount": 2,
+      "testCount": 2,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "method-void-async-true-args-none",
+          "group": "void",
+          "optionsKey": "void|✓|none"
+        },
+        {
+          "tag": "method-void-async-true-args-one",
+          "group": "void",
+          "optionsKey": "void|✓|one"
+        }
+      ]
+    }
+  },
   "items": [
     {
       "group": "void",

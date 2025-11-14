@@ -9,6 +9,66 @@
     "testedPermutations": 8,
     "percentTested": "100.00"
   },
+  "testCaseStatus": {
+    "1": {
+      "implemented": true,
+      "componentCount": 4,
+      "testCount": 4,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "event-bubbles-cancelable-composed-false",
+          "group": "✓",
+          "optionsKey": "✓|✓|✗"
+        },
+        {
+          "tag": "event-bubbles-cancelable-composed",
+          "group": "✓",
+          "optionsKey": "✓|✓|✓"
+        },
+        {
+          "tag": "event-bubbles-cancelable-false-composed-false",
+          "group": "✓",
+          "optionsKey": "✓|✗|✗"
+        },
+        {
+          "tag": "event-bubbles-cancelable-false-composed",
+          "group": "✓",
+          "optionsKey": "✓|✗|✓"
+        }
+      ]
+    },
+    "2": {
+      "implemented": true,
+      "componentCount": 4,
+      "testCount": 4,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "event-bubbles-false-cancelable-composed-false",
+          "group": "✗",
+          "optionsKey": "✗|✓|✗"
+        },
+        {
+          "tag": "event-bubbles-false-cancelable-composed",
+          "group": "✗",
+          "optionsKey": "✗|✓|✓"
+        },
+        {
+          "tag": "event-bubbles-false-cancelable-false-composed-false",
+          "group": "✗",
+          "optionsKey": "✗|✗|✗"
+        },
+        {
+          "tag": "event-bubbles-false-cancelable-false-composed",
+          "group": "✗",
+          "optionsKey": "✗|✗|✓"
+        }
+      ]
+    }
+  },
   "items": [
     {
       "group": "✓",

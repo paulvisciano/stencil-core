@@ -77,10 +77,12 @@ export function calculateTestCaseStatus(items, testDir) {
     
     const hasComponents = componentsWithCase.length > 0;
     const hasWdioTest = testsExist && checkTestCaseExists(testDir, caseId);
+    const testCount = hasWdioTest ? countTestsForCase(testDir, caseId) : 0;
     
     testCaseStatus[caseId] = {
       implemented: hasComponents && hasWdioTest,
       componentCount: componentsWithCase.length,
+      testCount,
       hasComponents,
       hasWdioTest,
       components: componentsWithCase.map(item => ({
@@ -112,6 +114,105 @@ function checkTestCaseExists(testDir, caseId) {
     return regex.test(content);
   } catch (error) {
     return false;
+  }
+}
+
+/**
+ * Count it() test cases within a specific "Test Case #N" describe block
+ */
+function countTestsForCase(testDir, caseId) {
+  if (!testDir || !fs.existsSync(testDir)) return 0;
+  const testsFile = path.resolve(testDir, 'tests.tsx');
+  if (!fs.existsSync(testsFile)) return 0;
+  
+  try {
+    const content = fs.readFileSync(testsFile, 'utf8');
+    
+    // Find the start of the describe block for this test case
+    // Match: describe('Test Case #N ...', () => {
+    const startRegex = new RegExp(`describe\\s*\\(\\s*['"]Test Case #${caseId}\\b`, 'i');
+    const startMatch = content.match(startRegex);
+    if (!startMatch) return 0;
+    
+    // The regex matches: describe\s*\(\s*['"]Test Case #N
+    // Extract the quote character from the match
+    const matchText = startMatch[0];
+    const quoteMatch = matchText.match(/['"]/);
+    if (!quoteMatch) return 0;
+    const stringStartChar = quoteMatch[0];
+    
+    // Find where the string content starts (after the quote in the match)
+    const quotePosInMatch = matchText.indexOf(stringStartChar);
+    const stringStartInContent = startMatch.index + quotePosInMatch + 1;
+    
+    // Find the closing quote (handle escaped quotes)
+    let i = stringStartInContent;
+    while (i < content.length) {
+      if (content[i] === stringStartChar && content[i - 1] !== '\\') {
+        break;
+      }
+      i++;
+    }
+    
+    if (i >= content.length) return 0;
+    
+    // Now find the closing paren and then the opening brace
+    i++; // Move past the closing quote
+    while (i < content.length && content[i] !== ')') {
+      i++;
+    }
+    
+    if (i >= content.length) return 0;
+    i++; // Move past the closing paren
+    
+    // Find the opening brace
+    while (i < content.length && content[i] !== '{') {
+      i++;
+    }
+    
+    if (i >= content.length) return 0;
+    
+    const startIndex = i + 1; // Start after the opening brace
+    
+    // Find the matching closing brace for this describe block
+    let braceCount = 1;
+    let inString = false;
+    let stringChar = null;
+    i = startIndex;
+    
+    while (i < content.length && braceCount > 0) {
+      const char = content[i];
+      const prevChar = i > 0 ? content[i - 1] : '';
+      
+      // Handle string literals (skip braces inside strings)
+      if (!inString && (char === '"' || char === "'" || char === '`')) {
+        inString = true;
+        stringChar = char;
+      } else if (inString && char === stringChar && prevChar !== '\\') {
+        inString = false;
+        stringChar = null;
+      }
+      
+      // Only count braces outside of strings
+      if (!inString) {
+        if (char === '{') braceCount++;
+        if (char === '}') braceCount--;
+      }
+      
+      i++;
+    }
+    
+    if (braceCount === 0) {
+      // Extract the content of the describe block
+      const blockContent = content.substring(startIndex, i - 1);
+      // Count it() calls within this block
+      const itMatches = blockContent.match(/\bit\s*\(/g);
+      return itMatches ? itMatches.length : 0;
+    }
+    
+    return 0;
+  } catch (error) {
+    return 0;
   }
 }
 
