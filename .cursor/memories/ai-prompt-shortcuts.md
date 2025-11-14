@@ -28,10 +28,13 @@ When asked about missing test cases, ALWAYS run the query script first:
 
 **Note**: DO NOT ask for clarification when the user asks about missing tests - immediately search for and run the query-missing-tests.js script.
 
+### Test Coverage Updates
+- **Update All Coverage**: `"update the test coverage"` → Runs `npm run test-coverage` from `.ai/testing/` directory (updates all decorator and Extends coverage)
+- **Update Extends Coverage**: `"update extends coverage"` → Manually updates extends test-coverage.json without running tests
+
 ### Extends Functionality (Behavior Testing)
 - **Test Extends**: `"test extends functionality"` → Runs extends tests and auto-updates coverage + timestamp
-- **Update Extends Coverage**: `"update extends coverage"` → Manually updates extends test-coverage.json without running tests
-- **Status**: 9/17 test cases implemented, 86 tests passing (✅ Test Case #3: Props & State Inheritance added Nov 10, 2025)
+- **Status**: 11/17 test cases implemented, 108 tests passing
 
 ### Complete 3-Step Workflow
 ```
