@@ -4,7 +4,7 @@ import { Component, h, Method, State } from '@stencil/core';
 export class MethodPromiseAsyncTrueArgsOne {
   @State() value = 0;
 
-  @Method() async run(x) {
+  @Method() async run(x: any) {
     return new Promise(resolve => setTimeout(() => resolve(x ?? 1), 0));
   }
 

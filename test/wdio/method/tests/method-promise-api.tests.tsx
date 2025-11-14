@@ -58,7 +58,7 @@ describe('method decorator promise components', () => {
 
         expect(await counter.getText()).toBe('0');
 
-        await browser.waitUntil(async () => {
+        await (browser as any).waitUntil(async () => {
           return (await counter.getText()) === component.expectedCounter;
         }, { timeout: 3000 });
 

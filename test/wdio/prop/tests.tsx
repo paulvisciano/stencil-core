@@ -9,40 +9,40 @@ describe('@Prop decorator', () => {
       template: () => (
         <Fragment>
           {/* string */}
-          <prop-string-reflect-false-mutable-false></prop-string-reflect-false-mutable-false>
-          <prop-string-reflect-false-mutable></prop-string-reflect-false-mutable>
-          <prop-string-reflect-mutable-false></prop-string-reflect-mutable-false>
-          <prop-string-reflect-mutable></prop-string-reflect-mutable>
+          <prop-string-reflect-false-mutable-false val=""></prop-string-reflect-false-mutable-false>
+          <prop-string-reflect-false-mutable val=""></prop-string-reflect-false-mutable>
+          <prop-string-reflect-mutable-false val=""></prop-string-reflect-mutable-false>
+          <prop-string-reflect-mutable val=""></prop-string-reflect-mutable>
 
           {/* number */}
-          <prop-number-reflect-false-mutable-false></prop-number-reflect-false-mutable-false>
-          <prop-number-reflect-false-mutable></prop-number-reflect-false-mutable>
-          <prop-number-reflect-mutable-false></prop-number-reflect-mutable-false>
-          <prop-number-reflect-mutable></prop-number-reflect-mutable>
+          <prop-number-reflect-false-mutable-false val={0}></prop-number-reflect-false-mutable-false>
+          <prop-number-reflect-false-mutable val={0}></prop-number-reflect-false-mutable>
+          <prop-number-reflect-mutable-false val={0}></prop-number-reflect-mutable-false>
+          <prop-number-reflect-mutable val={0}></prop-number-reflect-mutable>
 
           {/* boolean */}
-          <prop-boolean-reflect-false-mutable-false></prop-boolean-reflect-false-mutable-false>
-          <prop-boolean-reflect-false-mutable></prop-boolean-reflect-false-mutable>
-          <prop-boolean-reflect-mutable-false></prop-boolean-reflect-mutable-false>
-          <prop-boolean-reflect-mutable></prop-boolean-reflect-mutable>
+          <prop-boolean-reflect-false-mutable-false val={false}></prop-boolean-reflect-false-mutable-false>
+          <prop-boolean-reflect-false-mutable val={false}></prop-boolean-reflect-false-mutable>
+          <prop-boolean-reflect-mutable-false val={false}></prop-boolean-reflect-mutable-false>
+          <prop-boolean-reflect-mutable val={false}></prop-boolean-reflect-mutable>
 
           {/* Array */}
-          <prop-array-reflect-false-mutable-false></prop-array-reflect-false-mutable-false>
-          <prop-array-reflect-false-mutable></prop-array-reflect-false-mutable>
-          <prop-array-reflect-mutable-false></prop-array-reflect-mutable-false>
-          <prop-array-reflect-mutable></prop-array-reflect-mutable>
+          <prop-array-reflect-false-mutable-false val={[]}></prop-array-reflect-false-mutable-false>
+          <prop-array-reflect-false-mutable val={[]}></prop-array-reflect-false-mutable>
+          <prop-array-reflect-mutable-false val={[]}></prop-array-reflect-mutable-false>
+          <prop-array-reflect-mutable val={[]}></prop-array-reflect-mutable>
 
           {/* Object */}
-          <prop-object-reflect-false-mutable-false></prop-object-reflect-false-mutable-false>
-          <prop-object-reflect-false-mutable></prop-object-reflect-false-mutable>
-          <prop-object-reflect-mutable-false></prop-object-reflect-mutable-false>
-          <prop-object-reflect-mutable></prop-object-reflect-mutable>
+          <prop-object-reflect-false-mutable-false val={{}}></prop-object-reflect-false-mutable-false>
+          <prop-object-reflect-false-mutable val={{}}></prop-object-reflect-false-mutable>
+          <prop-object-reflect-mutable-false val={{}}></prop-object-reflect-mutable-false>
+          <prop-object-reflect-mutable val={{}}></prop-object-reflect-mutable>
 
           {/* Set */}
-          <prop-set-reflect-false-mutable-false></prop-set-reflect-false-mutable-false>
-          <prop-set-reflect-false-mutable></prop-set-reflect-false-mutable>
-          <prop-set-reflect-mutable-false></prop-set-reflect-mutable-false>
-          <prop-set-reflect-mutable></prop-set-reflect-mutable>
+          <prop-set-reflect-false-mutable-false val={new Set()}></prop-set-reflect-false-mutable-false>
+          <prop-set-reflect-false-mutable val={new Set()}></prop-set-reflect-false-mutable>
+          <prop-set-reflect-mutable-false val={new Set()}></prop-set-reflect-mutable-false>
+          <prop-set-reflect-mutable val={new Set()}></prop-set-reflect-mutable>
         </Fragment>
       ),
     });
@@ -85,7 +85,7 @@ describe('@Prop decorator', () => {
     it('reflects attribute when reflect=true (string)', async () => {
       const selector = 'prop-string-reflect-mutable';
       const cmp = await $(selector);
-      await browser.execute((sel) => {
+      await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
         el.val = 'hello';
       }, selector);
@@ -96,7 +96,7 @@ describe('@Prop decorator', () => {
     it('reflects number as string when reflect=true', async () => {
       const selector = 'prop-number-reflect-mutable';
       const cmp = await $(selector);
-      await browser.execute((sel) => {
+      await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
         el.val = 42;
       }, selector);
@@ -107,7 +107,7 @@ describe('@Prop decorator', () => {
     it('reflects boolean as attribute presence when reflect=true', async () => {
       const selector = 'prop-boolean-reflect-mutable';
       const cmp = await $(selector);
-      await browser.execute((sel) => {
+      await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
         el.val = true;
       }, selector);
@@ -120,7 +120,7 @@ describe('@Prop decorator', () => {
     it('does not reflect attribute when reflect=false (string)', async () => {
       const selector = 'prop-string-reflect-false-mutable';
       const cmp = await $(selector);
-      await browser.execute((sel) => {
+      await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
         el.val = 'world';
       }, selector);
@@ -131,7 +131,7 @@ describe('@Prop decorator', () => {
     it('does not reflect number when reflect=false', async () => {
       const selector = 'prop-number-reflect-false-mutable';
       const cmp = await $(selector);
-      await browser.execute((sel) => {
+      await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
         el.val = 7;
       }, selector);
@@ -144,7 +144,7 @@ describe('@Prop decorator', () => {
     it('allows component to mutate its own string prop', async () => {
       const selector = 'prop-string-reflect-mutable';
       const cmp = await $(selector);
-      await browser.execute((sel) => {
+      await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
         el.val = 'first';
         el.val = 'second';
@@ -156,7 +156,7 @@ describe('@Prop decorator', () => {
     it('allows component to mutate its own number prop', async () => {
       const selector = 'prop-number-reflect-mutable';
       const cmp = await $(selector);
-      await browser.execute((sel) => {
+      await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
         el.val = 1;
         el.val = 2;
@@ -168,7 +168,7 @@ describe('@Prop decorator', () => {
     it('allows component to mutate its own boolean prop', async () => {
       const selector = 'prop-boolean-reflect-mutable';
       const cmp = await $(selector);
-      await browser.execute((sel) => {
+      await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
         el.val = true;
         el.val = false;

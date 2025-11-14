@@ -4,7 +4,7 @@ import { Component, h, Method, State } from '@stencil/core';
 export class MethodValueAsyncTrueArgsOne {
   @State() value = 0;
 
-  @Method() async run(x) {
+  @Method() async run(x: any) {
     return x ?? 1;
   }
 
