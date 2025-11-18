@@ -13,7 +13,7 @@
     "1": {
       "implemented": true,
       "componentCount": 4,
-      "testCount": 4,
+      "testCount": 8,
       "hasComponents": true,
       "hasWdioTest": true,
       "components": [
