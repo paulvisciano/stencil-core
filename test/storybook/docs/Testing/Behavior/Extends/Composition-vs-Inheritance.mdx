@@ -1,0 +1,407 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Testing/Behavior/Extends/Composition vs Inheritance"/>
+
+# Composition vs Inheritance: Scaling Patterns  
+
+This document compares inheritance-based and composition-based patterns at scale, examining how each approach performs when building a component library with many components and controllers. We analyze two test cases that demonstrate the trade-offs and scaling characteristics of each pattern.
+
+## Test Cases
+
+- **Test Case #18**: [Inheritance-Based Scaling](./?path=/story/testing-behavior-extends-inheritance-scaling--page) - 3 components, 2 controllers via inheritance
+- **Test Case #19**: [Composition-Based Scaling](./?path=/story/testing-behavior-extends-composition-scaling--page) - 3 components, 2 controllers via composition
+
+## Overview
+
+Both patterns achieve the same functional goal: providing validation and focus management to form components. More importantly, both patterns achieve the original goal of moving logic out of components into separate, reusable controller classes. However, they differ significantly in their architecture, API surface, and how they scale.
+
+### Inheritance Pattern (via Mixin)
+
+**Location**: `test/wdio/ts-target/extends-inheritance-scaling/`
+
+**Architecture**:
+```
+CheckboxGroupCmp
+  └─ extends FormFieldBase (optional convenience layer)
+       └─ extends Mixin(ValidationControllerMixin, FocusControllerMixin)
+            └─ ValidationControllerMixin (manages validation state)
+            └─ FocusControllerMixin (manages focus state)
+```
+
+**Alternative (Direct Mixin Usage)**:
+```
+CheckboxGroupCmp
+  └─ extends Mixin(ValidationControllerMixin, FocusControllerMixin)
+       └─ (bypasses FormFieldBase entirely)
+```
+
+**Key Characteristics**:
+- Uses Stencil's `Mixin()` function for multiple inheritance
+- Controllers are implemented as mixin factories that return classes
+- All public/protected methods from mixins are accessible
+- Lifecycle methods are automatically merged from all mixins
+- `FormFieldBase` is optional - components can use mixins directly
+
+### Composition Pattern
+
+**Location**: `test/wdio/ts-target/extends-composition-scaling/`
+
+**Architecture**:
+```
+CheckboxGroupCmp
+  └─ extends ReactiveControllerHost
+       └─ composes ValidationController (as instance)
+       └─ composes FocusController (as instance)
+```
+
+**Key Characteristics**:
+- Components extend a host class that manages controller lifecycle
+- Only explicitly exposed methods are accessible
+- Lifecycle methods are automatically called via ReactiveControllerHost
+- Controllers are loosely coupled through composition
+
+## Key Differences
+
+### 1. Method Visibility and API Surface
+
+#### Inheritance Pattern (via Mixin)
+
+**Characteristic**: All methods from all mixins are accessible in the component.
+
+```typescript
+// In ValidationControllerMixin (public methods)
+setValidationCallback()
+validate()
+getValidationState()
+getValidationMessageData()
+resetValidation()
+
+// In FocusControllerMixin (public methods)
+handleFocus()
+handleBlur()
+getFocusState()
+resetFocusTracking()
+
+// In FormFieldBase (optional convenience methods)
+handleFocusEvent()  // Wrapper for handleFocus()
+handleBlurEvent()   // Wrapper that calls handleBlur() + validate()
+
+// All accessible in CheckboxGroupCmp!
+```
+
+**Impact**: 
+- ✅ Easy access to all functionality
+- ✅ Clean multiple inheritance via `Mixin()` (no hacky anonymous classes)
+- ❌ Large API surface that grows with mixin changes
+- ❌ Potential for accidental coupling
+- ❌ Harder to control what's exposed
+- ✅ Can bypass `FormFieldBase` and use mixins directly for more control
+
+#### Composition Pattern
+
+**Solution**: Only explicitly exposed methods are accessible.
+
+```typescript
+// In ReactiveControllerHost
+requestUpdate() // protected, for controllers only
+
+// Controllers are private instances
+private validationController: ValidationController;
+private focusController: FocusController;
+
+// Only methods you explicitly expose are public
+getValidationState() {
+  return this.validationController.getValidationState();
+}
+```
+
+**Impact**:
+- ✅ Controlled API surface
+- ✅ Explicit interface design
+- ✅ Base class changes don't automatically leak
+- ❌ More boilerplate to expose methods
+
+### 2. Lifecycle Management
+
+#### Inheritance Pattern (via Mixin)
+
+```typescript
+// Each mixin defines its own lifecycle methods
+// Stencil's Mixin() automatically merges them
+
+// In ValidationControllerMixin:
+componentDidLoad() {
+  super.componentDidLoad?.(); // Calls previous mixin/base
+  this.setupValidation();
+}
+
+// In FocusControllerMixin:
+componentDidLoad() {
+  super.componentDidLoad?.(); // Calls ValidationControllerMixin's componentDidLoad
+  this.setupFocusTracking();
+}
+
+// Components can optionally override (but don't need to)
+componentDidLoad() {
+  super.componentDidLoad(); // Calls all mixin lifecycle methods
+}
+```
+
+**Characteristics**:
+- Automatic lifecycle merging via `Mixin()`
+- Each mixin's lifecycle methods are called in mixin order
+- Components can override to add their own logic
+- No need to manually chain controller lifecycle methods
+- Much cleaner than the old approach with anonymous classes
+
+#### Composition Pattern
+
+```typescript
+// ReactiveControllerHost automatically calls lifecycle methods
+// No manual chaining needed in components!
+
+// In ReactiveControllerHost:
+componentDidLoad() {
+  this.controllers.forEach(controller => {
+    if (controller.hostDidLoad) {
+      controller.hostDidLoad();
+    }
+  });
+}
+```
+
+**Characteristics**:
+- Automatic lifecycle management
+- No need to remember to call controller lifecycle methods
+- Adding new controllers automatically gets lifecycle hooks
+- Less boilerplate in component code
+
+### 3. Adding New Controllers
+
+#### Inheritance Pattern (via Mixin)
+
+**Adding a third controller (e.g., `AccessibilityControllerMixin`)**:
+
+**Option 1: Update FormFieldBase (all components get it)**
+1. Create `AccessibilityControllerMixin` factory
+2. Update `FormFieldBase`:
+   ```typescript
+   export class FormFieldBase extends Mixin(
+     ValidationControllerMixin, 
+     FocusControllerMixin,
+     AccessibilityControllerMixin  // Add here
+   ) { ... }
+   ```
+3. All components extending `FormFieldBase` automatically get it
+
+**Option 2: Use mixins directly (component-specific)**
+1. Create `AccessibilityControllerMixin` factory
+2. Component uses mixins directly:
+   ```typescript
+   export class MyComponent extends Mixin(
+     ValidationControllerMixin,
+     AccessibilityControllerMixin  // Only this component gets it
+   ) { ... }
+   ```
+
+**Scaling Characteristics**:
+- ✅ Clean multiple inheritance via `Mixin()` - no hacky workarounds
+- ✅ Can mix and match controllers per component (if using mixins directly)
+- ❌ If using `FormFieldBase`, all components get all controllers
+- ✅ Lifecycle methods automatically merged - no manual chaining needed
+
+#### Composition Pattern
+
+**Adding a third controller (e.g., `AccessibilityController`)**:
+
+1. Create `AccessibilityController` class
+2. Add it to the component that needs it:
+   ```typescript
+   private accessibilityController = new AccessibilityController(this);
+   ```
+3. Register it in constructor:
+   ```typescript
+   this.addController(this.accessibilityController);
+   ```
+4. Done! Lifecycle is automatic.
+
+**Scaling Benefits**:
+- Each component only includes controllers it needs
+- Easy to mix and match controllers
+- No base class modifications needed
+- Controllers are independent and composable
+
+### 4. RequestUpdate Mechanism
+
+#### Inheritance Pattern (via Mixin)
+
+```typescript
+// FormFieldBase provides default implementation
+protected requestUpdate(): void {
+  // Components override this
+}
+
+// Each component implements it
+protected requestUpdate(): void {
+  this.updateTrigger = this.updateTrigger + 1; // Force re-render
+}
+
+// Mixins call this.requestUpdate() - works because component overrides it
+```
+
+**Characteristics**:
+- Default implementation in `FormFieldBase` ensures mixins can call it
+- Each component overrides with the same pattern
+- Requires understanding of Stencil's change detection
+- Can be error-prone if not implemented correctly
+- If using mixins directly (bypassing FormFieldBase), component must implement `requestUpdate()` directly
+
+#### Composition Pattern
+
+```typescript
+// ReactiveControllerHost provides requestUpdate
+protected requestUpdate(): void {
+  forceUpdate(this.getHostRef());
+}
+
+// Controllers just call it
+this.host.requestUpdate();
+```
+
+**Characteristics**:
+- Centralized implementation
+- Less boilerplate in components
+- Consistent behavior across all controllers
+
+## Scaling Comparison
+
+### With 3 Components and 2 Controllers
+
+Both patterns work well at this scale. The differences are subtle but important.
+
+### With 5+ Components and 4+ Controllers
+
+**Inheritance Pattern (via Mixin) Challenges**:
+- If using `FormFieldBase`, it becomes a "god class" with many mixins
+- All components extending `FormFieldBase` inherit all controllers (even if unused)
+- Can bypass `FormFieldBase` and use mixins directly for more flexibility
+- Mixin merging can make debugging slightly harder (methods from multiple sources)
+- Harder to test individual mixins in isolation
+
+**Composition Pattern Advantages**:
+- Each component only includes needed controllers
+- Controllers remain independent and testable
+- Easy to create component-specific controller combinations
+- No base class bloat
+
+## When to Use Each Pattern
+
+### Use Inheritance When:
+- ✅ You have a small, fixed set of controllers
+- ✅ All components need all controllers
+- ✅ You want the simplest possible API
+- ✅ You're building a cohesive component family
+
+### Use Composition When:
+- ✅ You have many controllers
+- ✅ Components need different controller combinations
+- ✅ You want explicit API control
+- ✅ You're building a flexible component library
+- ✅ You want better testability and isolation
+
+## Code Examples
+
+### Inheritance Pattern (via Mixin) - Component
+
+**Using FormFieldBase (convenience layer)**:
+```typescript
+@Component({ tag: 'inheritance-checkbox-group' })
+export class CheckboxGroupCmp extends FormFieldBase {
+  // All mixin methods available via FormFieldBase
+  // Lifecycle methods automatically merged from mixins
+  
+  protected requestUpdate(): void {
+    this.updateTrigger = this.updateTrigger + 1;
+  }
+  
+  private onFocus = () => {
+    this.handleFocusEvent(); // Convenience method from FormFieldBase
+  };
+  
+  private onBlur = () => {
+    this.handleBlurEvent(this.values); // Convenience method from FormFieldBase
+  };
+}
+```
+
+**Using Mixins Directly (bypassing FormFieldBase)**:
+```typescript
+@Component({ tag: 'inheritance-checkbox-group' })
+export class CheckboxGroupCmp extends Mixin(
+  ValidationControllerMixin, 
+  FocusControllerMixin
+) {
+  // All mixin methods directly available
+  // More control, less convenience
+  
+  protected requestUpdate(): void {
+    this.updateTrigger = this.updateTrigger + 1;
+  }
+  
+  private onFocus = () => {
+    this.handleFocus(); // Direct from FocusControllerMixin
+  };
+  
+  private onBlur = () => {
+    this.handleBlur(); // Direct from FocusControllerMixin
+    this.validate(this.values); // Direct from ValidationControllerMixin
+  };
+}
+```
+
+### Composition Pattern - Component
+
+```typescript
+@Component({ tag: 'composition-checkbox-group' })
+export class CheckboxGroupCmp extends ReactiveControllerHost {
+  private validationController = new ValidationController(this);
+  private focusController = new FocusController(this);
+  
+  constructor() {
+    super();
+    this.addController(this.validationController);
+    this.addController(this.focusController);
+  }
+  
+  // Only explicitly exposed methods are public
+  private onFocus = () => {
+    this.focusController.handleFocus();
+  };
+  
+  private onBlur = () => {
+    this.focusController.handleBlur();
+    this.validationController.handleBlur(this.values);
+  };
+}
+```
+
+## Summary
+
+| Aspect | Inheritance (Mixin) | Composition |
+|--------|---------------------|-------------|
+| **API Surface** | All mixin methods exposed | Only explicitly exposed methods |
+| **Lifecycle Management** | Automatic merging via Mixin() | Automatic via ReactiveControllerHost |
+| **Adding Controllers** | Add to Mixin() call or FormFieldBase | Add to component |
+| **Controller Selection** | Can mix/match if using mixins directly | Components choose their controllers |
+| **Boilerplate** | Less in components | More in components |
+| **Flexibility** | Medium (high if using mixins directly) | High |
+| **Simplicity** | High (clean multiple inheritance) | High for large cases |
+| **Testability** | Harder to isolate mixins | Easier to isolate |
+| **Implementation** | Clean (no hacky workarounds) | Clean (explicit composition) |
+
+## Related Documentation
+
+- [Overview](./Overview.mdx) - Complete test coverage overview
+- [Test Case #18](../?path=/story/testing-behavior-extends-inheritance-scaling--page) - Inheritance scaling implementation
+- [Test Case #19](../?path=/story/testing-behavior-extends-composition-scaling--page) - Composition scaling implementation
+

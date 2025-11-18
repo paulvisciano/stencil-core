@@ -1,57 +1,30 @@
 /**
- * FormFieldBase - combines ValidationControllerBase and FocusControllerBase
+ * FormFieldBase - combines ValidationControllerMixin and FocusControllerMixin
  * 
  * This base class demonstrates how multiple controllers can be combined
- * via inheritance. Components can extend this to get both validation
- * and focus management functionality.
+ * via Mixin (multiple inheritance). Components can extend this to get both
+ * validation and focus management functionality.
  */
-import { ValidationControllerBase } from './validation-controller-base.js';
-import { FocusControllerBase } from './focus-controller-base.js';
+import { Mixin } from '@stencil/core';
+import { ValidationControllerMixin } from './validation-controller-mixin.js';
+import { FocusControllerMixin } from './focus-controller-mixin.js';
 
-export abstract class FormFieldBase extends ValidationControllerBase {
-  protected focusController: FocusControllerBase;
-  
-  constructor() {
-    super();
-    // Create focus controller instance with reference to this for requestUpdate
-    const self = this;
-    this.focusController = new (class extends FocusControllerBase {
-      protected requestUpdate(): void {
-        self.requestUpdate();
-      }
-    })();
+export abstract class FormFieldBase extends Mixin(ValidationControllerMixin, FocusControllerMixin) {
+  // requestUpdate() must be implemented by components extending this class
+  // This provides a base implementation that components will override
+  protected requestUpdate(): void {
+    // Components must override this method
+    // This default implementation ensures the mixins can call it
   }
   
-  // Override requestUpdate to handle both controllers
-  protected abstract requestUpdate(): void;
-  
-  // Lifecycle methods - call both controllers
-  componentDidLoad() {
-    super.componentDidLoad(); // ValidationControllerBase
-    this.focusController.componentDidLoad();
-  }
-  
-  disconnectedCallback() {
-    super.disconnectedCallback(); // ValidationControllerBase
-    this.focusController.disconnectedCallback();
-  }
-  
-  // Expose focus controller methods
+  // Convenience methods that combine both controllers
   handleFocusEvent() {
-    this.focusController.handleFocus();
+    this.handleFocus(); // From FocusControllerMixin
   }
   
   handleBlurEvent(value: any) {
-    this.focusController.handleBlur();
-    super.handleBlur(value); // Also validate on blur
-  }
-  
-  getFocusState() {
-    return this.focusController.getFocusState();
-  }
-  
-  resetFocusTracking() {
-    this.focusController.resetFocusTracking();
+    this.handleBlur(); // From FocusControllerMixin (no params)
+    this.validate(value); // From ValidationControllerMixin
   }
 }
 
