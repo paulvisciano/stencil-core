@@ -5,7 +5,7 @@
   "summary": {
     "totalTests": 128,
     "implementedTestCases": 14,
-    "totalTestCases": 20,
+    "totalTestCases": 19,
     "componentsBuilt": 14,
     "componentsTested": 14,
     "testBreakdown": {
@@ -322,30 +322,6 @@
         }
       ]
     },
-    "14": {
-      "implemented": false,
-      "componentCount": 0,
-      "description": "ValidationController - Real-world reactive controller for form validation (Bricks components)",
-      "specPath": "test/wdio/ts-target/extends-validation/cmp.test.ts",
-      "controllerFeatures": [
-        {
-          "feature": "Validation State Management",
-          "description": "Controller maintains validation errors, isValid, and isDirty states"
-        },
-        {
-          "feature": "Reusable Validation Logic",
-          "description": "onBlur handling, validation timing, and error rendering shared across components"
-        },
-        {
-          "feature": "Abstract Validation Rules",
-          "description": "Host components define validation logic via abstract validateValue() method"
-        },
-        {
-          "feature": "Real-world Integration",
-          "description": "Used by bricks-radio-button-group and bricks-checkbox-group components"
-        }
-      ]
-    },
     "15": {
       "implemented": false,
       "componentCount": 0,
@@ -655,15 +631,6 @@
       "tag": "extends-floating-ui",
       "caseNumbers": [
         13
-      ]
-    },
-    {
-      "index": 14,
-      "group": "validation",
-      "tested": false,
-      "tag": "extends-validation",
-      "caseNumbers": [
-        14
       ]
     },
     {
