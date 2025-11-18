@@ -8,7 +8,6 @@ export class RadioGroupCmp extends FormFieldBase {
   @Element() el!: HTMLElement;
   @State() value: string | undefined = undefined;
   @State() helperText: string = 'Select an option';
-  @State() private updateTrigger: number = 0; // Used to trigger re-renders via requestUpdate
   
   @Event() valueChange!: EventEmitter<string>;
   
@@ -25,11 +24,6 @@ export class RadioGroupCmp extends FormFieldBase {
       }
       return undefined;
     });
-  }
-  
-  // Implement abstract requestUpdate method
-  protected requestUpdate(): void {
-    this.updateTrigger = this.updateTrigger + 1;
   }
   
   componentDidLoad() {

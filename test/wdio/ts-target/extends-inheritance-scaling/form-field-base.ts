@@ -10,13 +10,6 @@ import { ValidationControllerMixin } from './validation-controller-mixin.js';
 import { FocusControllerMixin } from './focus-controller-mixin.js';
 
 export abstract class FormFieldBase extends Mixin(ValidationControllerMixin, FocusControllerMixin) {
-  // requestUpdate() must be implemented by components extending this class
-  // This provides a base implementation that components will override
-  protected requestUpdate(): void {
-    // Components must override this method
-    // This default implementation ensures the mixins can call it
-  }
-  
   // Convenience methods that combine both controllers
   handleFocusEvent() {
     this.handleFocus(); // From FocusControllerMixin

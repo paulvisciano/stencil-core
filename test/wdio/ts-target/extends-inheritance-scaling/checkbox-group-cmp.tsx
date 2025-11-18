@@ -8,7 +8,6 @@ export class CheckboxGroupCmp extends FormFieldBase {
   @Element() el!: HTMLElement;
   @State() values: string[] = [];
   @State() helperText: string = 'Select at least one option';
-  @State() private updateTrigger: number = 0; // Used to trigger re-renders via requestUpdate
   
   @Event() valueChange!: EventEmitter<string[]>;
   
@@ -25,11 +24,6 @@ export class CheckboxGroupCmp extends FormFieldBase {
       }
       return undefined;
     });
-  }
-  
-  // Implement abstract requestUpdate method
-  protected requestUpdate(): void {
-    this.updateTrigger = this.updateTrigger + 1;
   }
   
   componentDidLoad() {

@@ -4,19 +4,15 @@
  * This mixin provides:
  * 1. Focus state management (isFocused, focusCount, blurCount)
  * 2. Focus tracking methods (handleFocus, handleBlur, etc.)
- * 3. Requires component to implement requestUpdate()
+ * 3. Uses forceUpdate() directly for re-renders
  */
-import { State } from '@stencil/core';
+import { State, forceUpdate } from '@stencil/core';
 
 export const FocusControllerMixin = (Base: any) => {
   class FocusMixin extends Base {
     @State() protected isFocused: boolean = false;
     @State() protected focusCount: number = 0;
     @State() protected blurCount: number = 0;
-    
-    // requestUpdate() must be implemented by the component extending FormFieldBase
-    // This simulates Lit's this.host.requestUpdate()
-    // Note: With Mixin, we can't use abstract, so we rely on FormFieldBase to enforce this
     
     // Lifecycle methods
     componentDidLoad() {
@@ -41,14 +37,14 @@ export const FocusControllerMixin = (Base: any) => {
     handleFocus() {
       this.isFocused = true;
       this.focusCount++;
-      this.requestUpdate();
+      forceUpdate(this);
     }
     
     // Handle blur event
     handleBlur() {
       this.isFocused = false;
       this.blurCount++;
-      this.requestUpdate();
+      forceUpdate(this);
     }
     
     // Get focus state
@@ -64,7 +60,7 @@ export const FocusControllerMixin = (Base: any) => {
     resetFocusTracking() {
       this.focusCount = 0;
       this.blurCount = 0;
-      this.requestUpdate();
+      forceUpdate(this);
     }
   }
   

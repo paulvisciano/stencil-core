@@ -8,7 +8,6 @@ export class TextInputCmp extends FormFieldBase {
   @Element() el!: HTMLElement;
   @State() value: string = '';
   @State() helperText: string = 'Enter your name';
-  @State() private updateTrigger: number = 0; // Used to trigger re-renders via requestUpdate
   
   private inputId = `text-input-${Math.random().toString(36).substr(2, 9)}`;
   private helperTextId = `${this.inputId}-helper-text`;
@@ -26,13 +25,6 @@ export class TextInputCmp extends FormFieldBase {
       }
       return undefined;
     });
-  }
-  
-  // Implement abstract requestUpdate method
-  // This updates a @State property to trigger change detection
-  // Works because Stencil detects: newVal !== oldVal
-  protected requestUpdate(): void {
-    this.updateTrigger = this.updateTrigger + 1;
   }
   
   componentDidLoad() {
