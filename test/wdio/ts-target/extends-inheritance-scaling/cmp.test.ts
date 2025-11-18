@@ -167,7 +167,10 @@ describe('Test Case #18 – Inheritance-Based Scaling (3 components, 2 controlle
       textInputField?.focus();
       await browser.pause(50);
       textInputField?.blur();
-      await browser.pause(100);
+      await browser.waitUntil(() => {
+        const errorText = textInput?.querySelector('.error-text');
+        return errorText?.textContent?.includes('Name is required');
+      }, { timeout: 1000 });
       expect(textInput?.querySelector('.error-text')).toBeTruthy();
       
       // Trigger validation on radio group to show error
@@ -175,7 +178,10 @@ describe('Test Case #18 – Inheritance-Based Scaling (3 components, 2 controlle
       radioContainer?.focus();
       await browser.pause(50);
       radioContainer?.blur();
-      await browser.pause(100);
+      await browser.waitUntil(() => {
+        const errorText = radioGroup?.querySelector('.error-text');
+        return errorText?.textContent?.includes('Please select an option');
+      }, { timeout: 1000 });
       expect(radioGroup?.querySelector('.error-text')).toBeTruthy();
       
       // Trigger validation on checkbox group to show error
@@ -183,7 +189,10 @@ describe('Test Case #18 – Inheritance-Based Scaling (3 components, 2 controlle
       checkboxContainer?.focus();
       await browser.pause(50);
       checkboxContainer?.blur();
-      await browser.pause(100);
+      await browser.waitUntil(() => {
+        const errorText = checkboxGroup?.querySelector('.error-text');
+        return errorText?.textContent?.includes('Please select at least one option');
+      }, { timeout: 1000 });
       expect(checkboxGroup?.querySelector('.error-text')).toBeTruthy();
       
       // Each should have focus info display
