@@ -64,7 +64,7 @@ export const ExtendsCoverageSummary = () => {
           All tests passing ✓
         </div>
         <div style={{ fontSize: '11px', color: '#15803d', opacity: 0.8, borderTop: '1px solid #86efac', paddingTop: '8px', marginTop: '8px' }}>
-          📅 Last run: Nov 14, 2025, 2:11 AM PST</div>
+          📅 Last run: Nov 17, 2025, 6:18 PM PST</div>
       </div>
     </div>
   );
@@ -199,7 +199,7 @@ export const ExtendsTestCasesTable = () => {
       testCount: testCaseStatus[9]?.testCount || 0,
       section: testCaseStatus[9]?.implemented ? 'implemented' : 'missing',
     },
-    // 🔵 Advanced Reactive Controllers (12-12a)
+    // 🔵 Advanced Reactive Controllers (12-12b)
     {
       id: 12,
       implemented: testCaseStatus[12]?.implemented || false,
@@ -231,6 +231,22 @@ export const ExtendsTestCasesTable = () => {
       total: getGroupStats('direct-state').total,
       testCount: testCaseStatus['12a']?.testCount || 0,
       section: testCaseStatus['12a']?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: '12b',
+      implemented: testCaseStatus['12b']?.implemented || false,
+      desc: testCaseStatus['12b']?.description || '',
+      types: (
+        <>
+          <strong>🔵 Advanced:</strong> ReactiveControllerHost Pattern (Composition-based controllers)<br/>
+          <strong>Composition Pattern:</strong> Components extend ReactiveControllerHost, compose ReactiveController instances<br/>
+          <small>Automatic lifecycle hooking with composition over inheritance | {formatTestCount(testCaseStatus['12b'])}</small>
+        </>
+      ),
+      tested: getGroupStats('via-host').tested,
+      total: getGroupStats('via-host').total,
+      testCount: testCaseStatus['12b']?.testCount || 0,
+      section: testCaseStatus['12b']?.implemented ? 'implemented' : 'missing',
     },
     // 🟢 Basic Inheritance (3-5) - TODO
     {
@@ -396,8 +412,8 @@ Foundation patterns for lifecycle inheritance, property/state basics, method inh
 ### **🟡 Standard Patterns (6-11)** — 6 test cases
 Common inheritance scenarios including abstract classes, component-to-component, external libraries, mixins, event handling, and watch decorators.
 
-### **🔵 Advanced Real-World (12, 12a, 13-14)** — 4 test cases
-Real-world reactive controller patterns comparing Stencil's extends capabilities with other frameworks like Lit, demonstrating practical use cases.
+### **🔵 Advanced Real-World (12, 12a, 12b, 13-14)** — 5 test cases
+Real-world reactive controller patterns comparing Stencil's extends capabilities with other frameworks like Lit, demonstrating practical use cases including composition-based ReactiveControllerHost pattern.
 
 ### **🔴 Robustness & Production (15-16)** — 2 test cases
 Edge cases, decorator conflicts, SSR behavior, and production-ready scenarios to ensure extends works reliably in all environments.
