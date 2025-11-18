@@ -2,7 +2,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Testing/Behavior/Extends/Composition vs Inheritance"/>
 
-# Composition vs Inheritance: Scaling Patterns  
+# Composition vs Inheritance
 
 This document compares inheritance-based and composition-based patterns at scale, examining how each approach performs when building a component library with many components and controllers. We analyze two test cases that demonstrate the trade-offs and scaling characteristics of each pattern.
 
@@ -55,7 +55,9 @@ CheckboxGroupCmp
 ```
 
 **Key Characteristics**:
-- Components extend a host class that manages controller lifecycle
+- Components extend `ReactiveControllerHost` - a stable base class that doesn't change over time
+- The inheritance chain is always just one level (component → ReactiveControllerHost), it never grows
+- All functionality is added through composition (adding controller instances), not inheritance
 - Only explicitly exposed methods are accessible
 - Lifecycle methods are automatically called via ReactiveControllerHost
 - Controllers are loosely coupled through composition
@@ -121,7 +123,46 @@ getValidationState() {
 - ✅ Base class changes don't automatically leak
 - ❌ More boilerplate to expose methods
 
-### 2. Lifecycle Management
+### 2. Inheritance Chain Depth
+
+#### Inheritance Pattern (via Mixin)
+
+**Characteristic**: When multiple mixins are combined via `Mixin()`, they all share the same API on the component.
+
+```typescript
+CheckboxGroupCmp
+  └─ extends FormFieldBase
+       └─ extends Mixin(ValidationControllerMixin, FocusControllerMixin)
+            └─ ValidationControllerMixin (all methods leak to component)
+            └─ FocusControllerMixin (all methods leak to component)
+```
+
+**Impact**:
+- ❌ When you combine multiple mixins, all their methods become part of the component's API
+- ❌ If using a shared base class that combines many mixins, all components extending that base inherit all mixin methods (even if not needed)
+- ❌ You can use mixins directly per component, but this adds complexity to component definitions
+- ❌ Method resolution becomes more complex when multiple mixins are combined
+- ❌ Harder to reason about which methods come from which mixin
+
+#### Composition Pattern
+
+**Characteristic**: Inheritance chain stays flat - always just one level.
+
+```typescript
+CheckboxGroupCmp
+  └─ extends ReactiveControllerHost (stable, never changes)
+       └─ composes ValidationController (instance)
+       └─ composes FocusController (instance)
+```
+
+**Impact**:
+- ✅ Inheritance chain is always one level (component → ReactiveControllerHost)
+- ✅ `ReactiveControllerHost` is a stable base API that doesn't change over time
+- ✅ All functionality is added through composition (adding controller instances)
+- ✅ No inheritance chain depth concerns regardless of how many controllers you add
+- ✅ Method resolution is always straightforward
+
+### 3. Lifecycle Management
 
 #### Inheritance Pattern (via Mixin)
 
@@ -184,7 +225,7 @@ componentDidLoad() {
 - No need to manually call individual controller lifecycle methods
 - Adding new controllers automatically gets lifecycle hooks (as long as `super()` is called)
 
-### 3. Adding New Controllers
+### 4. Adding New Controllers
 
 #### Inheritance Pattern (via Mixin)
 
@@ -267,6 +308,7 @@ Both patterns work well at this scale. The differences are subtle but important:
 - Controllers remain independent and testable
 - Easy to create component-specific controller combinations
 - No base class bloat
+- **Stable inheritance chain** - always just `extends ReactiveControllerHost`, never grows
 - Controlled API surface regardless of controller count
 
 **Recommendation**: Composition pattern starts to show clear advantages at this scale.
@@ -283,6 +325,7 @@ Both patterns work well at this scale. The differences are subtle but important:
 
 **Composition Pattern Advantages**:
 - Scales gracefully - no inheritance chain depth concerns
+- **Inheritance chain stays flat** - always `extends ReactiveControllerHost` (stable base API)
 - Each component only includes controllers it actually needs
 - Controllers remain independent and easily testable
 - Clear separation makes debugging straightforward
