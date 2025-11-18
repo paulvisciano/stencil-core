@@ -1,7 +1,7 @@
 import { h } from '@stencil/core';
 import { render } from '@wdio/browser-runner/stencil';
 import { $, expect, browser } from '@wdio/globals';
-import '../cmp-state-base';
+import './cmp-state-base';
 
 describe('service-inheritance: @State on base class', () => {
   it('updates derived host when inherited @State changes', async () => {
