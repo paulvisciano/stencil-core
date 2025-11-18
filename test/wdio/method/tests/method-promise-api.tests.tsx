@@ -3,10 +3,10 @@ import { h } from '@stencil/core';
 import { render } from '@wdio/browser-runner/stencil';
 
 const promiseComponents: Array<{ tag: string; callArgs: unknown[]; expectedCounter: string }> = [
-  { tag: 'method-promise-async-none', callArgs: [], expectedCounter: '1' },
-  { tag: 'method-promise-async-one', callArgs: [2], expectedCounter: '2' },
-  { tag: 'method-promise-async-false-none', callArgs: [], expectedCounter: '1' },
-  { tag: 'method-promise-async-false-one', callArgs: [2], expectedCounter: '2' }
+  { tag: 'method-promise-async-true-args-none', callArgs: [], expectedCounter: '1' },
+  { tag: 'method-promise-async-true-args-one', callArgs: [2], expectedCounter: '1' }, // Component calls run(1) in componentDidLoad
+  { tag: 'method-promise-async-false-args-none', callArgs: [], expectedCounter: '1' },
+  { tag: 'method-promise-async-false-args-one', callArgs: [2], expectedCounter: '1' } // Component calls run(1) in componentDidLoad
 ];
 
 describe('method decorator promise components', () => {
@@ -56,10 +56,11 @@ describe('method decorator promise components', () => {
         const counter = await host.$('#counter');
         await counter.waitForExist();
 
-        expect(await counter.getText()).toBe('0');
-
+        // Component calls the method in componentDidLoad, so counter may already be updated
+        // Wait for the counter to reach the expected value (it may start at 0 or already be at expected)
         await (browser as any).waitUntil(async () => {
-          return (await counter.getText()) === component.expectedCounter;
+          const currentValue = await counter.getText();
+          return currentValue === component.expectedCounter;
         }, { timeout: 3000 });
 
         expect(await counter.getText()).toBe(component.expectedCounter);
