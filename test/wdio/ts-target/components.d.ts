@@ -6,6 +6,18 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface CompositionCheckboxGroup {
+    }
+    interface CompositionRadioGroup {
+    }
+    /**
+     * Main component that demonstrates composition-based scaling
+     * with 3 components and 2 controllers (ValidationController and FocusController)
+     */
+    interface CompositionScalingDemo {
+    }
+    interface CompositionTextInput {
+    }
     interface ExtendedCmp {
         "method1": () => Promise<void>;
         "method2": () => Promise<void>;
@@ -167,6 +179,18 @@ export namespace Components {
     }
     interface ExtendsViaHostCmp {
     }
+    interface InheritanceCheckboxGroup {
+    }
+    interface InheritanceRadioGroup {
+    }
+    /**
+     * Main component that demonstrates inheritance-based scaling
+     * with 3 components and 2 controllers (ValidationController and FocusController)
+     */
+    interface InheritanceScalingDemo {
+    }
+    interface InheritanceTextInput {
+    }
     interface TsTargetProps {
         /**
           * @default 'basicProp'
@@ -180,7 +204,73 @@ export namespace Components {
         "dynamicLifecycle": string[];
     }
 }
+export interface CompositionCheckboxGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLCompositionCheckboxGroupElement;
+}
+export interface CompositionRadioGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLCompositionRadioGroupElement;
+}
+export interface InheritanceCheckboxGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLInheritanceCheckboxGroupElement;
+}
+export interface InheritanceRadioGroupCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLInheritanceRadioGroupElement;
+}
 declare global {
+    interface HTMLCompositionCheckboxGroupElementEventMap {
+        "valueChange": string[];
+    }
+    interface HTMLCompositionCheckboxGroupElement extends Components.CompositionCheckboxGroup, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLCompositionCheckboxGroupElementEventMap>(type: K, listener: (this: HTMLCompositionCheckboxGroupElement, ev: CompositionCheckboxGroupCustomEvent<HTMLCompositionCheckboxGroupElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLCompositionCheckboxGroupElementEventMap>(type: K, listener: (this: HTMLCompositionCheckboxGroupElement, ev: CompositionCheckboxGroupCustomEvent<HTMLCompositionCheckboxGroupElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLCompositionCheckboxGroupElement: {
+        prototype: HTMLCompositionCheckboxGroupElement;
+        new (): HTMLCompositionCheckboxGroupElement;
+    };
+    interface HTMLCompositionRadioGroupElementEventMap {
+        "valueChange": string;
+    }
+    interface HTMLCompositionRadioGroupElement extends Components.CompositionRadioGroup, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLCompositionRadioGroupElementEventMap>(type: K, listener: (this: HTMLCompositionRadioGroupElement, ev: CompositionRadioGroupCustomEvent<HTMLCompositionRadioGroupElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLCompositionRadioGroupElementEventMap>(type: K, listener: (this: HTMLCompositionRadioGroupElement, ev: CompositionRadioGroupCustomEvent<HTMLCompositionRadioGroupElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLCompositionRadioGroupElement: {
+        prototype: HTMLCompositionRadioGroupElement;
+        new (): HTMLCompositionRadioGroupElement;
+    };
+    /**
+     * Main component that demonstrates composition-based scaling
+     * with 3 components and 2 controllers (ValidationController and FocusController)
+     */
+    interface HTMLCompositionScalingDemoElement extends Components.CompositionScalingDemo, HTMLStencilElement {
+    }
+    var HTMLCompositionScalingDemoElement: {
+        prototype: HTMLCompositionScalingDemoElement;
+        new (): HTMLCompositionScalingDemoElement;
+    };
+    interface HTMLCompositionTextInputElement extends Components.CompositionTextInput, HTMLStencilElement {
+    }
+    var HTMLCompositionTextInputElement: {
+        prototype: HTMLCompositionTextInputElement;
+        new (): HTMLCompositionTextInputElement;
+    };
     interface HTMLExtendedCmpElement extends Components.ExtendedCmp, HTMLStencilElement {
     }
     var HTMLExtendedCmpElement: {
@@ -285,6 +375,56 @@ declare global {
         prototype: HTMLExtendsViaHostCmpElement;
         new (): HTMLExtendsViaHostCmpElement;
     };
+    interface HTMLInheritanceCheckboxGroupElementEventMap {
+        "valueChange": string[];
+    }
+    interface HTMLInheritanceCheckboxGroupElement extends Components.InheritanceCheckboxGroup, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLInheritanceCheckboxGroupElementEventMap>(type: K, listener: (this: HTMLInheritanceCheckboxGroupElement, ev: InheritanceCheckboxGroupCustomEvent<HTMLInheritanceCheckboxGroupElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLInheritanceCheckboxGroupElementEventMap>(type: K, listener: (this: HTMLInheritanceCheckboxGroupElement, ev: InheritanceCheckboxGroupCustomEvent<HTMLInheritanceCheckboxGroupElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLInheritanceCheckboxGroupElement: {
+        prototype: HTMLInheritanceCheckboxGroupElement;
+        new (): HTMLInheritanceCheckboxGroupElement;
+    };
+    interface HTMLInheritanceRadioGroupElementEventMap {
+        "valueChange": string;
+    }
+    interface HTMLInheritanceRadioGroupElement extends Components.InheritanceRadioGroup, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLInheritanceRadioGroupElementEventMap>(type: K, listener: (this: HTMLInheritanceRadioGroupElement, ev: InheritanceRadioGroupCustomEvent<HTMLInheritanceRadioGroupElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLInheritanceRadioGroupElementEventMap>(type: K, listener: (this: HTMLInheritanceRadioGroupElement, ev: InheritanceRadioGroupCustomEvent<HTMLInheritanceRadioGroupElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLInheritanceRadioGroupElement: {
+        prototype: HTMLInheritanceRadioGroupElement;
+        new (): HTMLInheritanceRadioGroupElement;
+    };
+    /**
+     * Main component that demonstrates inheritance-based scaling
+     * with 3 components and 2 controllers (ValidationController and FocusController)
+     */
+    interface HTMLInheritanceScalingDemoElement extends Components.InheritanceScalingDemo, HTMLStencilElement {
+    }
+    var HTMLInheritanceScalingDemoElement: {
+        prototype: HTMLInheritanceScalingDemoElement;
+        new (): HTMLInheritanceScalingDemoElement;
+    };
+    interface HTMLInheritanceTextInputElement extends Components.InheritanceTextInput, HTMLStencilElement {
+    }
+    var HTMLInheritanceTextInputElement: {
+        prototype: HTMLInheritanceTextInputElement;
+        new (): HTMLInheritanceTextInputElement;
+    };
     interface HTMLTsTargetPropsElement extends Components.TsTargetProps, HTMLStencilElement {
     }
     var HTMLTsTargetPropsElement: {
@@ -292,6 +432,10 @@ declare global {
         new (): HTMLTsTargetPropsElement;
     };
     interface HTMLElementTagNameMap {
+        "composition-checkbox-group": HTMLCompositionCheckboxGroupElement;
+        "composition-radio-group": HTMLCompositionRadioGroupElement;
+        "composition-scaling-demo": HTMLCompositionScalingDemoElement;
+        "composition-text-input": HTMLCompositionTextInputElement;
         "extended-cmp": HTMLExtendedCmpElement;
         "extended-cmp-cmp": HTMLExtendedCmpCmpElement;
         "extends-abstract": HTMLExtendsAbstractElement;
@@ -306,10 +450,28 @@ declare global {
         "extends-props-state": HTMLExtendsPropsStateElement;
         "extends-render": HTMLExtendsRenderElement;
         "extends-via-host-cmp": HTMLExtendsViaHostCmpElement;
+        "inheritance-checkbox-group": HTMLInheritanceCheckboxGroupElement;
+        "inheritance-radio-group": HTMLInheritanceRadioGroupElement;
+        "inheritance-scaling-demo": HTMLInheritanceScalingDemoElement;
+        "inheritance-text-input": HTMLInheritanceTextInputElement;
         "ts-target-props": HTMLTsTargetPropsElement;
     }
 }
 declare namespace LocalJSX {
+    interface CompositionCheckboxGroup {
+        "onValueChange"?: (event: CompositionCheckboxGroupCustomEvent<string[]>) => void;
+    }
+    interface CompositionRadioGroup {
+        "onValueChange"?: (event: CompositionRadioGroupCustomEvent<string>) => void;
+    }
+    /**
+     * Main component that demonstrates composition-based scaling
+     * with 3 components and 2 controllers (ValidationController and FocusController)
+     */
+    interface CompositionScalingDemo {
+    }
+    interface CompositionTextInput {
+    }
     interface ExtendedCmp {
         /**
           * @default 'ExtendedCmp text'
@@ -422,6 +584,20 @@ declare namespace LocalJSX {
     }
     interface ExtendsViaHostCmp {
     }
+    interface InheritanceCheckboxGroup {
+        "onValueChange"?: (event: InheritanceCheckboxGroupCustomEvent<string[]>) => void;
+    }
+    interface InheritanceRadioGroup {
+        "onValueChange"?: (event: InheritanceRadioGroupCustomEvent<string>) => void;
+    }
+    /**
+     * Main component that demonstrates inheritance-based scaling
+     * with 3 components and 2 controllers (ValidationController and FocusController)
+     */
+    interface InheritanceScalingDemo {
+    }
+    interface InheritanceTextInput {
+    }
     interface TsTargetProps {
         /**
           * @default 'basicProp'
@@ -435,6 +611,10 @@ declare namespace LocalJSX {
         "dynamicLifecycle"?: string[];
     }
     interface IntrinsicElements {
+        "composition-checkbox-group": CompositionCheckboxGroup;
+        "composition-radio-group": CompositionRadioGroup;
+        "composition-scaling-demo": CompositionScalingDemo;
+        "composition-text-input": CompositionTextInput;
         "extended-cmp": ExtendedCmp;
         "extended-cmp-cmp": ExtendedCmpCmp;
         "extends-abstract": ExtendsAbstract;
@@ -449,6 +629,10 @@ declare namespace LocalJSX {
         "extends-props-state": ExtendsPropsState;
         "extends-render": ExtendsRender;
         "extends-via-host-cmp": ExtendsViaHostCmp;
+        "inheritance-checkbox-group": InheritanceCheckboxGroup;
+        "inheritance-radio-group": InheritanceRadioGroup;
+        "inheritance-scaling-demo": InheritanceScalingDemo;
+        "inheritance-text-input": InheritanceTextInput;
         "ts-target-props": TsTargetProps;
     }
 }
@@ -456,6 +640,14 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "composition-checkbox-group": LocalJSX.CompositionCheckboxGroup & JSXBase.HTMLAttributes<HTMLCompositionCheckboxGroupElement>;
+            "composition-radio-group": LocalJSX.CompositionRadioGroup & JSXBase.HTMLAttributes<HTMLCompositionRadioGroupElement>;
+            /**
+             * Main component that demonstrates composition-based scaling
+             * with 3 components and 2 controllers (ValidationController and FocusController)
+             */
+            "composition-scaling-demo": LocalJSX.CompositionScalingDemo & JSXBase.HTMLAttributes<HTMLCompositionScalingDemoElement>;
+            "composition-text-input": LocalJSX.CompositionTextInput & JSXBase.HTMLAttributes<HTMLCompositionTextInputElement>;
             "extended-cmp": LocalJSX.ExtendedCmp & JSXBase.HTMLAttributes<HTMLExtendedCmpElement>;
             "extended-cmp-cmp": LocalJSX.ExtendedCmpCmp & JSXBase.HTMLAttributes<HTMLExtendedCmpCmpElement>;
             "extends-abstract": LocalJSX.ExtendsAbstract & JSXBase.HTMLAttributes<HTMLExtendsAbstractElement>;
@@ -490,6 +682,14 @@ declare module "@stencil/core" {
              */
             "extends-render": LocalJSX.ExtendsRender & JSXBase.HTMLAttributes<HTMLExtendsRenderElement>;
             "extends-via-host-cmp": LocalJSX.ExtendsViaHostCmp & JSXBase.HTMLAttributes<HTMLExtendsViaHostCmpElement>;
+            "inheritance-checkbox-group": LocalJSX.InheritanceCheckboxGroup & JSXBase.HTMLAttributes<HTMLInheritanceCheckboxGroupElement>;
+            "inheritance-radio-group": LocalJSX.InheritanceRadioGroup & JSXBase.HTMLAttributes<HTMLInheritanceRadioGroupElement>;
+            /**
+             * Main component that demonstrates inheritance-based scaling
+             * with 3 components and 2 controllers (ValidationController and FocusController)
+             */
+            "inheritance-scaling-demo": LocalJSX.InheritanceScalingDemo & JSXBase.HTMLAttributes<HTMLInheritanceScalingDemoElement>;
+            "inheritance-text-input": LocalJSX.InheritanceTextInput & JSXBase.HTMLAttributes<HTMLInheritanceTextInputElement>;
             "ts-target-props": LocalJSX.TsTargetProps & JSXBase.HTMLAttributes<HTMLTsTargetPropsElement>;
         }
     }

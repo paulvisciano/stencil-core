@@ -29,6 +29,8 @@ const DIRECTORY_TO_TEST_CASE = {
   'extends-validation': '14',
   'extends-conflicts': '15',
   'extends-ssr': '16',
+  'extends-inheritance-scaling': '18',
+  'extends-composition-scaling': '19',
 };
 
 /**
@@ -149,7 +151,7 @@ function generateCoverageData() {
     // Categorize tests by type
     if (['1', '2'].includes(testCaseId)) {
       testBreakdown.lifecycle += testCount;
-    } else if (['12', '12a', '13', '14', '17'].includes(testCaseId)) {
+    } else if (['12', '12a', '13', '14', '17', '18', '19'].includes(testCaseId)) {
       testBreakdown.reactiveControllers += testCount;
     } else {
       testBreakdown.standardPatterns += testCount;
@@ -202,11 +204,23 @@ function mergeCoverageData() {
   // Update each test case with generated counts (preserve manual descriptions/features)
   Object.entries(generatedData.testCases).forEach(([testCaseId, generated]) => {
     if (existingData.testCaseStatus[testCaseId]) {
+      // Update existing test case
       existingData.testCaseStatus[testCaseId].implemented = generated.implemented;
       existingData.testCaseStatus[testCaseId].componentCount = generated.componentCount;
       existingData.testCaseStatus[testCaseId].testCount = generated.testCount;
       existingData.testCaseStatus[testCaseId].testBreakdown = generated.testBreakdown;
       existingData.testCaseStatus[testCaseId].specPath = generated.specPath;
+    } else if (testCaseId) {
+      // Create new test case entry (preserve any manual fields if they exist)
+      const existingManual = existingData.testCaseStatus[testCaseId] || {};
+      existingData.testCaseStatus[testCaseId] = {
+        ...existingManual, // Preserve any manual fields first
+        implemented: generated.implemented,
+        componentCount: generated.componentCount,
+        testCount: generated.testCount,
+        testBreakdown: generated.testBreakdown,
+        specPath: generated.specPath,
+      };
     }
   });
   

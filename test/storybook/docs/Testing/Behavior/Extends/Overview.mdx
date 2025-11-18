@@ -64,7 +64,7 @@ export const ExtendsCoverageSummary = () => {
           All tests passing ✓
         </div>
         <div style={{ fontSize: '11px', color: '#15803d', opacity: 0.8, borderTop: '1px solid #86efac', paddingTop: '8px', marginTop: '8px' }}>
-          📅 Last run: Nov 17, 2025, 6:24 PM PST</div>
+          📅 Last run: Nov 17, 2025, 8:21 PM PST</div>
       </div>
     </div>
   );
@@ -395,6 +395,39 @@ export const ExtendsTestCasesTable = () => {
       total: getGroupStats('via-host').total,
       testCount: testCaseStatus[17]?.testCount || 0,
       section: testCaseStatus[17]?.implemented ? 'implemented' : 'missing',
+    },
+    // 🔵 Advanced Scaling Demonstrations (18-19)
+    {
+      id: 18,
+      implemented: testCaseStatus[18]?.implemented || false,
+      desc: testCaseStatus[18]?.description || '',
+      types: (
+        <>
+          <strong>🔵 Advanced:</strong> Inheritance-Based Scaling (3 components, 2 controllers)<br/>
+          <strong>Scaling Pattern:</strong> Demonstrates how inheritance scales with multiple components and controllers<br/>
+          <small>3 components (TextInput, RadioGroup, CheckboxGroup) using 2 controllers (ValidationController, FocusController) via inheritance | {formatTestCount(testCaseStatus[18])}</small>
+        </>
+      ),
+      tested: getGroupStats('inheritance-scaling').tested,
+      total: getGroupStats('inheritance-scaling').total,
+      testCount: testCaseStatus[18]?.testCount || 0,
+      section: testCaseStatus[18]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 19,
+      implemented: testCaseStatus[19]?.implemented || false,
+      desc: testCaseStatus[19]?.description || '',
+      types: (
+        <>
+          <strong>🔵 Advanced:</strong> Composition-Based Scaling (3 components, 2 controllers)<br/>
+          <strong>Scaling Pattern:</strong> Demonstrates how composition scales with multiple components and controllers<br/>
+          <small>3 components (TextInput, RadioGroup, CheckboxGroup) using 2 controllers (ValidationController, FocusController) via composition | {formatTestCount(testCaseStatus[19])}</small>
+        </>
+      ),
+      tested: getGroupStats('composition-scaling').tested,
+      total: getGroupStats('composition-scaling').total,
+      testCount: testCaseStatus[19]?.testCount || 0,
+      section: testCaseStatus[19]?.implemented ? 'implemented' : 'missing',
     }
   ];
 
@@ -413,8 +446,8 @@ Foundation patterns for lifecycle inheritance, property/state basics, method inh
 ### **🟡 Standard Patterns (6-11)** — 6 test cases
 Common inheritance scenarios including abstract classes, component-to-component, external libraries, mixins, event handling, and watch decorators.
 
-### **🔵 Advanced Real-World (12, 12a, 13-14, 17)** — 5 test cases
-Real-world reactive controller patterns comparing Stencil's extends capabilities with other frameworks like Lit, demonstrating practical use cases including composition-based ReactiveControllerHost pattern.
+### **🔵 Advanced Real-World (12, 12a, 13-14, 17-19)** — 7 test cases
+Real-world reactive controller patterns comparing Stencil's extends capabilities with other frameworks like Lit, demonstrating practical use cases including composition-based ReactiveControllerHost pattern and scaling demonstrations for both inheritance and composition approaches.
 
 ### **🔴 Robustness & Production (15-16)** — 2 test cases
 Edge cases, decorator conflicts, SSR behavior, and production-ready scenarios to ensure extends works reliably in all environments.
