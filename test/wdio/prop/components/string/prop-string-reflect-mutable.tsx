@@ -8,7 +8,7 @@ export class PropStringReflectMutable {
   @Prop({ reflect: true, mutable: true }) val!: string;
 
   render() {
-    const v = this.val ?? 'init';
+    const v = (this.val ?? '') || 'init';
     return (
       <div>
         <p>Type: string | reflect: true | mutable: true</p>
