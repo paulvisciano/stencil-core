@@ -24,8 +24,8 @@ const DIRECTORY_TO_TEST_CASE = {
   'extends-watch': '11',
   'extends-controller-updates': '12',
   'extends-direct-state': '12a',
-  'extends-via-host': '12b',
   'extends-floating-ui': '13',
+  'extends-via-host': '17',
   'extends-validation': '14',
   'extends-conflicts': '15',
   'extends-ssr': '16',
@@ -149,7 +149,7 @@ function generateCoverageData() {
     // Categorize tests by type
     if (['1', '2'].includes(testCaseId)) {
       testBreakdown.lifecycle += testCount;
-    } else if (['12', '12a', '12b', '13', '14'].includes(testCaseId)) {
+    } else if (['12', '12a', '13', '14', '17'].includes(testCaseId)) {
       testBreakdown.reactiveControllers += testCount;
     } else {
       testBreakdown.standardPatterns += testCount;

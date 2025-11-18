@@ -13,7 +13,7 @@
       "standardPatterns": 85,
       "reactiveControllers": 15
     },
-    "note": "Last updated: November 17, 2025 at 6:18 PM PST"
+    "note": "Last updated: November 17, 2025 at 6:24 PM PST"
   },
   "testCaseStatus": {
     "1": {
@@ -402,6 +402,36 @@
         }
       ]
     },
+    "17": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 5,
+      "description": "ReactiveControllerHost Pattern - Composition-based controllers with automatic lifecycle hooking",
+      "specPath": "test/wdio/ts-target/extends-via-host/cmp.test.ts",
+      "testBreakdown": {
+        "dist": 4,
+        "customElements": 1
+      },
+      "note": "All tests passing. Demonstrates composition over inheritance pattern with automatic lifecycle hooking",
+      "controllerFeatures": [
+        {
+          "feature": "Automatic Lifecycle Hooking",
+          "description": "Controllers are automatically called during lifecycle events - no manual super() calls needed for controllers"
+        },
+        {
+          "feature": "Separation of Concerns",
+          "description": "Controllers are encapsulated and independent - changes to controller don't directly impact component"
+        },
+        {
+          "feature": "Composition Pattern",
+          "description": "Uses 'has-a' relationship (composition) rather than 'is-a' relationship (inheritance) for domain logic"
+        },
+        {
+          "feature": "ReactiveController Interface",
+          "description": "Implements ReactiveController interface similar to Lit, but with automatic lifecycle integration"
+        }
+      ]
+    },
     "12a": {
       "implemented": true,
       "componentCount": 1,
@@ -429,36 +459,6 @@
         {
           "feature": "Simpler Than Lit",
           "description": "Demonstrates Stencil's superior extends functionality compared to Lit's ReactiveController pattern"
-        }
-      ]
-    },
-    "12b": {
-      "implemented": true,
-      "componentCount": 1,
-      "testCount": 5,
-      "description": "ReactiveControllerHost Pattern - Composition-based controllers with automatic lifecycle hooking",
-      "specPath": "test/wdio/ts-target/extends-via-host/cmp.test.ts",
-      "testBreakdown": {
-        "dist": 4,
-        "customElements": 1
-      },
-      "note": "All tests passing. Demonstrates composition over inheritance pattern with automatic lifecycle hooking",
-      "controllerFeatures": [
-        {
-          "feature": "Automatic Lifecycle Hooking",
-          "description": "Controllers are automatically called during lifecycle events - no manual super() calls needed for controllers"
-        },
-        {
-          "feature": "Separation of Concerns",
-          "description": "Controllers are encapsulated and independent - changes to controller don't directly impact component"
-        },
-        {
-          "feature": "Composition Pattern",
-          "description": "Uses 'has-a' relationship (composition) rather than 'is-a' relationship (inheritance) for domain logic"
-        },
-        {
-          "feature": "ReactiveController Interface",
-          "description": "Implements ReactiveController interface similar to Lit, but with automatic lifecycle integration"
         }
       ]
     }
@@ -582,12 +582,12 @@
       ]
     },
     {
-      "index": 12.6,
+      "index": 17,
       "group": "via-host",
       "tested": true,
       "tag": "extends-via-host",
       "caseNumbers": [
-        "12b"
+        17
       ]
     },
     {
