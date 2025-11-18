@@ -6,6 +6,7 @@
  * 2. Tracks focus/blur events
  * 3. Provides methods to handle focus lifecycle
  */
+import { forceUpdate } from "@stencil/core";
 import type {
   ReactiveControllerHost,
   ReactiveController,
@@ -45,14 +46,14 @@ export class FocusController implements ReactiveController {
   handleFocus() {
     this.isFocused = true;
     this.focusCount++;
-    this.host.requestUpdate();
+    forceUpdate(this.host);
   }
   
   // Handle blur event
   handleBlur() {
     this.isFocused = false;
     this.blurCount++;
-    this.host.requestUpdate();
+    forceUpdate(this.host);
   }
   
   // Get focus state
@@ -68,7 +69,7 @@ export class FocusController implements ReactiveController {
   resetFocusTracking() {
     this.focusCount = 0;
     this.blurCount = 0;
-    this.host.requestUpdate();
+    forceUpdate(this.host);
   }
 }
 

@@ -7,6 +7,7 @@
  * 3. Can trigger validation (ideally on blur)
  * 4. Runs a callback provided by the host for validation logic
  */
+import { forceUpdate } from "@stencil/core";
 import type {
   ReactiveControllerHost,
   ReactiveController,
@@ -53,14 +54,14 @@ export class ValidationController implements ReactiveController {
     if (!this.validationCallback) {
       this.isValid = true;
       this.errorMessage = '';
-      this.host.requestUpdate();
+      forceUpdate(this.host);
       return true;
     }
     
     const error = this.validationCallback(value);
     this.isValid = !error;
     this.errorMessage = error || '';
-    this.host.requestUpdate();
+    forceUpdate(this.host);
     return this.isValid;
   }
   
@@ -92,7 +93,7 @@ export class ValidationController implements ReactiveController {
   resetValidation() {
     this.isValid = true;
     this.errorMessage = '';
-    this.host.requestUpdate();
+    forceUpdate(this.host);
   }
 }
 

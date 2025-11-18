@@ -1,4 +1,4 @@
-import { forceUpdate, ComponentInterface } from "@stencil/core";
+import { ComponentInterface } from "@stencil/core";
 
 export interface ReactiveController {
   hostConnected?(): void;
@@ -20,10 +20,6 @@ export class ReactiveControllerHost implements ComponentInterface {
 
   removeController(controller: ReactiveController) {
     this.controllers.delete(controller);
-  }
-
-  requestUpdate() {
-    forceUpdate(this);
   }
 
   connectedCallback() {
