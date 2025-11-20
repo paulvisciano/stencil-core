@@ -11,8 +11,10 @@
 - **@Component**: `"gen the @Component components"` → Generates + verifies all 193 component decorator variants
 
 ### Build & Test Steps
-- **Build**: `"build the components"` → Compiles all WDIO test components
+- **Build**: `"build the components"` → Runs `npm run components-build` from `.ai/testing/` directory (compiles all WDIO test components including ES2022 extends tests)
+  - **CRITICAL**: Always use `npm run components-build` from `.ai/testing/`, NOT `npm run build.es2022` directly
 - **Test**: `"test the components"` → Runs WDIO test suite
+- **Test Specific**: `"test extends-events"` → Run specific test: `cd /Users/paul.visciano/repos/core/test/wdio && npm run wdio -- --spec='./ts-target/extends-events/*.test.ts'`
 
 ## Test Case Status Queries
 
@@ -39,9 +41,14 @@ When asked about missing test cases, ALWAYS run the query script first:
 ### Complete 3-Step Workflow
 ```
 gen the @Prop components    # Generate component files
-build the components        # Compile with Stencil
-test the components         # Run WDIO tests
+build the components        # Compile with Stencil (uses components-build from .ai/testing/)
+test the components         # Run WDIO tests (or use --spec for specific tests)
 ```
+
+### Running Specific Tests
+When user asks to "run the new tests" or "test extends-events":
+- Use: `cd /Users/paul.visciano/repos/core/test/wdio && npm run wdio -- --spec='./ts-target/extends-events/*.test.ts'`
+- Do NOT use the `extends:test` script from `.ai/testing/` as it runs ALL extends tests
 
 ## Key Locations
 - **Scripts**: `/test/storybook/docs/.ai/testing/package.json`
@@ -53,8 +60,17 @@ test the components         # Run WDIO tests
 - **Extends Tests**: `/test/wdio/ts-target/extends-*/`
 - **Extends Docs**: `/test/storybook/docs/Testing/Behavior/Extends/`
 
-## ⚠️ CRITICAL: Working Directory
+## ⚠️ CRITICAL: Working Directory & Commands
 **All testing framework scripts MUST be run from `/test/storybook/docs/.ai/testing/` directory, NOT from the project root.**
+
+### Build Commands
+- **CORRECT**: `cd /Users/paul.visciano/repos/core/test/storybook/docs/.ai/testing && npm run components-build`
+- **WRONG**: `cd /Users/paul.visciano/repos/core/test/wdio && npm run build.es2022` (do NOT use this directly)
+
+### Test Commands
+- **All Tests**: `cd /Users/paul.visciano/repos/core/test/wdio && npm run wdio`
+- **Specific Test**: `cd /Users/paul.visciano/repos/core/test/wdio && npm run wdio -- --spec='./ts-target/extends-events/*.test.ts'`
+- **Pattern**: Use `--spec='./ts-target/extends-{name}/*.test.ts'` for specific extends tests
 
 ## Component Patterns
 - **@Prop**: `prop-{type}-reflect-{boolean}-mutable-{boolean}.tsx`
