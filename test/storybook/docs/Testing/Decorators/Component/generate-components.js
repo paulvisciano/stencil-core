@@ -5,9 +5,9 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DATA_PATH = path.resolve(__dirname, 'coverage-data.json');
-const RULES_PATH = path.resolve(__dirname, 'rules.json');
-const OUTPUT_DIR = path.resolve(__dirname, '../../../../../wdio/component-decorator/matrix');
+const DATA_PATH = path.resolve(__dirname, 'data/components.json');
+const RULES_PATH = path.resolve(__dirname, 'data/rules.json');
+const OUTPUT_DIR = path.resolve(__dirname, '../../../../../wdio/component-decorator/components');
 
 function toBoolSymbol(val) {
   return val === '✓' ? 'true' : val === '✗' ? 'false' : undefined;
@@ -107,10 +107,10 @@ function main() {
 
   const rules = JSON.parse(fs.readFileSync(RULES_PATH, 'utf8'));
   const data = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
-  const missing = data.missingPermutations || [];
+  const permutations = data.coveredPermutations || [];
 
   let created = 0;
-  for (const entry of missing) {
+  for (const entry of permutations) {
     const options = entry.options;
     if (!Array.isArray(options) || options.length !== 7) continue;
     const nameSegs = buildNameSegments(options, rules);
@@ -120,7 +120,7 @@ function main() {
     const targetDir = path.join(OUTPUT_DIR, groupDir);
     if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true });
     const filePath = path.join(targetDir, fileName);
-    if (fs.existsSync(filePath)) continue;
+    // Generate all components (overwrite existing)
     const tag = nameSegs.join('-');
     const cssPrefix = '../';
     const src = buildComponentSource(options, tag, cssPrefix);

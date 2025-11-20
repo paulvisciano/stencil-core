@@ -1,4 +1,4 @@
-import componentData from './Component/coverage-data.json';
+import componentData from './Component/data/components.json';
 import propData from './Prop/data/test-coverage.json';
 import stateData from './State/data/test-coverage.json';
 import eventData from './Event/data/test-coverage.json';
@@ -110,7 +110,7 @@ Below are all the decorators provided by Stencil. Each decorator has a dedicated
 - Purpose: verify that compiled components from Phase 1 behave as expected at runtime.
 - Reuse existing WDIO tests as templates; study each test’s use case and intent.
 - Propagate each applicable test across all generated components that match the scenario (skip when not applicable).
-- Record results in each decorator’s `coverage-overlay.json` (`tested`, `testedBy`) so the “Tested / Test Cases” column reflects reality.
+- Record results in each decorator's `data/test-coverage.json` (`tested`, `testedBy`) so the "Tested / Test Cases" column reflects reality.
 - Prefer tags/metadata to express applicability (e.g., by mode/options) so propagation is automated and repeatable.
 - Report progress in docs; do not change compiler rules in Phase 2 unless tests uncover spec gaps.
 
