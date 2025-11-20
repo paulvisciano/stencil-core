@@ -16,11 +16,17 @@ function assignCaseIds(options, group) {
   // #1 = shadow mode (shadow: true)
   // #2 = scoped mode (scoped: true, shadow: false)
   // #3 = light mode (shadow: false, scoped: false)
+  // #4 = style isolation (shadow or scoped with styles)
   const caseIds = [];
   
   if (group === 'shadow') caseIds.push(1);
   if (group === 'scoped') caseIds.push(2);
   if (group === 'light') caseIds.push(3);
+  
+  // Test Case #4: Style isolation applies to shadow and scoped modes with styles
+  if ((group === 'shadow' || group === 'scoped') && options.styles) {
+    caseIds.push(4);
+  }
   
   return caseIds;
 }

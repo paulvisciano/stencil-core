@@ -92,10 +92,12 @@ export const ComponentTestCasesTable = () => {
   const case1Implemented = testCaseStatus[1]?.implemented || false;
   const case2Implemented = testCaseStatus[2]?.implemented || false;
   const case3Implemented = testCaseStatus[3]?.implemented || false;
+  const case4Implemented = testCaseStatus[4]?.implemented || false;
 
   const shadowTestsCount = testCaseStatus[1]?.componentCount || 0;
   const scopedTestsCount = testCaseStatus[2]?.componentCount || 0;
   const lightTestsCount = testCaseStatus[3]?.componentCount || 0;
+  const styleIsolationTestsCount = testCaseStatus[4]?.componentCount || 0;
 
   const allRows = [
     {
@@ -129,7 +131,7 @@ export const ComponentTestCasesTable = () => {
     {
       id: 3,
       implemented: case3Implemented,
-      desc: 'Light DOM mode: Validate plain light DOM rendering with no encapsulation.',
+      desc: 'Light DOM mode: Validate plain light DOM rendering with no encapsulation. Note: :host selector does not work in light DOM mode.',
       types: (
         <>
           shadow: false, scoped: false<br/>
@@ -140,9 +142,24 @@ export const ComponentTestCasesTable = () => {
       total: lightTestsCount,
       section: case3Implemented ? 'implemented' : 'missing',
     },
+    {
+      id: 4,
+      implemented: case4Implemented,
+      desc: 'Style isolation: Validate that styles are properly isolated in shadow and scoped modes, preventing style leakage between components.',
+      types: (
+        <>
+          shadow: true with styles<br/>
+          scoped: true with styles<br/>
+          <small>Components: {styleIsolationTestsCount}</small>
+        </>
+      ),
+      tested: styleIsolationTestsCount,
+      total: styleIsolationTestsCount,
+      section: case4Implemented ? 'implemented' : 'missing',
+    },
   ];
 
-  return <TestCasesTable rows={allRows} previewCount={3} />;
+  return <TestCasesTable rows={allRows} previewCount={4} />;
 };
 
 <ComponentTestCasesTable />
@@ -207,6 +224,9 @@ export const ComponentGeneratedComponents = () => {
 ### **🟢 Encapsulation Modes (1-3)** — 3 test cases
 Foundation patterns for component encapsulation, covering shadow DOM, scoped styles, and light DOM rendering.
 
+### **🟢 Style Isolation (4)** — 1 test case
+Validates that styles are properly isolated in shadow and scoped modes, preventing style leakage between components and ensuring external styles don't affect encapsulated components.
+
 ---
 
 export const ComponentTODOSection = () => {
@@ -259,5 +279,6 @@ Components are grouped one level deep by render mode under `test/wdio/component-
 - `light/` (shadow: false, scoped: false)
   - Plain light DOM with no encapsulation
   - Fastest and simplest; external styles fully apply
+  - **Note:** The `:host` CSS selector does not work in light DOM mode since there is no shadow root. Styles using `:host` will be loaded but won't apply to the component element. Use element selectors or classes instead when styling light DOM components.
 
 All component files, including `cmp-base.tsx`, `matrix-gen.css`, and `matrix-alt.css`, are in the `components/` folder.

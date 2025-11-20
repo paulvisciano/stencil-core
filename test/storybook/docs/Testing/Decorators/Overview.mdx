@@ -1,10 +1,3 @@
-import componentData from './Component/data/components.json';
-import propData from './Prop/data/test-coverage.json';
-import stateData from './State/data/test-coverage.json';
-import eventData from './Event/data/test-coverage.json';
-import listenData from './Listen/data/test-coverage.json';
-import methodData from './Method/data/test-coverage.json';
-
 # Decorator Testing Overview
 
 This section tracks test coverage for all Stencil decorators. Each decorator has its own matrix and coverage notes. Use this as a reference for contributors and maintainers.
@@ -124,45 +117,4 @@ Below are all the decorators provided by Stencil. Each decorator has a dedicated
   </ul>
 </div>
 
-## Generated Components Summary
-
-<div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
-  <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
-    <colgroup>
-      <col style={{ width: '50%' }} />
-      <col style={{ width: '50%' }} />
-    </colgroup>
-    <thead>
-      <tr>
-        <th>Decorator</th>
-        <th style={{ textAlign: 'center' }}>Components Generated %</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>@Component</td>
-        <td style={{ textAlign: 'center' }}>{componentData.coverage.percent}%</td>
-      </tr>
-      <tr>
-        <td>@Prop</td>
-        <td style={{ textAlign: 'center' }}>{propData.coverage.percent}%</td>
-      </tr>
-      <tr>
-        <td>@State</td>
-        <td style={{ textAlign: 'center' }}>{stateData.coverage.percent}%</td>
-      </tr>
-      <tr>
-        <td>@Event</td>
-        <td style={{ textAlign: 'center' }}>{eventData.coverage.percent}%</td>
-      </tr>
-      <tr>
-        <td>@Listen</td>
-        <td style={{ textAlign: 'center' }}>{listenData.coverage.percent}%</td>
-      </tr>
-      <tr>
-        <td>@Method</td>
-        <td style={{ textAlign: 'center' }}>{methodData.coverage.percent}%</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+For a high-level overview of test coverage across all decorators and behavior testing, see the [Coverage Report](?path=/docs/testing-coverage-report--docs).

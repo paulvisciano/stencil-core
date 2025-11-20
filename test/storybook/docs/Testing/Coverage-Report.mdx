@@ -1,0 +1,186 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import componentData from './Decorators/Component/data/components.json';
+import componentTestData from './Decorators/Component/data/test-coverage.json';
+import propData from './Decorators/Prop/data/test-coverage.json';
+import stateData from './Decorators/State/data/test-coverage.json';
+import eventData from './Decorators/Event/data/test-coverage.json';
+import listenData from './Decorators/Listen/data/test-coverage.json';
+import methodData from './Decorators/Method/data/test-coverage.json';
+import extendsData from './Behavior/Extends/data/test-coverage.json';
+import React from 'react';
+
+<Meta title="Testing/Coverage Report"/>
+
+# Test Coverage Report
+
+This page provides a high-level overview of test coverage across all Stencil decorators and behavior testing. Click on any card to view detailed test coverage matrices and implementation status.
+
+export const DecoratorCards = () => {
+  // Helper function to get test case stats for decorators with testCaseStatus
+  const getTestCaseStats = (data) => {
+    if (!data.testCaseStatus) return null;
+    const testCases = Object.values(data.testCaseStatus);
+    const implemented = testCases.filter(tc => tc.implemented).length;
+    const total = testCases.length;
+    const totalTests = testCases.reduce((sum, tc) => sum + (tc.testCount || 0), 0);
+    return { implemented, total, totalTests };
+  };
+
+  const decorators = [
+    {
+      name: '@Component',
+      path: '?path=/docs/testing-decorators-component--docs',
+      testStats: getTestCaseStats(componentTestData)
+    },
+    {
+      name: '@Prop',
+      path: '?path=/docs/testing-decorators-prop--docs',
+      testStats: getTestCaseStats(propData)
+    },
+    {
+      name: '@State',
+      path: '?path=/docs/testing-decorators-state--docs',
+      testStats: getTestCaseStats(stateData)
+    },
+    {
+      name: '@Event',
+      path: '?path=/docs/testing-decorators-event--docs',
+      testStats: getTestCaseStats(eventData)
+    },
+    {
+      name: '@Listen',
+      path: '?path=/docs/testing-decorators-listen--docs',
+      testStats: getTestCaseStats(listenData)
+    },
+    {
+      name: '@Method',
+      path: '?path=/docs/testing-decorators-method--docs',
+      testStats: getTestCaseStats(methodData)
+    },
+    {
+      name: 'Extends Behavior',
+      coverage: null,
+      path: '?path=/docs/testing-behavior-extends-overview--docs',
+      testStats: {
+        implemented: extendsData.summary.implementedTestCases,
+        total: extendsData.summary.totalTestCases,
+        totalTests: extendsData.summary.totalTests
+      },
+      isExtends: true
+    }
+  ];
+
+  const handleCardClick = (path) => {
+    // Navigate to root Storybook URL, not iframe
+    // Use parent window if in iframe, otherwise use current window
+    const targetWindow = window.parent !== window ? window.parent : window;
+    // Path already includes ?path=, so prepend / to navigate to root
+    targetWindow.location.href = '/' + path;
+  };
+
+  return (
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+      gap: '20px',
+      marginTop: '20px',
+      marginBottom: '20px'
+    }}>
+      {decorators.map((decorator) => (
+        <div
+          key={decorator.name}
+          onClick={() => handleCardClick(decorator.path)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleCardClick(decorator.path);
+            }
+          }}
+          role="button"
+          tabIndex={0}
+          aria-label={`Navigate to ${decorator.name} documentation`}
+          style={{
+            background: '#fff',
+            padding: '20px',
+            borderRadius: '8px',
+            border: '2px solid #e5e7eb',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = '#3b82f6';
+            e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = '#e5e7eb';
+            e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
+            e.currentTarget.style.transform = 'translateY(0)';
+          }}
+        >
+          <div style={{
+            fontSize: '18px',
+            fontWeight: '700',
+            color: '#111827',
+            marginBottom: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}>
+            {decorator.name}
+            {decorator.isExtends && (
+              <span style={{
+                fontSize: '12px',
+                fontWeight: '600',
+                color: '#6b7280',
+                background: '#f3f4f6',
+                padding: '2px 8px',
+                borderRadius: '4px'
+              }}>
+                Behavior
+              </span>
+            )}
+          </div>
+          
+          {decorator.testStats ? (
+            <div>
+              <div style={{
+                fontSize: '13px',
+                fontWeight: '600',
+                color: '#6b7280',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                marginBottom: '8px'
+              }}>
+                Test Cases
+              </div>
+              <div style={{
+                fontSize: '32px',
+                fontWeight: '700',
+                color: '#111827',
+                lineHeight: '1',
+                marginBottom: '4px'
+              }}>
+                {decorator.testStats.implemented}
+                <span style={{ color: '#d1d5db', fontSize: '24px' }}>/{decorator.testStats.total}</span>
+              </div>
+              {decorator.testStats.totalTests > 0 && (
+                <div style={{
+                  fontSize: '12px',
+                  color: '#6b7280',
+                  marginTop: '4px'
+                }}>
+                  {decorator.testStats.totalTests} tests passing
+                </div>
+              )}
+            </div>
+          ) : null}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+<DecoratorCards />
+
