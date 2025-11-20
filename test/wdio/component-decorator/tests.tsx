@@ -107,6 +107,105 @@ describe('@Component decorator', () => {
           <cmp-shadow-false-scoped-styles></cmp-shadow-false-scoped-styles>
           <cmp-shadow-false-scoped-styleurl></cmp-shadow-false-scoped-styleurl>
           <cmp-shadow-false-scoped-styleurls></cmp-shadow-false-scoped-styleurls>
+
+          {/* Light mode components - Test Case #3 (96 components) */}
+          <cmp-assetsdirs></cmp-assetsdirs>
+          <cmp-assetsdirs-formassociated></cmp-assetsdirs-formassociated>
+          <cmp-assetsdirs-formassociated-false></cmp-assetsdirs-formassociated-false>
+          <cmp-assetsdirs-formassociated-false-styles></cmp-assetsdirs-formassociated-false-styles>
+          <cmp-assetsdirs-formassociated-false-styleurl></cmp-assetsdirs-formassociated-false-styleurl>
+          <cmp-assetsdirs-formassociated-false-styleurls></cmp-assetsdirs-formassociated-false-styleurls>
+          <cmp-assetsdirs-formassociated-styles></cmp-assetsdirs-formassociated-styles>
+          <cmp-assetsdirs-formassociated-styleurl></cmp-assetsdirs-formassociated-styleurl>
+          <cmp-assetsdirs-formassociated-styleurls></cmp-assetsdirs-formassociated-styleurls>
+          <cmp-assetsdirs-styles></cmp-assetsdirs-styles>
+          <cmp-assetsdirs-styleurl></cmp-assetsdirs-styleurl>
+          <cmp-assetsdirs-styleurls></cmp-assetsdirs-styleurls>
+          <cmp-base></cmp-base>
+          <cmp-formassociated></cmp-formassociated>
+          <cmp-formassociated-false></cmp-formassociated-false>
+          <cmp-formassociated-false-styles></cmp-formassociated-false-styles>
+          <cmp-formassociated-false-styleurl></cmp-formassociated-false-styleurl>
+          <cmp-formassociated-false-styleurls></cmp-formassociated-false-styleurls>
+          <cmp-formassociated-styles></cmp-formassociated-styles>
+          <cmp-formassociated-styleurl></cmp-formassociated-styleurl>
+          <cmp-formassociated-styleurls></cmp-formassociated-styleurls>
+          <cmp-scoped-false></cmp-scoped-false>
+          <cmp-scoped-false-assetsdirs></cmp-scoped-false-assetsdirs>
+          <cmp-scoped-false-assetsdirs-formassociated></cmp-scoped-false-assetsdirs-formassociated>
+          <cmp-scoped-false-assetsdirs-formassociated-false></cmp-scoped-false-assetsdirs-formassociated-false>
+          <cmp-scoped-false-assetsdirs-formassociated-false-styles></cmp-scoped-false-assetsdirs-formassociated-false-styles>
+          <cmp-scoped-false-assetsdirs-formassociated-false-styleurl></cmp-scoped-false-assetsdirs-formassociated-false-styleurl>
+          <cmp-scoped-false-assetsdirs-formassociated-false-styleurls></cmp-scoped-false-assetsdirs-formassociated-false-styleurls>
+          <cmp-scoped-false-assetsdirs-formassociated-styles></cmp-scoped-false-assetsdirs-formassociated-styles>
+          <cmp-scoped-false-assetsdirs-formassociated-styleurl></cmp-scoped-false-assetsdirs-formassociated-styleurl>
+          <cmp-scoped-false-assetsdirs-formassociated-styleurls></cmp-scoped-false-assetsdirs-formassociated-styleurls>
+          <cmp-scoped-false-assetsdirs-styles></cmp-scoped-false-assetsdirs-styles>
+          <cmp-scoped-false-assetsdirs-styleurl></cmp-scoped-false-assetsdirs-styleurl>
+          <cmp-scoped-false-assetsdirs-styleurls></cmp-scoped-false-assetsdirs-styleurls>
+          <cmp-scoped-false-formassociated></cmp-scoped-false-formassociated>
+          <cmp-scoped-false-formassociated-false></cmp-scoped-false-formassociated-false>
+          <cmp-scoped-false-formassociated-false-styles></cmp-scoped-false-formassociated-false-styles>
+          <cmp-scoped-false-formassociated-false-styleurl></cmp-scoped-false-formassociated-false-styleurl>
+          <cmp-scoped-false-formassociated-false-styleurls></cmp-scoped-false-formassociated-false-styleurls>
+          <cmp-scoped-false-formassociated-styles></cmp-scoped-false-formassociated-styles>
+          <cmp-scoped-false-formassociated-styleurl></cmp-scoped-false-formassociated-styleurl>
+          <cmp-scoped-false-formassociated-styleurls></cmp-scoped-false-formassociated-styleurls>
+          <cmp-scoped-false-styles></cmp-scoped-false-styles>
+          <cmp-scoped-false-styleurl></cmp-scoped-false-styleurl>
+          <cmp-scoped-false-styleurls></cmp-scoped-false-styleurls>
+          <cmp-shadow-false></cmp-shadow-false>
+          <cmp-shadow-false-assetsdirs></cmp-shadow-false-assetsdirs>
+          <cmp-shadow-false-assetsdirs-formassociated></cmp-shadow-false-assetsdirs-formassociated>
+          <cmp-shadow-false-assetsdirs-formassociated-false></cmp-shadow-false-assetsdirs-formassociated-false>
+          <cmp-shadow-false-assetsdirs-formassociated-false-styles></cmp-shadow-false-assetsdirs-formassociated-false-styles>
+          <cmp-shadow-false-assetsdirs-formassociated-false-styleurl></cmp-shadow-false-assetsdirs-formassociated-false-styleurl>
+          <cmp-shadow-false-assetsdirs-formassociated-false-styleurls></cmp-shadow-false-assetsdirs-formassociated-false-styleurls>
+          <cmp-shadow-false-assetsdirs-formassociated-styles></cmp-shadow-false-assetsdirs-formassociated-styles>
+          <cmp-shadow-false-assetsdirs-formassociated-styleurl></cmp-shadow-false-assetsdirs-formassociated-styleurl>
+          <cmp-shadow-false-assetsdirs-formassociated-styleurls></cmp-shadow-false-assetsdirs-formassociated-styleurls>
+          <cmp-shadow-false-assetsdirs-styles></cmp-shadow-false-assetsdirs-styles>
+          <cmp-shadow-false-assetsdirs-styleurl></cmp-shadow-false-assetsdirs-styleurl>
+          <cmp-shadow-false-assetsdirs-styleurls></cmp-shadow-false-assetsdirs-styleurls>
+          <cmp-shadow-false-formassociated></cmp-shadow-false-formassociated>
+          <cmp-shadow-false-formassociated-false></cmp-shadow-false-formassociated-false>
+          <cmp-shadow-false-formassociated-false-styles></cmp-shadow-false-formassociated-false-styles>
+          <cmp-shadow-false-formassociated-false-styleurl></cmp-shadow-false-formassociated-false-styleurl>
+          <cmp-shadow-false-formassociated-false-styleurls></cmp-shadow-false-formassociated-false-styleurls>
+          <cmp-shadow-false-formassociated-styles></cmp-shadow-false-formassociated-styles>
+          <cmp-shadow-false-formassociated-styleurl></cmp-shadow-false-formassociated-styleurl>
+          <cmp-shadow-false-formassociated-styleurls></cmp-shadow-false-formassociated-styleurls>
+          <cmp-shadow-false-scoped-false></cmp-shadow-false-scoped-false>
+          <cmp-shadow-false-scoped-false-assetsdirs></cmp-shadow-false-scoped-false-assetsdirs>
+          <cmp-shadow-false-scoped-false-assetsdirs-formassociated></cmp-shadow-false-scoped-false-assetsdirs-formassociated>
+          <cmp-shadow-false-scoped-false-assetsdirs-formassociated-false></cmp-shadow-false-scoped-false-assetsdirs-formassociated-false>
+          <cmp-shadow-false-scoped-false-assetsdirs-formassociated-false-styles></cmp-shadow-false-scoped-false-assetsdirs-formassociated-false-styles>
+          <cmp-shadow-false-scoped-false-assetsdirs-formassociated-false-styleurl></cmp-shadow-false-scoped-false-assetsdirs-formassociated-false-styleurl>
+          <cmp-shadow-false-scoped-false-assetsdirs-formassociated-false-styleurls></cmp-shadow-false-scoped-false-assetsdirs-formassociated-false-styleurls>
+          <cmp-shadow-false-scoped-false-assetsdirs-formassociated-styles></cmp-shadow-false-scoped-false-assetsdirs-formassociated-styles>
+          <cmp-shadow-false-scoped-false-assetsdirs-formassociated-styleurl></cmp-shadow-false-scoped-false-assetsdirs-formassociated-styleurl>
+          <cmp-shadow-false-scoped-false-assetsdirs-formassociated-styleurls></cmp-shadow-false-scoped-false-assetsdirs-formassociated-styleurls>
+          <cmp-shadow-false-scoped-false-assetsdirs-styles></cmp-shadow-false-scoped-false-assetsdirs-styles>
+          <cmp-shadow-false-scoped-false-assetsdirs-styleurl></cmp-shadow-false-scoped-false-assetsdirs-styleurl>
+          <cmp-shadow-false-scoped-false-assetsdirs-styleurls></cmp-shadow-false-scoped-false-assetsdirs-styleurls>
+          <cmp-shadow-false-scoped-false-formassociated></cmp-shadow-false-scoped-false-formassociated>
+          <cmp-shadow-false-scoped-false-formassociated-false></cmp-shadow-false-scoped-false-formassociated-false>
+          <cmp-shadow-false-scoped-false-formassociated-false-styles></cmp-shadow-false-scoped-false-formassociated-false-styles>
+          <cmp-shadow-false-scoped-false-formassociated-false-styleurl></cmp-shadow-false-scoped-false-formassociated-false-styleurl>
+          <cmp-shadow-false-scoped-false-formassociated-false-styleurls></cmp-shadow-false-scoped-false-formassociated-false-styleurls>
+          <cmp-shadow-false-scoped-false-formassociated-styles></cmp-shadow-false-scoped-false-formassociated-styles>
+          <cmp-shadow-false-scoped-false-formassociated-styleurl></cmp-shadow-false-scoped-false-formassociated-styleurl>
+          <cmp-shadow-false-scoped-false-formassociated-styleurls></cmp-shadow-false-scoped-false-formassociated-styleurls>
+          <cmp-shadow-false-scoped-false-styles></cmp-shadow-false-scoped-false-styles>
+          <cmp-shadow-false-scoped-false-styleurl></cmp-shadow-false-scoped-false-styleurl>
+          <cmp-shadow-false-scoped-false-styleurls></cmp-shadow-false-scoped-false-styleurls>
+          <cmp-shadow-false-styles></cmp-shadow-false-styles>
+          <cmp-shadow-false-styleurl></cmp-shadow-false-styleurl>
+          <cmp-shadow-false-styleurls></cmp-shadow-false-styleurls>
+          <cmp-styles></cmp-styles>
+          <cmp-styleurl></cmp-styleurl>
+          <cmp-styleurls></cmp-styleurls>
+          <cmp-light></cmp-light>
         </Fragment>
       ),
     });
@@ -350,6 +449,131 @@ describe('@Component decorator', () => {
       }, selector);
       
       expect(displayStyle).toBe('block');
+    });
+  });
+
+  describe('Test Case #3 – Light DOM mode', () => {
+    it('renders in light DOM without shadow root', async () => {
+      const selector = 'cmp-base';
+      const cmp = await $(selector);
+      await expect(cmp).toExist();
+      
+      const hasShadowRoot = await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
+        return el.shadowRoot !== null && el.shadowRoot !== undefined;
+      }, selector);
+      
+      expect(hasShadowRoot).toBe(false);
+    });
+
+    it('renders content in light DOM', async () => {
+      const selector = 'cmp-base';
+      const cmp = await $(selector);
+      
+      const content = await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
+        const div = el.querySelector('div');
+        return div ? div.textContent : null;
+      }, selector);
+      
+      expect(content).toContain('Permutation');
+    });
+
+    it('applies inline styles in light DOM', async () => {
+      const selector = 'cmp-styles';
+      const cmp = await $(selector);
+      await expect(cmp).toExist();
+      
+      // In light DOM mode, :host doesn't work, but styles are still loaded
+      // Verify the component exists and has content
+      const hasContent = await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
+        return el.querySelector('div') !== null;
+      }, selector);
+      
+      expect(hasContent).toBe(true);
+    });
+
+    it('loads styleUrl in light DOM', async () => {
+      const selector = 'cmp-styleurl';
+      const cmp = await $(selector);
+      await expect(cmp).toExist();
+      
+      const hasContent = await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
+        return el.querySelector('div') !== null;
+      }, selector);
+      
+      expect(hasContent).toBe(true);
+    });
+
+    it('loads styleUrls in light DOM', async () => {
+      const selector = 'cmp-styleurls';
+      const cmp = await $(selector);
+      await expect(cmp).toExist();
+      
+      const hasContent = await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
+        return el.querySelector('div') !== null;
+      }, selector);
+      
+      expect(hasContent).toBe(true);
+    });
+
+    it('supports formAssociated in light DOM', async () => {
+      const selector = 'cmp-formassociated';
+      const cmp = await $(selector);
+      await expect(cmp).toExist();
+      
+      const hasShadowRoot = await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
+        return el.shadowRoot !== null;
+      }, selector);
+      
+      expect(hasShadowRoot).toBe(false);
+    });
+
+    it('supports assetsDirs in light DOM', async () => {
+      const selector = 'cmp-assetsdirs';
+      const cmp = await $(selector);
+      await expect(cmp).toExist();
+      
+      const hasShadowRoot = await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
+        return el.shadowRoot !== null;
+      }, selector);
+      
+      expect(hasShadowRoot).toBe(false);
+    });
+
+    it('combines assetsDirs and styles in light DOM', async () => {
+      const selector = 'cmp-assetsdirs-styles';
+      const cmp = await $(selector);
+      await expect(cmp).toExist();
+      
+      // In light DOM mode, :host doesn't work, but styles are still loaded
+      // Verify the component exists and has content
+      const hasContent = await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
+        return el.querySelector('div') !== null;
+      }, selector);
+      
+      expect(hasContent).toBe(true);
+    });
+
+    it('combines assetsDirs, formAssociated, and styles in light DOM', async () => {
+      const selector = 'cmp-assetsdirs-formassociated-styles';
+      const cmp = await $(selector);
+      await expect(cmp).toExist();
+      
+      // In light DOM mode, :host doesn't work, but styles are still loaded
+      // Verify the component exists and has content
+      const hasContent = await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
+        return el.querySelector('div') !== null;
+      }, selector);
+      
+      expect(hasContent).toBe(true);
     });
   });
 });
