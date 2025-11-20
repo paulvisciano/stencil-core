@@ -1,9 +1,9 @@
 import { Component, h } from '@stencil/core';
 
 @Component({
-  tag: 'cmp'
+  tag: 'cmp-light'
 })
-export class Cmp {
+export class CmpLight {
   render() {
     return <div>Permutation: - | - | - | - | - | - | -</div>;
   }

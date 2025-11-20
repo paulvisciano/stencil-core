@@ -38,11 +38,15 @@ function queryMissingTestCases() {
     const missingCases = Object.entries(data.testCaseStatus)
       .filter(([caseId, status]) => !status.implemented)
       .map(([caseId]) => `#${caseId}`);
+    
+    const implementedCount = Object.values(data.testCaseStatus).filter(s => s.implemented).length;
+    const totalCount = Object.keys(data.testCaseStatus).length;
+    const totalTests = Object.values(data.testCaseStatus).reduce((sum, tc) => sum + (tc.testCount || 0), 0);
 
     if (missingCases.length === 0) {
-      console.log(`✅ @${decorator}: All test cases implemented`);
+      console.log(`✅ @${decorator}: All test cases implemented${totalTests > 0 ? ` (${totalTests} tests)` : ''}`);
     } else {
-      console.log(`⚠️  @${decorator}: Missing cases ${missingCases.join(', ')}`);
+      console.log(`⚠️  @${decorator}: ${implementedCount}/${totalCount} implemented, missing ${missingCases.join(', ')}${totalTests > 0 ? ` (${totalTests} tests passing)` : ''}`);
     }
   });
   

@@ -6,16 +6,16 @@
   },
   "stats": {
     "totalPermutations": 192,
-    "testedPermutations": 0,
-    "percentTested": "0.00"
+    "testedPermutations": 8,
+    "percentTested": "4.17"
   },
   "testCaseStatus": {
     "1": {
-      "implemented": false,
+      "implemented": true,
       "componentCount": 48,
-      "testCount": 0,
+      "testCount": 9,
       "hasComponents": true,
-      "hasWdioTest": false,
+      "hasWdioTest": true,
       "components": [
         {
           "tag": "cmp-shadow-assetsdirs-formassociated-false-styles",
@@ -4124,9 +4124,12 @@
         "matrix/shadow/cmp-shadow-assetsdirs-formassociated-styles.tsx"
       ],
       "tag": "cmp-shadow-assetsdirs-formassociated-styles",
-      "tested": false,
+      "tested": true,
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     },
     {
@@ -4208,9 +4211,12 @@
         "matrix/shadow/cmp-shadow-assetsdirs-styles.tsx"
       ],
       "tag": "cmp-shadow-assetsdirs-styles",
-      "tested": false,
+      "tested": true,
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     },
     {
@@ -4271,9 +4277,12 @@
         "matrix/shadow/cmp-shadow-assetsdirs.tsx"
       ],
       "tag": "cmp-shadow-assetsdirs",
-      "tested": false,
+      "tested": true,
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     },
     {
@@ -4439,9 +4448,12 @@
         "matrix/shadow/cmp-shadow-formassociated.tsx"
       ],
       "tag": "cmp-shadow-formassociated",
-      "tested": false,
+      "tested": true,
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     },
     {
@@ -4964,9 +4976,12 @@
         "matrix/shadow/cmp-shadow-styles.tsx"
       ],
       "tag": "cmp-shadow-styles",
-      "tested": false,
+      "tested": true,
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     },
     {
@@ -4985,9 +5000,12 @@
         "matrix/shadow/cmp-shadow-styleurl.tsx"
       ],
       "tag": "cmp-shadow-styleurl",
-      "tested": false,
+      "tested": true,
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     },
     {
@@ -5006,9 +5024,12 @@
         "matrix/shadow/cmp-shadow-styleurls.tsx"
       ],
       "tag": "cmp-shadow-styleurls",
-      "tested": false,
+      "tested": true,
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     },
     {
@@ -5027,9 +5048,12 @@
         "matrix/shadow/cmp-shadow.tsx"
       ],
       "tag": "cmp-shadow",
-      "tested": false,
+      "tested": true,
       "caseIds": [
         1
+      ],
+      "testedBy": [
+        "Test Case #1"
       ]
     }
   ]
