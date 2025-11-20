@@ -178,4 +178,72 @@ describe('@Prop decorator', () => {
       await expect(cmp).toHaveAttribute('val');
     });
   });
+
+  describe('Test Case #6 – mutable=false (primitives)', () => {
+    it('keeps string prop stable when mutable=false (reflect=true)', async () => {
+      const selector = 'prop-string-reflect-mutable-false';
+      const cmp = await $(selector);
+      await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
+        el.val = 'stable';
+      }, selector);
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: stable');
+      await expect(cmp).toHaveAttribute('val', 'stable');
+    });
+
+    it('keeps number prop stable when mutable=false (reflect=true)', async () => {
+      const selector = 'prop-number-reflect-mutable-false';
+      const cmp = await $(selector);
+      await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
+        el.val = 42;
+      }, selector);
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: 42');
+      await expect(cmp).toHaveAttribute('val', '42');
+    });
+
+    it('keeps boolean prop stable when mutable=false (reflect=true)', async () => {
+      const selector = 'prop-boolean-reflect-mutable-false';
+      const cmp = await $(selector);
+      await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
+        el.val = true;
+      }, selector);
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: true');
+      await expect(cmp).toHaveAttribute('val');
+    });
+
+    it('keeps string prop stable when mutable=false (reflect=false)', async () => {
+      const selector = 'prop-string-reflect-false-mutable-false';
+      const cmp = await $(selector);
+      await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
+        el.val = 'stable';
+      }, selector);
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: stable');
+      await expect(cmp).not.toHaveAttribute('val');
+    });
+
+    it('keeps number prop stable when mutable=false (reflect=false)', async () => {
+      const selector = 'prop-number-reflect-false-mutable-false';
+      const cmp = await $(selector);
+      await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
+        el.val = 42;
+      }, selector);
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: 42');
+      await expect(cmp).not.toHaveAttribute('val');
+    });
+
+    it('keeps boolean prop stable when mutable=false (reflect=false)', async () => {
+      const selector = 'prop-boolean-reflect-false-mutable-false';
+      const cmp = await $(selector);
+      await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
+        el.val = true;
+      }, selector);
+  await expect(cmp.$('p:nth-child(2)')).toHaveText('Value: true');
+      await expect(cmp).not.toHaveAttribute('val');
+    });
+  });
 });

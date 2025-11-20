@@ -266,11 +266,11 @@
       ]
     },
     "6": {
-      "implemented": false,
+      "implemented": true,
       "componentCount": 6,
-      "testCount": 0,
+      "testCount": 6,
       "hasComponents": true,
-      "hasWdioTest": false,
+      "hasWdioTest": true,
       "components": [
         {
           "tag": "prop-boolean-reflect-false-mutable-false",
