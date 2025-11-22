@@ -20,62 +20,62 @@
         {
           "tag": "listen-host-click-capture-false-passive-false",
           "group": "host",
-          "optionsKey": "host|click|✗|✗"
+          "optionsKey": "host|click-listen-host-click-capture-false-passive-false|✗|✗"
         },
         {
           "tag": "listen-host-click-capture-false-passive",
           "group": "host",
-          "optionsKey": "host|click|✗|✓"
+          "optionsKey": "host|click-listen-host-click-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-host-click-capture-passive-false",
           "group": "host",
-          "optionsKey": "host|click|✓|✗"
+          "optionsKey": "host|click-listen-host-click-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-host-click-capture-passive",
           "group": "host",
-          "optionsKey": "host|click|✓|✓"
+          "optionsKey": "host|click-listen-host-click-capture-passive|✓|✓"
         },
         {
           "tag": "listen-host-input-capture-false-passive-false",
           "group": "host",
-          "optionsKey": "host|input|✗|✗"
+          "optionsKey": "host|input-listen-host-input-capture-false-passive-false|✗|✗"
         },
         {
           "tag": "listen-host-input-capture-false-passive",
           "group": "host",
-          "optionsKey": "host|input|✗|✓"
+          "optionsKey": "host|input-listen-host-input-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-host-input-capture-passive-false",
           "group": "host",
-          "optionsKey": "host|input|✓|✗"
+          "optionsKey": "host|input-listen-host-input-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-host-input-capture-passive",
           "group": "host",
-          "optionsKey": "host|input|✓|✓"
+          "optionsKey": "host|input-listen-host-input-capture-passive|✓|✓"
         },
         {
           "tag": "listen-host-keydown-capture-false-passive-false",
           "group": "host",
-          "optionsKey": "host|keydown|✗|✗"
+          "optionsKey": "host|keydown-listen-host-keydown-capture-false-passive-false|✗|✗"
         },
         {
           "tag": "listen-host-keydown-capture-false-passive",
           "group": "host",
-          "optionsKey": "host|keydown|✗|✓"
+          "optionsKey": "host|keydown-listen-host-keydown-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-host-keydown-capture-passive-false",
           "group": "host",
-          "optionsKey": "host|keydown|✓|✗"
+          "optionsKey": "host|keydown-listen-host-keydown-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-host-keydown-capture-passive",
           "group": "host",
-          "optionsKey": "host|keydown|✓|✓"
+          "optionsKey": "host|keydown-listen-host-keydown-capture-passive|✓|✓"
         }
       ]
     },
@@ -89,162 +89,162 @@
         {
           "tag": "listen-body-click-capture-false-passive-false",
           "group": "body",
-          "optionsKey": "body|click|✗|✗"
+          "optionsKey": "body|click-listen-body-click-capture-false-passive-false|✗|✗"
         },
         {
           "tag": "listen-body-click-capture-false-passive",
           "group": "body",
-          "optionsKey": "body|click|✗|✓"
+          "optionsKey": "body|click-listen-body-click-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-body-click-capture-passive-false",
           "group": "body",
-          "optionsKey": "body|click|✓|✗"
+          "optionsKey": "body|click-listen-body-click-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-body-click-capture-passive",
           "group": "body",
-          "optionsKey": "body|click|✓|✓"
+          "optionsKey": "body|click-listen-body-click-capture-passive|✓|✓"
         },
         {
           "tag": "listen-body-input-capture-false-passive-false",
           "group": "body",
-          "optionsKey": "body|input|✗|✗"
+          "optionsKey": "body|input-listen-body-input-capture-false-passive-false|✗|✗"
         },
         {
           "tag": "listen-body-input-capture-false-passive",
           "group": "body",
-          "optionsKey": "body|input|✗|✓"
+          "optionsKey": "body|input-listen-body-input-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-body-input-capture-passive-false",
           "group": "body",
-          "optionsKey": "body|input|✓|✗"
+          "optionsKey": "body|input-listen-body-input-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-body-input-capture-passive",
           "group": "body",
-          "optionsKey": "body|input|✓|✓"
+          "optionsKey": "body|input-listen-body-input-capture-passive|✓|✓"
         },
         {
           "tag": "listen-body-keydown-capture-false-passive-false",
           "group": "body",
-          "optionsKey": "body|keydown|✗|✗"
+          "optionsKey": "body|keydown-listen-body-keydown-capture-false-passive-false|✗|✗"
         },
         {
           "tag": "listen-body-keydown-capture-false-passive",
           "group": "body",
-          "optionsKey": "body|keydown|✗|✓"
+          "optionsKey": "body|keydown-listen-body-keydown-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-body-keydown-capture-passive-false",
           "group": "body",
-          "optionsKey": "body|keydown|✓|✗"
+          "optionsKey": "body|keydown-listen-body-keydown-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-body-keydown-capture-passive",
           "group": "body",
-          "optionsKey": "body|keydown|✓|✓"
+          "optionsKey": "body|keydown-listen-body-keydown-capture-passive|✓|✓"
         },
         {
           "tag": "listen-document-click-capture-false-passive-false",
           "group": "document",
-          "optionsKey": "document|click|✗|✗"
+          "optionsKey": "document|click-listen-document-click-capture-false-passive-false|✗|✗"
         },
         {
           "tag": "listen-document-click-capture-false-passive",
           "group": "document",
-          "optionsKey": "document|click|✗|✓"
+          "optionsKey": "document|click-listen-document-click-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-document-click-capture-passive-false",
           "group": "document",
-          "optionsKey": "document|click|✓|✗"
+          "optionsKey": "document|click-listen-document-click-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-document-click-capture-passive",
           "group": "document",
-          "optionsKey": "document|click|✓|✓"
+          "optionsKey": "document|click-listen-document-click-capture-passive|✓|✓"
         },
         {
           "tag": "listen-document-input-capture-false-passive-false",
           "group": "document",
-          "optionsKey": "document|input|✗|✗"
+          "optionsKey": "document|input-listen-document-input-capture-false-passive-false|✗|✗"
         },
         {
           "tag": "listen-document-input-capture-false-passive",
           "group": "document",
-          "optionsKey": "document|input|✗|✓"
+          "optionsKey": "document|input-listen-document-input-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-document-input-capture-passive-false",
           "group": "document",
-          "optionsKey": "document|input|✓|✗"
+          "optionsKey": "document|input-listen-document-input-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-document-input-capture-passive",
           "group": "document",
-          "optionsKey": "document|input|✓|✓"
+          "optionsKey": "document|input-listen-document-input-capture-passive|✓|✓"
         },
         {
           "tag": "listen-document-keydown-capture-false-passive-false",
           "group": "document",
-          "optionsKey": "document|keydown|✗|✗"
+          "optionsKey": "document|keydown-listen-document-keydown-capture-false-passive-false|✗|✗"
         },
         {
           "tag": "listen-document-keydown-capture-false-passive",
           "group": "document",
-          "optionsKey": "document|keydown|✗|✓"
+          "optionsKey": "document|keydown-listen-document-keydown-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-document-keydown-capture-passive-false",
           "group": "document",
-          "optionsKey": "document|keydown|✓|✗"
+          "optionsKey": "document|keydown-listen-document-keydown-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-document-keydown-capture-passive",
           "group": "document",
-          "optionsKey": "document|keydown|✓|✓"
+          "optionsKey": "document|keydown-listen-document-keydown-capture-passive|✓|✓"
         },
         {
           "tag": "listen-window-click-capture-false-passive-false",
           "group": "window",
-          "optionsKey": "window|click|✗|✗"
+          "optionsKey": "window|click-listen-window-click-capture-false-passive-false|✗|✗"
         },
         {
           "tag": "listen-window-click-capture-false-passive",
           "group": "window",
-          "optionsKey": "window|click|✗|✓"
+          "optionsKey": "window|click-listen-window-click-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-window-click-capture-passive-false",
           "group": "window",
-          "optionsKey": "window|click|✓|✗"
+          "optionsKey": "window|click-listen-window-click-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-window-click-capture-passive",
           "group": "window",
-          "optionsKey": "window|click|✓|✓"
+          "optionsKey": "window|click-listen-window-click-capture-passive|✓|✓"
         },
         {
           "tag": "listen-window-keydown-capture-false-passive-false",
           "group": "window",
-          "optionsKey": "window|keydown|✗|✗"
+          "optionsKey": "window|keydown-listen-window-keydown-capture-false-passive-false|✗|✗"
         },
         {
           "tag": "listen-window-keydown-capture-false-passive",
           "group": "window",
-          "optionsKey": "window|keydown|✗|✓"
+          "optionsKey": "window|keydown-listen-window-keydown-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-window-keydown-capture-passive-false",
           "group": "window",
-          "optionsKey": "window|keydown|✓|✗"
+          "optionsKey": "window|keydown-listen-window-keydown-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-window-keydown-capture-passive",
           "group": "window",
-          "optionsKey": "window|keydown|✓|✓"
+          "optionsKey": "window|keydown-listen-window-keydown-capture-passive|✓|✓"
         }
       ]
     },
@@ -258,112 +258,112 @@
         {
           "tag": "listen-body-click-capture-passive-false",
           "group": "body",
-          "optionsKey": "body|click|✓|✗"
+          "optionsKey": "body|click-listen-body-click-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-body-click-capture-passive",
           "group": "body",
-          "optionsKey": "body|click|✓|✓"
+          "optionsKey": "body|click-listen-body-click-capture-passive|✓|✓"
         },
         {
           "tag": "listen-body-input-capture-passive-false",
           "group": "body",
-          "optionsKey": "body|input|✓|✗"
+          "optionsKey": "body|input-listen-body-input-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-body-input-capture-passive",
           "group": "body",
-          "optionsKey": "body|input|✓|✓"
+          "optionsKey": "body|input-listen-body-input-capture-passive|✓|✓"
         },
         {
           "tag": "listen-body-keydown-capture-passive-false",
           "group": "body",
-          "optionsKey": "body|keydown|✓|✗"
+          "optionsKey": "body|keydown-listen-body-keydown-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-body-keydown-capture-passive",
           "group": "body",
-          "optionsKey": "body|keydown|✓|✓"
+          "optionsKey": "body|keydown-listen-body-keydown-capture-passive|✓|✓"
         },
         {
           "tag": "listen-document-click-capture-passive-false",
           "group": "document",
-          "optionsKey": "document|click|✓|✗"
+          "optionsKey": "document|click-listen-document-click-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-document-click-capture-passive",
           "group": "document",
-          "optionsKey": "document|click|✓|✓"
+          "optionsKey": "document|click-listen-document-click-capture-passive|✓|✓"
         },
         {
           "tag": "listen-document-input-capture-passive-false",
           "group": "document",
-          "optionsKey": "document|input|✓|✗"
+          "optionsKey": "document|input-listen-document-input-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-document-input-capture-passive",
           "group": "document",
-          "optionsKey": "document|input|✓|✓"
+          "optionsKey": "document|input-listen-document-input-capture-passive|✓|✓"
         },
         {
           "tag": "listen-document-keydown-capture-passive-false",
           "group": "document",
-          "optionsKey": "document|keydown|✓|✗"
+          "optionsKey": "document|keydown-listen-document-keydown-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-document-keydown-capture-passive",
           "group": "document",
-          "optionsKey": "document|keydown|✓|✓"
+          "optionsKey": "document|keydown-listen-document-keydown-capture-passive|✓|✓"
         },
         {
           "tag": "listen-host-click-capture-passive-false",
           "group": "host",
-          "optionsKey": "host|click|✓|✗"
+          "optionsKey": "host|click-listen-host-click-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-host-click-capture-passive",
           "group": "host",
-          "optionsKey": "host|click|✓|✓"
+          "optionsKey": "host|click-listen-host-click-capture-passive|✓|✓"
         },
         {
           "tag": "listen-host-input-capture-passive-false",
           "group": "host",
-          "optionsKey": "host|input|✓|✗"
+          "optionsKey": "host|input-listen-host-input-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-host-input-capture-passive",
           "group": "host",
-          "optionsKey": "host|input|✓|✓"
+          "optionsKey": "host|input-listen-host-input-capture-passive|✓|✓"
         },
         {
           "tag": "listen-host-keydown-capture-passive-false",
           "group": "host",
-          "optionsKey": "host|keydown|✓|✗"
+          "optionsKey": "host|keydown-listen-host-keydown-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-host-keydown-capture-passive",
           "group": "host",
-          "optionsKey": "host|keydown|✓|✓"
+          "optionsKey": "host|keydown-listen-host-keydown-capture-passive|✓|✓"
         },
         {
           "tag": "listen-window-click-capture-passive-false",
           "group": "window",
-          "optionsKey": "window|click|✓|✗"
+          "optionsKey": "window|click-listen-window-click-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-window-click-capture-passive",
           "group": "window",
-          "optionsKey": "window|click|✓|✓"
+          "optionsKey": "window|click-listen-window-click-capture-passive|✓|✓"
         },
         {
           "tag": "listen-window-keydown-capture-passive-false",
           "group": "window",
-          "optionsKey": "window|keydown|✓|✗"
+          "optionsKey": "window|keydown-listen-window-keydown-capture-passive-false|✓|✗"
         },
         {
           "tag": "listen-window-keydown-capture-passive",
           "group": "window",
-          "optionsKey": "window|keydown|✓|✓"
+          "optionsKey": "window|keydown-listen-window-keydown-capture-passive|✓|✓"
         }
       ]
     },
@@ -377,112 +377,112 @@
         {
           "tag": "listen-body-click-capture-false-passive",
           "group": "body",
-          "optionsKey": "body|click|✗|✓"
+          "optionsKey": "body|click-listen-body-click-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-body-click-capture-passive",
           "group": "body",
-          "optionsKey": "body|click|✓|✓"
+          "optionsKey": "body|click-listen-body-click-capture-passive|✓|✓"
         },
         {
           "tag": "listen-body-input-capture-false-passive",
           "group": "body",
-          "optionsKey": "body|input|✗|✓"
+          "optionsKey": "body|input-listen-body-input-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-body-input-capture-passive",
           "group": "body",
-          "optionsKey": "body|input|✓|✓"
+          "optionsKey": "body|input-listen-body-input-capture-passive|✓|✓"
         },
         {
           "tag": "listen-body-keydown-capture-false-passive",
           "group": "body",
-          "optionsKey": "body|keydown|✗|✓"
+          "optionsKey": "body|keydown-listen-body-keydown-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-body-keydown-capture-passive",
           "group": "body",
-          "optionsKey": "body|keydown|✓|✓"
+          "optionsKey": "body|keydown-listen-body-keydown-capture-passive|✓|✓"
         },
         {
           "tag": "listen-document-click-capture-false-passive",
           "group": "document",
-          "optionsKey": "document|click|✗|✓"
+          "optionsKey": "document|click-listen-document-click-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-document-click-capture-passive",
           "group": "document",
-          "optionsKey": "document|click|✓|✓"
+          "optionsKey": "document|click-listen-document-click-capture-passive|✓|✓"
         },
         {
           "tag": "listen-document-input-capture-false-passive",
           "group": "document",
-          "optionsKey": "document|input|✗|✓"
+          "optionsKey": "document|input-listen-document-input-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-document-input-capture-passive",
           "group": "document",
-          "optionsKey": "document|input|✓|✓"
+          "optionsKey": "document|input-listen-document-input-capture-passive|✓|✓"
         },
         {
           "tag": "listen-document-keydown-capture-false-passive",
           "group": "document",
-          "optionsKey": "document|keydown|✗|✓"
+          "optionsKey": "document|keydown-listen-document-keydown-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-document-keydown-capture-passive",
           "group": "document",
-          "optionsKey": "document|keydown|✓|✓"
+          "optionsKey": "document|keydown-listen-document-keydown-capture-passive|✓|✓"
         },
         {
           "tag": "listen-host-click-capture-false-passive",
           "group": "host",
-          "optionsKey": "host|click|✗|✓"
+          "optionsKey": "host|click-listen-host-click-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-host-click-capture-passive",
           "group": "host",
-          "optionsKey": "host|click|✓|✓"
+          "optionsKey": "host|click-listen-host-click-capture-passive|✓|✓"
         },
         {
           "tag": "listen-host-input-capture-false-passive",
           "group": "host",
-          "optionsKey": "host|input|✗|✓"
+          "optionsKey": "host|input-listen-host-input-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-host-input-capture-passive",
           "group": "host",
-          "optionsKey": "host|input|✓|✓"
+          "optionsKey": "host|input-listen-host-input-capture-passive|✓|✓"
         },
         {
           "tag": "listen-host-keydown-capture-false-passive",
           "group": "host",
-          "optionsKey": "host|keydown|✗|✓"
+          "optionsKey": "host|keydown-listen-host-keydown-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-host-keydown-capture-passive",
           "group": "host",
-          "optionsKey": "host|keydown|✓|✓"
+          "optionsKey": "host|keydown-listen-host-keydown-capture-passive|✓|✓"
         },
         {
           "tag": "listen-window-click-capture-false-passive",
           "group": "window",
-          "optionsKey": "window|click|✗|✓"
+          "optionsKey": "window|click-listen-window-click-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-window-click-capture-passive",
           "group": "window",
-          "optionsKey": "window|click|✓|✓"
+          "optionsKey": "window|click-listen-window-click-capture-passive|✓|✓"
         },
         {
           "tag": "listen-window-keydown-capture-false-passive",
           "group": "window",
-          "optionsKey": "window|keydown|✗|✓"
+          "optionsKey": "window|keydown-listen-window-keydown-capture-false-passive|✗|✓"
         },
         {
           "tag": "listen-window-keydown-capture-passive",
           "group": "window",
-          "optionsKey": "window|keydown|✓|✓"
+          "optionsKey": "window|keydown-listen-window-keydown-capture-passive|✓|✓"
         }
       ]
     }
@@ -492,11 +492,11 @@
       "group": "body",
       "options": {
         "target": "body",
-        "event": "click",
+        "event": "click-listen-body-click-capture-false-passive-false",
         "capture": "✗",
         "passive": "✗"
       },
-      "optionsKey": "body|click|✗|✗",
+      "optionsKey": "body|click-listen-body-click-capture-false-passive-false|✗|✗",
       "files": [
         "body/listen-body-click-capture-false-passive-false.tsx"
       ],
@@ -513,11 +513,11 @@
       "group": "body",
       "options": {
         "target": "body",
-        "event": "click",
+        "event": "click-listen-body-click-capture-false-passive",
         "capture": "✗",
         "passive": "✓"
       },
-      "optionsKey": "body|click|✗|✓",
+      "optionsKey": "body|click-listen-body-click-capture-false-passive|✗|✓",
       "files": [
         "body/listen-body-click-capture-false-passive.tsx"
       ],
@@ -536,11 +536,11 @@
       "group": "body",
       "options": {
         "target": "body",
-        "event": "click",
+        "event": "click-listen-body-click-capture-passive-false",
         "capture": "✓",
         "passive": "✗"
       },
-      "optionsKey": "body|click|✓|✗",
+      "optionsKey": "body|click-listen-body-click-capture-passive-false|✓|✗",
       "files": [
         "body/listen-body-click-capture-passive-false.tsx"
       ],
@@ -559,11 +559,11 @@
       "group": "body",
       "options": {
         "target": "body",
-        "event": "click",
+        "event": "click-listen-body-click-capture-passive",
         "capture": "✓",
         "passive": "✓"
       },
-      "optionsKey": "body|click|✓|✓",
+      "optionsKey": "body|click-listen-body-click-capture-passive|✓|✓",
       "files": [
         "body/listen-body-click-capture-passive.tsx"
       ],
@@ -584,11 +584,11 @@
       "group": "body",
       "options": {
         "target": "body",
-        "event": "input",
+        "event": "input-listen-body-input-capture-false-passive-false",
         "capture": "✗",
         "passive": "✗"
       },
-      "optionsKey": "body|input|✗|✗",
+      "optionsKey": "body|input-listen-body-input-capture-false-passive-false|✗|✗",
       "files": [
         "body/listen-body-input-capture-false-passive-false.tsx"
       ],
@@ -605,11 +605,11 @@
       "group": "body",
       "options": {
         "target": "body",
-        "event": "input",
+        "event": "input-listen-body-input-capture-false-passive",
         "capture": "✗",
         "passive": "✓"
       },
-      "optionsKey": "body|input|✗|✓",
+      "optionsKey": "body|input-listen-body-input-capture-false-passive|✗|✓",
       "files": [
         "body/listen-body-input-capture-false-passive.tsx"
       ],
@@ -628,11 +628,11 @@
       "group": "body",
       "options": {
         "target": "body",
-        "event": "input",
+        "event": "input-listen-body-input-capture-passive-false",
         "capture": "✓",
         "passive": "✗"
       },
-      "optionsKey": "body|input|✓|✗",
+      "optionsKey": "body|input-listen-body-input-capture-passive-false|✓|✗",
       "files": [
         "body/listen-body-input-capture-passive-false.tsx"
       ],
@@ -651,11 +651,11 @@
       "group": "body",
       "options": {
         "target": "body",
-        "event": "input",
+        "event": "input-listen-body-input-capture-passive",
         "capture": "✓",
         "passive": "✓"
       },
-      "optionsKey": "body|input|✓|✓",
+      "optionsKey": "body|input-listen-body-input-capture-passive|✓|✓",
       "files": [
         "body/listen-body-input-capture-passive.tsx"
       ],
@@ -676,11 +676,11 @@
       "group": "body",
       "options": {
         "target": "body",
-        "event": "keydown",
+        "event": "keydown-listen-body-keydown-capture-false-passive-false",
         "capture": "✗",
         "passive": "✗"
       },
-      "optionsKey": "body|keydown|✗|✗",
+      "optionsKey": "body|keydown-listen-body-keydown-capture-false-passive-false|✗|✗",
       "files": [
         "body/listen-body-keydown-capture-false-passive-false.tsx"
       ],
@@ -697,11 +697,11 @@
       "group": "body",
       "options": {
         "target": "body",
-        "event": "keydown",
+        "event": "keydown-listen-body-keydown-capture-false-passive",
         "capture": "✗",
         "passive": "✓"
       },
-      "optionsKey": "body|keydown|✗|✓",
+      "optionsKey": "body|keydown-listen-body-keydown-capture-false-passive|✗|✓",
       "files": [
         "body/listen-body-keydown-capture-false-passive.tsx"
       ],
@@ -720,11 +720,11 @@
       "group": "body",
       "options": {
         "target": "body",
-        "event": "keydown",
+        "event": "keydown-listen-body-keydown-capture-passive-false",
         "capture": "✓",
         "passive": "✗"
       },
-      "optionsKey": "body|keydown|✓|✗",
+      "optionsKey": "body|keydown-listen-body-keydown-capture-passive-false|✓|✗",
       "files": [
         "body/listen-body-keydown-capture-passive-false.tsx"
       ],
@@ -743,11 +743,11 @@
       "group": "body",
       "options": {
         "target": "body",
-        "event": "keydown",
+        "event": "keydown-listen-body-keydown-capture-passive",
         "capture": "✓",
         "passive": "✓"
       },
-      "optionsKey": "body|keydown|✓|✓",
+      "optionsKey": "body|keydown-listen-body-keydown-capture-passive|✓|✓",
       "files": [
         "body/listen-body-keydown-capture-passive.tsx"
       ],
@@ -768,11 +768,11 @@
       "group": "document",
       "options": {
         "target": "document",
-        "event": "click",
+        "event": "click-listen-document-click-capture-false-passive-false",
         "capture": "✗",
         "passive": "✗"
       },
-      "optionsKey": "document|click|✗|✗",
+      "optionsKey": "document|click-listen-document-click-capture-false-passive-false|✗|✗",
       "files": [
         "document/listen-document-click-capture-false-passive-false.tsx"
       ],
@@ -789,11 +789,11 @@
       "group": "document",
       "options": {
         "target": "document",
-        "event": "click",
+        "event": "click-listen-document-click-capture-false-passive",
         "capture": "✗",
         "passive": "✓"
       },
-      "optionsKey": "document|click|✗|✓",
+      "optionsKey": "document|click-listen-document-click-capture-false-passive|✗|✓",
       "files": [
         "document/listen-document-click-capture-false-passive.tsx"
       ],
@@ -812,11 +812,11 @@
       "group": "document",
       "options": {
         "target": "document",
-        "event": "click",
+        "event": "click-listen-document-click-capture-passive-false",
         "capture": "✓",
         "passive": "✗"
       },
-      "optionsKey": "document|click|✓|✗",
+      "optionsKey": "document|click-listen-document-click-capture-passive-false|✓|✗",
       "files": [
         "document/listen-document-click-capture-passive-false.tsx"
       ],
@@ -835,11 +835,11 @@
       "group": "document",
       "options": {
         "target": "document",
-        "event": "click",
+        "event": "click-listen-document-click-capture-passive",
         "capture": "✓",
         "passive": "✓"
       },
-      "optionsKey": "document|click|✓|✓",
+      "optionsKey": "document|click-listen-document-click-capture-passive|✓|✓",
       "files": [
         "document/listen-document-click-capture-passive.tsx"
       ],
@@ -860,11 +860,11 @@
       "group": "document",
       "options": {
         "target": "document",
-        "event": "input",
+        "event": "input-listen-document-input-capture-false-passive-false",
         "capture": "✗",
         "passive": "✗"
       },
-      "optionsKey": "document|input|✗|✗",
+      "optionsKey": "document|input-listen-document-input-capture-false-passive-false|✗|✗",
       "files": [
         "document/listen-document-input-capture-false-passive-false.tsx"
       ],
@@ -881,11 +881,11 @@
       "group": "document",
       "options": {
         "target": "document",
-        "event": "input",
+        "event": "input-listen-document-input-capture-false-passive",
         "capture": "✗",
         "passive": "✓"
       },
-      "optionsKey": "document|input|✗|✓",
+      "optionsKey": "document|input-listen-document-input-capture-false-passive|✗|✓",
       "files": [
         "document/listen-document-input-capture-false-passive.tsx"
       ],
@@ -904,11 +904,11 @@
       "group": "document",
       "options": {
         "target": "document",
-        "event": "input",
+        "event": "input-listen-document-input-capture-passive-false",
         "capture": "✓",
         "passive": "✗"
       },
-      "optionsKey": "document|input|✓|✗",
+      "optionsKey": "document|input-listen-document-input-capture-passive-false|✓|✗",
       "files": [
         "document/listen-document-input-capture-passive-false.tsx"
       ],
@@ -927,11 +927,11 @@
       "group": "document",
       "options": {
         "target": "document",
-        "event": "input",
+        "event": "input-listen-document-input-capture-passive",
         "capture": "✓",
         "passive": "✓"
       },
-      "optionsKey": "document|input|✓|✓",
+      "optionsKey": "document|input-listen-document-input-capture-passive|✓|✓",
       "files": [
         "document/listen-document-input-capture-passive.tsx"
       ],
@@ -952,11 +952,11 @@
       "group": "document",
       "options": {
         "target": "document",
-        "event": "keydown",
+        "event": "keydown-listen-document-keydown-capture-false-passive-false",
         "capture": "✗",
         "passive": "✗"
       },
-      "optionsKey": "document|keydown|✗|✗",
+      "optionsKey": "document|keydown-listen-document-keydown-capture-false-passive-false|✗|✗",
       "files": [
         "document/listen-document-keydown-capture-false-passive-false.tsx"
       ],
@@ -973,11 +973,11 @@
       "group": "document",
       "options": {
         "target": "document",
-        "event": "keydown",
+        "event": "keydown-listen-document-keydown-capture-false-passive",
         "capture": "✗",
         "passive": "✓"
       },
-      "optionsKey": "document|keydown|✗|✓",
+      "optionsKey": "document|keydown-listen-document-keydown-capture-false-passive|✗|✓",
       "files": [
         "document/listen-document-keydown-capture-false-passive.tsx"
       ],
@@ -996,11 +996,11 @@
       "group": "document",
       "options": {
         "target": "document",
-        "event": "keydown",
+        "event": "keydown-listen-document-keydown-capture-passive-false",
         "capture": "✓",
         "passive": "✗"
       },
-      "optionsKey": "document|keydown|✓|✗",
+      "optionsKey": "document|keydown-listen-document-keydown-capture-passive-false|✓|✗",
       "files": [
         "document/listen-document-keydown-capture-passive-false.tsx"
       ],
@@ -1019,11 +1019,11 @@
       "group": "document",
       "options": {
         "target": "document",
-        "event": "keydown",
+        "event": "keydown-listen-document-keydown-capture-passive",
         "capture": "✓",
         "passive": "✓"
       },
-      "optionsKey": "document|keydown|✓|✓",
+      "optionsKey": "document|keydown-listen-document-keydown-capture-passive|✓|✓",
       "files": [
         "document/listen-document-keydown-capture-passive.tsx"
       ],
@@ -1044,11 +1044,11 @@
       "group": "host",
       "options": {
         "target": "host",
-        "event": "click",
+        "event": "click-listen-host-click-capture-false-passive-false",
         "capture": "✗",
         "passive": "✗"
       },
-      "optionsKey": "host|click|✗|✗",
+      "optionsKey": "host|click-listen-host-click-capture-false-passive-false|✗|✗",
       "files": [
         "host/listen-host-click-capture-false-passive-false.tsx"
       ],
@@ -1065,11 +1065,11 @@
       "group": "host",
       "options": {
         "target": "host",
-        "event": "click",
+        "event": "click-listen-host-click-capture-false-passive",
         "capture": "✗",
         "passive": "✓"
       },
-      "optionsKey": "host|click|✗|✓",
+      "optionsKey": "host|click-listen-host-click-capture-false-passive|✗|✓",
       "files": [
         "host/listen-host-click-capture-false-passive.tsx"
       ],
@@ -1088,11 +1088,11 @@
       "group": "host",
       "options": {
         "target": "host",
-        "event": "click",
+        "event": "click-listen-host-click-capture-passive-false",
         "capture": "✓",
         "passive": "✗"
       },
-      "optionsKey": "host|click|✓|✗",
+      "optionsKey": "host|click-listen-host-click-capture-passive-false|✓|✗",
       "files": [
         "host/listen-host-click-capture-passive-false.tsx"
       ],
@@ -1111,11 +1111,11 @@
       "group": "host",
       "options": {
         "target": "host",
-        "event": "click",
+        "event": "click-listen-host-click-capture-passive",
         "capture": "✓",
         "passive": "✓"
       },
-      "optionsKey": "host|click|✓|✓",
+      "optionsKey": "host|click-listen-host-click-capture-passive|✓|✓",
       "files": [
         "host/listen-host-click-capture-passive.tsx"
       ],
@@ -1136,11 +1136,11 @@
       "group": "host",
       "options": {
         "target": "host",
-        "event": "input",
+        "event": "input-listen-host-input-capture-false-passive-false",
         "capture": "✗",
         "passive": "✗"
       },
-      "optionsKey": "host|input|✗|✗",
+      "optionsKey": "host|input-listen-host-input-capture-false-passive-false|✗|✗",
       "files": [
         "host/listen-host-input-capture-false-passive-false.tsx"
       ],
@@ -1157,11 +1157,11 @@
       "group": "host",
       "options": {
         "target": "host",
-        "event": "input",
+        "event": "input-listen-host-input-capture-false-passive",
         "capture": "✗",
         "passive": "✓"
       },
-      "optionsKey": "host|input|✗|✓",
+      "optionsKey": "host|input-listen-host-input-capture-false-passive|✗|✓",
       "files": [
         "host/listen-host-input-capture-false-passive.tsx"
       ],
@@ -1180,11 +1180,11 @@
       "group": "host",
       "options": {
         "target": "host",
-        "event": "input",
+        "event": "input-listen-host-input-capture-passive-false",
         "capture": "✓",
         "passive": "✗"
       },
-      "optionsKey": "host|input|✓|✗",
+      "optionsKey": "host|input-listen-host-input-capture-passive-false|✓|✗",
       "files": [
         "host/listen-host-input-capture-passive-false.tsx"
       ],
@@ -1203,11 +1203,11 @@
       "group": "host",
       "options": {
         "target": "host",
-        "event": "input",
+        "event": "input-listen-host-input-capture-passive",
         "capture": "✓",
         "passive": "✓"
       },
-      "optionsKey": "host|input|✓|✓",
+      "optionsKey": "host|input-listen-host-input-capture-passive|✓|✓",
       "files": [
         "host/listen-host-input-capture-passive.tsx"
       ],
@@ -1228,11 +1228,11 @@
       "group": "host",
       "options": {
         "target": "host",
-        "event": "keydown",
+        "event": "keydown-listen-host-keydown-capture-false-passive-false",
         "capture": "✗",
         "passive": "✗"
       },
-      "optionsKey": "host|keydown|✗|✗",
+      "optionsKey": "host|keydown-listen-host-keydown-capture-false-passive-false|✗|✗",
       "files": [
         "host/listen-host-keydown-capture-false-passive-false.tsx"
       ],
@@ -1249,11 +1249,11 @@
       "group": "host",
       "options": {
         "target": "host",
-        "event": "keydown",
+        "event": "keydown-listen-host-keydown-capture-false-passive",
         "capture": "✗",
         "passive": "✓"
       },
-      "optionsKey": "host|keydown|✗|✓",
+      "optionsKey": "host|keydown-listen-host-keydown-capture-false-passive|✗|✓",
       "files": [
         "host/listen-host-keydown-capture-false-passive.tsx"
       ],
@@ -1272,11 +1272,11 @@
       "group": "host",
       "options": {
         "target": "host",
-        "event": "keydown",
+        "event": "keydown-listen-host-keydown-capture-passive-false",
         "capture": "✓",
         "passive": "✗"
       },
-      "optionsKey": "host|keydown|✓|✗",
+      "optionsKey": "host|keydown-listen-host-keydown-capture-passive-false|✓|✗",
       "files": [
         "host/listen-host-keydown-capture-passive-false.tsx"
       ],
@@ -1295,11 +1295,11 @@
       "group": "host",
       "options": {
         "target": "host",
-        "event": "keydown",
+        "event": "keydown-listen-host-keydown-capture-passive",
         "capture": "✓",
         "passive": "✓"
       },
-      "optionsKey": "host|keydown|✓|✓",
+      "optionsKey": "host|keydown-listen-host-keydown-capture-passive|✓|✓",
       "files": [
         "host/listen-host-keydown-capture-passive.tsx"
       ],
@@ -1320,11 +1320,11 @@
       "group": "window",
       "options": {
         "target": "window",
-        "event": "click",
+        "event": "click-listen-window-click-capture-false-passive-false",
         "capture": "✗",
         "passive": "✗"
       },
-      "optionsKey": "window|click|✗|✗",
+      "optionsKey": "window|click-listen-window-click-capture-false-passive-false|✗|✗",
       "files": [
         "window/listen-window-click-capture-false-passive-false.tsx"
       ],
@@ -1341,11 +1341,11 @@
       "group": "window",
       "options": {
         "target": "window",
-        "event": "click",
+        "event": "click-listen-window-click-capture-false-passive",
         "capture": "✗",
         "passive": "✓"
       },
-      "optionsKey": "window|click|✗|✓",
+      "optionsKey": "window|click-listen-window-click-capture-false-passive|✗|✓",
       "files": [
         "window/listen-window-click-capture-false-passive.tsx"
       ],
@@ -1364,11 +1364,11 @@
       "group": "window",
       "options": {
         "target": "window",
-        "event": "click",
+        "event": "click-listen-window-click-capture-passive-false",
         "capture": "✓",
         "passive": "✗"
       },
-      "optionsKey": "window|click|✓|✗",
+      "optionsKey": "window|click-listen-window-click-capture-passive-false|✓|✗",
       "files": [
         "window/listen-window-click-capture-passive-false.tsx"
       ],
@@ -1387,11 +1387,11 @@
       "group": "window",
       "options": {
         "target": "window",
-        "event": "click",
+        "event": "click-listen-window-click-capture-passive",
         "capture": "✓",
         "passive": "✓"
       },
-      "optionsKey": "window|click|✓|✓",
+      "optionsKey": "window|click-listen-window-click-capture-passive|✓|✓",
       "files": [
         "window/listen-window-click-capture-passive.tsx"
       ],
@@ -1412,11 +1412,11 @@
       "group": "window",
       "options": {
         "target": "window",
-        "event": "keydown",
+        "event": "keydown-listen-window-keydown-capture-false-passive-false",
         "capture": "✗",
         "passive": "✗"
       },
-      "optionsKey": "window|keydown|✗|✗",
+      "optionsKey": "window|keydown-listen-window-keydown-capture-false-passive-false|✗|✗",
       "files": [
         "window/listen-window-keydown-capture-false-passive-false.tsx"
       ],
@@ -1433,11 +1433,11 @@
       "group": "window",
       "options": {
         "target": "window",
-        "event": "keydown",
+        "event": "keydown-listen-window-keydown-capture-false-passive",
         "capture": "✗",
         "passive": "✓"
       },
-      "optionsKey": "window|keydown|✗|✓",
+      "optionsKey": "window|keydown-listen-window-keydown-capture-false-passive|✗|✓",
       "files": [
         "window/listen-window-keydown-capture-false-passive.tsx"
       ],
@@ -1456,11 +1456,11 @@
       "group": "window",
       "options": {
         "target": "window",
-        "event": "keydown",
+        "event": "keydown-listen-window-keydown-capture-passive-false",
         "capture": "✓",
         "passive": "✗"
       },
-      "optionsKey": "window|keydown|✓|✗",
+      "optionsKey": "window|keydown-listen-window-keydown-capture-passive-false|✓|✗",
       "files": [
         "window/listen-window-keydown-capture-passive-false.tsx"
       ],
@@ -1479,11 +1479,11 @@
       "group": "window",
       "options": {
         "target": "window",
-        "event": "keydown",
+        "event": "keydown-listen-window-keydown-capture-passive",
         "capture": "✓",
         "passive": "✓"
       },
-      "optionsKey": "window|keydown|✓|✓",
+      "optionsKey": "window|keydown-listen-window-keydown-capture-passive|✓|✓",
       "files": [
         "window/listen-window-keydown-capture-passive.tsx"
       ],

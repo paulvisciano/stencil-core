@@ -1,7 +1,7 @@
 {
   "extends": "Stencil component inheritance and composition testing",
   "description": "Comprehensive testing framework for Stencil extends functionality covering lifecycle, decorators, controllers, and edge cases",
-  "version": "2025-11-18",
+  "version": "2025-11-22",
   "summary": {
     "totalTests": 128,
     "implementedTestCases": 14,
@@ -13,7 +13,7 @@
       "standardPatterns": 85,
       "reactiveControllers": 30
     },
-    "note": "Last updated: November 17, 2025 at 8:21 PM PST"
+    "note": "Last updated: November 21, 2025 at 6:09 PM PST"
   },
   "testCaseStatus": {
     "1": {
@@ -247,7 +247,9 @@
           "feature": "Event Handler Override",
           "description": "When base class and component define same event handler - which executes and in what order"
         }
-      ]
+      ],
+      "testCount": 0,
+      "testBreakdown": {}
     },
     "11": {
       "implemented": false,
