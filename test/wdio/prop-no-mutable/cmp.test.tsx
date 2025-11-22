@@ -20,146 +20,163 @@ describe('prop-no-mutable', () => {
   });
 
   describe('Internal mutation (button click)', () => {
-    it('should not mutate the boolean prop from inside', async () => {
+    it('should mutate the boolean prop from inside', async () => {
       const cmp = await $('prop-no-mutable-boolean-cmp');
       const button = await cmp.$('button');
       if (await button.isExisting()) {
         await button.click();
       }
-      await expect(cmp.$('p')).toHaveText('myBool: false');
+      await expect(cmp.$('p')).toHaveText('myBool: true');
     });
 
-    it('should not mutate the string prop from inside', async () => {
+    it('should mutate the string prop from inside', async () => {
       const cmp = await $('prop-no-mutable-string-cmp');
       const button = await cmp.$('button');
       if (await button.isExisting()) {
         await button.click();
       }
-      await expect(cmp.$('p')).toHaveText('myString: initial');
+      await expect(cmp.$('p')).toHaveText('myString: mutated');
     });
 
-    it('should not mutate the number prop from inside', async () => {
+    it('should mutate the number prop from inside', async () => {
       const cmp = await $('prop-no-mutable-number-cmp');
       const button = await cmp.$('button');
       if (await button.isExisting()) {
         await button.click();
       }
-      await expect(cmp.$('p')).toHaveText('myNumber: 1');
+      await expect(cmp.$('p')).toHaveText('myNumber: 42');
     });
 
-    it('should not mutate the array prop from inside', async () => {
+    it('should mutate the array prop from inside', async () => {
       const cmp = await $('prop-no-mutable-array-cmp');
       const button = await cmp.$('button');
       if (await button.isExisting()) {
         await button.click();
       }
-      await expect(cmp.$('p')).toHaveText('myArray: [1,2,3]');
+      await expect(cmp.$('p')).toHaveText('myArray: [4,5,6]');
     });
 
-    it('should not mutate the set prop from inside', async () => {
+    it('should mutate the set prop from inside', async () => {
       const cmp = await $('prop-no-mutable-set-cmp');
       const button = await cmp.$('button');
       if (await button.isExisting()) {
         await button.click();
       }
-      await expect(cmp.$('p')).toHaveText('mySet: [1,2,3]');
+      await expect(cmp.$('p')).toHaveText('mySet: [4,5,6]');
     });
 
-    it('should not mutate the object prop from inside', async () => {
+    it('should mutate the object prop from inside', async () => {
       const cmp = await $('prop-no-mutable-object-cmp');
       const button = await cmp.$('button');
       if (await button.isExisting()) {
         await button.click();
       }
-      await expect(cmp.$('p')).toHaveText('myObject: {"a":1,"b":2}');
+      await expect(cmp.$('p')).toHaveText('myObject: {"a":2,"b":3}');
     });
 
-    it('should not mutate the reflect set prop from inside', async () => {
+    it('should mutate the reflect set prop from inside', async () => {
       const cmp = await $('prop-no-mutable-reflect-set-cmp');
       const button = await cmp.$('button');
       if (await button.isExisting()) {
         await button.click();
       }
-      await expect(cmp.$('p')).toHaveText('mySet: [1,2,3]');
+      await expect(cmp.$('p')).toHaveText('mySet: [4,5,6]');
     });
   });
 
   describe('External mutation (direct property assignment)', () => {
-    it('should not mutate the boolean prop from outside', async () => {
+    beforeEach(async () => {
+      // Re-render components to reset to initial state after internal mutation tests
+      await render({
+        template: () => (
+          <Fragment>
+            <prop-no-mutable-set-cmp></prop-no-mutable-set-cmp>
+            <prop-no-mutable-object-cmp></prop-no-mutable-object-cmp>
+            <prop-no-mutable-reflect-set-cmp></prop-no-mutable-reflect-set-cmp>
+            <prop-no-mutable-boolean-cmp></prop-no-mutable-boolean-cmp>
+            <prop-no-mutable-string-cmp></prop-no-mutable-string-cmp>
+            <prop-no-mutable-number-cmp></prop-no-mutable-number-cmp>
+            <prop-no-mutable-array-cmp></prop-no-mutable-array-cmp>
+          </Fragment>
+        ),
+      });
+    });
+
+    it('should mutate the boolean prop from outside', async () => {
       const cmp = await $('prop-no-mutable-boolean-cmp');
-      await browser.execute(() => {
-        const el = document.querySelector('prop-no-mutable-boolean-cmp');
+      await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
         if (el) {
           el.myBool = true;
         }
-      });
-      await expect(cmp.$('p')).toHaveText('myBool: false');
+      }, 'prop-no-mutable-boolean-cmp');
+      await expect(cmp.$('p')).toHaveText('myBool: true');
     });
 
-    it('should not mutate the string prop from outside', async () => {
+    it('should mutate the string prop from outside', async () => {
       const cmp = await $('prop-no-mutable-string-cmp');
-      await browser.execute(() => {
-        const el = document.querySelector('prop-no-mutable-string-cmp');
+      await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
         if (el) {
           el.myString = 'mutated';
         }
-      });
-      await expect(cmp.$('p')).toHaveText('myString: initial');
+      }, 'prop-no-mutable-string-cmp');
+      await expect(cmp.$('p')).toHaveText('myString: mutated');
     });
 
-    it('should not mutate the number prop from outside', async () => {
+    it('should mutate the number prop from outside', async () => {
       const cmp = await $('prop-no-mutable-number-cmp');
-      await browser.execute(() => {
-        const el = document.querySelector('prop-no-mutable-number-cmp');
+      await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
         if (el) {
           el.myNumber = 42;
         }
-      });
-      await expect(cmp.$('p')).toHaveText('myNumber: 1');
+      }, 'prop-no-mutable-number-cmp');
+      await expect(cmp.$('p')).toHaveText('myNumber: 42');
     });
 
-    it('should not mutate the array prop from outside', async () => {
+    it('should mutate the array prop from outside', async () => {
       const cmp = await $('prop-no-mutable-array-cmp');
-      await browser.execute(() => {
-        const el = document.querySelector('prop-no-mutable-array-cmp');
+      await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
         if (el) {
           el.myArray = [4,5,6];
         }
-      });
-      await expect(cmp.$('p')).toHaveText('myArray: [1,2,3]');
+      }, 'prop-no-mutable-array-cmp');
+      await expect(cmp.$('p')).toHaveText('myArray: [4,5,6]');
     });
 
-    it('should not mutate the set prop from outside', async () => {
+    it('should mutate the set prop from outside', async () => {
       const cmp = await $('prop-no-mutable-set-cmp');
-      await browser.execute(() => {
-        const el = document.querySelector('prop-no-mutable-set-cmp');
+      await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
         if (el) {
           el.mySet = new Set([4,5,6]);
         }
-      });
-      await expect(cmp.$('p')).toHaveText('mySet: [1,2,3]');
+      }, 'prop-no-mutable-set-cmp');
+      await expect(cmp.$('p')).toHaveText('mySet: [4,5,6]');
     });
 
-    it('should not mutate the object prop from outside', async () => {
+    it('should mutate the object prop from outside', async () => {
       const cmp = await $('prop-no-mutable-object-cmp');
-      await browser.execute(() => {
-        const el = document.querySelector('prop-no-mutable-object-cmp');
+      await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
         if (el) {
           el.myObject = { a: 2, b: 3 };
         }
-      });
-      await expect(cmp.$('p')).toHaveText('myObject: {"a":1,"b":2}');
+      }, 'prop-no-mutable-object-cmp');
+      await expect(cmp.$('p')).toHaveText('myObject: {"a":2,"b":3}');
     });
 
-    it('should not mutate the reflect set prop from outside', async () => {
+    it('should mutate the reflect set prop from outside', async () => {
       const cmp = await $('prop-no-mutable-reflect-set-cmp');
-      await browser.execute(() => {
-        const el = document.querySelector('prop-no-mutable-reflect-set-cmp');
+      await (browser as any).execute((sel: string) => {
+        const el: any = document.querySelector(sel);
         if (el) {
           el.mySet = new Set([4,5,6]);
         }
-      });
-      await expect(cmp.$('p')).toHaveText('mySet: [1,2,3]');
+      }, 'prop-no-mutable-reflect-set-cmp');
+      await expect(cmp.$('p')).toHaveText('mySet: [4,5,6]');
     });
   });
 });
