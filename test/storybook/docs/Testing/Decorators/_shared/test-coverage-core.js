@@ -305,7 +305,21 @@ export function generateTestCoverage({
   };
   
   writeJson(outPath, output);
-  console.log(`${decorator.charAt(0).toUpperCase() + decorator.slice(1)} test coverage written to ${outPath}`);
+  
+  // Calculate summary stats for nice logging
+  const testCases = Object.values(testCaseStatus);
+  const implementedCases = testCases.filter(tc => tc.implemented).length;
+  const totalCases = testCases.length;
+  const totalTests = testCases.reduce((sum, tc) => sum + (tc.testCount || 0), 0);
+  const totalComponents = testCases.reduce((sum, tc) => sum + (tc.componentCount || 0), 0);
+  
+  console.log(`✅ ${decorator.charAt(0).toUpperCase() + decorator.slice(1)} coverage data updated:`);
+  console.log(`   Total Tests: ${totalTests}`);
+  console.log(`   Implemented: ${implementedCases}/${totalCases}`);
+  if (totalComponents > 0) {
+    console.log(`   Components: ${totalComponents}`);
+  }
+  console.log(`   ✓ Saved to: ${path.basename(outPath)}`);
   
   // Clean up legacy files
   cleanupLegacyFiles(path.dirname(outPath));

@@ -275,7 +275,7 @@ function main() {
   console.log(`   Implemented: ${mergedData.summary.implementedTestCases}/${mergedData.summary.totalTestCases}`);
   console.log(`   Components: ${mergedData.summary.componentsTested}/${mergedData.summary.componentsBuilt}`);
   console.log(`   Breakdown: ${mergedData.summary.testBreakdown.lifecycle} lifecycle, ${mergedData.summary.testBreakdown.standardPatterns} standard, ${mergedData.summary.testBreakdown.reactiveControllers} reactive`);
-  console.log(`   ✓ Saved to: test-coverage.json`);
+  console.log(`   ✓ Saved to: ${path.basename(JSON_PATH)}`);
   
   updateOverviewTimestamp();
 }
