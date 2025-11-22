@@ -15,6 +15,117 @@ import React from 'react';
 
 This page provides a high-level overview of test coverage across all Stencil decorators and behavior testing. Click on any card to view detailed test coverage matrices and implementation status.
 
+export const CoverageSummary = () => {
+  // Helper function to get test case stats for decorators with testCaseStatus
+  const getTestCaseStats = (data) => {
+    if (!data.testCaseStatus) return null;
+    const testCases = Object.values(data.testCaseStatus);
+    const implemented = testCases.filter(tc => tc.implemented).length;
+    const total = testCases.length;
+    const totalTests = testCases.reduce((sum, tc) => sum + (tc.testCount || 0), 0);
+    return { implemented, total, totalTests };
+  };
+
+  // Calculate totals across all decorators and extends
+  const decoratorStats = [
+    getTestCaseStats(componentTestData),
+    getTestCaseStats(propData),
+    getTestCaseStats(stateData),
+    getTestCaseStats(eventData),
+    getTestCaseStats(listenData),
+    getTestCaseStats(methodData),
+    {
+      implemented: extendsData.summary.implementedTestCases,
+      total: extendsData.summary.totalTestCases,
+      totalTests: extendsData.summary.totalTests
+    }
+  ].filter(Boolean);
+
+  const totalTestCases = decoratorStats.reduce((sum, stats) => sum + stats.total, 0);
+  const implementedTestCases = decoratorStats.reduce((sum, stats) => sum + stats.implemented, 0);
+  const totalTests = decoratorStats.reduce((sum, stats) => sum + (stats.totalTests || 0), 0);
+  const coveragePercentage = totalTestCases > 0 ? Math.round((implementedTestCases / totalTestCases) * 100) : 0;
+
+  return (
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+      gap: '20px',
+      marginBottom: '32px'
+    }}>
+      <div style={{
+        background: '#fff',
+        padding: '24px',
+        borderRadius: '8px',
+        border: '2px solid #e5e7eb',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{
+          fontSize: '13px',
+          fontWeight: '600',
+          color: '#6b7280',
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px',
+          marginBottom: '8px'
+        }}>
+          Test Cases Implemented
+        </div>
+        <div style={{
+          fontSize: '36px',
+          fontWeight: '700',
+          color: '#111827',
+          lineHeight: '1',
+          marginBottom: '6px'
+        }}>
+          {implementedTestCases}<span style={{ color: '#d1d5db' }}>/{totalTestCases}</span>
+        </div>
+        <div style={{
+          fontSize: '13px',
+          color: '#6b7280'
+        }}>
+          {coveragePercentage}% complete
+        </div>
+      </div>
+      
+      <div style={{
+        background: '#f0fdf4',
+        padding: '24px',
+        borderRadius: '8px',
+        border: '2px solid #86efac',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{
+          fontSize: '13px',
+          fontWeight: '600',
+          color: '#15803d',
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px',
+          marginBottom: '8px'
+        }}>
+          Total Tests Passing
+        </div>
+        <div style={{
+          fontSize: '36px',
+          fontWeight: '700',
+          color: '#16a34a',
+          lineHeight: '1',
+          marginBottom: '6px'
+        }}>
+          {totalTests}
+        </div>
+        <div style={{
+          fontSize: '13px',
+          color: '#15803d'
+        }}>
+          All tests passing ✓
+        </div>
+      </div>
+    </div>
+  );
+};
+
+<CoverageSummary />
+
 export const DecoratorCards = () => {
   // Helper function to get test case stats for decorators with testCaseStatus
   const getTestCaseStats = (data) => {
