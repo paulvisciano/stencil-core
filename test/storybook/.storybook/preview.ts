@@ -13,6 +13,7 @@ const preview: Preview = {
         order: [
           'Testing',
           [
+            'Coverage Report',
             'Framework',
             [
               'Overview',
