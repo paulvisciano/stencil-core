@@ -24,7 +24,7 @@ The `@Method` decorator exposes public instance methods on a Stencil component. 
 
 ## Test Cases
 
-Test cases are organized by **return type** - from promise-returning methods to void methods. All `@Method` tests reside under <code>test/wdio/method</code>.
+Test cases are organized by **return type** and **behavioral patterns** - from promise-returning methods to void methods, and from basic method calls to inheritance scenarios. `@Method` tests are located throughout the <code>test/wdio</code> directory, with the core generated components in <code>test/wdio/method</code> and additional real-world scenarios in other test directories.
 
 export const MethodCoverageSummary = () => {
   const testCaseStatus = overlay.testCaseStatus || {};
@@ -78,82 +78,47 @@ export const MethodCoverageSummary = () => {
 <MethodCoverageSummary />
 
 export const MethodTestCasesTable = () => {
-  const items = overlay.items || [];
-  const groupIn = (set) => items.filter(i => set.has(i.group));
-  const count = (arr) => ({ tested: arr.filter(i => i.tested).length, total: arr.length });
-
-  const promiseSet = new Set(['promise']);
-  const valueSet = new Set(['value']);
-  const voidSet = new Set(['void']);
-
-  const promise = count(groupIn(promiseSet));
-  const value = count(groupIn(valueSet));
-  const void_ = count(groupIn(voidSet));
-
-  const caseNosFor = (arr) => {
-    const s = new Set();
-    for (const it of arr) {
-      for (const n of (it.caseIds || [])) {
-        s.add(n);
-      }
-    }
-    return Array.from(s).sort((a, b) => a - b);
-  };
-
-  const promiseCases = caseNosFor(groupIn(promiseSet));
-  const valueCases = caseNosFor(groupIn(valueSet));
-  const voidCases = caseNosFor(groupIn(voidSet));
-
-  const case1Implemented = promiseCases.length > 0;
-  const case2Implemented = valueCases.length > 0;
-  const case3Implemented = voidCases.length > 0;
-
-  const rows = [
-    {
-      id: 1,
-      implemented: case1Implemented,
-      desc: 'Promise methods expose public API and update DOM after resolution across different async configurations and argument patterns.',
+  const testCaseStatus = overlay.testCaseStatus || {};
+  const allCaseIds = Object.keys(testCaseStatus).map(id => parseInt(id)).sort((a, b) => a - b);
+  
+  const rows = allCaseIds.map(caseId => {
+    const status = testCaseStatus[caseId];
+    const caseDescriptions = {
+      1: 'Promise methods expose public API and update DOM after resolution across different async configurations and argument patterns.',
+      2: 'Value-returning methods provide immediate results and update component state synchronously.',
+      3: 'Void methods trigger side effects without return values, updating internal state via async lifecycle.',
+      4: 'Method inheritance basics - methods inherited from base classes, super() calls, method override, and method composition.',
+      5: 'Methods with state management - methods that update component state and trigger re-renders.',
+      6: 'Methods returning component instances - methods that return component instances for testing/debugging.',
+      7: 'Methods with DOM/slot interaction - methods that interact with slot elements (assignedElements, assignedNodes).',
+      8: 'Methods with event emission - methods that emit events.',
+      9: 'Methods with dynamic imports - methods that use dynamic imports.',
+      10: 'Methods with focus/blur handling - methods that handle focus/blur events.',
+      11: 'Methods in props/state inheritance - methods that update inherited props and state.',
+      12: 'Methods in mixin inheritance - methods in mixin-based inheritance scenarios.',
+      13: 'Methods in external component inheritance - methods in external component inheritance.',
+      14: 'Methods in component inheritance - methods in component-to-component inheritance.',
+      15: 'Methods in abstract class inheritance - methods in abstract class inheritance.',
+    };
+    
+    return {
+      id: caseId,
+      implemented: status.implemented,
+      desc: caseDescriptions[caseId] || `Test Case #${caseId}`,
       types: (
         <>
-          returns: promise × async: true/false × args: none/one<br/>
-          <small>Covered: {promise.tested}/{promise.total}</small>
+          Components: {status.componentCount || 0}<br/>
+          <small>Tests: {status.testCount || 0}</small>
         </>
       ),
-      tested: promise.tested,
-      total: promise.total,
-      section: case1Implemented ? 'implemented' : 'missing',
-    },
-    {
-      id: 2,
-      implemented: case2Implemented,
-      desc: 'Value-returning methods provide immediate results and update component state synchronously.',
-      types: (
-        <>
-          returns: value × async: true × args: none/one<br/>
-          <small>Covered: {value.tested}/{value.total}</small>
-        </>
-      ),
-      tested: value.tested,
-      total: value.total,
-      section: case2Implemented ? 'implemented' : 'missing',
-    },
-    {
-      id: 3,
-      implemented: case3Implemented,
-      desc: 'Void methods trigger side effects without return values, updating internal state via async lifecycle.',
-      types: (
-        <>
-          returns: void × async: true × args: none/one<br/>
-          <small>Covered: {void_.tested}/{void_.total}</small>
-        </>
-      ),
-      tested: void_.tested,
-      total: void_.total,
-      section: case3Implemented ? 'implemented' : 'missing',
-    },
-  ];
+      tested: status.testCount || 0,
+      total: status.componentCount || 0,
+      section: status.implemented ? 'implemented' : 'missing',
+      testCount: status.testCount || 0,
+    };
+  });
 
-  return <TestCasesTable rows={rows} previewCount={3} />;
+  return <TestCasesTable rows={rows} previewCount={15} />;
 };
 
 <MethodTestCasesTable />
@@ -207,48 +172,69 @@ export const MethodGeneratedComponents = () => {
 
 ## Test Categories
 
-### **🟡 Promise Methods (1)** — 1 test case
-Promise-returning methods that expose public API and update DOM after resolution, covering async configurations and argument patterns.
+### **🟡 Basic Method Types (1-3)** — 3 test cases
+Core method return types covering promise, value, and void methods with various async and argument configurations.
 
-### **🟡 Value Methods (2)** — 1 test case
-Value-returning methods that provide immediate results and update component state synchronously.
+- **Test Case #1 - Promise Methods**: Promise-returning methods that expose public API and update DOM after resolution, covering async configurations and argument patterns. Tests located in `test/wdio/method/tests.tsx`.
+- **Test Case #2 - Value Methods**: Value-returning methods that provide immediate results and update component state synchronously. Tests located in `test/wdio/method/tests.tsx`.
+- **Test Case #3 - Void Methods**: Void methods that trigger side effects without return values, updating internal state via async lifecycle. Tests located in `test/wdio/method/tests.tsx`.
 
-### **🟡 Void Methods (3)** — 1 test case
-Void methods that trigger side effects without return values, updating internal state via async lifecycle.
+### **🟡 Method Inheritance (4)** — 1 test case
+Methods in inheritance scenarios, including base class methods, super() calls, method override, and composition.
+
+- **Test Case #4 - Method Inheritance Basics**: Tests for @Method decorator inheritance, super() calls, method override, and method composition. Tests located in `test/wdio/ts-target/extends-methods/cmp.test.ts`.
+
+### **🟡 State Management Methods (5)** — 1 test case
+Methods that update component state and trigger re-renders.
+
+- **Test Case #5 - Methods with State Management**: Methods that update component state and trigger re-renders. Components: `attribute-boolean-root`, `computed-properties-state-decorator`. Tests located in `test/wdio/attribute-boolean/cmp.test.tsx` and `test/wdio/computed-properties-state-decorator/cmp.test.tsx`.
+
+### **🟡 Instance Return Methods (6)** — 1 test case
+Methods that return component instances for testing or debugging purposes.
+
+- **Test Case #6 - Methods Returning Component Instances**: Methods that return component instances for testing/debugging. Component: `attribute-complex`. Tests located in `test/wdio/attribute-complex/cmp.test.tsx`.
+
+### **🟡 DOM/Slot Interaction Methods (7)** — 1 test case
+Methods that interact with DOM elements, particularly slot elements.
+
+- **Test Case #7 - Methods with DOM/Slot Interaction**: Methods that interact with slot elements (assignedElements, assignedNodes). Component: `scoped-slot-assigned-methods`. Tests located in `test/wdio/scoped-slot-assigned-methods/cmp.test.tsx`.
+
+### **🟡 Event Emission Methods (8)** — 1 test case
+Methods that emit events.
+
+- **Test Case #8 - Methods with Event Emission**: Methods that emit events. Component: `esm-import`. Tests located in `test/wdio/esm-import/cmp.test.tsx`.
+
+### **🟡 Dynamic Import Methods (9)** — 1 test case
+Methods that use dynamic imports.
+
+- **Test Case #9 - Methods with Dynamic Imports**: Methods that use dynamic imports. Component: `dynamic-import`. Tests located in `test/wdio/dynamic-imports/cmp.test.tsx`.
+
+### **🟡 Focus/Blur Handling Methods (10)** — 1 test case
+Methods that handle focus and blur events.
+
+- **Test Case #10 - Methods with Focus/Blur Handling**: Methods that handle focus/blur events. Component: `ion-radio`. Tests located in `test/wdio/radio-group-blur/cmp.test.tsx`.
+
+### **🟡 Inheritance Scenarios (11-15)** — 5 test cases
+Methods in various inheritance scenarios, including props/state inheritance, mixin inheritance, external component inheritance, component inheritance, and abstract class inheritance.
+
+- **Test Case #11 - Methods in Props/State Inheritance**: Methods that update inherited props and state. Component: `extends-props-state`. Tests located in `test/wdio/ts-target/extends-props-state/cmp.test.ts`.
+- **Test Case #12 - Methods in Mixin Inheritance**: Methods in mixin-based inheritance scenarios. Components: `extends-mixin-cmp`, `mixin-a`, `mixin-b`. Tests located in `test/wdio/ts-target/extends-mixin/cmp.test.ts`.
+- **Test Case #13 - Methods in External Component Inheritance**: Methods in external component inheritance. Components: `extends-external`, `sibling-extended-base`. Tests located in `test/wdio/ts-target/extends-external/cmp.test.ts`.
+- **Test Case #14 - Methods in Component Inheritance**: Methods in component-to-component inheritance. Components: `extends-cmp-cmp`, `extended-cmp`. Tests located in `test/wdio/ts-target/extends-cmp/cmp.test.ts`.
+- **Test Case #15 - Methods in Abstract Class Inheritance**: Methods in abstract class inheritance. Components: `extends-abstract`, `mixin-parent`. Tests located in `test/wdio/ts-target/extends-abstract/cmp.test.ts`.
 
 ---
 
 export const MethodTODOSection = () => {
-  const items = overlay.items || [];
-  const groupIn = (set) => items.filter(i => set.has(i.group));
-  const promiseSet = new Set(['promise']);
-  const valueSet = new Set(['value']);
-  const voidSet = new Set(['void']);
+  const testCaseStatus = overlay.testCaseStatus || {};
+  const allCaseIds = Object.keys(testCaseStatus).map(id => parseInt(id)).sort((a, b) => a - b);
   
-  const caseNosFor = (arr) => {
-    const s = new Set();
-    for (const it of arr) {
-      for (const n of (it.caseIds || [])) {
-        s.add(n);
-      }
-    }
-    return Array.from(s).sort((a, b) => a - b);
-  };
-  
-  const promiseCases = caseNosFor(groupIn(promiseSet));
-  const valueCases = caseNosFor(groupIn(valueSet));
-  const voidCases = caseNosFor(groupIn(voidSet));
-  
-  const missingCases = [];
-  if (promiseCases.length === 0) {
-    missingCases.push({ id: 1, desc: 'Promise methods - expose public API and update DOM after resolution' });
-  }
-  if (valueCases.length === 0) {
-    missingCases.push({ id: 2, desc: 'Value-returning methods - provide immediate results and update component state synchronously' });
-  }
-  if (voidCases.length === 0) {
-    missingCases.push({ id: 3, desc: 'Void methods - trigger side effects without return values' });
-  }
+  const missingCases = allCaseIds
+    .filter(caseId => !testCaseStatus[caseId].implemented)
+    .map(caseId => ({
+      id: caseId,
+      desc: `Test Case #${caseId} - Not yet implemented`
+    }));
   
   if (missingCases.length === 0) {
     return null;
@@ -266,26 +252,11 @@ export const MethodTODOSection = () => {
 };
 
 {(() => {
-  const items = overlay.items || [];
-  const groupIn = (set) => items.filter(i => set.has(i.group));
-  const promiseSet = new Set(['promise']);
-  const valueSet = new Set(['value']);
-  const voidSet = new Set(['void']);
+  const testCaseStatus = overlay.testCaseStatus || {};
+  const allCaseIds = Object.keys(testCaseStatus).map(id => parseInt(id)).sort((a, b) => a - b);
+  const implementedCases = allCaseIds.filter(caseId => testCaseStatus[caseId].implemented);
   
-  const caseNosFor = (arr) => {
-    const s = new Set();
-    for (const it of arr) {
-      for (const n of (it.caseIds || [])) {
-        s.add(n);
-      }
-    }
-    return Array.from(s).sort((a, b) => a - b);
-  };
-  
-  const promiseCases = caseNosFor(groupIn(promiseSet));
-  const valueCases = caseNosFor(groupIn(valueSet));
-  const voidCases = caseNosFor(groupIn(voidSet));
-  if (promiseCases.length > 0 && valueCases.length > 0 && voidCases.length > 0) return null;
+  if (implementedCases.length === allCaseIds.length) return null;
   return (
     <>
       <h2>📋 TODO - Remaining Test Cases</h2>
@@ -303,4 +274,15 @@ Generated components are organized by return type under `test/wdio/method/compon
 - `void/` — void-returning methods
 - `value/` — value-returning methods
 - `promise/` — promise-returning methods
+
+Additional components with `@Method` decorators are located throughout the `test/wdio` directory:
+
+- `test/wdio/attribute-boolean/` — State management methods
+- `test/wdio/computed-properties-state-decorator/` — Computed state methods
+- `test/wdio/attribute-complex/` — Instance return methods
+- `test/wdio/scoped-slot-assigned-methods/` — Slot interaction methods
+- `test/wdio/esm-import/` — Event emission methods
+- `test/wdio/dynamic-imports/` — Dynamic import methods
+- `test/wdio/radio-group-blur/` — Focus/blur handling methods
+- `test/wdio/ts-target/extends-*/` — Inheritance scenario methods
 
