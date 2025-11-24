@@ -5,7 +5,7 @@
   "summary": {
     "totalTests": 128,
     "implementedTestCases": 14,
-    "totalTestCases": 19,
+    "totalTestCases": 21,
     "componentsBuilt": 14,
     "componentsTested": 14,
     "testBreakdown": {
@@ -322,10 +322,34 @@
         }
       ]
     },
+    "14": {
+      "implemented": false,
+      "componentCount": 0,
+      "description": "Invalid Inheritance Patterns - Unsupported inheritance scenarios and error conditions",
+      "specPath": "test/wdio/ts-target/extends-invalid-inheritance/cmp.test.ts",
+      "invalidPatternScenarios": [
+        {
+          "scenario": "Circular Inheritance Attempts",
+          "description": "Attempts to create circular inheritance chains - compiler error handling"
+        },
+        {
+          "scenario": "Unsupported Inheritance Scenarios",
+          "description": "Invalid inheritance patterns that should be rejected by the compiler"
+        },
+        {
+          "scenario": "Compiler Error Validation",
+          "description": "Verify appropriate compiler errors for invalid inheritance patterns"
+        },
+        {
+          "scenario": "Error Message Verification",
+          "description": "Ensure error messages are clear and helpful for developers"
+        }
+      ]
+    },
     "15": {
       "implemented": false,
       "componentCount": 0,
-      "description": "Decorator Conflicts & Edge Cases - Testing inheritance chain conflicts and compiler behavior",
+      "description": "Decorator Conflicts - Duplicate decorator names of the same type in inheritance chains",
       "specPath": "test/wdio/ts-target/extends-conflicts/cmp.test.ts",
       "conflictScenarios": [
         {
@@ -341,16 +365,32 @@
           "description": "Same method name defined in base class and component - override behavior"
         },
         {
-          "scenario": "Mixed Decorator Types",
-          "description": "Same name used as @Prop in base, @State in component - compiler error handling"
+          "scenario": "Compiler Precedence Rules",
+          "description": "Verify compiler precedence rules when duplicate names exist"
+        }
+      ]
+    },
+    "20": {
+      "implemented": false,
+      "componentCount": 0,
+      "description": "Mixed Decorator Types - Same name used as different decorator types in inheritance chains",
+      "specPath": "test/wdio/ts-target/extends-mixed-decorators/cmp.test.ts",
+      "mixedDecoratorScenarios": [
+        {
+          "scenario": "@Prop in Base, @State in Component",
+          "description": "Same name used as @Prop in base class and @State in component - compiler error handling"
         },
         {
-          "scenario": "Invalid Inheritance Patterns",
-          "description": "Unsupported inheritance scenarios and error conditions"
+          "scenario": "@State in Base, @Prop in Component",
+          "description": "Same name used as @State in base class and @Prop in component - compiler error handling"
         },
         {
-          "scenario": "Compiler Error Validation",
-          "description": "Verify appropriate compiler errors for invalid decorator conflicts"
+          "scenario": "@Method in Base, @Prop in Component",
+          "description": "Same name used as @Method in base class and @Prop in component - compiler error handling"
+        },
+        {
+          "scenario": "Compiler Error Handling",
+          "description": "Verify appropriate compiler errors for mixed decorator types"
         }
       ]
     },
@@ -634,12 +674,30 @@
       ]
     },
     {
+      "index": 14,
+      "group": "invalid-inheritance",
+      "tested": false,
+      "tag": "extends-invalid-inheritance",
+      "caseNumbers": [
+        14
+      ]
+    },
+    {
       "index": 15,
       "group": "conflicts",
       "tested": false,
       "tag": "extends-conflicts",
       "caseNumbers": [
         15
+      ]
+    },
+    {
+      "index": 20,
+      "group": "mixed-decorators",
+      "tested": false,
+      "tag": "extends-mixed-decorators",
+      "caseNumbers": [
+        20
       ]
     },
     {

@@ -336,13 +336,13 @@ export const ExtendsTestCasesTable = () => {
       desc: testCaseStatus[14]?.description || '',
       types: (
         <>
-          <strong>🔵 Advanced:</strong> ValidationController - Form validation logic via extends<br/>
-          <strong>Controller Features:</strong> Validation rules, error state, async validation, form integration<br/>
-          <small>Demonstrates practical validation pattern | Business logic reuse | Real-world forms</small>
+          <strong>🔴 Robustness:</strong> Invalid Inheritance Patterns - Unsupported inheritance scenarios and error conditions<br/>
+          <strong>Error Scenarios:</strong> Circular inheritance attempts, unsupported patterns, compiler error validation<br/>
+          <small>Ensures reliability | Error handling | Compiler validation | Developer experience</small>
         </>
       ),
-      tested: getGroupStats('validation').tested,
-      total: getGroupStats('validation').total,
+      tested: getGroupStats('invalid-inheritance').tested,
+      total: getGroupStats('invalid-inheritance').total,
       testCount: testCaseStatus[14]?.testCount || 0,
       section: testCaseStatus[14]?.implemented ? 'implemented' : 'missing',
     },
@@ -353,9 +353,9 @@ export const ExtendsTestCasesTable = () => {
       desc: testCaseStatus[15]?.description || '',
       types: (
         <>
-          <strong>🔴 Robustness:</strong> Decorator Conflicts & Edge Cases - Duplicate decorators, override conflicts<br/>
-          <strong>Edge Cases:</strong> Multiple @Prop/@State same name, @Method conflicts, @Watch duplication<br/>
-          <small>Ensures reliability | Error handling | Conflict resolution | Developer experience</small>
+          <strong>🔴 Robustness:</strong> Decorator Conflicts - Duplicate decorator names of the same type<br/>
+          <strong>Conflict Scenarios:</strong> Duplicate @Prop names, duplicate @State names, duplicate @Method names<br/>
+          <small>Ensures reliability | Compiler precedence rules | Override behavior | Developer experience</small>
         </>
       ),
       tested: getGroupStats('conflicts').tested,
@@ -428,6 +428,22 @@ export const ExtendsTestCasesTable = () => {
       total: getGroupStats('composition-scaling').total,
       testCount: testCaseStatus[19]?.testCount || 0,
       section: testCaseStatus[19]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 20,
+      implemented: testCaseStatus[20]?.implemented || false,
+      desc: testCaseStatus[20]?.description || '',
+      types: (
+        <>
+          <strong>🔴 Robustness:</strong> Mixed Decorator Types - Same name used as different decorator types<br/>
+          <strong>Mixed Scenarios:</strong> @Prop in base/@State in component, @State in base/@Prop in component, @Method in base/@Prop in component<br/>
+          <small>Ensures reliability | Compiler error handling | Type conflict resolution | Developer experience</small>
+        </>
+      ),
+      tested: getGroupStats('mixed-decorators').tested,
+      total: getGroupStats('mixed-decorators').total,
+      testCount: testCaseStatus[20]?.testCount || 0,
+      section: testCaseStatus[20]?.implemented ? 'implemented' : 'missing',
     }
   ];
 
@@ -449,8 +465,8 @@ Common inheritance scenarios including abstract classes, component-to-component,
 ### **🔵 Advanced Real-World (12, 12a, 13-14, 17-19)** — 7 test cases
 Real-world reactive controller patterns comparing Stencil's extends capabilities with other frameworks like Lit, demonstrating practical use cases including composition-based ReactiveControllerHost pattern and scaling demonstrations for both inheritance and composition approaches.
 
-### **🔴 Robustness & Production (15-16)** — 2 test cases
-Edge cases, decorator conflicts, SSR behavior, and production-ready scenarios to ensure extends works reliably in all environments.
+### **🔴 Robustness & Production (14-16, 20)** — 4 test cases
+Edge cases, invalid inheritance patterns, decorator conflicts, mixed decorator types, SSR behavior, and production-ready scenarios to ensure extends works reliably in all environments.
 
 ---
 
@@ -465,7 +481,9 @@ Edge cases, decorator conflicts, SSR behavior, and production-ready scenarios to
 
 13. **Test Case #13 TODO**: FloatingUI Controller (Popper.js integration)
 
-### 🔴 Robustness & Production (2 remaining)
+### 🔴 Robustness & Production (4 remaining)
 
-15. **Test Case #15 TODO**: Decorator Conflicts & Edge Cases  
+14. **Test Case #14 TODO**: Invalid Inheritance Patterns
+15. **Test Case #15 TODO**: Decorator Conflicts
 16. **Test Case #16 TODO**: SSR & Hydration behavior
+20. **Test Case #20 TODO**: Mixed Decorator Types

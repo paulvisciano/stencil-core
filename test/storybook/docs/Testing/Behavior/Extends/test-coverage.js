@@ -25,11 +25,13 @@ const DIRECTORY_TO_TEST_CASE = {
   'extends-controller-updates': '12',
   'extends-direct-state': '12a',
   'extends-floating-ui': '13',
-  'extends-via-host': '17',
+  'extends-invalid-inheritance': '14',
   'extends-conflicts': '15',
   'extends-ssr': '16',
+  'extends-via-host': '17',
   'extends-inheritance-scaling': '18',
   'extends-composition-scaling': '19',
+  'extends-mixed-decorators': '20',
 };
 
 /**
