@@ -228,6 +228,7 @@ describe('@Component decorator', () => {
     it('renders content inside shadow root', async () => {
       const selector = 'cmp-shadow';
       const cmp = await $(selector);
+      await expect(cmp).toExist();
       
       const content = await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
@@ -242,6 +243,7 @@ describe('@Component decorator', () => {
     it('applies inline styles in shadow DOM', async () => {
       const selector = 'cmp-shadow-styles';
       const cmp = await $(selector);
+      await expect(cmp).toExist();
       
       const displayStyle = await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
@@ -309,6 +311,7 @@ describe('@Component decorator', () => {
     it('combines assetsDirs and styles in shadow DOM', async () => {
       const selector = 'cmp-shadow-assetsdirs-styles';
       const cmp = await $(selector);
+      await expect(cmp).toExist();
       
       const displayStyle = await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
@@ -322,6 +325,7 @@ describe('@Component decorator', () => {
     it('combines assetsDirs, formAssociated, and styles in shadow DOM', async () => {
       const selector = 'cmp-shadow-assetsdirs-formassociated-styles';
       const cmp = await $(selector);
+      await expect(cmp).toExist();
       
       const displayStyle = await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
@@ -350,6 +354,7 @@ describe('@Component decorator', () => {
     it('renders content in light DOM', async () => {
       const selector = 'cmp-scoped';
       const cmp = await $(selector);
+      await expect(cmp).toExist();
       
       const content = await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
@@ -363,6 +368,7 @@ describe('@Component decorator', () => {
     it('applies scoped inline styles', async () => {
       const selector = 'cmp-scoped-styles';
       const cmp = await $(selector);
+      await expect(cmp).toExist();
       
       const displayStyle = await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
@@ -428,6 +434,7 @@ describe('@Component decorator', () => {
     it('combines assetsDirs and styles in scoped mode', async () => {
       const selector = 'cmp-scoped-assetsdirs-styles';
       const cmp = await $(selector);
+      await expect(cmp).toExist();
       
       const displayStyle = await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
@@ -441,6 +448,7 @@ describe('@Component decorator', () => {
     it('combines assetsDirs, formAssociated, and styles in scoped mode', async () => {
       const selector = 'cmp-scoped-assetsdirs-formassociated-styles';
       const cmp = await $(selector);
+      await expect(cmp).toExist();
       
       const displayStyle = await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
@@ -469,6 +477,7 @@ describe('@Component decorator', () => {
     it('renders content in light DOM', async () => {
       const selector = 'cmp-base';
       const cmp = await $(selector);
+      await expect(cmp).toExist();
       
       const content = await (browser as any).execute((sel: string) => {
         const el: any = document.querySelector(sel);
