@@ -56,23 +56,20 @@ export const StateCoverageSummary = () => {
       </div>
       
       <div style={{ 
-        background: '#f0fdf4', 
+        background: '#fff', 
         padding: '20px', 
         borderRadius: '8px', 
-        border: '2px solid #86efac',
+        border: '2px solid #e5e7eb',
         boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
       }}>
-        <div style={{ fontSize: '13px', fontWeight: '600', color: '#15803d', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
-          Total Tests Passing
+        <div style={{ fontSize: '13px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
+          Total Tests
         </div>
-        <div style={{ fontSize: '36px', fontWeight: '700', color: '#16a34a', lineHeight: '1', marginBottom: '6px' }}>
+        <div style={{ fontSize: '36px', fontWeight: '700', color: '#111827', lineHeight: '1', marginBottom: '6px' }}>
           {totalTests}
         </div>
-        <div style={{ fontSize: '13px', color: '#15803d', marginBottom: '8px' }}>
-          All tests passing ✓
-        </div>
-        <div style={{ fontSize: '11px', color: '#15803d', opacity: 0.8, borderTop: '1px solid #86efac', paddingTop: '8px', marginTop: '8px' }}>
-          📅 Last run: {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' })}
+        <div style={{ fontSize: '13px', color: '#6b7280', borderTop: '1px solid #e5e7eb', paddingTop: '8px', marginTop: '8px' }}>
+          📅 Last run: {overlay.lastRunFormatted || 'Never'}
         </div>
       </div>
     </div>

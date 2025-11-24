@@ -296,12 +296,26 @@ export function generateTestCoverage({
   // Calculate test case implementation status
   const testCaseStatus = calculateTestCaseStatus(items, testDir);
   
+  // Create timestamp data
+  const timestamp = new Date().toISOString();
+  const timestampFormatted = new Date().toLocaleString('en-US', {
+    timeZone: 'America/Los_Angeles',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZoneName: 'short'
+  });
+  
   // Write output
   const output = {
     coverage: data.coverage || {},
     stats,
     testCaseStatus,
-    items
+    items,
+    lastRun: timestamp,
+    lastRunFormatted: timestampFormatted
   };
   
   writeJson(outPath, output);

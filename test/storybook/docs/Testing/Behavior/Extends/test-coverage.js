@@ -268,6 +268,21 @@ function main() {
   
   const mergedData = mergeCoverageData();
   
+  // Add timestamp to the merged data
+  const timestamp = new Date().toISOString();
+  const timestampFormatted = new Date().toLocaleString('en-US', {
+    timeZone: 'America/Los_Angeles',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZoneName: 'short'
+  });
+  
+  mergedData.lastRun = timestamp;
+  mergedData.lastRunFormatted = timestampFormatted;
+  
   fs.writeFileSync(JSON_PATH, JSON.stringify(mergedData, null, 2));
   
   console.log('✅ Extends coverage data updated:');

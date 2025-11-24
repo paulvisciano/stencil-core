@@ -22,6 +22,7 @@
     "method:test-coverage": "cd ../../Testing/Decorators/Method && node test-coverage.js",
     "extends:test": "cd ../../../../wdio && npm run wdio -- --spec='./ts-target/extends-*/*.test.ts'",
     "extends:test-coverage": "cd ../../Testing/Behavior/Extends && node test-coverage.js",
-    "postextends:test": "npm run extends:test-coverage"
+    "postextends:test": "npm run extends:test-coverage",
+    "posttests": "npm run test-coverage"
   }
 }
