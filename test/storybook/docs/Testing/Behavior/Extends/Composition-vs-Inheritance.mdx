@@ -4,6 +4,22 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Composition vs Inheritance
 
+## Introduction
+
+Starting with **Stencil v4.37.0** (via [PR #6362](https://github.com/stenciljs/core/pull/6362)), Stencil components gained support for class inheritance (`extends`) and mixin composition (`Mixin()`). Mixins allow for multiple inheritance, enabling components to inherit from multiple base classes simultaneously. This foundational capability enables a powerful architectural pattern: **moving logic out of components into reusable helper classes, commonly called controllers**.
+
+Controllers are separate classes that house behavior and can be shared across many components. They can be integrated into components using three primary approaches:
+
+1. **Single Inheritance**: Using `extends` to inherit from a single controller base class (when you only need one controller)
+2. **Multiple Inheritance (Mixins)**: Using Stencil's `Mixin()` function to compose multiple controller behaviors into a single base class via multiple inheritance (when you need multiple controllers)
+3. **Composition**: Using controller instances within components that extend a stable base class like `ReactiveControllerHost`
+
+This pattern provides several key benefits:
+- **Separation of concerns**: Business logic lives in controllers, not components
+- **Reusability**: Controllers can be shared across multiple components
+- **Testability**: Controllers can be tested independently of components
+- **Maintainability**: Changes to behavior are centralized in controller classes
+
 This document compares inheritance-based and composition-based patterns at scale, examining how each approach performs when building a component library with many components and controllers. We analyze two test cases that demonstrate the trade-offs and scaling characteristics of each pattern.
 
 ## Test Cases
