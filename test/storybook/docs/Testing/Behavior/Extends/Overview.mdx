@@ -313,23 +313,6 @@ export const ExtendsTestCasesTable = () => {
       testCount: testCaseStatus[11]?.testCount || 0,
       section: testCaseStatus[11]?.implemented ? 'implemented' : 'missing',
     },
-    // 🔵 Advanced Real-World (13-14) - TODO
-    {
-      id: 13,
-      implemented: testCaseStatus[13]?.implemented || false,
-      desc: testCaseStatus[13]?.description || '',
-      types: (
-        <>
-          <strong>🔵 Advanced:</strong> FloatingUI Controller - Real-world Popper.js integration via extends<br/>
-          <strong>Controller Features:</strong> Positioning logic, lifecycle integration, dynamic updates, cleanup<br/>
-          <small>Demonstrates practical controller pattern | Real library integration | Production use case</small>
-        </>
-      ),
-      tested: getGroupStats('floatingui').tested,
-      total: getGroupStats('floatingui').total,
-      testCount: testCaseStatus[13]?.testCount || 0,
-      section: testCaseStatus[13]?.implemented ? 'implemented' : 'missing',
-    },
     {
       id: 14,
       implemented: testCaseStatus[14]?.implemented || false,
@@ -462,7 +445,7 @@ Foundation patterns for lifecycle inheritance, property/state basics, method inh
 ### **🟡 Standard Patterns (6-11)** — 6 test cases
 Common inheritance scenarios including abstract classes, component-to-component, external libraries, mixins, event handling, and watch decorators.
 
-### **🔵 Advanced Real-World (12, 12a, 13-14, 17-19)** — 7 test cases
+### **🔵 Advanced Real-World (12, 12a, 14, 17-19)** — 6 test cases
 Real-world reactive controller patterns comparing Stencil's extends capabilities with other frameworks like Lit, demonstrating practical use cases including composition-based ReactiveControllerHost pattern and scaling demonstrations for both inheritance and composition approaches.
 
 ### **🔴 Robustness & Production (14-16, 20)** — 4 test cases
@@ -476,7 +459,7 @@ export const ExtendsTODOSection = () => {
   // Define categories (avoid duplicates - each test case belongs to one category)
   const categories = {
     '🟡 Standard Patterns': [6, 7, 8, 9, 10, 11],
-    '🔵 Advanced Real-World': [12, '12a', 13, 17, 18, 19],
+    '🔵 Advanced Real-World': [12, '12a', 17, 18, 19],
     '🔴 Robustness & Production': [14, 15, 16, 20],
   };
   

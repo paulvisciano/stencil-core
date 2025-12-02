@@ -5,7 +5,7 @@
   "summary": {
     "totalTests": 155,
     "implementedTestCases": 16,
-    "totalTestCases": 21,
+    "totalTestCases": 20,
     "componentsBuilt": 16,
     "componentsTested": 16,
     "testBreakdown": {
@@ -305,30 +305,6 @@
         {
           "feature": "Explicit Update Requests",
           "description": "Controller requests updates, doesn't force them - component decides how to respond"
-        }
-      ]
-    },
-    "13": {
-      "implemented": false,
-      "componentCount": 0,
-      "description": "FloatingUI Controller - Real-world reactive controller for Popper.js integration (Bricks components)",
-      "specPath": "test/wdio/ts-target/extends-floating-ui/cmp.test.ts",
-      "controllerFeatures": [
-        {
-          "feature": "Popper Instance Management",
-          "description": "Controller creates and manages Popper class instance in componentDidLoad lifecycle"
-        },
-        {
-          "feature": "Update Methods",
-          "description": "Provides update()/updateInstance() methods to replace updatePopoverInstance() in host components"
-        },
-        {
-          "feature": "Lifecycle Cleanup",
-          "description": "Handles popper.destroy() cleanup in disconnectedCallback"
-        },
-        {
-          "feature": "Real-world Integration",
-          "description": "Used by bricks-tooltip and bricks-menu-button components from Bricks component library"
         }
       ]
     },
@@ -672,15 +648,6 @@
       "tag": "extends-via-host",
       "caseNumbers": [
         17
-      ]
-    },
-    {
-      "index": 13,
-      "group": "floating-ui",
-      "tested": false,
-      "tag": "extends-floating-ui",
-      "caseNumbers": [
-        13
       ]
     },
     {
