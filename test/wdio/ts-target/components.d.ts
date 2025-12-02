@@ -192,6 +192,47 @@ export namespace Components {
     }
     interface ExtendsViaHostCmp {
     }
+    /**
+     * WatchCmp - Demonstrates
+     * @Watch decorator inheritance
+     * This component:
+     * 1. Extends WatchBase (inherits base
+     * @Watch decorators)
+     * 2. Adds additional
+     * @Watch decorators
+     * 3. Overrides base watch handler (overrideProp)
+     * 4. Demonstrates watch execution order
+     * 5. Demonstrates reactive property chains
+     */
+    interface ExtendsWatch {
+        /**
+          * @default 0
+         */
+        "baseCount": number;
+        /**
+          * @default 'base prop initial'
+         */
+        "baseProp": string;
+        /**
+          * @default 'child prop initial'
+         */
+        "childProp": string;
+        "incrementBaseCount": () => Promise<void>;
+        "incrementBaseCounter": () => Promise<void>;
+        "incrementChildCounter": () => Promise<void>;
+        /**
+          * @default 'override prop initial'
+         */
+        "overrideProp": string;
+        "resetWatchLogs": () => Promise<void>;
+        "updateBaseCount": (value: number) => Promise<void>;
+        "updateBaseCounter": (value: number) => Promise<void>;
+        "updateBaseProp": (value: string) => Promise<void>;
+        "updateBaseState": (value: string) => Promise<void>;
+        "updateChildCounter": (value: number) => Promise<void>;
+        "updateChildProp": (value: string) => Promise<void>;
+        "updateOverrideProp": (value: string) => Promise<void>;
+    }
     interface InheritanceCheckboxGroup {
     }
     interface InheritanceRadioGroup {
@@ -405,6 +446,24 @@ declare global {
         prototype: HTMLExtendsViaHostCmpElement;
         new (): HTMLExtendsViaHostCmpElement;
     };
+    /**
+     * WatchCmp - Demonstrates
+     * @Watch decorator inheritance
+     * This component:
+     * 1. Extends WatchBase (inherits base
+     * @Watch decorators)
+     * 2. Adds additional
+     * @Watch decorators
+     * 3. Overrides base watch handler (overrideProp)
+     * 4. Demonstrates watch execution order
+     * 5. Demonstrates reactive property chains
+     */
+    interface HTMLExtendsWatchElement extends Components.ExtendsWatch, HTMLStencilElement {
+    }
+    var HTMLExtendsWatchElement: {
+        prototype: HTMLExtendsWatchElement;
+        new (): HTMLExtendsWatchElement;
+    };
     interface HTMLInheritanceCheckboxGroupElementEventMap {
         "valueChange": string[];
     }
@@ -481,6 +540,7 @@ declare global {
         "extends-props-state": HTMLExtendsPropsStateElement;
         "extends-render": HTMLExtendsRenderElement;
         "extends-via-host-cmp": HTMLExtendsViaHostCmpElement;
+        "extends-watch": HTMLExtendsWatchElement;
         "inheritance-checkbox-group": HTMLInheritanceCheckboxGroupElement;
         "inheritance-radio-group": HTMLInheritanceRadioGroupElement;
         "inheritance-scaling-demo": HTMLInheritanceScalingDemoElement;
@@ -628,6 +688,36 @@ declare namespace LocalJSX {
     }
     interface ExtendsViaHostCmp {
     }
+    /**
+     * WatchCmp - Demonstrates
+     * @Watch decorator inheritance
+     * This component:
+     * 1. Extends WatchBase (inherits base
+     * @Watch decorators)
+     * 2. Adds additional
+     * @Watch decorators
+     * 3. Overrides base watch handler (overrideProp)
+     * 4. Demonstrates watch execution order
+     * 5. Demonstrates reactive property chains
+     */
+    interface ExtendsWatch {
+        /**
+          * @default 0
+         */
+        "baseCount"?: number;
+        /**
+          * @default 'base prop initial'
+         */
+        "baseProp"?: string;
+        /**
+          * @default 'child prop initial'
+         */
+        "childProp"?: string;
+        /**
+          * @default 'override prop initial'
+         */
+        "overrideProp"?: string;
+    }
     interface InheritanceCheckboxGroup {
         "onValueChange"?: (event: InheritanceCheckboxGroupCustomEvent<string[]>) => void;
     }
@@ -674,6 +764,7 @@ declare namespace LocalJSX {
         "extends-props-state": ExtendsPropsState;
         "extends-render": ExtendsRender;
         "extends-via-host-cmp": ExtendsViaHostCmp;
+        "extends-watch": ExtendsWatch;
         "inheritance-checkbox-group": InheritanceCheckboxGroup;
         "inheritance-radio-group": InheritanceRadioGroup;
         "inheritance-scaling-demo": InheritanceScalingDemo;
@@ -739,6 +830,19 @@ declare module "@stencil/core" {
              */
             "extends-render": LocalJSX.ExtendsRender & JSXBase.HTMLAttributes<HTMLExtendsRenderElement>;
             "extends-via-host-cmp": LocalJSX.ExtendsViaHostCmp & JSXBase.HTMLAttributes<HTMLExtendsViaHostCmpElement>;
+            /**
+             * WatchCmp - Demonstrates
+             * @Watch decorator inheritance
+             * This component:
+             * 1. Extends WatchBase (inherits base
+             * @Watch decorators)
+             * 2. Adds additional
+             * @Watch decorators
+             * 3. Overrides base watch handler (overrideProp)
+             * 4. Demonstrates watch execution order
+             * 5. Demonstrates reactive property chains
+             */
+            "extends-watch": LocalJSX.ExtendsWatch & JSXBase.HTMLAttributes<HTMLExtendsWatchElement>;
             "inheritance-checkbox-group": LocalJSX.InheritanceCheckboxGroup & JSXBase.HTMLAttributes<HTMLInheritanceCheckboxGroupElement>;
             "inheritance-radio-group": LocalJSX.InheritanceRadioGroup & JSXBase.HTMLAttributes<HTMLInheritanceRadioGroupElement>;
             /**

@@ -3,17 +3,17 @@
   "description": "Comprehensive testing framework for Stencil extends functionality covering lifecycle, decorators, controllers, and edge cases",
   "version": "2025-12-02",
   "summary": {
-    "totalTests": 139,
-    "implementedTestCases": 15,
+    "totalTests": 155,
+    "implementedTestCases": 16,
     "totalTestCases": 21,
-    "componentsBuilt": 15,
-    "componentsTested": 15,
+    "componentsBuilt": 16,
+    "componentsTested": 16,
     "testBreakdown": {
       "lifecycle": 13,
-      "standardPatterns": 96,
+      "standardPatterns": 112,
       "reactiveControllers": 30
     },
-    "note": "Last updated: December 2, 2025 at 6:06 AM PST"
+    "note": "Last updated: December 2, 2025 at 6:24 AM PST"
   },
   "testCaseStatus": {
     "1": {
@@ -255,8 +255,8 @@
       }
     },
     "11": {
-      "implemented": false,
-      "componentCount": 0,
+      "implemented": true,
+      "componentCount": 1,
       "description": "Watch Decorator Inheritance - @Watch behavior through inheritance chains and reactive patterns",
       "specPath": "test/wdio/ts-target/extends-watch/cmp.test.ts",
       "watchFeatures": [
@@ -276,7 +276,12 @@
           "feature": "Watch Handler Override",
           "description": "When base class and component both watch same property - execution behavior and conflicts"
         }
-      ]
+      ],
+      "testCount": 16,
+      "testBreakdown": {
+        "dist": 13,
+        "customElements": 3
+      }
     },
     "12": {
       "implemented": true,
