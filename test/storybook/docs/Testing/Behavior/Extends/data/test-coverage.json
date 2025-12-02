@@ -1,19 +1,19 @@
 {
   "extends": "Stencil component inheritance and composition testing",
   "description": "Comprehensive testing framework for Stencil extends functionality covering lifecycle, decorators, controllers, and edge cases",
-  "version": "2025-11-18",
+  "version": "2025-12-02",
   "summary": {
-    "totalTests": 128,
-    "implementedTestCases": 14,
+    "totalTests": 139,
+    "implementedTestCases": 15,
     "totalTestCases": 21,
-    "componentsBuilt": 14,
-    "componentsTested": 14,
+    "componentsBuilt": 15,
+    "componentsTested": 15,
     "testBreakdown": {
       "lifecycle": 13,
-      "standardPatterns": 85,
+      "standardPatterns": 96,
       "reactiveControllers": 30
     },
-    "note": "Last updated: November 17, 2025 at 8:21 PM PST"
+    "note": "Last updated: December 2, 2025 at 6:06 AM PST"
   },
   "testCaseStatus": {
     "1": {
@@ -226,8 +226,8 @@
       }
     },
     "10": {
-      "implemented": false,
-      "componentCount": 0,
+      "implemented": true,
+      "componentCount": 1,
       "description": "Event Handling Inheritance - @Listen decorators and event propagation through inheritance chains",
       "specPath": "test/wdio/ts-target/extends-events/cmp.test.ts",
       "eventFeatures": [
@@ -247,7 +247,12 @@
           "feature": "Event Handler Override",
           "description": "When base class and component define same event handler - which executes and in what order"
         }
-      ]
+      ],
+      "testCount": 11,
+      "testBreakdown": {
+        "dist": 9,
+        "customElements": 2
+      }
     },
     "11": {
       "implemented": false,
@@ -370,30 +375,6 @@
         }
       ]
     },
-    "20": {
-      "implemented": false,
-      "componentCount": 0,
-      "description": "Mixed Decorator Types - Same name used as different decorator types in inheritance chains",
-      "specPath": "test/wdio/ts-target/extends-mixed-decorators/cmp.test.ts",
-      "mixedDecoratorScenarios": [
-        {
-          "scenario": "@Prop in Base, @State in Component",
-          "description": "Same name used as @Prop in base class and @State in component - compiler error handling"
-        },
-        {
-          "scenario": "@State in Base, @Prop in Component",
-          "description": "Same name used as @State in base class and @Prop in component - compiler error handling"
-        },
-        {
-          "scenario": "@Method in Base, @Prop in Component",
-          "description": "Same name used as @Method in base class and @Prop in component - compiler error handling"
-        },
-        {
-          "scenario": "Compiler Error Handling",
-          "description": "Verify appropriate compiler errors for mixed decorator types"
-        }
-      ]
-    },
     "16": {
       "implemented": false,
       "componentCount": 0,
@@ -503,6 +484,30 @@
         {
           "feature": "Encapsulation",
           "description": "Controllers are accessed via properties (this.validation, this.focus) providing better encapsulation"
+        }
+      ]
+    },
+    "20": {
+      "implemented": false,
+      "componentCount": 0,
+      "description": "Mixed Decorator Types - Same name used as different decorator types in inheritance chains",
+      "specPath": "test/wdio/ts-target/extends-mixed-decorators/cmp.test.ts",
+      "mixedDecoratorScenarios": [
+        {
+          "scenario": "@Prop in Base, @State in Component",
+          "description": "Same name used as @Prop in base class and @State in component - compiler error handling"
+        },
+        {
+          "scenario": "@State in Base, @Prop in Component",
+          "description": "Same name used as @State in base class and @Prop in component - compiler error handling"
+        },
+        {
+          "scenario": "@Method in Base, @Prop in Component",
+          "description": "Same name used as @Method in base class and @Prop in component - compiler error handling"
+        },
+        {
+          "scenario": "Compiler Error Handling",
+          "description": "Verify appropriate compiler errors for mixed decorator types"
         }
       ]
     },

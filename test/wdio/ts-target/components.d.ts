@@ -70,6 +70,19 @@ export namespace Components {
     }
     interface ExtendsDirectState {
     }
+    /**
+     * EventsCmp - Demonstrates
+     * @Listen decorator inheritance
+     * This component:
+     * 1. Extends EventBase (inherits base
+     * @Listen decorators)
+     * 2. Adds additional
+     * @Listen decorators
+     * 3. Overrides base event handler
+     * 4. Demonstrates event bubbling and propagation
+     */
+    interface ExtendsEvents {
+    }
     interface ExtendsExternal {
         "method1": () => Promise<void>;
         "method2": () => Promise<void>;
@@ -307,6 +320,23 @@ declare global {
         prototype: HTMLExtendsDirectStateElement;
         new (): HTMLExtendsDirectStateElement;
     };
+    /**
+     * EventsCmp - Demonstrates
+     * @Listen decorator inheritance
+     * This component:
+     * 1. Extends EventBase (inherits base
+     * @Listen decorators)
+     * 2. Adds additional
+     * @Listen decorators
+     * 3. Overrides base event handler
+     * 4. Demonstrates event bubbling and propagation
+     */
+    interface HTMLExtendsEventsElement extends Components.ExtendsEvents, HTMLStencilElement {
+    }
+    var HTMLExtendsEventsElement: {
+        prototype: HTMLExtendsEventsElement;
+        new (): HTMLExtendsEventsElement;
+    };
     interface HTMLExtendsExternalElement extends Components.ExtendsExternal, HTMLStencilElement {
     }
     var HTMLExtendsExternalElement: {
@@ -442,6 +472,7 @@ declare global {
         "extends-cmp-cmp": HTMLExtendsCmpCmpElement;
         "extends-controller-updates": HTMLExtendsControllerUpdatesElement;
         "extends-direct-state": HTMLExtendsDirectStateElement;
+        "extends-events": HTMLExtendsEventsElement;
         "extends-external": HTMLExtendsExternalElement;
         "extends-lifecycle-basic": HTMLExtendsLifecycleBasicElement;
         "extends-lifecycle-multilevel": HTMLExtendsLifecycleMultilevelElement;
@@ -515,6 +546,19 @@ declare namespace LocalJSX {
     interface ExtendsControllerUpdates {
     }
     interface ExtendsDirectState {
+    }
+    /**
+     * EventsCmp - Demonstrates
+     * @Listen decorator inheritance
+     * This component:
+     * 1. Extends EventBase (inherits base
+     * @Listen decorators)
+     * 2. Adds additional
+     * @Listen decorators
+     * 3. Overrides base event handler
+     * 4. Demonstrates event bubbling and propagation
+     */
+    interface ExtendsEvents {
     }
     interface ExtendsExternal {
         /**
@@ -621,6 +665,7 @@ declare namespace LocalJSX {
         "extends-cmp-cmp": ExtendsCmpCmp;
         "extends-controller-updates": ExtendsControllerUpdates;
         "extends-direct-state": ExtendsDirectState;
+        "extends-events": ExtendsEvents;
         "extends-external": ExtendsExternal;
         "extends-lifecycle-basic": ExtendsLifecycleBasic;
         "extends-lifecycle-multilevel": ExtendsLifecycleMultilevel;
@@ -654,6 +699,18 @@ declare module "@stencil/core" {
             "extends-cmp-cmp": LocalJSX.ExtendsCmpCmp & JSXBase.HTMLAttributes<HTMLExtendsCmpCmpElement>;
             "extends-controller-updates": LocalJSX.ExtendsControllerUpdates & JSXBase.HTMLAttributes<HTMLExtendsControllerUpdatesElement>;
             "extends-direct-state": LocalJSX.ExtendsDirectState & JSXBase.HTMLAttributes<HTMLExtendsDirectStateElement>;
+            /**
+             * EventsCmp - Demonstrates
+             * @Listen decorator inheritance
+             * This component:
+             * 1. Extends EventBase (inherits base
+             * @Listen decorators)
+             * 2. Adds additional
+             * @Listen decorators
+             * 3. Overrides base event handler
+             * 4. Demonstrates event bubbling and propagation
+             */
+            "extends-events": LocalJSX.ExtendsEvents & JSXBase.HTMLAttributes<HTMLExtendsEventsElement>;
             "extends-external": LocalJSX.ExtendsExternal & JSXBase.HTMLAttributes<HTMLExtendsExternalElement>;
             "extends-lifecycle-basic": LocalJSX.ExtendsLifecycleBasic & JSXBase.HTMLAttributes<HTMLExtendsLifecycleBasicElement>;
             "extends-lifecycle-multilevel": LocalJSX.ExtendsLifecycleMultilevel & JSXBase.HTMLAttributes<HTMLExtendsLifecycleMultilevelElement>;

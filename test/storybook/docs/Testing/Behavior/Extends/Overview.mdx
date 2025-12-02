@@ -64,7 +64,7 @@ export const ExtendsCoverageSummary = () => {
           All tests passing ✓
         </div>
         <div style={{ fontSize: '11px', color: '#15803d', opacity: 0.8, borderTop: '1px solid #86efac', paddingTop: '8px', marginTop: '8px' }}>
-          📅 Last run: Nov 17, 2025, 8:21 PM PST</div>
+          📅 Last run: Dec 2, 2025, 6:06 AM PST</div>
       </div>
     </div>
   );
@@ -470,20 +470,73 @@ Edge cases, invalid inheritance patterns, decorator conflicts, mixed decorator t
 
 ---
 
-## 📋 TODO - Remaining Test Cases
+export const ExtendsTODOSection = () => {
+  const testCaseStatus = overlay.testCaseStatus || {};
+  
+  // Define categories (avoid duplicates - each test case belongs to one category)
+  const categories = {
+    '🟡 Standard Patterns': [6, 7, 8, 9, 10, 11],
+    '🔵 Advanced Real-World': [12, '12a', 13, 17, 18, 19],
+    '🔴 Robustness & Production': [14, 15, 16, 20],
+  };
+  
+  // Track which test cases we've already included to avoid duplicates
+  const includedIds = new Set();
+  
+  // Get missing test cases by category
+  const getMissingByCategory = (categoryName, testCaseIds) => {
+    return testCaseIds
+      .map(id => {
+        // Skip if already included in another category
+        if (includedIds.has(String(id))) return null;
+        
+        const tc = testCaseStatus[id];
+        if (!tc || tc.implemented) return null;
+        
+        includedIds.add(String(id));
+        return { id, description: tc.description || `Test Case #${id}` };
+      })
+      .filter(Boolean);
+  };
+  
+  // Build category sections
+  const categorySections = Object.entries(categories).map(([categoryName, testCaseIds]) => {
+    const missing = getMissingByCategory(categoryName, testCaseIds);
+    if (missing.length === 0) return null;
+    
+    return {
+      name: categoryName,
+      missing,
+      total: testCaseIds.length,
+      remaining: missing.length,
+    };
+  }).filter(Boolean);
+  
+  if (categorySections.length === 0) {
+    return null;
+  }
+  
+  return (
+    <div>
+      <h2>📋 TODO - Remaining Test Cases</h2>
+      {categorySections.map(({ name, missing, total, remaining }) => (
+        <div key={name} style={{ marginBottom: '24px' }}>
+          <h3>{name} ({remaining}/{total} remaining)</h3>
+          {missing.map(({ id, description }) => (
+            <div key={id} style={{ marginBottom: '12px', marginLeft: '20px' }}>
+              <strong>Test Case #{id} TODO</strong>: {description}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+};
 
-### 🟡 Standard Patterns (2/6 remaining)
-
-10. **Test Case #10 TODO**: Event Handling Inheritance (@Listen decorators)
-11. **Test Case #11 TODO**: Watch Decorator Inheritance (@Watch behavior)
-
-### 🔵 Advanced Real-World (1 remaining)
-
-13. **Test Case #13 TODO**: FloatingUI Controller (Popper.js integration)
-
-### 🔴 Robustness & Production (4 remaining)
-
-14. **Test Case #14 TODO**: Invalid Inheritance Patterns
-15. **Test Case #15 TODO**: Decorator Conflicts
-16. **Test Case #16 TODO**: SSR & Hydration behavior
-20. **Test Case #20 TODO**: Mixed Decorator Types
+{(() => {
+  const testCaseStatus = overlay.testCaseStatus || {};
+  const missingCases = Object.entries(testCaseStatus)
+    .filter(([_, tc]) => !tc.implemented);
+  if (missingCases.length === 0) return null;
+  return <ExtendsTODOSection />;
+})()}
