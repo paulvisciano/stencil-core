@@ -24,7 +24,6 @@ const DIRECTORY_TO_TEST_CASE = {
   'extends-watch': '11',
   'extends-controller-updates': '12',
   'extends-direct-state': '12a',
-  'extends-invalid-inheritance': '14',
   'extends-conflicts': '15',
   'extends-ssr': '16',
   'extends-via-host': '17',

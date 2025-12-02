@@ -39,7 +39,11 @@ export const testSuites = async (root: HTMLElement, mainTag: string, extendedTag
       root.querySelector(mainTag).setAttribute('prop-1', 'main via attribute');
       root.querySelector(mainTag).setAttribute('prop-2', 'main via attribute');
 
-      await browser.pause(100);
+      // Wait for actual DOM update instead of fixed pause
+      await browser.waitUntil(async () => {
+        const text = root.querySelector('.main-prop-1')?.textContent?.trim();
+        return text === 'Main class prop1: main via attribute';
+      }, { timeout: 5000, interval: 50 });
 
       if (extendedTag) {
         expect(await getTxt('.extended-prop-1')).toBe('Extended class prop 1: extended via attribute');
@@ -56,7 +60,11 @@ export const testSuites = async (root: HTMLElement, mainTag: string, extendedTag
       root.querySelector<any>(mainTag).prop1 = 'main via prop';
       root.querySelector<any>(mainTag).prop2 = 'main via prop';
 
-      await browser.pause(100);
+      // Wait for actual DOM update instead of fixed pause
+      await browser.waitUntil(async () => {
+        const text = root.querySelector('.main-prop-1')?.textContent?.trim();
+        return text === 'Main class prop1: main via prop';
+      }, { timeout: 5000, interval: 50 });
 
       if (extendedTag) {
         expect(await getTxt('.extended-prop-1')).toBe('Extended class prop 1: extended via prop');
@@ -74,65 +82,88 @@ export const testSuites = async (root: HTMLElement, mainTag: string, extendedTag
         logMessages.push(args.map(String).join(' '));
       };
 
-      if (extendedTag) {
-        root.querySelector(extendedTag).setAttribute('prop-1', 'extended via attribute');
-        root.querySelector(extendedTag).setAttribute('prop-2', 'extended via attribute');
+      try {
+        if (extendedTag) {
+          root.querySelector(extendedTag).setAttribute('prop-1', 'extended via attribute');
+          root.querySelector(extendedTag).setAttribute('prop-2', 'extended via attribute');
+        }
+        root.querySelector(mainTag).setAttribute('prop-1', 'main via attribute');
+        root.querySelector(mainTag).setAttribute('prop-2', 'main via attribute');
+
+        // Wait for watch handlers to fire
+        await browser.waitUntil(async () => {
+          return logMessages.length >= (extendedTag ? 4 : 2);
+        }, { timeout: 5000, interval: 50 });
+
+        if (extendedTag) {
+          root.querySelector<any>(extendedTag).prop1 = 'extended via prop';
+          root.querySelector<any>(extendedTag).prop2 = 'extended via prop';
+        }
+        root.querySelector<any>(mainTag).prop1 = 'main via prop';
+        root.querySelector<any>(mainTag).prop2 = 'main via prop';
+
+        // Wait for watch handlers to fire
+        await browser.waitUntil(async () => {
+          return logMessages.length >= (extendedTag ? 8 : 4);
+        }, { timeout: 5000, interval: 50 });
+
+        if (extendedTag) {
+          expect(logMessages).toEqual([
+            'extended class handler prop1: extended via attribute',
+            'extended class handler prop2: extended via attribute',
+            'main class handler prop1: main via attribute',
+            'extended class handler prop2: main via attribute',
+            'extended class handler prop1: extended via prop',
+            'extended class handler prop2: extended via prop',
+            'main class handler prop1: main via prop',
+            'extended class handler prop2: main via prop',
+          ]);
+        } else {
+          expect(logMessages).toEqual([
+            'main class handler prop1: main via attribute',
+            'extended class handler prop2: main via attribute',
+            'main class handler prop1: main via prop',
+            'extended class handler prop2: main via prop',
+          ]);
+        }
+      } finally {
+        // Always restore console.info, even if test fails
+        iframeWin.console.info = originalConsoleLog;
       }
-      root.querySelector(mainTag).setAttribute('prop-1', 'main via attribute');
-      root.querySelector(mainTag).setAttribute('prop-2', 'main via attribute');
-
-      await browser.pause(100);
-
-      if (extendedTag) {
-        root.querySelector<any>(extendedTag).prop1 = 'extended via prop';
-        root.querySelector<any>(extendedTag).prop2 = 'extended via prop';
-      }
-      root.querySelector<any>(mainTag).prop1 = 'main via prop';
-      root.querySelector<any>(mainTag).prop2 = 'main via prop';
-
-      await browser.pause(100);
-
-      if (extendedTag) {
-        expect(logMessages).toEqual([
-          'extended class handler prop1: extended via attribute',
-          'extended class handler prop2: extended via attribute',
-          'main class handler prop1: main via attribute',
-          'extended class handler prop2: main via attribute',
-          'extended class handler prop1: extended via prop',
-          'extended class handler prop2: extended via prop',
-          'main class handler prop1: main via prop',
-          'extended class handler prop2: main via prop',
-        ]);
-      } else {
-        expect(logMessages).toEqual([
-          'main class handler prop1: main via attribute',
-          'extended class handler prop2: main via attribute',
-          'main class handler prop1: main via prop',
-          'extended class handler prop2: main via prop',
-        ]);
-      }
-
-      iframeWin.console.info = originalConsoleLog;
     },
     methods: async () => {
       if (extendedTag) {
         const component1 = root.querySelector<any>(extendedTag);
         await component1.method1();
-        await browser.pause(50);
+        // Wait for actual DOM update
+        await browser.waitUntil(async () => {
+          const text = root.querySelector('.extended-prop-1')?.textContent?.trim();
+          return text === 'Extended class prop 1: ExtendedCmp method1 called';
+        }, { timeout: 5000, interval: 50 });
         expect(await getTxt('.extended-prop-1')).toBe('Extended class prop 1: ExtendedCmp method1 called');
 
         await component1.method2();
-        await browser.pause(50);
+        await browser.waitUntil(async () => {
+          const text = root.querySelector('.extended-prop-1')?.textContent?.trim();
+          return text === 'Extended class prop 1: ExtendedCmp method2 called';
+        }, { timeout: 5000, interval: 50 });
         expect(await getTxt('.extended-prop-1')).toBe('Extended class prop 1: ExtendedCmp method2 called');
       }
 
       const component2 = root.querySelector<any>(mainTag);
       await component2.method1();
-      await browser.pause(50);
+      // Wait for actual DOM update
+      await browser.waitUntil(async () => {
+        const text = root.querySelector('.main-prop-1')?.textContent?.trim();
+        return text === 'Main class prop1: main class method1 called';
+      }, { timeout: 5000, interval: 50 });
       expect(await getTxt('.main-prop-1')).toBe('Main class prop1: main class method1 called');
 
       await component2.method2();
-      await browser.pause(50);
+      await browser.waitUntil(async () => {
+        const text = root.querySelector('.main-prop-1')?.textContent?.trim();
+        return text === 'Main class prop1: ExtendedCmp method2 called';
+      }, { timeout: 5000, interval: 50 });
       expect(await getTxt('.main-prop-1')).toBe('Main class prop1: ExtendedCmp method2 called');
     },
     ssrViaAttrs: async (hydrationModule: any) => {

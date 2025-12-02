@@ -313,22 +313,6 @@ export const ExtendsTestCasesTable = () => {
       testCount: testCaseStatus[11]?.testCount || 0,
       section: testCaseStatus[11]?.implemented ? 'implemented' : 'missing',
     },
-    {
-      id: 14,
-      implemented: testCaseStatus[14]?.implemented || false,
-      desc: testCaseStatus[14]?.description || '',
-      types: (
-        <>
-          <strong>🔴 Robustness:</strong> Invalid Inheritance Patterns - Unsupported inheritance scenarios and error conditions<br/>
-          <strong>Error Scenarios:</strong> Circular inheritance attempts, unsupported patterns, compiler error validation<br/>
-          <small>Ensures reliability | Error handling | Compiler validation | Developer experience</small>
-        </>
-      ),
-      tested: getGroupStats('invalid-inheritance').tested,
-      total: getGroupStats('invalid-inheritance').total,
-      testCount: testCaseStatus[14]?.testCount || 0,
-      section: testCaseStatus[14]?.implemented ? 'implemented' : 'missing',
-    },
     // 🔴 Robustness & Production (15-17) - TODO
     {
       id: 15,
@@ -449,7 +433,7 @@ Common inheritance scenarios including abstract classes, component-to-component,
 Real-world reactive controller patterns comparing Stencil's extends capabilities with other frameworks like Lit, demonstrating practical use cases including composition-based ReactiveControllerHost pattern and scaling demonstrations for both inheritance and composition approaches.
 
 ### **🔴 Robustness & Production (14-16, 20)** — 4 test cases
-Edge cases, invalid inheritance patterns, decorator conflicts, mixed decorator types, SSR behavior, and production-ready scenarios to ensure extends works reliably in all environments.
+Edge cases, decorator conflicts, mixed decorator types, SSR behavior, and production-ready scenarios to ensure extends works reliably in all environments.
 
 ---
 

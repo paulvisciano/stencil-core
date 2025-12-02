@@ -5,7 +5,7 @@
   "summary": {
     "totalTests": 155,
     "implementedTestCases": 16,
-    "totalTestCases": 20,
+    "totalTestCases": 19,
     "componentsBuilt": 16,
     "componentsTested": 16,
     "testBreakdown": {
@@ -305,30 +305,6 @@
         {
           "feature": "Explicit Update Requests",
           "description": "Controller requests updates, doesn't force them - component decides how to respond"
-        }
-      ]
-    },
-    "14": {
-      "implemented": false,
-      "componentCount": 0,
-      "description": "Invalid Inheritance Patterns - Unsupported inheritance scenarios and error conditions",
-      "specPath": "test/wdio/ts-target/extends-invalid-inheritance/cmp.test.ts",
-      "invalidPatternScenarios": [
-        {
-          "scenario": "Circular Inheritance Attempts",
-          "description": "Attempts to create circular inheritance chains - compiler error handling"
-        },
-        {
-          "scenario": "Unsupported Inheritance Scenarios",
-          "description": "Invalid inheritance patterns that should be rejected by the compiler"
-        },
-        {
-          "scenario": "Compiler Error Validation",
-          "description": "Verify appropriate compiler errors for invalid inheritance patterns"
-        },
-        {
-          "scenario": "Error Message Verification",
-          "description": "Ensure error messages are clear and helpful for developers"
         }
       ]
     },
@@ -648,15 +624,6 @@
       "tag": "extends-via-host",
       "caseNumbers": [
         17
-      ]
-    },
-    {
-      "index": 14,
-      "group": "invalid-inheritance",
-      "tested": false,
-      "tag": "extends-invalid-inheritance",
-      "caseNumbers": [
-        14
       ]
     },
     {
