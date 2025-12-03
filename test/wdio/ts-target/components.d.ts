@@ -191,6 +191,58 @@ export namespace Components {
          */
         "updateDisplay": (value: string) => Promise<void>;
     }
+    /**
+     * MixedDecoratorsCmp - Demonstrates mixed decorator type conflicts in inheritance chains
+     * This component:
+     * 1. Extends MixedDecoratorsBase (inherits base decorators)
+     * 2. Defines conflicting decorators with same names but different decorator types
+     * 3. Verifies runtime behavior when mixed decorator types exist
+     * 4. Renders UI showing which decorator type is active (component decorator type should win)
+     */
+    interface ExtendsMixedDecorators {
+        /**
+          * Non-conflicting method for comparison
+         */
+        "baseOnlyMethod": () => Promise<string>;
+        /**
+          * @default 'base only prop value'
+         */
+        "baseOnlyProp": string;
+        /**
+          * Method to get the call log for testing
+         */
+        "getMethodCallLog": () => Promise<string[]>;
+        /**
+          * Method that will conflict with
+          * @default 'component prop value'
+         */
+        "mixedMethodName": string;
+        /**
+          * Method that will conflict with
+          * @Prop in component
+         */
+        "mixedMethodName": () => Promise<string>;
+        /**
+          * @default 'base prop value'
+         */
+        "mixedName": string;
+        /**
+          * @default 'component prop value'
+         */
+        "mixedStateName": string;
+        /**
+          * Method to reset call log for testing
+         */
+        "resetMethodCallLog": () => Promise<void>;
+        /**
+          * Method to update component-only state
+         */
+        "updateComponentOnlyState": (value: string) => Promise<void>;
+        /**
+          * Method to update mixedName state for testing
+         */
+        "updateMixedName": (value: string) => Promise<void>;
+    }
     interface ExtendsMixinCmp {
         "method1": () => Promise<void>;
         "method2": () => Promise<void>;
@@ -474,6 +526,20 @@ declare global {
         prototype: HTMLExtendsMethodsElement;
         new (): HTMLExtendsMethodsElement;
     };
+    /**
+     * MixedDecoratorsCmp - Demonstrates mixed decorator type conflicts in inheritance chains
+     * This component:
+     * 1. Extends MixedDecoratorsBase (inherits base decorators)
+     * 2. Defines conflicting decorators with same names but different decorator types
+     * 3. Verifies runtime behavior when mixed decorator types exist
+     * 4. Renders UI showing which decorator type is active (component decorator type should win)
+     */
+    interface HTMLExtendsMixedDecoratorsElement extends Components.ExtendsMixedDecorators, HTMLStencilElement {
+    }
+    var HTMLExtendsMixedDecoratorsElement: {
+        prototype: HTMLExtendsMixedDecoratorsElement;
+        new (): HTMLExtendsMixedDecoratorsElement;
+    };
     interface HTMLExtendsMixinCmpElement extends Components.ExtendsMixinCmp, HTMLStencilElement {
     }
     var HTMLExtendsMixinCmpElement: {
@@ -609,6 +675,7 @@ declare global {
         "extends-lifecycle-basic": HTMLExtendsLifecycleBasicElement;
         "extends-lifecycle-multilevel": HTMLExtendsLifecycleMultilevelElement;
         "extends-methods": HTMLExtendsMethodsElement;
+        "extends-mixed-decorators": HTMLExtendsMixedDecoratorsElement;
         "extends-mixin-cmp": HTMLExtendsMixinCmpElement;
         "extends-props-state": HTMLExtendsPropsStateElement;
         "extends-render": HTMLExtendsRenderElement;
@@ -726,6 +793,33 @@ declare namespace LocalJSX {
     interface ExtendsLifecycleMultilevel {
     }
     interface ExtendsMethods {
+    }
+    /**
+     * MixedDecoratorsCmp - Demonstrates mixed decorator type conflicts in inheritance chains
+     * This component:
+     * 1. Extends MixedDecoratorsBase (inherits base decorators)
+     * 2. Defines conflicting decorators with same names but different decorator types
+     * 3. Verifies runtime behavior when mixed decorator types exist
+     * 4. Renders UI showing which decorator type is active (component decorator type should win)
+     */
+    interface ExtendsMixedDecorators {
+        /**
+          * @default 'base only prop value'
+         */
+        "baseOnlyProp"?: string;
+        /**
+          * Method that will conflict with
+          * @default 'component prop value'
+         */
+        "mixedMethodName"?: string;
+        /**
+          * @default 'base prop value'
+         */
+        "mixedName"?: string;
+        /**
+          * @default 'component prop value'
+         */
+        "mixedStateName"?: string;
     }
     interface ExtendsMixinCmp {
         /**
@@ -852,6 +946,7 @@ declare namespace LocalJSX {
         "extends-lifecycle-basic": ExtendsLifecycleBasic;
         "extends-lifecycle-multilevel": ExtendsLifecycleMultilevel;
         "extends-methods": ExtendsMethods;
+        "extends-mixed-decorators": ExtendsMixedDecorators;
         "extends-mixin-cmp": ExtendsMixinCmp;
         "extends-props-state": ExtendsPropsState;
         "extends-render": ExtendsRender;
@@ -907,6 +1002,15 @@ declare module "@stencil/core" {
             "extends-lifecycle-basic": LocalJSX.ExtendsLifecycleBasic & JSXBase.HTMLAttributes<HTMLExtendsLifecycleBasicElement>;
             "extends-lifecycle-multilevel": LocalJSX.ExtendsLifecycleMultilevel & JSXBase.HTMLAttributes<HTMLExtendsLifecycleMultilevelElement>;
             "extends-methods": LocalJSX.ExtendsMethods & JSXBase.HTMLAttributes<HTMLExtendsMethodsElement>;
+            /**
+             * MixedDecoratorsCmp - Demonstrates mixed decorator type conflicts in inheritance chains
+             * This component:
+             * 1. Extends MixedDecoratorsBase (inherits base decorators)
+             * 2. Defines conflicting decorators with same names but different decorator types
+             * 3. Verifies runtime behavior when mixed decorator types exist
+             * 4. Renders UI showing which decorator type is active (component decorator type should win)
+             */
+            "extends-mixed-decorators": LocalJSX.ExtendsMixedDecorators & JSXBase.HTMLAttributes<HTMLExtendsMixedDecoratorsElement>;
             "extends-mixin-cmp": LocalJSX.ExtendsMixinCmp & JSXBase.HTMLAttributes<HTMLExtendsMixinCmpElement>;
             /**
              * Test Case #3: Property & State Inheritance Basics

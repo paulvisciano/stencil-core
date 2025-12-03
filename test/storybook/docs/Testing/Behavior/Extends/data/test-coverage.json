@@ -3,17 +3,17 @@
   "description": "Comprehensive testing framework for Stencil extends functionality covering lifecycle, decorators, controllers, and edge cases",
   "version": "2025-12-03",
   "summary": {
-    "totalTests": 174,
-    "implementedTestCases": 17,
+    "totalTests": 194,
+    "implementedTestCases": 18,
     "totalTestCases": 19,
-    "componentsBuilt": 17,
-    "componentsTested": 17,
+    "componentsBuilt": 18,
+    "componentsTested": 18,
     "testBreakdown": {
       "lifecycle": 13,
-      "standardPatterns": 131,
+      "standardPatterns": 151,
       "reactiveControllers": 30
     },
-    "note": "Last updated: December 3, 2025 at 1:15 AM PST"
+    "note": "Last updated: December 3, 2025 at 2:36 AM PST"
   },
   "testCaseStatus": {
     "1": {
@@ -450,8 +450,8 @@
       ]
     },
     "20": {
-      "implemented": false,
-      "componentCount": 0,
+      "implemented": true,
+      "componentCount": 1,
       "description": "Mixed Decorator Types - Same name used as different decorator types in inheritance chains",
       "specPath": "test/wdio/ts-target/extends-mixed-decorators/cmp.test.ts",
       "mixedDecoratorScenarios": [
@@ -471,7 +471,12 @@
           "scenario": "Compiler Error Handling",
           "description": "Verify appropriate compiler errors for mixed decorator types"
         }
-      ]
+      ],
+      "testCount": 20,
+      "testBreakdown": {
+        "dist": 16,
+        "customElements": 4
+      }
     },
     "12a": {
       "implemented": true,
