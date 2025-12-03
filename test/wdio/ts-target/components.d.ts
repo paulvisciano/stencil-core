@@ -66,6 +66,64 @@ export namespace Components {
          */
         "prop2": string;
     }
+    /**
+     * ConflictsCmp - Demonstrates decorator conflicts in inheritance chains
+     * This component:
+     * 1. Extends ConflictsBase (inherits base decorators)
+     * 2. Defines duplicate decorators with same names but different values/behavior
+     * 3. Verifies component decorators override base decorators
+     * 4. Renders UI showing which version is active (component should win)
+     */
+    interface ExtendsConflicts {
+        /**
+          * Non-duplicate method for comparison
+         */
+        "baseOnlyMethod": () => Promise<string>;
+        /**
+          * @default 'base only prop value'
+         */
+        "baseOnlyProp": string;
+        /**
+          * Duplicate method - same name as base, should override Component version should be called, not base version
+         */
+        "duplicateMethod": () => Promise<string>;
+        /**
+          * @default 'component prop value'
+         */
+        "duplicateProp": string;
+        /**
+          * Method to get combined call log (base + component)
+         */
+        "getCombinedMethodCallLog": () => Promise<string[]>;
+        /**
+          * Method to get component method call log
+         */
+        "getComponentMethodCallLog": () => Promise<string[]>;
+        /**
+          * Method to get the call log for testing
+         */
+        "getMethodCallLog": () => Promise<string[]>;
+        /**
+          * Method to reset all call logs
+         */
+        "resetAllCallLogs": () => Promise<void>;
+        /**
+          * Method to reset component call log
+         */
+        "resetComponentMethodCallLog": () => Promise<void>;
+        /**
+          * Method to reset call log for testing
+         */
+        "resetMethodCallLog": () => Promise<void>;
+        /**
+          * Method to update component-only state
+         */
+        "updateComponentOnlyState": (value: string) => Promise<void>;
+        /**
+          * Method to update duplicate state for testing
+         */
+        "updateDuplicateState": (value: string) => Promise<void>;
+    }
     interface ExtendsControllerUpdates {
     }
     interface ExtendsDirectState {
@@ -349,6 +407,20 @@ declare global {
         prototype: HTMLExtendsCmpCmpElement;
         new (): HTMLExtendsCmpCmpElement;
     };
+    /**
+     * ConflictsCmp - Demonstrates decorator conflicts in inheritance chains
+     * This component:
+     * 1. Extends ConflictsBase (inherits base decorators)
+     * 2. Defines duplicate decorators with same names but different values/behavior
+     * 3. Verifies component decorators override base decorators
+     * 4. Renders UI showing which version is active (component should win)
+     */
+    interface HTMLExtendsConflictsElement extends Components.ExtendsConflicts, HTMLStencilElement {
+    }
+    var HTMLExtendsConflictsElement: {
+        prototype: HTMLExtendsConflictsElement;
+        new (): HTMLExtendsConflictsElement;
+    };
     interface HTMLExtendsControllerUpdatesElement extends Components.ExtendsControllerUpdates, HTMLStencilElement {
     }
     var HTMLExtendsControllerUpdatesElement: {
@@ -529,6 +601,7 @@ declare global {
         "extended-cmp-cmp": HTMLExtendedCmpCmpElement;
         "extends-abstract": HTMLExtendsAbstractElement;
         "extends-cmp-cmp": HTMLExtendsCmpCmpElement;
+        "extends-conflicts": HTMLExtendsConflictsElement;
         "extends-controller-updates": HTMLExtendsControllerUpdatesElement;
         "extends-direct-state": HTMLExtendsDirectStateElement;
         "extends-events": HTMLExtendsEventsElement;
@@ -602,6 +675,24 @@ declare namespace LocalJSX {
           * @default 'ExtendedCmp prop2 text'
          */
         "prop2"?: string;
+    }
+    /**
+     * ConflictsCmp - Demonstrates decorator conflicts in inheritance chains
+     * This component:
+     * 1. Extends ConflictsBase (inherits base decorators)
+     * 2. Defines duplicate decorators with same names but different values/behavior
+     * 3. Verifies component decorators override base decorators
+     * 4. Renders UI showing which version is active (component should win)
+     */
+    interface ExtendsConflicts {
+        /**
+          * @default 'base only prop value'
+         */
+        "baseOnlyProp"?: string;
+        /**
+          * @default 'component prop value'
+         */
+        "duplicateProp"?: string;
     }
     interface ExtendsControllerUpdates {
     }
@@ -753,6 +844,7 @@ declare namespace LocalJSX {
         "extended-cmp-cmp": ExtendedCmpCmp;
         "extends-abstract": ExtendsAbstract;
         "extends-cmp-cmp": ExtendsCmpCmp;
+        "extends-conflicts": ExtendsConflicts;
         "extends-controller-updates": ExtendsControllerUpdates;
         "extends-direct-state": ExtendsDirectState;
         "extends-events": ExtendsEvents;
@@ -788,6 +880,15 @@ declare module "@stencil/core" {
             "extended-cmp-cmp": LocalJSX.ExtendedCmpCmp & JSXBase.HTMLAttributes<HTMLExtendedCmpCmpElement>;
             "extends-abstract": LocalJSX.ExtendsAbstract & JSXBase.HTMLAttributes<HTMLExtendsAbstractElement>;
             "extends-cmp-cmp": LocalJSX.ExtendsCmpCmp & JSXBase.HTMLAttributes<HTMLExtendsCmpCmpElement>;
+            /**
+             * ConflictsCmp - Demonstrates decorator conflicts in inheritance chains
+             * This component:
+             * 1. Extends ConflictsBase (inherits base decorators)
+             * 2. Defines duplicate decorators with same names but different values/behavior
+             * 3. Verifies component decorators override base decorators
+             * 4. Renders UI showing which version is active (component should win)
+             */
+            "extends-conflicts": LocalJSX.ExtendsConflicts & JSXBase.HTMLAttributes<HTMLExtendsConflictsElement>;
             "extends-controller-updates": LocalJSX.ExtendsControllerUpdates & JSXBase.HTMLAttributes<HTMLExtendsControllerUpdatesElement>;
             "extends-direct-state": LocalJSX.ExtendsDirectState & JSXBase.HTMLAttributes<HTMLExtendsDirectStateElement>;
             /**

@@ -1,19 +1,19 @@
 {
   "extends": "Stencil component inheritance and composition testing",
   "description": "Comprehensive testing framework for Stencil extends functionality covering lifecycle, decorators, controllers, and edge cases",
-  "version": "2025-12-02",
+  "version": "2025-12-03",
   "summary": {
-    "totalTests": 155,
-    "implementedTestCases": 16,
+    "totalTests": 174,
+    "implementedTestCases": 17,
     "totalTestCases": 19,
-    "componentsBuilt": 16,
-    "componentsTested": 16,
+    "componentsBuilt": 17,
+    "componentsTested": 17,
     "testBreakdown": {
       "lifecycle": 13,
-      "standardPatterns": 112,
+      "standardPatterns": 131,
       "reactiveControllers": 30
     },
-    "note": "Last updated: December 2, 2025 at 6:24 AM PST"
+    "note": "Last updated: December 2, 2025 at 8:29 PM PST"
   },
   "testCaseStatus": {
     "1": {
@@ -309,10 +309,15 @@
       ]
     },
     "15": {
-      "implemented": false,
-      "componentCount": 0,
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 19,
       "description": "Decorator Conflicts - Duplicate decorator names of the same type in inheritance chains",
       "specPath": "test/wdio/ts-target/extends-conflicts/cmp.test.ts",
+      "testBreakdown": {
+        "dist": 15,
+        "customElements": 4
+      },
       "conflictScenarios": [
         {
           "scenario": "Duplicate @Prop Names",
@@ -629,7 +634,7 @@
     {
       "index": 15,
       "group": "conflicts",
-      "tested": false,
+      "tested": true,
       "tag": "extends-conflicts",
       "caseNumbers": [
         15
