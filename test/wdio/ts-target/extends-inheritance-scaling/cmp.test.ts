@@ -5,6 +5,7 @@ import { setupIFrameTest } from '../../util.js';
  * Tests for inheritance-based scaling with 3 components and 2 controllers.
  * Built with `tsconfig-es2022.json` > `"target": "es2022"` `dist` and `dist-custom-elements` outputs.
  * 
+ * Test Case #15 - Inheritance-Based Scaling
  * This verifies that:
  * 1. 3 components (TextInput, RadioGroup, CheckboxGroup) work with inheritance
  * 2. 2 controllers (ValidationController, FocusController) work via inheritance
@@ -13,7 +14,7 @@ import { setupIFrameTest } from '../../util.js';
  * 5. Focus tracking works
  */
 
-describe('Test Case #18 – Inheritance-Based Scaling (3 components, 2 controllers)', () => {
+describe('Test Case #15 – Inheritance-Based Scaling (3 components, 2 controllers)', () => {
   describe('es2022 dist output', () => {
     let frameContent: HTMLElement;
 

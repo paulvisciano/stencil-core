@@ -313,11 +313,11 @@ export const ExtendsTestCasesTable = () => {
       testCount: testCaseStatus[11]?.testCount || 0,
       section: testCaseStatus[11]?.implemented ? 'implemented' : 'missing',
     },
-    // 🔴 Robustness & Production (15-17) - TODO
+    // 🔴 Robustness & Production (13)
     {
-      id: 15,
-      implemented: testCaseStatus[15]?.implemented || false,
-      desc: testCaseStatus[15]?.description || '',
+      id: 13,
+      implemented: testCaseStatus[13]?.implemented || false,
+      desc: testCaseStatus[13]?.description || '',
       types: (
         <>
           <strong>🔴 Robustness:</strong> Decorator Conflicts - Duplicate decorator names of the same type<br/>
@@ -327,6 +327,40 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('conflicts').tested,
       total: getGroupStats('conflicts').total,
+      testCount: testCaseStatus[13]?.testCount || 0,
+      section: testCaseStatus[13]?.implemented ? 'implemented' : 'missing',
+    },
+    // 🔵 Advanced Composition Pattern (14)
+    {
+      id: 14,
+      implemented: testCaseStatus[14]?.implemented || false,
+      desc: testCaseStatus[14]?.description || '',
+      types: (
+        <>
+          <strong>🔵 Advanced:</strong> ReactiveControllerHost Pattern (Composition-based controllers)<br/>
+          <strong>Composition Pattern:</strong> Components extend ReactiveControllerHost, compose ReactiveController instances<br/>
+          <small>Automatic lifecycle hooking with composition over inheritance | {formatTestCount(testCaseStatus[14])}</small>
+        </>
+      ),
+      tested: getGroupStats('via-host').tested,
+      total: getGroupStats('via-host').total,
+      testCount: testCaseStatus[14]?.testCount || 0,
+      section: testCaseStatus[14]?.implemented ? 'implemented' : 'missing',
+    },
+    // 🔵 Advanced Scaling Demonstrations (15-16)
+    {
+      id: 15,
+      implemented: testCaseStatus[15]?.implemented || false,
+      desc: testCaseStatus[15]?.description || '',
+      types: (
+        <>
+          <strong>🔵 Advanced:</strong> Inheritance-Based Scaling (3 components, 2 controllers)<br/>
+          <strong>Scaling Pattern:</strong> Demonstrates how inheritance scales with multiple components and controllers<br/>
+          <small>3 components (TextInput, RadioGroup, CheckboxGroup) using 2 controllers (ValidationController, FocusController) via inheritance | {formatTestCount(testCaseStatus[15])}</small>
+        </>
+      ),
+      tested: getGroupStats('inheritance-scaling').tested,
+      total: getGroupStats('inheritance-scaling').total,
       testCount: testCaseStatus[15]?.testCount || 0,
       section: testCaseStatus[15]?.implemented ? 'implemented' : 'missing',
     },
@@ -336,70 +370,20 @@ export const ExtendsTestCasesTable = () => {
       desc: testCaseStatus[16]?.description || '',
       types: (
         <>
-          <strong>🔴 Production:</strong> SSR & Hydration - Server-side rendering with inheritance<br/>
-          <strong>SSR Features:</strong> Hydrate output, state serialization, lifecycle during SSR, hydration consistency<br/>
-          <small>Production-ready | Server rendering | Hydration safety | Framework completeness</small>
-        </>
-      ),
-      tested: getGroupStats('ssr').tested,
-      total: getGroupStats('ssr').total,
-      testCount: testCaseStatus[16]?.testCount || 0,
-      section: testCaseStatus[16]?.implemented ? 'implemented' : 'missing',
-    },
-    // 🔵 Advanced Composition Pattern (17)
-    {
-      id: 17,
-      implemented: testCaseStatus[17]?.implemented || false,
-      desc: testCaseStatus[17]?.description || '',
-      types: (
-        <>
-          <strong>🔵 Advanced:</strong> ReactiveControllerHost Pattern (Composition-based controllers)<br/>
-          <strong>Composition Pattern:</strong> Components extend ReactiveControllerHost, compose ReactiveController instances<br/>
-          <small>Automatic lifecycle hooking with composition over inheritance | {formatTestCount(testCaseStatus[17])}</small>
-        </>
-      ),
-      tested: getGroupStats('via-host').tested,
-      total: getGroupStats('via-host').total,
-      testCount: testCaseStatus[17]?.testCount || 0,
-      section: testCaseStatus[17]?.implemented ? 'implemented' : 'missing',
-    },
-    // 🔵 Advanced Scaling Demonstrations (18-19)
-    {
-      id: 18,
-      implemented: testCaseStatus[18]?.implemented || false,
-      desc: testCaseStatus[18]?.description || '',
-      types: (
-        <>
-          <strong>🔵 Advanced:</strong> Inheritance-Based Scaling (3 components, 2 controllers)<br/>
-          <strong>Scaling Pattern:</strong> Demonstrates how inheritance scales with multiple components and controllers<br/>
-          <small>3 components (TextInput, RadioGroup, CheckboxGroup) using 2 controllers (ValidationController, FocusController) via inheritance | {formatTestCount(testCaseStatus[18])}</small>
-        </>
-      ),
-      tested: getGroupStats('inheritance-scaling').tested,
-      total: getGroupStats('inheritance-scaling').total,
-      testCount: testCaseStatus[18]?.testCount || 0,
-      section: testCaseStatus[18]?.implemented ? 'implemented' : 'missing',
-    },
-    {
-      id: 19,
-      implemented: testCaseStatus[19]?.implemented || false,
-      desc: testCaseStatus[19]?.description || '',
-      types: (
-        <>
           <strong>🔵 Advanced:</strong> Composition-Based Scaling (3 components, 2 controllers)<br/>
           <strong>Scaling Pattern:</strong> Demonstrates how composition scales with multiple components and controllers<br/>
-          <small>3 components (TextInput, RadioGroup, CheckboxGroup) using 2 controllers (ValidationController, FocusController) via composition | {formatTestCount(testCaseStatus[19])}</small>
+          <small>3 components (TextInput, RadioGroup, CheckboxGroup) using 2 controllers (ValidationController, FocusController) via composition | {formatTestCount(testCaseStatus[16])}</small>
         </>
       ),
       tested: getGroupStats('composition-scaling').tested,
       total: getGroupStats('composition-scaling').total,
-      testCount: testCaseStatus[19]?.testCount || 0,
-      section: testCaseStatus[19]?.implemented ? 'implemented' : 'missing',
+      testCount: testCaseStatus[16]?.testCount || 0,
+      section: testCaseStatus[16]?.implemented ? 'implemented' : 'missing',
     },
     {
-      id: 20,
-      implemented: testCaseStatus[20]?.implemented || false,
-      desc: testCaseStatus[20]?.description || '',
+      id: 18,
+      implemented: testCaseStatus[18]?.implemented || false,
+      desc: testCaseStatus[18]?.description || '',
       types: (
         <>
           <strong>🔴 Robustness:</strong> Mixed Decorator Types - Same name used as different decorator types<br/>
@@ -409,8 +393,8 @@ export const ExtendsTestCasesTable = () => {
       ),
       tested: getGroupStats('mixed-decorators').tested,
       total: getGroupStats('mixed-decorators').total,
-      testCount: testCaseStatus[20]?.testCount || 0,
-      section: testCaseStatus[20]?.implemented ? 'implemented' : 'missing',
+      testCount: testCaseStatus[18]?.testCount || 0,
+      section: testCaseStatus[18]?.implemented ? 'implemented' : 'missing',
     }
   ];
 
@@ -429,11 +413,11 @@ Foundation patterns for lifecycle inheritance, property/state basics, method inh
 ### **🟡 Standard Patterns (6-11)** — 6 test cases
 Common inheritance scenarios including abstract classes, component-to-component, external libraries, mixins, event handling, and watch decorators.
 
-### **🔵 Advanced Real-World (12, 12a, 14, 17-19)** — 6 test cases
+### **🔵 Advanced Real-World (12, 12a, 14-16)** — 5 test cases
 Real-world reactive controller patterns comparing Stencil's extends capabilities with other frameworks like Lit, demonstrating practical use cases including composition-based ReactiveControllerHost pattern and scaling demonstrations for both inheritance and composition approaches.
 
-### **🔴 Robustness & Production (14-16, 20)** — 4 test cases
-Edge cases, decorator conflicts, mixed decorator types, SSR behavior, and production-ready scenarios to ensure extends works reliably in all environments.
+### **🔴 Robustness & Production (13, 18)** — 2 test cases
+Edge cases, decorator conflicts, mixed decorator types, and production-ready scenarios to ensure extends works reliably in all environments.
 
 ---
 
@@ -443,8 +427,8 @@ export const ExtendsTODOSection = () => {
   // Define categories (avoid duplicates - each test case belongs to one category)
   const categories = {
     '🟡 Standard Patterns': [6, 7, 8, 9, 10, 11],
-    '🔵 Advanced Real-World': [12, '12a', 17, 18, 19],
-    '🔴 Robustness & Production': [14, 15, 16, 20],
+    '🔵 Advanced Real-World': [12, '12a', 14, 15, 16],
+    '🔴 Robustness & Production': [13, 18],
   };
   
   // Track which test cases we've already included to avoid duplicates

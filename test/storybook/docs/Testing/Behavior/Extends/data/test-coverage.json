@@ -5,7 +5,7 @@
   "summary": {
     "totalTests": 194,
     "implementedTestCases": 18,
-    "totalTestCases": 19,
+    "totalTestCases": 18,
     "componentsBuilt": 18,
     "componentsTested": 18,
     "testBreakdown": {
@@ -308,7 +308,7 @@
         }
       ]
     },
-    "15": {
+    "13": {
       "implemented": true,
       "componentCount": 1,
       "testCount": 19,
@@ -337,31 +337,7 @@
         }
       ]
     },
-    "16": {
-      "implemented": false,
-      "componentCount": 0,
-      "description": "SSR & Hydration - Server-side rendering and hydration behavior with inheritance chains",
-      "specPath": "test/wdio/ts-target/extends-ssr/cmp.test.ts",
-      "ssrFeatures": [
-        {
-          "feature": "Server-Side Rendering",
-          "description": "How inheritance chains render on the server - component hierarchy and lifecycle execution"
-        },
-        {
-          "feature": "Hydration Behavior",
-          "description": "Client-side hydration of server-rendered components with inheritance - state synchronization"
-        },
-        {
-          "feature": "SSR/Client Mismatch",
-          "description": "Handling differences between server and client rendering of inherited components"
-        },
-        {
-          "feature": "Production Deployment",
-          "description": "Critical for enterprise applications using SSR - ensure inheritance works in production"
-        }
-      ]
-    },
-    "17": {
+    "14": {
       "implemented": true,
       "componentCount": 1,
       "testCount": 5,
@@ -391,7 +367,7 @@
         }
       ]
     },
-    "18": {
+    "15": {
       "implemented": true,
       "componentCount": 1,
       "testCount": 7,
@@ -420,7 +396,7 @@
         }
       ]
     },
-    "19": {
+    "16": {
       "implemented": true,
       "componentCount": 1,
       "testCount": 8,
@@ -449,7 +425,7 @@
         }
       ]
     },
-    "20": {
+    "18": {
       "implemented": true,
       "componentCount": 1,
       "description": "Mixed Decorator Types - Same name used as different decorator types in inheritance chains",
@@ -628,57 +604,48 @@
       ]
     },
     {
-      "index": 17,
+      "index": 13,
+      "group": "conflicts",
+      "tested": true,
+      "tag": "extends-conflicts",
+      "caseNumbers": [
+        13
+      ]
+    },
+    {
+      "index": 14,
       "group": "via-host",
       "tested": true,
       "tag": "extends-via-host",
       "caseNumbers": [
-        17
+        14
       ]
     },
     {
       "index": 15,
-      "group": "conflicts",
-      "tested": true,
-      "tag": "extends-conflicts",
+      "group": "scaling",
+      "tested": false,
+      "tag": "extends-inheritance-scaling",
       "caseNumbers": [
         15
       ]
     },
     {
-      "index": 20,
-      "group": "mixed-decorators",
-      "tested": false,
-      "tag": "extends-mixed-decorators",
-      "caseNumbers": [
-        20
-      ]
-    },
-    {
       "index": 16,
-      "group": "ssr",
+      "group": "scaling",
       "tested": false,
-      "tag": "extends-ssr",
+      "tag": "extends-composition-scaling",
       "caseNumbers": [
         16
       ]
     },
     {
       "index": 18,
-      "group": "scaling",
+      "group": "mixed-decorators",
       "tested": false,
-      "tag": "extends-inheritance-scaling",
+      "tag": "extends-mixed-decorators",
       "caseNumbers": [
         18
-      ]
-    },
-    {
-      "index": 19,
-      "group": "scaling",
-      "tested": false,
-      "tag": "extends-composition-scaling",
-      "caseNumbers": [
-        19
       ]
     }
   ]

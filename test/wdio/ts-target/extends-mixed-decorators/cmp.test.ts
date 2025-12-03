@@ -5,7 +5,7 @@ import { setupIFrameTest } from '../../util.js';
  * Tests for mixed decorator types - same name used as different decorator types in inheritance chains.
  * Built with `tsconfig-es2022.json` > `"target": "es2022"` `dist` and `dist-custom-elements` outputs.
  * 
- * Test Case #20 - Mixed Decorator Types
+ * Test Case #18 - Mixed Decorator Types
  * Features:
  * - @Prop in Base, @State in Component (mixedName)
  * - @State in Base, @Prop in Component (mixedStateName)
@@ -13,7 +13,7 @@ import { setupIFrameTest } from '../../util.js';
  * - Runtime behavior verification
  */
 
-describe('Test Case #20 – Mixed Decorator Types (Different decorator types, same name)', () => {
+describe('Test Case #18 – Mixed Decorator Types (Different decorator types, same name)', () => {
   describe('es2022 dist output', () => {
     let frameContent: HTMLElement;
 

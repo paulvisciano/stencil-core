@@ -5,6 +5,7 @@ import { setupIFrameTest } from '../../util.js';
  * Tests for composition-based scaling with 3 components and 2 controllers.
  * Built with `tsconfig-es2022.json` > `"target": "es2022"` `dist` and `dist-custom-elements` outputs.
  * 
+ * Test Case #16 - Composition-Based Scaling
  * This verifies that:
  * 1. 3 components (TextInput, RadioGroup, CheckboxGroup) work with composition
  * 2. 2 controllers (ValidationController, FocusController) work via composition
@@ -14,7 +15,7 @@ import { setupIFrameTest } from '../../util.js';
  * 6. Controllers are properly composed (not inherited)
  */
 
-describe('Test Case #19 – Composition-Based Scaling (3 components, 2 controllers)', () => {
+describe('Test Case #16 – Composition-Based Scaling (3 components, 2 controllers)', () => {
   describe('es2022 dist output', () => {
     let frameContent: HTMLElement;
 

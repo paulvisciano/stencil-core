@@ -45,7 +45,7 @@ Only needed if you want to refresh coverage without running tests.
    ```
    Example output:
    ```
-   ⚠️  Extends: 8/19 implemented, missing #3, #4, #5, #10, #11, #15, #16, #20
+   ⚠️  Extends: 8/18 implemented, missing #3, #4, #5, #10, #11, #13, #18
    ```
 
 2. **Create test directory**
@@ -203,7 +203,7 @@ npm run components-build
 
 ## 📈 Current Status
 
-**16/19 test cases implemented** (155 tests passing)
+**18/18 test cases implemented** (194 tests passing)
 
 **Implemented:**
 - ✅ #1 - Lifecycle Inheritance (Basic)
@@ -219,14 +219,11 @@ npm run components-build
 - ✅ #11 - Watch Decorator Inheritance
 - ✅ #12 - Controller-Initiated Updates
 - ✅ #12a - Direct State Management
-- ✅ #17 - ReactiveControllerHost Pattern (Composition)
-- ✅ #18 - Inheritance-Based Scaling
-- ✅ #19 - Composition-Based Scaling
-
-**Missing:**
-- ⏳ #15 - Decorator Conflicts
-- ⏳ #16 - SSR & Hydration
-- ⏳ #20 - Mixed Decorator Types
+- ✅ #13 - Decorator Conflicts
+- ✅ #14 - ReactiveControllerHost Pattern (Composition)
+- ✅ #15 - Inheritance-Based Scaling
+- ✅ #16 - Composition-Based Scaling
+- ✅ #18 - Mixed Decorator Types
 
 ---
 

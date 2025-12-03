@@ -5,7 +5,7 @@ import { setupIFrameTest } from '../../util.js';
  * Tests for decorator conflicts - duplicate decorator names of the same type in inheritance chains.
  * Built with `tsconfig-es2022.json` > `"target": "es2022"` `dist` and `dist-custom-elements` outputs.
  * 
- * Test Case #15 - Decorator Conflicts
+ * Test Case #13 - Decorator Conflicts
  * Features:
  * - Duplicate @Prop names (component overrides base)
  * - Duplicate @State names (component overrides base)
@@ -13,7 +13,7 @@ import { setupIFrameTest } from '../../util.js';
  * - Compiler precedence rules (component decorators take precedence)
  */
 
-describe('Test Case #15 – Decorator Conflicts (Duplicate decorator names)', () => {
+describe('Test Case #13 – Decorator Conflicts (Duplicate decorator names)', () => {
   describe('es2022 dist output', () => {
     let frameContent: HTMLElement;
 
