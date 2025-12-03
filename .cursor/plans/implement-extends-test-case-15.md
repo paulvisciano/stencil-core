@@ -137,8 +137,13 @@ Test case #15 validates decorator conflict resolution when duplicate decorator n
 6. **Run Tests**
    First, run the specific extends-conflicts tests to verify they pass:
    ```bash
+   # From workspace root:
    cd test/wdio
    npm run wdio -- --spec='./ts-target/extends-conflicts/*.test.ts'
+   ```
+   Or using a single command from workspace root:
+   ```bash
+   cd test/wdio && npm run wdio -- --spec='./ts-target/extends-conflicts/*.test.ts'
    ```
    This should run 19 tests (15 dist + 4 custom-elements) and all should pass.
    
@@ -150,7 +155,7 @@ Test case #15 validates decorator conflict resolution when duplicate decorator n
    The `extends:test` script runs all extends-* tests and automatically updates coverage via `postextends:test` hook.
    Both test runs should pass before proceeding to update coverage.
    
-   Note: All paths are relative to the workspace root. If running from a different directory, navigate to the workspace root first or adjust paths accordingly.
+   Note: All commands should be run from the workspace root directory.
 
 7. **Update Test Coverage (Run Script)**
    Instead of manually updating test-coverage.json, run the coverage script:
