@@ -212,9 +212,73 @@ export const ListenTestCasesTable = () => {
       testCount: testCaseStatus[4]?.testCount || 0,
       section: testCaseStatus[4]?.implemented ? 'implemented' : 'missing',
     },
+    {
+      id: 5,
+      implemented: testCaseStatus[5]?.implemented || false,
+      desc: testCaseStatus[5]?.description || 'Real-world window event handling - multiple event types (click, scroll)',
+      types: (
+        <>
+          <strong>🟢 Real-World:</strong> Window target listeners with multiple event types<br/>
+          <strong>Coverage:</strong> window target with click and scroll events<br/>
+          <small>Real-world usage pattern | {formatTestCount(testCaseStatus[5])}</small>
+        </>
+      ),
+      tested: getCaseStats(5).tested,
+      total: getCaseStats(5).total,
+      testCount: testCaseStatus[5]?.testCount || 0,
+      section: testCaseStatus[5]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 6,
+      implemented: testCaseStatus[6]?.implemented || false,
+      desc: testCaseStatus[6]?.description || 'Listener reattachment after DOM manipulation - listeners persist after component removal/reattachment',
+      types: (
+        <>
+          <strong>🟢 Real-World:</strong> Listener persistence after DOM manipulation<br/>
+          <strong>Coverage:</strong> listeners persist after component removal/reattachment<br/>
+          <small>DOM manipulation edge case | {formatTestCount(testCaseStatus[6])}</small>
+        </>
+      ),
+      tested: getCaseStats(6).tested,
+      total: getCaseStats(6).total,
+      testCount: testCaseStatus[6]?.testCount || 0,
+      section: testCaseStatus[6]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 7,
+      implemented: testCaseStatus[7]?.implemented || false,
+      desc: testCaseStatus[7]?.description || 'JSX event handling and propagation - event handling in JSX templates with parent/child event propagation',
+      types: (
+        <>
+          <strong>🟢 Real-World:</strong> Event handling in JSX templates with parent/child propagation<br/>
+          <strong>Coverage:</strong> JSX event handling with event propagation<br/>
+          <small>JSX template event handling | {formatTestCount(testCaseStatus[7])}</small>
+        </>
+      ),
+      tested: getCaseStats(7).tested,
+      total: getCaseStats(7).total,
+      testCount: testCaseStatus[7]?.testCount || 0,
+      section: testCaseStatus[7]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 8,
+      implemented: testCaseStatus[8]?.implemented || false,
+      desc: testCaseStatus[8]?.description || '@Listen decorator inheritance - @Listen decorator inheritance from base class, event handler override, event bubbling',
+      types: (
+        <>
+          <strong>🟡 Inheritance:</strong> @Listen decorator inheritance from base class<br/>
+          <strong>Coverage:</strong> inheritance, event handler override, event bubbling<br/>
+          <small>Inheritance pattern testing | {formatTestCount(testCaseStatus[8])}</small>
+        </>
+      ),
+      tested: getCaseStats(8).tested,
+      total: getCaseStats(8).total,
+      testCount: testCaseStatus[8]?.testCount || 0,
+      section: testCaseStatus[8]?.implemented ? 'implemented' : 'missing',
+    },
   ];
 
-  return <TestCasesTable rows={allRows} previewCount={4} />;
+  return <TestCasesTable rows={allRows} previewCount={8} />;
 };
 
 <ListenTestCasesTable />
@@ -279,6 +343,12 @@ Foundation patterns for host element listeners, covering all event types and cap
 
 ### **🟡 Standard Patterns (2-4)** — 3 test cases
 Common listener scenarios including global targets (window, document, body), capture phase behavior, and passive listener optimization.
+
+### **🟢 Real-World Scenarios (5-7)** — 3 test cases
+Practical usage patterns including window event handling with multiple event types, listener reattachment after DOM manipulation, and JSX event handling with parent/child propagation.
+
+### **🟡 Inheritance Patterns (8)** — 1 test case
+@Listen decorator inheritance scenarios including base class listener inheritance, event handler override behavior, and event bubbling.
 
 ---
 

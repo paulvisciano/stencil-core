@@ -485,6 +485,75 @@
           "optionsKey": "window|keydown-listen-window-keydown-capture-passive|✓|✓"
         }
       ]
+    },
+    "5": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 1,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "manual": true,
+      "description": "Real-world window event handling - multiple event types (click, scroll)",
+      "components": [
+        {
+          "tag": "listen-window",
+          "group": "real-world",
+          "optionsKey": "window|click,scroll|✗|✗"
+        }
+      ]
+    },
+    "6": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 1,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "manual": true,
+      "description": "Listener reattachment after DOM manipulation - listeners persist after component removal/reattachment",
+      "components": [
+        {
+          "tag": "listen-reattach",
+          "group": "real-world",
+          "optionsKey": "host|click|✗|✗"
+        }
+      ]
+    },
+    "7": {
+      "implemented": true,
+      "componentCount": 2,
+      "testCount": 1,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "manual": true,
+      "description": "JSX event handling and propagation - event handling in JSX templates with parent/child event propagation",
+      "components": [
+        {
+          "tag": "listen-jsx",
+          "group": "real-world",
+          "optionsKey": "host|click|✗|✗"
+        },
+        {
+          "tag": "listen-jsx-root",
+          "group": "real-world",
+          "optionsKey": "host|click|✗|✗"
+        }
+      ]
+    },
+    "8": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 11,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "manual": true,
+      "description": "@Listen decorator inheritance - @Listen decorator inheritance from base class, event handler override, event bubbling",
+      "components": [
+        {
+          "tag": "extends-events",
+          "group": "inheritance",
+          "optionsKey": "inheritance|multiple|✗|✗"
+        }
+      ]
     }
   },
   "items": [
@@ -1499,6 +1568,121 @@
         "Test Case #3",
         "Test Case #4"
       ]
+    },
+    {
+      "group": "real-world",
+      "options": {
+        "target": "window",
+        "event": "click,scroll",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "window|click,scroll|✗|✗",
+      "files": [
+        "../listen-window/cmp-a.tsx"
+      ],
+      "tag": "listen-window",
+      "tested": true,
+      "caseIds": [
+        5
+      ],
+      "testedBy": [
+        "Test Case #5"
+      ],
+      "testFile": "test/wdio/listen-window/cmp-a.test.tsx",
+      "manual": true
+    },
+    {
+      "group": "real-world",
+      "options": {
+        "target": "host",
+        "event": "click",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "host|click|✗|✗",
+      "files": [
+        "../listen-reattach/cmp-a.tsx"
+      ],
+      "tag": "listen-reattach",
+      "tested": true,
+      "caseIds": [
+        6
+      ],
+      "testedBy": [
+        "Test Case #6"
+      ],
+      "testFile": "test/wdio/listen-reattach/cmp-a.test.tsx",
+      "manual": true
+    },
+    {
+      "group": "real-world",
+      "options": {
+        "target": "host",
+        "event": "click",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "host|click|✗|✗",
+      "files": [
+        "../listen-jsx/cmp.tsx"
+      ],
+      "tag": "listen-jsx",
+      "tested": true,
+      "caseIds": [
+        7
+      ],
+      "testedBy": [
+        "Test Case #7"
+      ],
+      "testFile": "test/wdio/listen-jsx/cmp-root.test.tsx",
+      "manual": true
+    },
+    {
+      "group": "real-world",
+      "options": {
+        "target": "host",
+        "event": "click",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "host|click|✗|✗",
+      "files": [
+        "../listen-jsx/cmp-root.tsx"
+      ],
+      "tag": "listen-jsx-root",
+      "tested": true,
+      "caseIds": [
+        7
+      ],
+      "testedBy": [
+        "Test Case #7"
+      ],
+      "testFile": "test/wdio/listen-jsx/cmp-root.test.tsx",
+      "manual": true
+    },
+    {
+      "group": "inheritance",
+      "options": {
+        "target": "inheritance",
+        "event": "multiple",
+        "capture": "✗",
+        "passive": "✗"
+      },
+      "optionsKey": "inheritance|multiple|✗|✗",
+      "files": [
+        "../../ts-target/extends-events/cmp.tsx"
+      ],
+      "tag": "extends-events",
+      "tested": true,
+      "caseIds": [
+        8
+      ],
+      "testedBy": [
+        "Test Case #8"
+      ],
+      "testFile": "test/wdio/ts-target/extends-events/cmp.test.ts",
+      "manual": true
     }
   ],
   "lastRun": "2025-12-04T10:05:46.802Z",

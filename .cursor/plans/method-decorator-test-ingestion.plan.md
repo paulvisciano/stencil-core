@@ -9,6 +9,7 @@ The current @Method decorator documentation only includes tests from `test/wdio/
 **Status**: ✅ Completed
 
 **Summary**:
+
 - Found 29 files with `@Method` decorators across `test/wdio/`
 - Created 15 test cases (3 existing + 12 new)
 - Documented 26 components total
@@ -17,22 +18,26 @@ The current @Method decorator documentation only includes tests from `test/wdio/
 - Implemented `manual` flag preservation mechanism to prevent overwriting manually tracked test cases
 
 **Test Cases Created**:
+
 - Test Cases #1-3: Basic method types (already existed, auto-scanned)
 - Test Case #4: Method inheritance basics (already existed, manually tracked)
 - Test Cases #5-15: New test cases covering real-world scenarios (manually tracked)
 
 **Files Modified**:
+
 1. `test/storybook/docs/Testing/Decorators/Method/data/test-coverage.json` - Added 12 new test cases with `manual: true` flag
 2. `test/storybook/docs/Testing/Decorators/Method/test-coverage.js` - Added documentation comments
 3. `test/storybook/docs/Testing/Decorators/Method/@Method.mdx` - Updated with all test cases
 4. `test/storybook/docs/Testing/Decorators/_shared/test-coverage-core.js` - Added preservation logic for `manual: true` test cases
 
 **Preservation Mechanism**:
+
 - Test cases with `manual: true` are preserved when `test-coverage.js` runs
 - Auto-scanned test cases are marked with `manual: false` (or omitted, defaults to false)
 - Prevents loss of manually tracked test cases during branch merges or script runs
 
 **Verification**:
+
 - All 99 tests verified passing
 - All test file paths verified correct
 - Documentation renders correctly
@@ -160,6 +165,7 @@ Group components into logical test cases:
 - Link to test files
 
 **test-coverage.json Structure**:
+
 ```json
 {
   "testCaseStatus": {
@@ -197,6 +203,7 @@ Group components into logical test cases:
 ```
 
 **Key Fields**:
+
 - `testCount`: Actual number of `it()` tests (verify by running tests!)
 - `componentCount`: Number of components in this test case
 - `manual`: `true` for manually tracked test cases, `false` for auto-scanned (defaults to `false` if not present)
@@ -251,14 +258,18 @@ Group components into logical test cases:
    cd test/wdio
    npm run wdio -- --spec <test-suite-name>
    ```
-   Look for the "X passing" message in the output.
+
+
+Look for the "X passing" message in the output.
 
 2. **Count tests per test case**, not per component:
+
    - Some test cases span multiple components
    - Some components have multiple test cases
    - Inheritance test cases often have many tests (10-15+)
 
 3. **Verify total count matches documentation**:
+
    - Sum all test counts from test-coverage.json
    - Run all related tests and verify the total matches
    - Documented total should equal actual test count
@@ -268,12 +279,14 @@ Group components into logical test cases:
 **Important Gap**: The `test-coverage.js` script only automatically tracks tests in the main decorator folder (e.g., `test/wdio/method/`).
 
 **For Test Cases in Main Folder** (e.g., Test Cases #1-3):
+
 - ✅ Automatically counted by `test-coverage.js`
 - ✅ Updates automatically when tests are added/removed
 - ✅ Script scans `test/wdio/{decorator}/tests.tsx` and counts `it()` blocks
 - ✅ Marked with `"manual": false` in `test-coverage.json`
 
 **For Test Cases Outside Main Folder** (e.g., Test Cases #4-15):
+
 - ✅ Manually tracked in `test-coverage.json` with `"manual": true` flag
 - ✅ Preserved automatically by script (won't be overwritten)
 - ❌ Must manually update `testCount` when tests change
@@ -281,12 +294,14 @@ Group components into logical test cases:
 - ⚠️ **Risk**: Documentation can become out of sync if tests are added/removed
 
 **Manual Flag Mechanism**:
+
 - The `test-coverage-core.js` script preserves any test case with `manual: true` when regenerating coverage
 - Auto-scanned test cases are marked with `manual: false` (or omitted, defaults to false)
 - This explicit flag makes it clear which test cases require manual maintenance
 - More robust than exclusion-based detection (doesn't rely on `assignCaseIds()` logic)
 
 **Recommendation**: When ingesting other decorators:
+
 - Always add `"manual": true` to manually tracked test cases
 - The script will preserve them automatically
 - Consider extending the script to scan all WDIO folders in the future
@@ -295,6 +310,7 @@ Group components into logical test cases:
 ### Test File Location Patterns
 
 Common patterns found:
+
 - Main decorator tests: `test/wdio/{decorator}/tests.tsx`
 - Component-specific tests: `test/wdio/{component-name}/cmp.test.tsx`
 - Inheritance tests: `test/wdio/ts-target/extends-*/cmp.test.ts`
@@ -310,11 +326,13 @@ Common patterns found:
 ### Test Case Organization
 
 **Group by behavior, not just by decorator options:**
+
 - Basic decorator options (Test Cases #1-3): Organized by return type/async/args
 - Real-world scenarios (Test Cases #5-10): Organized by use case (state management, events, etc.)
 - Inheritance scenarios (Test Cases #11-15): Organized by inheritance type
 
 **Test case descriptions should:**
+
 - Clearly explain what behavior is being tested
 - List the components involved
 - Reference the test file location
@@ -331,6 +349,7 @@ Common patterns found:
 ### Validation Checklist
 
 After ingestion, verify:
+
 - [ ] All test file paths exist and are correct
 - [ ] Test counts match actual test runs
 - [ ] Total test count matches sum of all test cases
@@ -354,17 +373,20 @@ After ingestion, verify:
    ```
 
 3. **Component-to-Test Mapping**:
+
    - Check for `cmp.test.tsx` or `cmp.test.ts` in same directory
    - Check for `tests.tsx` in parent directory
    - Some components share test files (inheritance scenarios)
 
 4. **Test Case Categorization**:
+
    - Start with basic decorator options (if applicable)
    - Add real-world usage scenarios
    - Add edge cases and inheritance scenarios
    - Group logically by behavior, not just by options
 
 5. **Documentation Updates**:
+
    - Update Test Cases table component to show all cases
    - Add test case descriptions in "Test Categories" section
    - Update component grouping section
@@ -373,6 +395,7 @@ After ingestion, verify:
 ### Future Enhancements
 
 Consider implementing:
+
 1. **Automatic test counting** for all test cases (not just main folder)
 2. **Validation script** that compares documented vs actual test counts
 3. **Test discovery script** that finds all decorator usages automatically
@@ -392,6 +415,7 @@ When applying this plan to other decorators (e.g., `@Prop`, `@State`, `@Event`):
 ### Script Limitations
 
 The current `test-coverage.js` script:
+
 - Only scans `test/wdio/{decorator}/` folder
 - Only counts tests in `tests.tsx` files
 - Only recognizes components matching tag patterns
@@ -399,6 +423,7 @@ The current `test-coverage.js` script:
 - Does not handle test cases outside main folder automatically
 
 **Workaround**: Manually add test cases to `test-coverage.json` with:
+
 - `"manual": true` flag in `testCaseStatus` entry (critical - prevents overwrite)
 - `testFile` property pointing to actual test file (in `items` array)
 - `testCount` manually set to actual test count
@@ -406,6 +431,7 @@ The current `test-coverage.js` script:
 - Proper `caseIds` array
 
 **Preservation Mechanism**:
+
 - The `test-coverage-core.js` script reads existing `test-coverage.json` before writing
 - Any test case with `manual: true` is preserved from the existing file
 - Auto-scanned test cases (with `manual: false` or missing) are recalculated
@@ -414,6 +440,7 @@ The current `test-coverage.js` script:
 ### Maintenance Notes
 
 **When tests are added/removed:**
+
 - Test Cases #1-3 (auto-scanned): Run `test-coverage.js` script to auto-update
 - Test Cases #4-15 (manually tracked): Manually update `testCount` in `test-coverage.json`
   - These are preserved automatically due to `"manual": true` flag
@@ -422,6 +449,7 @@ The current `test-coverage.js` script:
 - Update documentation if test case descriptions change
 
 **When components are added/removed:**
+
 - Auto-scanned test cases: Run script to update automatically
 - Manually tracked test cases:
   - Add/remove component entries in `test-coverage.json` `items` array
@@ -431,6 +459,7 @@ The current `test-coverage.js` script:
 - Verify test file paths still exist
 
 **Adding New Manually Tracked Test Cases:**
+
 1. Add entry to `testCaseStatus` with `"manual": true`
 2. Add component entries to `items` array with `testFile` property
 3. Set `testCount` to actual test count (verify by running tests)

@@ -103,17 +103,20 @@ Test case #15 validates decorator conflict resolution when duplicate decorator n
 ## Implementation Steps
 
 1. **Create Base Class** (`conflicts-base.ts`)
+
    - Define @Prop, @State, and @Method decorators that will be duplicated
    - Add non-duplicate properties/methods for comparison
    - Add tracking mechanism for method calls
 
 2. **Create Component** (`cmp.tsx`)
+
    - Extend ConflictsBase
    - Define duplicate decorators with same names but different values/behavior
    - Render UI showing component versions are active
    - Add methods to update state and track calls
 
 3. **Create Test Spec** (`cmp.test.ts`)
+
    - Write tests for duplicate @Prop names (4 tests)
    - Write tests for duplicate @State names (4 tests)
    - Write tests for duplicate @Method names (4 tests)
@@ -121,6 +124,7 @@ Test case #15 validates decorator conflict resolution when duplicate decorator n
    - Add tests for both dist and custom-elements outputs
 
 4. **Create HTML Test Pages**
+
    - Create `es2022.dist.html` for dist build
    - Create `es2022.custom-element.html` for custom elements build
 
@@ -129,41 +133,56 @@ Test case #15 validates decorator conflict resolution when duplicate decorator n
    cd test/storybook/docs/.ai/testing
    npm run components-build
    ```
-   This builds all components including the extends-conflicts component.
-   The `components-build` script runs the full build process from `test/wdio` which includes ES2022 builds.
-   
-   Note: All paths are relative to the workspace root. Navigate to the workspace root first if running from a different directory.
+
+
+This builds all components including the extends-conflicts component.
+
+The `components-build` script runs the full build process from `test/wdio` which includes ES2022 builds.
+
+Note: All paths are relative to the workspace root. Navigate to the workspace root first if running from a different directory.
 
 6. **Run Tests**
-   First, run the specific extends-conflicts tests to verify they pass:
+
+First, run the specific extends-conflicts tests to verify they pass:
+
    ```bash
    # From workspace root:
    cd test/wdio
    npm run wdio -- --spec='./ts-target/extends-conflicts/*.test.ts'
    ```
-   Or using a single command from workspace root:
+
+Or using a single command from workspace root:
+
    ```bash
    cd test/wdio && npm run wdio -- --spec='./ts-target/extends-conflicts/*.test.ts'
    ```
-   This should run 19 tests (15 dist + 4 custom-elements) and all should pass.
-   
-   Then, run all extends tests to ensure the new tests don't break existing functionality:
+
+This should run 19 tests (15 dist + 4 custom-elements) and all should pass.
+
+Then, run all extends tests to ensure the new tests don't break existing functionality:
+
    ```bash
    cd test/storybook/docs/.ai/testing
    npm run extends:test
    ```
-   The `extends:test` script runs all extends-* tests and automatically updates coverage via `postextends:test` hook.
-   Both test runs should pass before proceeding to update coverage.
-   
-   Note: All commands should be run from the workspace root directory.
+
+The `extends:test` script runs all extends-* tests and automatically updates coverage via `postextends:test` hook.
+
+Both test runs should pass before proceeding to update coverage.
+
+Note: All commands should be run from the workspace root directory.
 
 7. **Update Test Coverage (Run Script)**
-   Instead of manually updating test-coverage.json, run the coverage script:
+
+Instead of manually updating test-coverage.json, run the coverage script:
+
    ```bash
    cd test/storybook/docs/.ai/testing
    npm run extends:test-coverage
    ```
-   This runs `test/storybook/docs/Testing/Behavior/Extends/test-coverage.js` which:
+
+This runs `test/storybook/docs/Testing/Behavior/Extends/test-coverage.js` which:
+
    - Scans all `extends-*` directories in `test/wdio/ts-target/`
    - Counts `it()` blocks in `cmp.test.ts` files
    - Detects output targets from `describe` blocks (dist, customElements, hydrate)
@@ -190,26 +209,34 @@ Test case #15 validates decorator conflict resolution when duplicate decorator n
 ## Common Issues and Solutions
 
 ### Issue: Verifying which implementation is called
+
 **Solution**: Use tracking mechanisms (call logs, return values, state changes) to verify component vs base implementation. For methods, track calls in arrays and check which version was executed. For props/state, use different default values to verify which is active.
 
 ### Issue: Testing override behavior
+
 **Solution**: Use clearly different values/behavior between base and component:
+
 - Base: `'base prop value'` vs Component: `'component prop value'`
 - Base method returns `'base method'` vs Component returns `'component method'`
 - This makes it easy to verify which version is active in tests
 
 ### Issue: Ensuring base-only decorators still work
+
 **Solution**: Include non-duplicate properties/methods in base class (e.g., `baseOnlyProp`, `baseOnlyState`, `baseOnlyMethod`) and test that they remain accessible. This confirms the override only affects duplicates, not all base decorators.
 
 ### Issue: Coverage script vs manual updates
+
 **Solution**: Always use the coverage script (`npm run extends:test-coverage`) instead of manually editing `test-coverage.json`. The script:
+
 - Automatically counts tests
 - Detects output target breakdowns
 - Preserves manual documentation fields
 - Updates timestamps
 
 ### Issue: Unrelated test failures
+
 **Solution**: If other extends test suites fail (e.g., `extends-inheritance-scaling`), verify they're unrelated to your changes by:
+
 - Running your specific test suite in isolation (should pass)
 - Checking if the failure existed before your changes
 - The failure doesn't affect your implementation's validity
@@ -235,4 +262,3 @@ Test case #15 validates decorator conflict resolution when duplicate decorator n
 - Compiler logic: `src/compiler/transformers/static-to-meta/class-extension.ts` (deDupeMembers function)
 - Plan reference: `.cursor/plans/implement-extends-test-case-11.md`
 - Workflow documentation: `test/storybook/docs/Testing/Behavior/Extends/README.md`
-

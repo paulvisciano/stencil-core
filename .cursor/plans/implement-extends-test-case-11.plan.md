@@ -64,22 +64,25 @@ Test case #11 validates @Watch decorator behavior through inheritance chains. It
 ### Key Implementation Details:
 
 1. **Base Class (`watch-base.ts`)**:
-   - Uses @Watch decorators on @Prop and @State properties
-   - Tracks execution in `baseWatchLog` array
-   - Implements reactive chains (watch handlers update other properties)
-   - Provides `overrideProp` property for testing override behavior
+
+- Uses @Watch decorators on @Prop and @State properties
+- Tracks execution in `baseWatchLog` array
+- Implements reactive chains (watch handlers update other properties)
+- Provides `overrideProp` property for testing override behavior
 
 2. **Component (`cmp.tsx`)**:
-   - Extends WatchBase
-   - Adds child-specific @Watch decorators
-   - Overrides `overrideProp` watch handler
-   - Also watches `baseProp` at child level (tests multiple @Watch decorators)
-   - Provides @Method decorators for triggering property changes
+
+- Extends WatchBase
+- Adds child-specific @Watch decorators
+- Overrides `overrideProp` watch handler
+- Also watches `baseProp` at child level (tests multiple @Watch decorators)
+- Provides @Method decorators for triggering property changes
 
 3. **Test Spec (`cmp.test.ts`)**:
-   - 16 total tests (13 dist + 3 custom-elements)
-   - Tests inheritance, execution order, reactive chains, and override behavior
-   - Uses `waitUntil` to wait for specific log entries to appear (not just counts)
+
+- 16 total tests (13 dist + 3 custom-elements)
+- Tests inheritance, execution order, reactive chains, and override behavior
+- Uses `waitUntil` to wait for specific log entries to appear (not just counts)
 
 ### Common Issues and Solutions:
 
@@ -98,4 +101,3 @@ Test case #11 validates @Watch decorator behavior through inheritance chains. It
 - Similar implementation: `test/wdio/ts-target/extends-events/` (test case #10)
 - Test coverage: `test/storybook/docs/Testing/Behavior/Extends/data/test-coverage.json`
 - Documentation: `test/storybook/docs/Testing/Behavior/Extends/README.md`
-
