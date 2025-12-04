@@ -66,9 +66,80 @@ export namespace Components {
          */
         "prop2": string;
     }
+    /**
+     * ConflictsCmp - Demonstrates decorator conflicts in inheritance chains
+     * This component:
+     * 1. Extends ConflictsBase (inherits base decorators)
+     * 2. Defines duplicate decorators with same names but different values/behavior
+     * 3. Verifies component decorators override base decorators
+     * 4. Renders UI showing which version is active (component should win)
+     */
+    interface ExtendsConflicts {
+        /**
+          * Non-duplicate method for comparison
+         */
+        "baseOnlyMethod": () => Promise<string>;
+        /**
+          * @default 'base only prop value'
+         */
+        "baseOnlyProp": string;
+        /**
+          * Duplicate method - same name as base, should override Component version should be called, not base version
+         */
+        "duplicateMethod": () => Promise<string>;
+        /**
+          * @default 'component prop value'
+         */
+        "duplicateProp": string;
+        /**
+          * Method to get combined call log (base + component)
+         */
+        "getCombinedMethodCallLog": () => Promise<string[]>;
+        /**
+          * Method to get component method call log
+         */
+        "getComponentMethodCallLog": () => Promise<string[]>;
+        /**
+          * Method to get the call log for testing
+         */
+        "getMethodCallLog": () => Promise<string[]>;
+        /**
+          * Method to reset all call logs
+         */
+        "resetAllCallLogs": () => Promise<void>;
+        /**
+          * Method to reset component call log
+         */
+        "resetComponentMethodCallLog": () => Promise<void>;
+        /**
+          * Method to reset call log for testing
+         */
+        "resetMethodCallLog": () => Promise<void>;
+        /**
+          * Method to update component-only state
+         */
+        "updateComponentOnlyState": (value: string) => Promise<void>;
+        /**
+          * Method to update duplicate state for testing
+         */
+        "updateDuplicateState": (value: string) => Promise<void>;
+    }
     interface ExtendsControllerUpdates {
     }
     interface ExtendsDirectState {
+    }
+    /**
+     * EventsCmp - Demonstrates
+     * @Listen decorator inheritance
+     * This component:
+     * 1. Extends EventBase (inherits base
+     * @Listen decorators)
+     * 2. Adds additional
+     * @Listen decorators
+     * 3. Overrides base event handler
+     * 4. Demonstrates event bubbling and propagation
+     */
+    interface ExtendsEvents {
     }
     interface ExtendsExternal {
         "method1": () => Promise<void>;
@@ -119,6 +190,58 @@ export namespace Components {
           * Method to trigger display update from test
          */
         "updateDisplay": (value: string) => Promise<void>;
+    }
+    /**
+     * MixedDecoratorsCmp - Demonstrates mixed decorator type conflicts in inheritance chains
+     * This component:
+     * 1. Extends MixedDecoratorsBase (inherits base decorators)
+     * 2. Defines conflicting decorators with same names but different decorator types
+     * 3. Verifies runtime behavior when mixed decorator types exist
+     * 4. Renders UI showing which decorator type is active (component decorator type should win)
+     */
+    interface ExtendsMixedDecorators {
+        /**
+          * Non-conflicting method for comparison
+         */
+        "baseOnlyMethod": () => Promise<string>;
+        /**
+          * @default 'base only prop value'
+         */
+        "baseOnlyProp": string;
+        /**
+          * Method to get the call log for testing
+         */
+        "getMethodCallLog": () => Promise<string[]>;
+        /**
+          * Method that will conflict with
+          * @default 'component prop value'
+         */
+        "mixedMethodName": string;
+        /**
+          * Method that will conflict with
+          * @Prop in component
+         */
+        "mixedMethodName": () => Promise<string>;
+        /**
+          * @default 'base prop value'
+         */
+        "mixedName": string;
+        /**
+          * @default 'component prop value'
+         */
+        "mixedStateName": string;
+        /**
+          * Method to reset call log for testing
+         */
+        "resetMethodCallLog": () => Promise<void>;
+        /**
+          * Method to update component-only state
+         */
+        "updateComponentOnlyState": (value: string) => Promise<void>;
+        /**
+          * Method to update mixedName state for testing
+         */
+        "updateMixedName": (value: string) => Promise<void>;
     }
     interface ExtendsMixinCmp {
         "method1": () => Promise<void>;
@@ -178,6 +301,47 @@ export namespace Components {
     interface ExtendsRender {
     }
     interface ExtendsViaHostCmp {
+    }
+    /**
+     * WatchCmp - Demonstrates
+     * @Watch decorator inheritance
+     * This component:
+     * 1. Extends WatchBase (inherits base
+     * @Watch decorators)
+     * 2. Adds additional
+     * @Watch decorators
+     * 3. Overrides base watch handler (overrideProp)
+     * 4. Demonstrates watch execution order
+     * 5. Demonstrates reactive property chains
+     */
+    interface ExtendsWatch {
+        /**
+          * @default 0
+         */
+        "baseCount": number;
+        /**
+          * @default 'base prop initial'
+         */
+        "baseProp": string;
+        /**
+          * @default 'child prop initial'
+         */
+        "childProp": string;
+        "incrementBaseCount": () => Promise<void>;
+        "incrementBaseCounter": () => Promise<void>;
+        "incrementChildCounter": () => Promise<void>;
+        /**
+          * @default 'override prop initial'
+         */
+        "overrideProp": string;
+        "resetWatchLogs": () => Promise<void>;
+        "updateBaseCount": (value: number) => Promise<void>;
+        "updateBaseCounter": (value: number) => Promise<void>;
+        "updateBaseProp": (value: string) => Promise<void>;
+        "updateBaseState": (value: string) => Promise<void>;
+        "updateChildCounter": (value: number) => Promise<void>;
+        "updateChildProp": (value: string) => Promise<void>;
+        "updateOverrideProp": (value: string) => Promise<void>;
     }
     interface InheritanceCheckboxGroup {
     }
@@ -295,6 +459,20 @@ declare global {
         prototype: HTMLExtendsCmpCmpElement;
         new (): HTMLExtendsCmpCmpElement;
     };
+    /**
+     * ConflictsCmp - Demonstrates decorator conflicts in inheritance chains
+     * This component:
+     * 1. Extends ConflictsBase (inherits base decorators)
+     * 2. Defines duplicate decorators with same names but different values/behavior
+     * 3. Verifies component decorators override base decorators
+     * 4. Renders UI showing which version is active (component should win)
+     */
+    interface HTMLExtendsConflictsElement extends Components.ExtendsConflicts, HTMLStencilElement {
+    }
+    var HTMLExtendsConflictsElement: {
+        prototype: HTMLExtendsConflictsElement;
+        new (): HTMLExtendsConflictsElement;
+    };
     interface HTMLExtendsControllerUpdatesElement extends Components.ExtendsControllerUpdates, HTMLStencilElement {
     }
     var HTMLExtendsControllerUpdatesElement: {
@@ -306,6 +484,23 @@ declare global {
     var HTMLExtendsDirectStateElement: {
         prototype: HTMLExtendsDirectStateElement;
         new (): HTMLExtendsDirectStateElement;
+    };
+    /**
+     * EventsCmp - Demonstrates
+     * @Listen decorator inheritance
+     * This component:
+     * 1. Extends EventBase (inherits base
+     * @Listen decorators)
+     * 2. Adds additional
+     * @Listen decorators
+     * 3. Overrides base event handler
+     * 4. Demonstrates event bubbling and propagation
+     */
+    interface HTMLExtendsEventsElement extends Components.ExtendsEvents, HTMLStencilElement {
+    }
+    var HTMLExtendsEventsElement: {
+        prototype: HTMLExtendsEventsElement;
+        new (): HTMLExtendsEventsElement;
     };
     interface HTMLExtendsExternalElement extends Components.ExtendsExternal, HTMLStencilElement {
     }
@@ -330,6 +525,20 @@ declare global {
     var HTMLExtendsMethodsElement: {
         prototype: HTMLExtendsMethodsElement;
         new (): HTMLExtendsMethodsElement;
+    };
+    /**
+     * MixedDecoratorsCmp - Demonstrates mixed decorator type conflicts in inheritance chains
+     * This component:
+     * 1. Extends MixedDecoratorsBase (inherits base decorators)
+     * 2. Defines conflicting decorators with same names but different decorator types
+     * 3. Verifies runtime behavior when mixed decorator types exist
+     * 4. Renders UI showing which decorator type is active (component decorator type should win)
+     */
+    interface HTMLExtendsMixedDecoratorsElement extends Components.ExtendsMixedDecorators, HTMLStencilElement {
+    }
+    var HTMLExtendsMixedDecoratorsElement: {
+        prototype: HTMLExtendsMixedDecoratorsElement;
+        new (): HTMLExtendsMixedDecoratorsElement;
     };
     interface HTMLExtendsMixinCmpElement extends Components.ExtendsMixinCmp, HTMLStencilElement {
     }
@@ -374,6 +583,24 @@ declare global {
     var HTMLExtendsViaHostCmpElement: {
         prototype: HTMLExtendsViaHostCmpElement;
         new (): HTMLExtendsViaHostCmpElement;
+    };
+    /**
+     * WatchCmp - Demonstrates
+     * @Watch decorator inheritance
+     * This component:
+     * 1. Extends WatchBase (inherits base
+     * @Watch decorators)
+     * 2. Adds additional
+     * @Watch decorators
+     * 3. Overrides base watch handler (overrideProp)
+     * 4. Demonstrates watch execution order
+     * 5. Demonstrates reactive property chains
+     */
+    interface HTMLExtendsWatchElement extends Components.ExtendsWatch, HTMLStencilElement {
+    }
+    var HTMLExtendsWatchElement: {
+        prototype: HTMLExtendsWatchElement;
+        new (): HTMLExtendsWatchElement;
     };
     interface HTMLInheritanceCheckboxGroupElementEventMap {
         "valueChange": string[];
@@ -440,16 +667,20 @@ declare global {
         "extended-cmp-cmp": HTMLExtendedCmpCmpElement;
         "extends-abstract": HTMLExtendsAbstractElement;
         "extends-cmp-cmp": HTMLExtendsCmpCmpElement;
+        "extends-conflicts": HTMLExtendsConflictsElement;
         "extends-controller-updates": HTMLExtendsControllerUpdatesElement;
         "extends-direct-state": HTMLExtendsDirectStateElement;
+        "extends-events": HTMLExtendsEventsElement;
         "extends-external": HTMLExtendsExternalElement;
         "extends-lifecycle-basic": HTMLExtendsLifecycleBasicElement;
         "extends-lifecycle-multilevel": HTMLExtendsLifecycleMultilevelElement;
         "extends-methods": HTMLExtendsMethodsElement;
+        "extends-mixed-decorators": HTMLExtendsMixedDecoratorsElement;
         "extends-mixin-cmp": HTMLExtendsMixinCmpElement;
         "extends-props-state": HTMLExtendsPropsStateElement;
         "extends-render": HTMLExtendsRenderElement;
         "extends-via-host-cmp": HTMLExtendsViaHostCmpElement;
+        "extends-watch": HTMLExtendsWatchElement;
         "inheritance-checkbox-group": HTMLInheritanceCheckboxGroupElement;
         "inheritance-radio-group": HTMLInheritanceRadioGroupElement;
         "inheritance-scaling-demo": HTMLInheritanceScalingDemoElement;
@@ -512,9 +743,40 @@ declare namespace LocalJSX {
          */
         "prop2"?: string;
     }
+    /**
+     * ConflictsCmp - Demonstrates decorator conflicts in inheritance chains
+     * This component:
+     * 1. Extends ConflictsBase (inherits base decorators)
+     * 2. Defines duplicate decorators with same names but different values/behavior
+     * 3. Verifies component decorators override base decorators
+     * 4. Renders UI showing which version is active (component should win)
+     */
+    interface ExtendsConflicts {
+        /**
+          * @default 'base only prop value'
+         */
+        "baseOnlyProp"?: string;
+        /**
+          * @default 'component prop value'
+         */
+        "duplicateProp"?: string;
+    }
     interface ExtendsControllerUpdates {
     }
     interface ExtendsDirectState {
+    }
+    /**
+     * EventsCmp - Demonstrates
+     * @Listen decorator inheritance
+     * This component:
+     * 1. Extends EventBase (inherits base
+     * @Listen decorators)
+     * 2. Adds additional
+     * @Listen decorators
+     * 3. Overrides base event handler
+     * 4. Demonstrates event bubbling and propagation
+     */
+    interface ExtendsEvents {
     }
     interface ExtendsExternal {
         /**
@@ -531,6 +793,33 @@ declare namespace LocalJSX {
     interface ExtendsLifecycleMultilevel {
     }
     interface ExtendsMethods {
+    }
+    /**
+     * MixedDecoratorsCmp - Demonstrates mixed decorator type conflicts in inheritance chains
+     * This component:
+     * 1. Extends MixedDecoratorsBase (inherits base decorators)
+     * 2. Defines conflicting decorators with same names but different decorator types
+     * 3. Verifies runtime behavior when mixed decorator types exist
+     * 4. Renders UI showing which decorator type is active (component decorator type should win)
+     */
+    interface ExtendsMixedDecorators {
+        /**
+          * @default 'base only prop value'
+         */
+        "baseOnlyProp"?: string;
+        /**
+          * Method that will conflict with
+          * @default 'component prop value'
+         */
+        "mixedMethodName"?: string;
+        /**
+          * @default 'base prop value'
+         */
+        "mixedName"?: string;
+        /**
+          * @default 'component prop value'
+         */
+        "mixedStateName"?: string;
     }
     interface ExtendsMixinCmp {
         /**
@@ -584,6 +873,36 @@ declare namespace LocalJSX {
     }
     interface ExtendsViaHostCmp {
     }
+    /**
+     * WatchCmp - Demonstrates
+     * @Watch decorator inheritance
+     * This component:
+     * 1. Extends WatchBase (inherits base
+     * @Watch decorators)
+     * 2. Adds additional
+     * @Watch decorators
+     * 3. Overrides base watch handler (overrideProp)
+     * 4. Demonstrates watch execution order
+     * 5. Demonstrates reactive property chains
+     */
+    interface ExtendsWatch {
+        /**
+          * @default 0
+         */
+        "baseCount"?: number;
+        /**
+          * @default 'base prop initial'
+         */
+        "baseProp"?: string;
+        /**
+          * @default 'child prop initial'
+         */
+        "childProp"?: string;
+        /**
+          * @default 'override prop initial'
+         */
+        "overrideProp"?: string;
+    }
     interface InheritanceCheckboxGroup {
         "onValueChange"?: (event: InheritanceCheckboxGroupCustomEvent<string[]>) => void;
     }
@@ -619,16 +938,20 @@ declare namespace LocalJSX {
         "extended-cmp-cmp": ExtendedCmpCmp;
         "extends-abstract": ExtendsAbstract;
         "extends-cmp-cmp": ExtendsCmpCmp;
+        "extends-conflicts": ExtendsConflicts;
         "extends-controller-updates": ExtendsControllerUpdates;
         "extends-direct-state": ExtendsDirectState;
+        "extends-events": ExtendsEvents;
         "extends-external": ExtendsExternal;
         "extends-lifecycle-basic": ExtendsLifecycleBasic;
         "extends-lifecycle-multilevel": ExtendsLifecycleMultilevel;
         "extends-methods": ExtendsMethods;
+        "extends-mixed-decorators": ExtendsMixedDecorators;
         "extends-mixin-cmp": ExtendsMixinCmp;
         "extends-props-state": ExtendsPropsState;
         "extends-render": ExtendsRender;
         "extends-via-host-cmp": ExtendsViaHostCmp;
+        "extends-watch": ExtendsWatch;
         "inheritance-checkbox-group": InheritanceCheckboxGroup;
         "inheritance-radio-group": InheritanceRadioGroup;
         "inheritance-scaling-demo": InheritanceScalingDemo;
@@ -652,12 +975,42 @@ declare module "@stencil/core" {
             "extended-cmp-cmp": LocalJSX.ExtendedCmpCmp & JSXBase.HTMLAttributes<HTMLExtendedCmpCmpElement>;
             "extends-abstract": LocalJSX.ExtendsAbstract & JSXBase.HTMLAttributes<HTMLExtendsAbstractElement>;
             "extends-cmp-cmp": LocalJSX.ExtendsCmpCmp & JSXBase.HTMLAttributes<HTMLExtendsCmpCmpElement>;
+            /**
+             * ConflictsCmp - Demonstrates decorator conflicts in inheritance chains
+             * This component:
+             * 1. Extends ConflictsBase (inherits base decorators)
+             * 2. Defines duplicate decorators with same names but different values/behavior
+             * 3. Verifies component decorators override base decorators
+             * 4. Renders UI showing which version is active (component should win)
+             */
+            "extends-conflicts": LocalJSX.ExtendsConflicts & JSXBase.HTMLAttributes<HTMLExtendsConflictsElement>;
             "extends-controller-updates": LocalJSX.ExtendsControllerUpdates & JSXBase.HTMLAttributes<HTMLExtendsControllerUpdatesElement>;
             "extends-direct-state": LocalJSX.ExtendsDirectState & JSXBase.HTMLAttributes<HTMLExtendsDirectStateElement>;
+            /**
+             * EventsCmp - Demonstrates
+             * @Listen decorator inheritance
+             * This component:
+             * 1. Extends EventBase (inherits base
+             * @Listen decorators)
+             * 2. Adds additional
+             * @Listen decorators
+             * 3. Overrides base event handler
+             * 4. Demonstrates event bubbling and propagation
+             */
+            "extends-events": LocalJSX.ExtendsEvents & JSXBase.HTMLAttributes<HTMLExtendsEventsElement>;
             "extends-external": LocalJSX.ExtendsExternal & JSXBase.HTMLAttributes<HTMLExtendsExternalElement>;
             "extends-lifecycle-basic": LocalJSX.ExtendsLifecycleBasic & JSXBase.HTMLAttributes<HTMLExtendsLifecycleBasicElement>;
             "extends-lifecycle-multilevel": LocalJSX.ExtendsLifecycleMultilevel & JSXBase.HTMLAttributes<HTMLExtendsLifecycleMultilevelElement>;
             "extends-methods": LocalJSX.ExtendsMethods & JSXBase.HTMLAttributes<HTMLExtendsMethodsElement>;
+            /**
+             * MixedDecoratorsCmp - Demonstrates mixed decorator type conflicts in inheritance chains
+             * This component:
+             * 1. Extends MixedDecoratorsBase (inherits base decorators)
+             * 2. Defines conflicting decorators with same names but different decorator types
+             * 3. Verifies runtime behavior when mixed decorator types exist
+             * 4. Renders UI showing which decorator type is active (component decorator type should win)
+             */
+            "extends-mixed-decorators": LocalJSX.ExtendsMixedDecorators & JSXBase.HTMLAttributes<HTMLExtendsMixedDecoratorsElement>;
             "extends-mixin-cmp": LocalJSX.ExtendsMixinCmp & JSXBase.HTMLAttributes<HTMLExtendsMixinCmpElement>;
             /**
              * Test Case #3: Property & State Inheritance Basics
@@ -682,6 +1035,19 @@ declare module "@stencil/core" {
              */
             "extends-render": LocalJSX.ExtendsRender & JSXBase.HTMLAttributes<HTMLExtendsRenderElement>;
             "extends-via-host-cmp": LocalJSX.ExtendsViaHostCmp & JSXBase.HTMLAttributes<HTMLExtendsViaHostCmpElement>;
+            /**
+             * WatchCmp - Demonstrates
+             * @Watch decorator inheritance
+             * This component:
+             * 1. Extends WatchBase (inherits base
+             * @Watch decorators)
+             * 2. Adds additional
+             * @Watch decorators
+             * 3. Overrides base watch handler (overrideProp)
+             * 4. Demonstrates watch execution order
+             * 5. Demonstrates reactive property chains
+             */
+            "extends-watch": LocalJSX.ExtendsWatch & JSXBase.HTMLAttributes<HTMLExtendsWatchElement>;
             "inheritance-checkbox-group": LocalJSX.InheritanceCheckboxGroup & JSXBase.HTMLAttributes<HTMLInheritanceCheckboxGroupElement>;
             "inheritance-radio-group": LocalJSX.InheritanceRadioGroup & JSXBase.HTMLAttributes<HTMLInheritanceRadioGroupElement>;
             /**

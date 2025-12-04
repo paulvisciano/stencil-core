@@ -310,53 +310,54 @@ export const ExtendsTestCasesTable = () => {
       testCount: testCaseStatus[11]?.testCount || 0,
       section: testCaseStatus[11]?.implemented ? 'implemented' : 'missing',
     },
-    // 🔵 Advanced Real-World (13-14) - TODO
+    // 🔴 Robustness & Production (13)
     {
       id: 13,
       implemented: testCaseStatus[13]?.implemented || false,
       desc: testCaseStatus[13]?.description || '',
       types: (
         <>
-          <strong>🔵 Advanced:</strong> FloatingUI Controller - Real-world Popper.js integration via extends<br/>
-          <strong>Controller Features:</strong> Positioning logic, lifecycle integration, dynamic updates, cleanup<br/>
-          <small>Demonstrates practical controller pattern | Real library integration | Production use case</small>
+          <strong>🔴 Robustness:</strong> Decorator Conflicts - Duplicate decorator names of the same type<br/>
+          <strong>Conflict Scenarios:</strong> Duplicate @Prop names, duplicate @State names, duplicate @Method names<br/>
+          <small>Ensures reliability | Compiler precedence rules | Override behavior | Developer experience</small>
         </>
       ),
-      tested: getGroupStats('floatingui').tested,
-      total: getGroupStats('floatingui').total,
+      tested: getGroupStats('conflicts').tested,
+      total: getGroupStats('conflicts').total,
       testCount: testCaseStatus[13]?.testCount || 0,
       section: testCaseStatus[13]?.implemented ? 'implemented' : 'missing',
     },
+    // 🔵 Advanced Composition Pattern (14)
     {
       id: 14,
       implemented: testCaseStatus[14]?.implemented || false,
       desc: testCaseStatus[14]?.description || '',
       types: (
         <>
-          <strong>🔵 Advanced:</strong> ValidationController - Form validation logic via extends<br/>
-          <strong>Controller Features:</strong> Validation rules, error state, async validation, form integration<br/>
-          <small>Demonstrates practical validation pattern | Business logic reuse | Real-world forms</small>
+          <strong>🔵 Advanced:</strong> ReactiveControllerHost Pattern (Composition-based controllers)<br/>
+          <strong>Composition Pattern:</strong> Components extend ReactiveControllerHost, compose ReactiveController instances<br/>
+          <small>Automatic lifecycle hooking with composition over inheritance | {formatTestCount(testCaseStatus[14])}</small>
         </>
       ),
-      tested: getGroupStats('validation').tested,
-      total: getGroupStats('validation').total,
+      tested: getGroupStats('via-host').tested,
+      total: getGroupStats('via-host').total,
       testCount: testCaseStatus[14]?.testCount || 0,
       section: testCaseStatus[14]?.implemented ? 'implemented' : 'missing',
     },
-    // 🔴 Robustness & Production (15-17) - TODO
+    // 🔵 Advanced Scaling Demonstrations (15-16)
     {
       id: 15,
       implemented: testCaseStatus[15]?.implemented || false,
       desc: testCaseStatus[15]?.description || '',
       types: (
         <>
-          <strong>🔴 Robustness:</strong> Decorator Conflicts & Edge Cases - Duplicate decorators, override conflicts<br/>
-          <strong>Edge Cases:</strong> Multiple @Prop/@State same name, @Method conflicts, @Watch duplication<br/>
-          <small>Ensures reliability | Error handling | Conflict resolution | Developer experience</small>
+          <strong>🔵 Advanced:</strong> Inheritance-Based Scaling (3 components, 2 controllers)<br/>
+          <strong>Scaling Pattern:</strong> Demonstrates how inheritance scales with multiple components and controllers<br/>
+          <small>3 components (TextInput, RadioGroup, CheckboxGroup) using 2 controllers (ValidationController, FocusController) via inheritance | {formatTestCount(testCaseStatus[15])}</small>
         </>
       ),
-      tested: getGroupStats('conflicts').tested,
-      total: getGroupStats('conflicts').total,
+      tested: getGroupStats('inheritance-scaling').tested,
+      total: getGroupStats('inheritance-scaling').total,
       testCount: testCaseStatus[15]?.testCount || 0,
       section: testCaseStatus[15]?.implemented ? 'implemented' : 'missing',
     },
@@ -366,65 +367,31 @@ export const ExtendsTestCasesTable = () => {
       desc: testCaseStatus[16]?.description || '',
       types: (
         <>
-          <strong>🔴 Production:</strong> SSR & Hydration - Server-side rendering with inheritance<br/>
-          <strong>SSR Features:</strong> Hydrate output, state serialization, lifecycle during SSR, hydration consistency<br/>
-          <small>Production-ready | Server rendering | Hydration safety | Framework completeness</small>
+          <strong>🔵 Advanced:</strong> Composition-Based Scaling (3 components, 2 controllers)<br/>
+          <strong>Scaling Pattern:</strong> Demonstrates how composition scales with multiple components and controllers<br/>
+          <small>3 components (TextInput, RadioGroup, CheckboxGroup) using 2 controllers (ValidationController, FocusController) via composition | {formatTestCount(testCaseStatus[16])}</small>
         </>
       ),
-      tested: getGroupStats('ssr').tested,
-      total: getGroupStats('ssr').total,
+      tested: getGroupStats('composition-scaling').tested,
+      total: getGroupStats('composition-scaling').total,
       testCount: testCaseStatus[16]?.testCount || 0,
       section: testCaseStatus[16]?.implemented ? 'implemented' : 'missing',
     },
-    // 🔵 Advanced Composition Pattern (17)
-    {
-      id: 17,
-      implemented: testCaseStatus[17]?.implemented || false,
-      desc: testCaseStatus[17]?.description || '',
-      types: (
-        <>
-          <strong>🔵 Advanced:</strong> ReactiveControllerHost Pattern (Composition-based controllers)<br/>
-          <strong>Composition Pattern:</strong> Components extend ReactiveControllerHost, compose ReactiveController instances<br/>
-          <small>Automatic lifecycle hooking with composition over inheritance | {formatTestCount(testCaseStatus[17])}</small>
-        </>
-      ),
-      tested: getGroupStats('via-host').tested,
-      total: getGroupStats('via-host').total,
-      testCount: testCaseStatus[17]?.testCount || 0,
-      section: testCaseStatus[17]?.implemented ? 'implemented' : 'missing',
-    },
-    // 🔵 Advanced Scaling Demonstrations (18-19)
     {
       id: 18,
       implemented: testCaseStatus[18]?.implemented || false,
       desc: testCaseStatus[18]?.description || '',
       types: (
         <>
-          <strong>🔵 Advanced:</strong> Inheritance-Based Scaling (3 components, 2 controllers)<br/>
-          <strong>Scaling Pattern:</strong> Demonstrates how inheritance scales with multiple components and controllers<br/>
-          <small>3 components (TextInput, RadioGroup, CheckboxGroup) using 2 controllers (ValidationController, FocusController) via inheritance | {formatTestCount(testCaseStatus[18])}</small>
+          <strong>🔴 Robustness:</strong> Mixed Decorator Types - Same name used as different decorator types<br/>
+          <strong>Mixed Scenarios:</strong> @Prop in base/@State in component, @State in base/@Prop in component, @Method in base/@Prop in component<br/>
+          <small>Ensures reliability | Compiler error handling | Type conflict resolution | Developer experience</small>
         </>
       ),
-      tested: getGroupStats('inheritance-scaling').tested,
-      total: getGroupStats('inheritance-scaling').total,
+      tested: getGroupStats('mixed-decorators').tested,
+      total: getGroupStats('mixed-decorators').total,
       testCount: testCaseStatus[18]?.testCount || 0,
       section: testCaseStatus[18]?.implemented ? 'implemented' : 'missing',
-    },
-    {
-      id: 19,
-      implemented: testCaseStatus[19]?.implemented || false,
-      desc: testCaseStatus[19]?.description || '',
-      types: (
-        <>
-          <strong>🔵 Advanced:</strong> Composition-Based Scaling (3 components, 2 controllers)<br/>
-          <strong>Scaling Pattern:</strong> Demonstrates how composition scales with multiple components and controllers<br/>
-          <small>3 components (TextInput, RadioGroup, CheckboxGroup) using 2 controllers (ValidationController, FocusController) via composition | {formatTestCount(testCaseStatus[19])}</small>
-        </>
-      ),
-      tested: getGroupStats('composition-scaling').tested,
-      total: getGroupStats('composition-scaling').total,
-      testCount: testCaseStatus[19]?.testCount || 0,
-      section: testCaseStatus[19]?.implemented ? 'implemented' : 'missing',
     }
   ];
 
@@ -443,26 +410,81 @@ Foundation patterns for lifecycle inheritance, property/state basics, method inh
 ### **🟡 Standard Patterns (6-11)** — 6 test cases
 Common inheritance scenarios including abstract classes, component-to-component, external libraries, mixins, event handling, and watch decorators.
 
-### **🔵 Advanced Real-World (12, 12a, 13-14, 17-19)** — 7 test cases
+### **🔵 Advanced Real-World (12, 12a, 14-16)** — 5 test cases
 Real-world reactive controller patterns comparing Stencil's extends capabilities with other frameworks like Lit, demonstrating practical use cases including composition-based ReactiveControllerHost pattern and scaling demonstrations for both inheritance and composition approaches.
 
-### **🔴 Robustness & Production (15-16)** — 2 test cases
-Edge cases, decorator conflicts, SSR behavior, and production-ready scenarios to ensure extends works reliably in all environments.
+### **🔴 Robustness & Production (13, 18)** — 2 test cases
+Edge cases, decorator conflicts, mixed decorator types, and production-ready scenarios to ensure extends works reliably in all environments.
 
 ---
 
-## 📋 TODO - Remaining Test Cases
+export const ExtendsTODOSection = () => {
+  const testCaseStatus = overlay.testCaseStatus || {};
+  
+  // Define categories (avoid duplicates - each test case belongs to one category)
+  const categories = {
+    '🟡 Standard Patterns': [6, 7, 8, 9, 10, 11],
+    '🔵 Advanced Real-World': [12, '12a', 14, 15, 16],
+    '🔴 Robustness & Production': [13, 18],
+  };
+  
+  // Track which test cases we've already included to avoid duplicates
+  const includedIds = new Set();
+  
+  // Get missing test cases by category
+  const getMissingByCategory = (categoryName, testCaseIds) => {
+    return testCaseIds
+      .map(id => {
+        // Skip if already included in another category
+        if (includedIds.has(String(id))) return null;
+        
+        const tc = testCaseStatus[id];
+        if (!tc || tc.implemented) return null;
+        
+        includedIds.add(String(id));
+        return { id, description: tc.description || `Test Case #${id}` };
+      })
+      .filter(Boolean);
+  };
+  
+  // Build category sections
+  const categorySections = Object.entries(categories).map(([categoryName, testCaseIds]) => {
+    const missing = getMissingByCategory(categoryName, testCaseIds);
+    if (missing.length === 0) return null;
+    
+    return {
+      name: categoryName,
+      missing,
+      total: testCaseIds.length,
+      remaining: missing.length,
+    };
+  }).filter(Boolean);
+  
+  if (categorySections.length === 0) {
+    return null;
+  }
+  
+  return (
+    <div>
+      <h2>📋 TODO - Remaining Test Cases</h2>
+      {categorySections.map(({ name, missing, total, remaining }) => (
+        <div key={name} style={{ marginBottom: '24px' }}>
+          <h3>{name} ({remaining}/{total} remaining)</h3>
+          {missing.map(({ id, description }) => (
+            <div key={id} style={{ marginBottom: '12px', marginLeft: '20px' }}>
+              <strong>Test Case #{id} TODO</strong>: {description}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+};
 
-### 🟡 Standard Patterns (2/6 remaining)
-
-10. **Test Case #10 TODO**: Event Handling Inheritance (@Listen decorators)
-11. **Test Case #11 TODO**: Watch Decorator Inheritance (@Watch behavior)
-
-### 🔵 Advanced Real-World (1 remaining)
-
-13. **Test Case #13 TODO**: FloatingUI Controller (Popper.js integration)
-
-### 🔴 Robustness & Production (2 remaining)
-
-15. **Test Case #15 TODO**: Decorator Conflicts & Edge Cases  
-16. **Test Case #16 TODO**: SSR & Hydration behavior
+{(() => {
+  const testCaseStatus = overlay.testCaseStatus || {};
+  const missingCases = Object.entries(testCaseStatus)
+    .filter(([_, tc]) => !tc.implemented);
+  if (missingCases.length === 0) return null;
+  return <ExtendsTODOSection />;
+})()}

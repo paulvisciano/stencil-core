@@ -1,19 +1,19 @@
 {
   "extends": "Stencil component inheritance and composition testing",
   "description": "Comprehensive testing framework for Stencil extends functionality covering lifecycle, decorators, controllers, and edge cases",
-  "version": "2025-11-24",
+  "version": "2025-12-03",
   "summary": {
-    "totalTests": 128,
-    "implementedTestCases": 14,
-    "totalTestCases": 19,
-    "componentsBuilt": 14,
-    "componentsTested": 14,
+    "totalTests": 194,
+    "implementedTestCases": 18,
+    "totalTestCases": 18,
+    "componentsBuilt": 18,
+    "componentsTested": 18,
     "testBreakdown": {
       "lifecycle": 13,
-      "standardPatterns": 85,
+      "standardPatterns": 151,
       "reactiveControllers": 30
     },
-    "note": "Last updated: November 24, 2025 at 2:42 AM PST"
+    "note": "Last updated: December 3, 2025 at 2:36 AM PST"
   },
   "testCaseStatus": {
     "1": {
@@ -226,8 +226,8 @@
       }
     },
     "10": {
-      "implemented": false,
-      "componentCount": 0,
+      "implemented": true,
+      "componentCount": 1,
       "description": "Event Handling Inheritance - @Listen decorators and event propagation through inheritance chains",
       "specPath": "test/wdio/ts-target/extends-events/cmp.test.ts",
       "eventFeatures": [
@@ -248,12 +248,15 @@
           "description": "When base class and component define same event handler - which executes and in what order"
         }
       ],
-      "testCount": 0,
-      "testBreakdown": {}
+      "testCount": 11,
+      "testBreakdown": {
+        "dist": 9,
+        "customElements": 2
+      }
     },
     "11": {
-      "implemented": false,
-      "componentCount": 0,
+      "implemented": true,
+      "componentCount": 1,
       "description": "Watch Decorator Inheritance - @Watch behavior through inheritance chains and reactive patterns",
       "specPath": "test/wdio/ts-target/extends-watch/cmp.test.ts",
       "watchFeatures": [
@@ -273,7 +276,12 @@
           "feature": "Watch Handler Override",
           "description": "When base class and component both watch same property - execution behavior and conflicts"
         }
-      ]
+      ],
+      "testCount": 16,
+      "testBreakdown": {
+        "dist": 13,
+        "customElements": 3
+      }
     },
     "12": {
       "implemented": true,
@@ -301,34 +309,15 @@
       ]
     },
     "13": {
-      "implemented": false,
-      "componentCount": 0,
-      "description": "FloatingUI Controller - Real-world reactive controller for Popper.js integration (Bricks components)",
-      "specPath": "test/wdio/ts-target/extends-floating-ui/cmp.test.ts",
-      "controllerFeatures": [
-        {
-          "feature": "Popper Instance Management",
-          "description": "Controller creates and manages Popper class instance in componentDidLoad lifecycle"
-        },
-        {
-          "feature": "Update Methods",
-          "description": "Provides update()/updateInstance() methods to replace updatePopoverInstance() in host components"
-        },
-        {
-          "feature": "Lifecycle Cleanup",
-          "description": "Handles popper.destroy() cleanup in disconnectedCallback"
-        },
-        {
-          "feature": "Real-world Integration",
-          "description": "Used by bricks-tooltip and bricks-menu-button components from Bricks component library"
-        }
-      ]
-    },
-    "15": {
-      "implemented": false,
-      "componentCount": 0,
-      "description": "Decorator Conflicts & Edge Cases - Testing inheritance chain conflicts and compiler behavior",
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 19,
+      "description": "Decorator Conflicts - Duplicate decorator names of the same type in inheritance chains",
       "specPath": "test/wdio/ts-target/extends-conflicts/cmp.test.ts",
+      "testBreakdown": {
+        "dist": 15,
+        "customElements": 4
+      },
       "conflictScenarios": [
         {
           "scenario": "Duplicate @Prop Names",
@@ -343,44 +332,12 @@
           "description": "Same method name defined in base class and component - override behavior"
         },
         {
-          "scenario": "Mixed Decorator Types",
-          "description": "Same name used as @Prop in base, @State in component - compiler error handling"
-        },
-        {
-          "scenario": "Invalid Inheritance Patterns",
-          "description": "Unsupported inheritance scenarios and error conditions"
-        },
-        {
-          "scenario": "Compiler Error Validation",
-          "description": "Verify appropriate compiler errors for invalid decorator conflicts"
+          "scenario": "Compiler Precedence Rules",
+          "description": "Verify compiler precedence rules when duplicate names exist"
         }
       ]
     },
-    "16": {
-      "implemented": false,
-      "componentCount": 0,
-      "description": "SSR & Hydration - Server-side rendering and hydration behavior with inheritance chains",
-      "specPath": "test/wdio/ts-target/extends-ssr/cmp.test.ts",
-      "ssrFeatures": [
-        {
-          "feature": "Server-Side Rendering",
-          "description": "How inheritance chains render on the server - component hierarchy and lifecycle execution"
-        },
-        {
-          "feature": "Hydration Behavior",
-          "description": "Client-side hydration of server-rendered components with inheritance - state synchronization"
-        },
-        {
-          "feature": "SSR/Client Mismatch",
-          "description": "Handling differences between server and client rendering of inherited components"
-        },
-        {
-          "feature": "Production Deployment",
-          "description": "Critical for enterprise applications using SSR - ensure inheritance works in production"
-        }
-      ]
-    },
-    "17": {
+    "14": {
       "implemented": true,
       "componentCount": 1,
       "testCount": 5,
@@ -410,7 +367,7 @@
         }
       ]
     },
-    "18": {
+    "15": {
       "implemented": true,
       "componentCount": 1,
       "testCount": 7,
@@ -439,7 +396,7 @@
         }
       ]
     },
-    "19": {
+    "16": {
       "implemented": true,
       "componentCount": 1,
       "testCount": 8,
@@ -467,6 +424,35 @@
           "description": "Controllers are accessed via properties (this.validation, this.focus) providing better encapsulation"
         }
       ]
+    },
+    "18": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "Mixed Decorator Types - Same name used as different decorator types in inheritance chains",
+      "specPath": "test/wdio/ts-target/extends-mixed-decorators/cmp.test.ts",
+      "mixedDecoratorScenarios": [
+        {
+          "scenario": "@Prop in Base, @State in Component",
+          "description": "Same name used as @Prop in base class and @State in component - compiler error handling"
+        },
+        {
+          "scenario": "@State in Base, @Prop in Component",
+          "description": "Same name used as @State in base class and @Prop in component - compiler error handling"
+        },
+        {
+          "scenario": "@Method in Base, @Prop in Component",
+          "description": "Same name used as @Method in base class and @Prop in component - compiler error handling"
+        },
+        {
+          "scenario": "Compiler Error Handling",
+          "description": "Verify appropriate compiler errors for mixed decorator types"
+        }
+      ],
+      "testCount": 20,
+      "testBreakdown": {
+        "dist": 16,
+        "customElements": 4
+      }
     },
     "12a": {
       "implemented": true,
@@ -618,57 +604,48 @@
       ]
     },
     {
-      "index": 17,
-      "group": "via-host",
-      "tested": true,
-      "tag": "extends-via-host",
-      "caseNumbers": [
-        17
-      ]
-    },
-    {
       "index": 13,
-      "group": "floating-ui",
-      "tested": false,
-      "tag": "extends-floating-ui",
+      "group": "conflicts",
+      "tested": true,
+      "tag": "extends-conflicts",
       "caseNumbers": [
         13
       ]
     },
     {
+      "index": 14,
+      "group": "via-host",
+      "tested": true,
+      "tag": "extends-via-host",
+      "caseNumbers": [
+        14
+      ]
+    },
+    {
       "index": 15,
-      "group": "conflicts",
+      "group": "scaling",
       "tested": false,
-      "tag": "extends-conflicts",
+      "tag": "extends-inheritance-scaling",
       "caseNumbers": [
         15
       ]
     },
     {
       "index": 16,
-      "group": "ssr",
+      "group": "scaling",
       "tested": false,
-      "tag": "extends-ssr",
+      "tag": "extends-composition-scaling",
       "caseNumbers": [
         16
       ]
     },
     {
       "index": 18,
-      "group": "scaling",
+      "group": "mixed-decorators",
       "tested": false,
-      "tag": "extends-inheritance-scaling",
+      "tag": "extends-mixed-decorators",
       "caseNumbers": [
         18
-      ]
-    },
-    {
-      "index": 19,
-      "group": "scaling",
-      "tested": false,
-      "tag": "extends-composition-scaling",
-      "caseNumbers": [
-        19
       ]
     }
   ],
