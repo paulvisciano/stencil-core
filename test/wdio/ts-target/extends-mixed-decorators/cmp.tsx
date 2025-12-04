@@ -24,6 +24,7 @@ export class MixedDecoratorsCmp extends MixedDecoratorsBase {
   @Prop() mixedStateName: string = 'component prop value';
   
   // Base has @Method, component has @Prop - component @Prop should override base @Method
+  // @ts-expect-error - Intentional mixed decorator type conflict for testing runtime behavior
   @Prop() mixedMethodName: string = 'component prop value';
   
   // Component-specific properties for comparison
