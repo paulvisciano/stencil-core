@@ -16,6 +16,7 @@
       "testCount": 8,
       "hasComponents": true,
       "hasWdioTest": true,
+      "manual": false,
       "components": [
         {
           "tag": "method-promise-async-false-args-none",
@@ -45,6 +46,7 @@
       "testCount": 2,
       "hasComponents": true,
       "hasWdioTest": true,
+      "manual": false,
       "components": [
         {
           "tag": "method-value-async-true-args-none",
@@ -64,6 +66,7 @@
       "testCount": 2,
       "hasComponents": true,
       "hasWdioTest": true,
+      "manual": false,
       "components": [
         {
           "tag": "method-void-async-true-args-none",
@@ -76,6 +79,216 @@
           "optionsKey": "void|✓|one"
         }
       ]
+    },
+    "4": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 13,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "extends-methods",
+          "group": "inheritance",
+          "optionsKey": "inheritance|method-basics"
+        }
+      ],
+      "manual": true
+    },
+    "5": {
+      "implemented": true,
+      "componentCount": 2,
+      "testCount": 2,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "attribute-boolean-root",
+          "group": "state-management",
+          "optionsKey": "void|✓|none"
+        },
+        {
+          "tag": "computed-properties-state-decorator",
+          "group": "state-management",
+          "optionsKey": "void|✓|none"
+        }
+      ],
+      "manual": true
+    },
+    "6": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 2,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "attribute-complex",
+          "group": "instance-return",
+          "optionsKey": "promise|✓|none"
+        }
+      ],
+      "manual": true
+    },
+    "7": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 3,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "scoped-slot-assigned-methods",
+          "group": "slot-interaction",
+          "optionsKey": "promise|✓|multiple"
+        }
+      ],
+      "manual": true
+    },
+    "8": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 1,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "esm-import",
+          "group": "event-emission",
+          "optionsKey": "void|✓|none"
+        }
+      ],
+      "manual": true
+    },
+    "9": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 1,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "dynamic-import",
+          "group": "dynamic-imports",
+          "optionsKey": "void|✓|none"
+        }
+      ],
+      "manual": true
+    },
+    "10": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 2,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "ion-radio",
+          "group": "focus-blur",
+          "optionsKey": "void|✓|optional"
+        }
+      ],
+      "manual": true
+    },
+    "11": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 15,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "extends-props-state",
+          "group": "inheritance-props-state",
+          "optionsKey": "void|✓|multiple"
+        }
+      ],
+      "manual": true
+    },
+    "12": {
+      "implemented": true,
+      "componentCount": 3,
+      "testCount": 12,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "extends-mixin-cmp",
+          "group": "inheritance-mixin",
+          "optionsKey": "void|✓|none"
+        },
+        {
+          "tag": "mixin-a",
+          "group": "inheritance-mixin",
+          "optionsKey": "void|✓|none"
+        },
+        {
+          "tag": "mixin-b",
+          "group": "inheritance-mixin",
+          "optionsKey": "void|✓|none"
+        }
+      ],
+      "manual": true
+    },
+    "13": {
+      "implemented": true,
+      "componentCount": 2,
+      "testCount": 12,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "extends-external",
+          "group": "inheritance-external",
+          "optionsKey": "void|✓|none"
+        },
+        {
+          "tag": "sibling-extended-base",
+          "group": "inheritance-external",
+          "optionsKey": "void|✓|multiple"
+        }
+      ],
+      "manual": true
+    },
+    "14": {
+      "implemented": true,
+      "componentCount": 2,
+      "testCount": 12,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "extends-cmp-cmp",
+          "group": "inheritance-component",
+          "optionsKey": "void|✓|none"
+        },
+        {
+          "tag": "extended-cmp",
+          "group": "inheritance-component",
+          "optionsKey": "void|✓|none"
+        }
+      ],
+      "manual": true
+    },
+    "15": {
+      "implemented": true,
+      "componentCount": 2,
+      "testCount": 12,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "extends-abstract",
+          "group": "inheritance-abstract",
+          "optionsKey": "void|✓|none"
+        },
+        {
+          "tag": "mixin-parent",
+          "group": "inheritance-abstract",
+          "optionsKey": "void|✓|multiple"
+        }
+      ],
+      "manual": true
     }
   },
   "items": [
@@ -238,8 +451,387 @@
       "testedBy": [
         "Test Case #1"
       ]
+    },
+    {
+      "group": "inheritance",
+      "options": {
+        "returns": "promise",
+        "async": "✓",
+        "args": "multiple"
+      },
+      "optionsKey": "inheritance|method-basics",
+      "files": [
+        "ts-target/extends-methods/cmp.tsx",
+        "ts-target/extends-methods/method-base.ts"
+      ],
+      "tag": "extends-methods",
+      "tested": true,
+      "caseIds": [
+        4
+      ],
+      "testedBy": [
+        "Test Case #4"
+      ],
+      "testFile": "test/wdio/ts-target/extends-methods/cmp.test.ts"
+    },
+    {
+      "group": "state-management",
+      "options": {
+        "returns": "void",
+        "async": "✓",
+        "args": "none"
+      },
+      "optionsKey": "void|✓|none",
+      "files": [
+        "attribute-boolean/cmp-root.tsx"
+      ],
+      "tag": "attribute-boolean-root",
+      "tested": true,
+      "caseIds": [
+        5
+      ],
+      "testedBy": [
+        "Test Case #5"
+      ],
+      "testFile": "test/wdio/attribute-boolean/cmp.test.tsx"
+    },
+    {
+      "group": "state-management",
+      "options": {
+        "returns": "void",
+        "async": "✓",
+        "args": "none"
+      },
+      "optionsKey": "void|✓|none",
+      "files": [
+        "computed-properties-state-decorator/cmp.tsx"
+      ],
+      "tag": "computed-properties-state-decorator",
+      "tested": true,
+      "caseIds": [
+        5
+      ],
+      "testedBy": [
+        "Test Case #5"
+      ],
+      "testFile": "test/wdio/computed-properties-state-decorator/cmp.test.tsx"
+    },
+    {
+      "group": "instance-return",
+      "options": {
+        "returns": "promise",
+        "async": "✓",
+        "args": "none"
+      },
+      "optionsKey": "promise|✓|none",
+      "files": [
+        "attribute-complex/cmp.tsx"
+      ],
+      "tag": "attribute-complex",
+      "tested": true,
+      "caseIds": [
+        6
+      ],
+      "testedBy": [
+        "Test Case #6"
+      ],
+      "testFile": "test/wdio/attribute-complex/cmp.test.tsx"
+    },
+    {
+      "group": "slot-interaction",
+      "options": {
+        "returns": "promise",
+        "async": "✓",
+        "args": "multiple"
+      },
+      "optionsKey": "promise|✓|multiple",
+      "files": [
+        "scoped-slot-assigned-methods/cmp.tsx"
+      ],
+      "tag": "scoped-slot-assigned-methods",
+      "tested": true,
+      "caseIds": [
+        7
+      ],
+      "testedBy": [
+        "Test Case #7"
+      ],
+      "testFile": "test/wdio/scoped-slot-assigned-methods/cmp.test.tsx"
+    },
+    {
+      "group": "event-emission",
+      "options": {
+        "returns": "void",
+        "async": "✓",
+        "args": "none"
+      },
+      "optionsKey": "void|✓|none",
+      "files": [
+        "esm-import/esm-import.tsx"
+      ],
+      "tag": "esm-import",
+      "tested": true,
+      "caseIds": [
+        8
+      ],
+      "testedBy": [
+        "Test Case #8"
+      ],
+      "testFile": "test/wdio/esm-import/cmp.test.tsx"
+    },
+    {
+      "group": "dynamic-imports",
+      "options": {
+        "returns": "void",
+        "async": "✓",
+        "args": "none"
+      },
+      "optionsKey": "void|✓|none",
+      "files": [
+        "dynamic-imports/dynamic-import.tsx"
+      ],
+      "tag": "dynamic-import",
+      "tested": true,
+      "caseIds": [
+        9
+      ],
+      "testedBy": [
+        "Test Case #9"
+      ],
+      "testFile": "test/wdio/dynamic-imports/cmp.test.tsx"
+    },
+    {
+      "group": "focus-blur",
+      "options": {
+        "returns": "void",
+        "async": "✓",
+        "args": "optional"
+      },
+      "optionsKey": "void|✓|optional",
+      "files": [
+        "radio-group-blur/test-radio.tsx"
+      ],
+      "tag": "ion-radio",
+      "tested": true,
+      "caseIds": [
+        10
+      ],
+      "testedBy": [
+        "Test Case #10"
+      ],
+      "testFile": "test/wdio/radio-group-blur/cmp.test.tsx"
+    },
+    {
+      "group": "inheritance-props-state",
+      "options": {
+        "returns": "void",
+        "async": "✓",
+        "args": "multiple"
+      },
+      "optionsKey": "void|✓|multiple",
+      "files": [
+        "ts-target/extends-props-state/cmp.tsx"
+      ],
+      "tag": "extends-props-state",
+      "tested": true,
+      "caseIds": [
+        11
+      ],
+      "testedBy": [
+        "Test Case #11"
+      ],
+      "testFile": "test/wdio/ts-target/extends-props-state/cmp.test.ts"
+    },
+    {
+      "group": "inheritance-mixin",
+      "options": {
+        "returns": "void",
+        "async": "✓",
+        "args": "none"
+      },
+      "optionsKey": "void|✓|none",
+      "files": [
+        "ts-target/extends-mixin/cmp.tsx"
+      ],
+      "tag": "extends-mixin-cmp",
+      "tested": true,
+      "caseIds": [
+        12
+      ],
+      "testedBy": [
+        "Test Case #12"
+      ],
+      "testFile": "test/wdio/ts-target/extends-mixin/cmp.test.ts"
+    },
+    {
+      "group": "inheritance-mixin",
+      "options": {
+        "returns": "void",
+        "async": "✓",
+        "args": "none"
+      },
+      "optionsKey": "void|✓|none",
+      "files": [
+        "ts-target/extends-mixin/mixin-a.tsx"
+      ],
+      "tag": "mixin-a",
+      "tested": true,
+      "caseIds": [
+        12
+      ],
+      "testedBy": [
+        "Test Case #12"
+      ],
+      "testFile": "test/wdio/ts-target/extends-mixin/cmp.test.ts"
+    },
+    {
+      "group": "inheritance-mixin",
+      "options": {
+        "returns": "void",
+        "async": "✓",
+        "args": "none"
+      },
+      "optionsKey": "void|✓|none",
+      "files": [
+        "ts-target/extends-mixin/mixin-b.tsx"
+      ],
+      "tag": "mixin-b",
+      "tested": true,
+      "caseIds": [
+        12
+      ],
+      "testedBy": [
+        "Test Case #12"
+      ],
+      "testFile": "test/wdio/ts-target/extends-mixin/cmp.test.ts"
+    },
+    {
+      "group": "inheritance-external",
+      "options": {
+        "returns": "void",
+        "async": "✓",
+        "args": "none"
+      },
+      "optionsKey": "void|✓|none",
+      "files": [
+        "ts-target/extends-external/cmp.tsx"
+      ],
+      "tag": "extends-external",
+      "tested": true,
+      "caseIds": [
+        13
+      ],
+      "testedBy": [
+        "Test Case #13"
+      ],
+      "testFile": "test/wdio/ts-target/extends-external/cmp.test.ts"
+    },
+    {
+      "group": "inheritance-external",
+      "options": {
+        "returns": "void",
+        "async": "✓",
+        "args": "multiple"
+      },
+      "optionsKey": "void|✓|multiple",
+      "files": [
+        "test-sibling/src/sibling-extended-base/sibling-extended-base.tsx"
+      ],
+      "tag": "sibling-extended-base",
+      "tested": true,
+      "caseIds": [
+        13
+      ],
+      "testedBy": [
+        "Test Case #13"
+      ],
+      "testFile": "test/wdio/ts-target/extends-external/cmp.test.ts"
+    },
+    {
+      "group": "inheritance-component",
+      "options": {
+        "returns": "void",
+        "async": "✓",
+        "args": "none"
+      },
+      "optionsKey": "void|✓|none",
+      "files": [
+        "ts-target/extends-cmp/extended-cmp-cmp.tsx"
+      ],
+      "tag": "extends-cmp-cmp",
+      "tested": true,
+      "caseIds": [
+        14
+      ],
+      "testedBy": [
+        "Test Case #14"
+      ],
+      "testFile": "test/wdio/ts-target/extends-cmp/cmp.test.ts"
+    },
+    {
+      "group": "inheritance-component",
+      "options": {
+        "returns": "void",
+        "async": "✓",
+        "args": "none"
+      },
+      "optionsKey": "void|✓|none",
+      "files": [
+        "ts-target/extends-cmp/cmp.tsx"
+      ],
+      "tag": "extended-cmp",
+      "tested": true,
+      "caseIds": [
+        14
+      ],
+      "testedBy": [
+        "Test Case #14"
+      ],
+      "testFile": "test/wdio/ts-target/extends-cmp/cmp.test.ts"
+    },
+    {
+      "group": "inheritance-abstract",
+      "options": {
+        "returns": "void",
+        "async": "✓",
+        "args": "none"
+      },
+      "optionsKey": "void|✓|none",
+      "files": [
+        "ts-target/extends-abstract/cmp.tsx"
+      ],
+      "tag": "extends-abstract",
+      "tested": true,
+      "caseIds": [
+        15
+      ],
+      "testedBy": [
+        "Test Case #15"
+      ],
+      "testFile": "test/wdio/ts-target/extends-abstract/cmp.test.ts"
+    },
+    {
+      "group": "inheritance-abstract",
+      "options": {
+        "returns": "void",
+        "async": "✓",
+        "args": "multiple"
+      },
+      "optionsKey": "void|✓|multiple",
+      "files": [
+        "ts-target/extends-abstract/mxin-class-parent.ts"
+      ],
+      "tag": "mixin-parent",
+      "tested": true,
+      "caseIds": [
+        15
+      ],
+      "testedBy": [
+        "Test Case #15"
+      ],
+      "testFile": "test/wdio/ts-target/extends-abstract/cmp.test.ts"
     }
   ],
-  "lastRun": "2025-12-04T10:05:46.557Z",
-  "lastRunFormatted": "Dec 4, 2025, 2:05 AM PST"
+  "lastRun": "2025-12-04T10:19:16.148Z",
+  "lastRunFormatted": "Dec 4, 2025, 2:19 AM PST"
 }

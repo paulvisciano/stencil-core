@@ -85,6 +85,7 @@ export function calculateTestCaseStatus(items, testDir) {
       testCount,
       hasComponents,
       hasWdioTest,
+      manual: false, // Auto-scanned test cases are not manual
       components: componentsWithCase.map(item => ({
         tag: item.tag,
         group: item.group,
@@ -295,6 +296,40 @@ export function generateTestCoverage({
   
   // Calculate test case implementation status
   const testCaseStatus = calculateTestCaseStatus(items, testDir);
+  
+  // Preserve manually tracked test cases from existing file (for test cases outside main folder)
+  let existingCoverage = {};
+  if (fs.existsSync(outPath)) {
+    try {
+      existingCoverage = readJson(outPath);
+      // Merge manually tracked test cases (those marked with manual: true)
+      if (existingCoverage.testCaseStatus) {
+        Object.keys(existingCoverage.testCaseStatus).forEach(caseId => {
+          const existingCase = existingCoverage.testCaseStatus[caseId];
+          // Preserve if explicitly marked as manual
+          // Backward compatibility: if manual flag is missing and not in auto-scanned, preserve it
+          // (for decorators that haven't been updated to use manual flag yet)
+          if (existingCase.manual === true || 
+              (existingCase.manual !== false && !(caseId in testCaseStatus))) {
+            // Preserve manually tracked test case
+            testCaseStatus[caseId] = existingCase;
+          }
+        });
+      }
+      // Merge manually tracked items (those not in automatically scanned items)
+      if (existingCoverage.items) {
+        const autoScannedTags = new Set(items.map(item => item.tag).filter(Boolean));
+        existingCoverage.items.forEach(existingItem => {
+          if (existingItem.tag && !autoScannedTags.has(existingItem.tag)) {
+            // Preserve manually tracked item
+            items.push(existingItem);
+          }
+        });
+      }
+    } catch (e) {
+      // If reading existing file fails, continue without merging
+    }
+  }
   
   // Create timestamp data
   const timestamp = new Date().toISOString();

@@ -14,22 +14,30 @@ The current @Method decorator documentation only includes tests from `test/wdio/
 - Documented 26 components total
 - Verified 99 total tests passing
 - Updated documentation with comprehensive test coverage
+- Implemented `manual` flag preservation mechanism to prevent overwriting manually tracked test cases
 
 **Test Cases Created**:
-- Test Cases #1-3: Basic method types (already existed)
-- Test Case #4: Method inheritance basics (already existed)
-- Test Cases #5-15: New test cases covering real-world scenarios
+- Test Cases #1-3: Basic method types (already existed, auto-scanned)
+- Test Case #4: Method inheritance basics (already existed, manually tracked)
+- Test Cases #5-15: New test cases covering real-world scenarios (manually tracked)
 
 **Files Modified**:
-1. `test/storybook/docs/Testing/Decorators/Method/data/test-coverage.json` - Added 12 new test cases
+1. `test/storybook/docs/Testing/Decorators/Method/data/test-coverage.json` - Added 12 new test cases with `manual: true` flag
 2. `test/storybook/docs/Testing/Decorators/Method/test-coverage.js` - Added documentation comments
 3. `test/storybook/docs/Testing/Decorators/Method/@Method.mdx` - Updated with all test cases
+4. `test/storybook/docs/Testing/Decorators/_shared/test-coverage-core.js` - Added preservation logic for `manual: true` test cases
+
+**Preservation Mechanism**:
+- Test cases with `manual: true` are preserved when `test-coverage.js` runs
+- Auto-scanned test cases are marked with `manual: false` (or omitted, defaults to false)
+- Prevents loss of manually tracked test cases during branch merges or script runs
 
 **Verification**:
 - All 99 tests verified passing
 - All test file paths verified correct
 - Documentation renders correctly
 - Coverage statistics accurate
+- Manual flag preservation verified working
 
 ## Current State Analysis
 
@@ -161,6 +169,7 @@ Group components into logical test cases:
       "testCount": Y,  // ← Must match actual test count!
       "hasComponents": true,
       "hasWdioTest": true,
+      "manual": false,  // ← true for manually tracked, false for auto-scanned
       "components": [
         {
           "tag": "component-name",
@@ -180,7 +189,8 @@ Group components into logical test cases:
       "tested": true,
       "caseIds": [N],
       "testedBy": ["Test Case #N"],
-      "testFile": "test/wdio/path/to/test.test.tsx"  // ← For manually tracked
+      "testFile": "test/wdio/path/to/test.test.tsx",  // ← For manually tracked
+      "manual": false  // ← Optional: can also flag items
     }
   ]
 }
@@ -189,6 +199,7 @@ Group components into logical test cases:
 **Key Fields**:
 - `testCount`: Actual number of `it()` tests (verify by running tests!)
 - `componentCount`: Number of components in this test case
+- `manual`: `true` for manually tracked test cases, `false` for auto-scanned (defaults to `false` if not present)
 - `testFile`: Path to test file (required for manually tracked test cases)
 - `caseIds`: Array of test case IDs this component belongs to
 - `optionsKey`: Unique identifier for this component's decorator options
@@ -260,17 +271,26 @@ Group components into logical test cases:
 - ✅ Automatically counted by `test-coverage.js`
 - ✅ Updates automatically when tests are added/removed
 - ✅ Script scans `test/wdio/{decorator}/tests.tsx` and counts `it()` blocks
+- ✅ Marked with `"manual": false` in `test-coverage.json`
 
 **For Test Cases Outside Main Folder** (e.g., Test Cases #4-15):
-- ❌ Manually tracked in `test-coverage.json`
+- ✅ Manually tracked in `test-coverage.json` with `"manual": true` flag
+- ✅ Preserved automatically by script (won't be overwritten)
 - ❌ Must manually update `testCount` when tests change
 - ❌ Script does NOT scan these files automatically
 - ⚠️ **Risk**: Documentation can become out of sync if tests are added/removed
 
-**Recommendation**: When ingesting other decorators, consider:
-- Extending the script to scan all WDIO folders
-- Or creating a validation script to detect count mismatches
-- Or documenting which test cases require manual updates
+**Manual Flag Mechanism**:
+- The `test-coverage-core.js` script preserves any test case with `manual: true` when regenerating coverage
+- Auto-scanned test cases are marked with `manual: false` (or omitted, defaults to false)
+- This explicit flag makes it clear which test cases require manual maintenance
+- More robust than exclusion-based detection (doesn't rely on `assignCaseIds()` logic)
+
+**Recommendation**: When ingesting other decorators:
+- Always add `"manual": true` to manually tracked test cases
+- The script will preserve them automatically
+- Consider extending the script to scan all WDIO folders in the future
+- Or create a validation script to detect count mismatches
 
 ### Test File Location Patterns
 
@@ -376,24 +396,43 @@ The current `test-coverage.js` script:
 - Only counts tests in `tests.tsx` files
 - Only recognizes components matching tag patterns
 - Does not scan subdirectories recursively
-- Does not handle test cases outside main folder
+- Does not handle test cases outside main folder automatically
 
 **Workaround**: Manually add test cases to `test-coverage.json` with:
-- `testFile` property pointing to actual test file
+- `"manual": true` flag in `testCaseStatus` entry (critical - prevents overwrite)
+- `testFile` property pointing to actual test file (in `items` array)
 - `testCount` manually set to actual test count
 - `tested: true` flag
 - Proper `caseIds` array
 
+**Preservation Mechanism**:
+- The `test-coverage-core.js` script reads existing `test-coverage.json` before writing
+- Any test case with `manual: true` is preserved from the existing file
+- Auto-scanned test cases (with `manual: false` or missing) are recalculated
+- This ensures manually tracked test cases persist across script runs
+
 ### Maintenance Notes
 
 **When tests are added/removed:**
-- Test Cases #1-3: Run `test-coverage.js` script to auto-update
-- Test Cases #4-15: Manually update `test-coverage.json`
+- Test Cases #1-3 (auto-scanned): Run `test-coverage.js` script to auto-update
+- Test Cases #4-15 (manually tracked): Manually update `testCount` in `test-coverage.json`
+  - These are preserved automatically due to `"manual": true` flag
+  - Only need to update the count value, not recreate the entry
 - Always verify by running tests and comparing counts
 - Update documentation if test case descriptions change
 
 **When components are added/removed:**
-- Add/remove component entries in `test-coverage.json` `items` array
-- Update `testCaseStatus` component lists
-- Update component counts
+- Auto-scanned test cases: Run script to update automatically
+- Manually tracked test cases:
+  - Add/remove component entries in `test-coverage.json` `items` array
+  - Update `testCaseStatus` component lists
+  - Update `componentCount` in test case status
+  - Ensure `"manual": true` flag is present
 - Verify test file paths still exist
+
+**Adding New Manually Tracked Test Cases:**
+1. Add entry to `testCaseStatus` with `"manual": true`
+2. Add component entries to `items` array with `testFile` property
+3. Set `testCount` to actual test count (verify by running tests)
+4. Set `componentCount` to number of components
+5. The script will preserve these entries on future runs
