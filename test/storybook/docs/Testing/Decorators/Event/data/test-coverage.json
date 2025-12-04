@@ -1,0 +1,304 @@
+{
+  "coverage": {
+    "covered": 10,
+    "total": 10,
+    "percent": "100.0"
+  },
+  "stats": {
+    "totalPermutations": 10,
+    "testedPermutations": 10,
+    "percentTested": "100.00"
+  },
+  "testCaseStatus": {
+    "1": {
+      "implemented": true,
+      "componentCount": 4,
+      "testCount": 4,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "event-bubbles-cancelable-composed-false",
+          "group": "✓",
+          "optionsKey": "✓|✓|✗"
+        },
+        {
+          "tag": "event-bubbles-cancelable-composed",
+          "group": "✓",
+          "optionsKey": "✓|✓|✓"
+        },
+        {
+          "tag": "event-bubbles-cancelable-false-composed-false",
+          "group": "✓",
+          "optionsKey": "✓|✗|✗"
+        },
+        {
+          "tag": "event-bubbles-cancelable-false-composed",
+          "group": "✓",
+          "optionsKey": "✓|✗|✓"
+        }
+      ]
+    },
+    "2": {
+      "implemented": true,
+      "componentCount": 4,
+      "testCount": 4,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "event-bubbles-false-cancelable-composed-false",
+          "group": "✗",
+          "optionsKey": "✗|✓|✗"
+        },
+        {
+          "tag": "event-bubbles-false-cancelable-composed",
+          "group": "✗",
+          "optionsKey": "✗|✓|✓"
+        },
+        {
+          "tag": "event-bubbles-false-cancelable-false-composed-false",
+          "group": "✗",
+          "optionsKey": "✗|✗|✗"
+        },
+        {
+          "tag": "event-bubbles-false-cancelable-false-composed",
+          "group": "✗",
+          "optionsKey": "✗|✗|✓"
+        }
+      ]
+    },
+    "3": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 1,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "manual": true,
+      "description": "Basic event emission with default options",
+      "components": [
+        {
+          "tag": "event-basic",
+          "group": "basic",
+          "optionsKey": "default|default|default"
+        }
+      ]
+    },
+    "4": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 2,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "manual": true,
+      "description": "Typed event emission with custom event details",
+      "components": [
+        {
+          "tag": "event-custom-type",
+          "group": "typed",
+          "optionsKey": "default|default|default"
+        }
+      ]
+    }
+  },
+  "items": [
+    {
+      "group": "✓",
+      "options": {
+        "bubbles": "✓",
+        "cancelable": "✓",
+        "composed": "✗"
+      },
+      "optionsKey": "✓|✓|✗",
+      "files": [
+        "bubbles/event-bubbles-cancelable-composed-false.tsx"
+      ],
+      "tag": "event-bubbles-cancelable-composed-false",
+      "tested": true,
+      "caseIds": [
+        1
+      ],
+      "testedBy": [
+        "Test Case #1"
+      ]
+    },
+    {
+      "group": "✓",
+      "options": {
+        "bubbles": "✓",
+        "cancelable": "✓",
+        "composed": "✓"
+      },
+      "optionsKey": "✓|✓|✓",
+      "files": [
+        "bubbles/event-bubbles-cancelable-composed.tsx"
+      ],
+      "tag": "event-bubbles-cancelable-composed",
+      "tested": true,
+      "caseIds": [
+        1
+      ],
+      "testedBy": [
+        "Test Case #1"
+      ]
+    },
+    {
+      "group": "✓",
+      "options": {
+        "bubbles": "✓",
+        "cancelable": "✗",
+        "composed": "✗"
+      },
+      "optionsKey": "✓|✗|✗",
+      "files": [
+        "bubbles/event-bubbles-cancelable-false-composed-false.tsx"
+      ],
+      "tag": "event-bubbles-cancelable-false-composed-false",
+      "tested": true,
+      "caseIds": [
+        1
+      ],
+      "testedBy": [
+        "Test Case #1"
+      ]
+    },
+    {
+      "group": "✓",
+      "options": {
+        "bubbles": "✓",
+        "cancelable": "✗",
+        "composed": "✓"
+      },
+      "optionsKey": "✓|✗|✓",
+      "files": [
+        "bubbles/event-bubbles-cancelable-false-composed.tsx"
+      ],
+      "tag": "event-bubbles-cancelable-false-composed",
+      "tested": true,
+      "caseIds": [
+        1
+      ],
+      "testedBy": [
+        "Test Case #1"
+      ]
+    },
+    {
+      "group": "✗",
+      "options": {
+        "bubbles": "✗",
+        "cancelable": "✓",
+        "composed": "✗"
+      },
+      "optionsKey": "✗|✓|✗",
+      "files": [
+        "no-bubbles/event-bubbles-false-cancelable-composed-false.tsx"
+      ],
+      "tag": "event-bubbles-false-cancelable-composed-false",
+      "tested": true,
+      "caseIds": [
+        2
+      ],
+      "testedBy": [
+        "Test Case #2"
+      ]
+    },
+    {
+      "group": "✗",
+      "options": {
+        "bubbles": "✗",
+        "cancelable": "✓",
+        "composed": "✓"
+      },
+      "optionsKey": "✗|✓|✓",
+      "files": [
+        "no-bubbles/event-bubbles-false-cancelable-composed.tsx"
+      ],
+      "tag": "event-bubbles-false-cancelable-composed",
+      "tested": true,
+      "caseIds": [
+        2
+      ],
+      "testedBy": [
+        "Test Case #2"
+      ]
+    },
+    {
+      "group": "✗",
+      "options": {
+        "bubbles": "✗",
+        "cancelable": "✗",
+        "composed": "✗"
+      },
+      "optionsKey": "✗|✗|✗",
+      "files": [
+        "no-bubbles/event-bubbles-false-cancelable-false-composed-false.tsx"
+      ],
+      "tag": "event-bubbles-false-cancelable-false-composed-false",
+      "tested": true,
+      "caseIds": [
+        2
+      ],
+      "testedBy": [
+        "Test Case #2"
+      ]
+    },
+    {
+      "group": "✗",
+      "options": {
+        "bubbles": "✗",
+        "cancelable": "✗",
+        "composed": "✓"
+      },
+      "optionsKey": "✗|✗|✓",
+      "files": [
+        "no-bubbles/event-bubbles-false-cancelable-false-composed.tsx"
+      ],
+      "tag": "event-bubbles-false-cancelable-false-composed",
+      "tested": true,
+      "caseIds": [
+        2
+      ],
+      "testedBy": [
+        "Test Case #2"
+      ]
+    },
+    {
+      "group": "basic",
+      "options": null,
+      "optionsKey": "default|default|default",
+      "files": [
+        "../event-basic/cmp.tsx"
+      ],
+      "tag": "event-basic",
+      "tested": true,
+      "caseIds": [
+        3
+      ],
+      "testedBy": [
+        "Test Case #3"
+      ],
+      "testFile": "test/wdio/event-basic/cmp.test.tsx",
+      "manual": true
+    },
+    {
+      "group": "typed",
+      "options": null,
+      "optionsKey": "default|default|default",
+      "files": [
+        "../event-custom-type/cmp.tsx"
+      ],
+      "tag": "event-custom-type",
+      "tested": true,
+      "caseIds": [
+        4
+      ],
+      "testedBy": [
+        "Test Case #4"
+      ],
+      "testFile": "test/wdio/event-custom-type/cmp.test.tsx",
+      "manual": true
+    }
+  ],
+  "lastRun": "2025-12-04T10:05:46.334Z",
+  "lastRunFormatted": "Dec 4, 2025, 2:05 AM PST"
+}
