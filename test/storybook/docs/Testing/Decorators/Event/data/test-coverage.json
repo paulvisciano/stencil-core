@@ -67,6 +67,38 @@
           "optionsKey": "✗|✗|✓"
         }
       ]
+    },
+    "3": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 1,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "manual": true,
+      "description": "Basic event emission with default options",
+      "components": [
+        {
+          "tag": "event-basic",
+          "group": "basic",
+          "optionsKey": "default|default|default"
+        }
+      ]
+    },
+    "4": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 2,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "manual": true,
+      "description": "Typed event emission with custom event details",
+      "components": [
+        {
+          "tag": "event-custom-type",
+          "group": "typed",
+          "optionsKey": "default|default|default"
+        }
+      ]
     }
   },
   "items": [
@@ -229,6 +261,42 @@
       "testedBy": [
         "Test Case #2"
       ]
+    },
+    {
+      "group": "basic",
+      "options": null,
+      "optionsKey": "default|default|default",
+      "files": [
+        "../../event-basic/cmp.tsx"
+      ],
+      "tag": "event-basic",
+      "tested": true,
+      "caseIds": [
+        3
+      ],
+      "testedBy": [
+        "Test Case #3"
+      ],
+      "testFile": "test/wdio/event-basic/cmp.test.tsx",
+      "manual": true
+    },
+    {
+      "group": "typed",
+      "options": null,
+      "optionsKey": "default|default|default",
+      "files": [
+        "../../event-custom-type/cmp.tsx"
+      ],
+      "tag": "event-custom-type",
+      "tested": true,
+      "caseIds": [
+        4
+      ],
+      "testedBy": [
+        "Test Case #4"
+      ],
+      "testFile": "test/wdio/event-custom-type/cmp.test.tsx",
+      "manual": true
     }
   ],
   "lastRun": "2025-12-04T10:05:46.334Z",

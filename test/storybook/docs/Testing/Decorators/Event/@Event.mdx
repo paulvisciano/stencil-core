@@ -24,17 +24,14 @@ The `@Event` decorator defines a custom event that components can emit. This pag
 
 ## Test Cases
 
-Test cases are organized by **event behavior** - from bubbling events to non-bubbling events. All `@Event` tests reside under <code>test/wdio/event</code>.
+Test cases are organized by **event behavior** - from bubbling events to non-bubbling events, basic event emission, and typed events. Most `@Event` tests reside under <code>test/wdio/event</code>, with additional test cases in other WDIO folders.
 
 export const EventCoverageSummary = () => {
-  const items = testCoverage.items || [];
-  const bubblingItems = items.filter(item => item.caseIds && item.caseIds.includes(1));
-  const nonBubblingItems = items.filter(item => item.caseIds && item.caseIds.includes(2));
-  const implementedCases = (bubblingItems.some(item => item.tested) ? 1 : 0) + (nonBubblingItems.some(item => item.tested) ? 1 : 0);
-  const totalCases = 2;
-  const coveragePercentage = totalCases > 0 ? Math.round((implementedCases / totalCases) * 100) : 0;
   const testCaseStatus = testCoverage.testCaseStatus || {};
   const testCases = Object.values(testCaseStatus);
+  const implementedCases = testCases.filter(tc => tc.implemented).length;
+  const totalCases = testCases.length;
+  const coveragePercentage = totalCases > 0 ? Math.round((implementedCases / totalCases) * 100) : 0;
   const totalTests = testCases.reduce((sum, tc) => sum + (tc.testCount || 0), 0);
   
   return (
@@ -81,35 +78,27 @@ export const EventCoverageSummary = () => {
 <EventCoverageSummary />
 
 export const EventTestCasesTable = () => {
-  // Get items from test coverage data
+  // Get test case status from test coverage data
+  const testCaseStatus = testCoverage.testCaseStatus || {};
   const items = testCoverage.items || [];
   
-  // Group by case ID (1 = bubbling, 2 = non-bubbling)
-  const bubblingItems = items.filter(item => item.caseIds && item.caseIds.includes(1));
-  const nonBubblingItems = items.filter(item => item.caseIds && item.caseIds.includes(2));
-
-  const testCaseRows = [
-    {
-      id: 1,
-      desc: "Bubbling events – Tests event emission and handling for events that bubble up the DOM hierarchy",
-      types: "4 components with bubbles=true (all cancelable/composed combinations)",
-      implemented: bubblingItems.some(item => item.tested),
-      tested: bubblingItems.filter(item => item.tested).length,
-      total: bubblingItems.length,
-      section: bubblingItems.some(item => item.tested) ? 'implemented' : 'missing',
-    },
-    {
-      id: 2,
-      desc: "Non-bubbling events – Tests event emission and handling for events isolated to their target element", 
-      types: "4 components with bubbles=false (all cancelable/composed combinations)",
-      implemented: nonBubblingItems.some(item => item.tested),
-      tested: nonBubblingItems.filter(item => item.tested).length,
-      total: nonBubblingItems.length,
-      section: nonBubblingItems.some(item => item.tested) ? 'implemented' : 'missing',
-    }
-  ];
+  // Build test case rows from testCaseStatus
+  const testCaseRows = Object.entries(testCaseStatus)
+    .sort(([a], [b]) => parseInt(a) - parseInt(b))
+    .map(([id, status]) => {
+      const caseItems = items.filter(item => item.caseIds && item.caseIds.includes(parseInt(id)));
+      return {
+        id: parseInt(id),
+        desc: status.description || `Test Case #${id}`,
+        types: `${status.componentCount} component${status.componentCount !== 1 ? 's' : ''}`,
+        implemented: status.implemented || false,
+        tested: caseItems.filter(item => item.tested).length,
+        total: caseItems.length,
+        section: status.implemented ? 'implemented' : 'missing',
+      };
+    });
   
-  return <TestCasesTable rows={testCaseRows} previewCount={2} />;
+  return <TestCasesTable rows={testCaseRows} previewCount={testCaseRows.length} />;
 };
 
 <EventTestCasesTable />
@@ -119,11 +108,15 @@ export const EventTestCasesTable = () => {
 export const EventGeneratedComponentsTable = () => {
   // Use the items from test coverage which has the caseIds information
   const rows = (testCoverage.items || []).map((item, index) => {
+    const getOptionValue = (key) => {
+      if (!item.options) return 'default';
+      return item.options[key] === '✓' ? 'true' : 'false';
+    };
     return {
       index: index,
-      bubbles: item.options?.bubbles === '✓' ? 'true' : 'false',
-      cancelable: item.options?.cancelable === '✓' ? 'true' : 'false', 
-      composed: item.options?.composed === '✓' ? 'true' : 'false',
+      bubbles: getOptionValue('bubbles'),
+      cancelable: getOptionValue('cancelable'), 
+      composed: getOptionValue('composed'),
       caseNumbers: Array.isArray(item.caseIds) ? [...item.caseIds].sort((a, b) => a - b) : []
     };
   });
@@ -145,25 +138,39 @@ export const EventGeneratedComponentsTable = () => {
 ## Test Categories
 
 ### **🟡 Bubbling Events (1)** — 1 test case
-Events that bubble up through the DOM hierarchy, testing event emission and handling across parent elements.
+Events that bubble up through the DOM hierarchy, testing event emission and handling across parent elements. Tested in <code>test/wdio/event</code>.
 
 ### **🟡 Non-Bubbling Events (2)** — 1 test case
-Events isolated to their target element, testing event emission and handling without DOM propagation.
+Events isolated to their target element, testing event emission and handling without DOM propagation. Tested in <code>test/wdio/event</code>.
+
+### **🟡 Basic Event Emission (3)** — 1 test case
+Basic event emission with default @Event decorator options (no explicit bubbles/cancelable/composed). Tests default behavior when no options are specified. Tested in <code>test/wdio/event-basic</code>.
+
+**Components:**
+- <code>event-basic</code> - Emits event on componentDidLoad with default options
+
+**Test File:** <code>test/wdio/event-basic/cmp.test.tsx</code>
+
+### **🟡 Typed Event Emission (4)** — 1 test case
+Events with typed EventEmitter and custom event details. Tests event emission with TypeScript type safety and custom data payloads. Tested in <code>test/wdio/event-custom-type</code>.
+
+**Components:**
+- <code>event-custom-type</code> - Emits typed events with custom detail interface
+
+**Test File:** <code>test/wdio/event-custom-type/cmp.test.tsx</code>
 
 ---
 
 export const EventTODOSection = () => {
-  const items = testCoverage.items || [];
-  const bubblingItems = items.filter(item => item.caseIds && item.caseIds.includes(1));
-  const nonBubblingItems = items.filter(item => item.caseIds && item.caseIds.includes(2));
+  const testCaseStatus = testCoverage.testCaseStatus || {};
   
-  const missingCases = [];
-  if (!bubblingItems.some(item => item.tested)) {
-    missingCases.push({ id: 1, desc: 'Bubbling events - event emission and handling for events that bubble up the DOM hierarchy' });
-  }
-  if (!nonBubblingItems.some(item => item.tested)) {
-    missingCases.push({ id: 2, desc: 'Non-bubbling events - event emission and handling for events isolated to their target element' });
-  }
+  const missingCases = Object.entries(testCaseStatus)
+    .filter(([id, status]) => !status.implemented)
+    .map(([id, status]) => ({
+      id: parseInt(id),
+      desc: status.description || `Test Case #${id}`
+    }))
+    .sort((a, b) => a.id - b.id);
   
   if (missingCases.length === 0) {
     return null;
@@ -181,10 +188,9 @@ export const EventTODOSection = () => {
 };
 
 {(() => {
-  const items = testCoverage.items || [];
-  const bubblingItems = items.filter(item => item.caseIds && item.caseIds.includes(1));
-  const nonBubblingItems = items.filter(item => item.caseIds && item.caseIds.includes(2));
-  if (bubblingItems.some(item => item.tested) && nonBubblingItems.some(item => item.tested)) return null;
+  const testCaseStatus = testCoverage.testCaseStatus || {};
+  const allImplemented = Object.values(testCaseStatus).every(tc => tc.implemented);
+  if (allImplemented) return null;
   return (
     <>
       <h2>📋 TODO - Remaining Test Cases</h2>
@@ -197,4 +203,4 @@ export const EventTODOSection = () => {
 
 ## Component Grouping
 
-Components are grouped by **bubbles** mode under `/test/wdio/event/components/<bubbles|no-bubbles>/`. This organization reflects whether the event bubbles up through the DOM hierarchy or remains isolated to its target element.
+Components are grouped by **bubbles** mode under `/test/wdio/event/components/<bubbles|no-bubbles>/`. This organization reflects whether the event bubbles up through the DOM hierarchy or remains isolated to its target element. Additional test cases (Test Cases #3-4) are located in separate folders (`event-basic`, `event-custom-type`) to demonstrate real-world usage patterns.
