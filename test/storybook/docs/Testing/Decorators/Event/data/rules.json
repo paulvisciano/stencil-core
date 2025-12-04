@@ -1,0 +1,19 @@
+{
+  "decorator": "@Event",
+  "options": {
+    "bubbles": ["✓", "✗"],
+    "cancelable": ["✓", "✗"],
+    "composed": ["✓", "✗"]
+  },
+  "exclusiveGroups": [],
+  "modes": [
+    { "name": "bubbles", "when": { "bubbles": "✓" } },
+    { "name": "no-bubbles", "when": { "bubbles": "✗" } }
+  ],
+  "emit": {
+    "naming": {
+      "prefix": "event",
+      "includeOptions": ["bubbles", "cancelable", "composed"]
+    }
+  }
+}
