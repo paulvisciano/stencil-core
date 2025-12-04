@@ -1,0 +1,288 @@
+import rules from './data/rules.json';
+import { Meta } from '@storybook/addon-docs/blocks';
+import data from './data/components.json';
+import overlay from './data/test-coverage.json';
+import React, { useMemo, useState } from 'react';
+import RulesAtAGlance from '../_shared/RulesAtAGlance.jsx';
+import TestCasesTable from '../_shared/TestCasesTable.jsx';
+import GeneratedComponentsTable from '../_shared/GeneratedComponentsTable.jsx';
+
+<Meta title="Testing/Decorators/@State"/>
+
+# @State Decorator
+
+The `@State` decorator manages internal state for a component. When a state property changes, the component re-renders. This page documents the test coverage, patterns, generated components, and implementation status.
+
+## Decorator Properties
+
+The `@State` decorator is used for managing internal data that can change over time. Unlike `@Prop`, state is not meant to be passed in from a parent component.
+
+- **Type**: `@State` can be used with standard data types, such as `string`, `number`, `boolean`, `array`, `object`, or `any`. The type can be explicitly annotated or inferred from the initial value.
+- **Default Value**: A state property can be initialized with a default value. If no default value is provided, it will be `undefined`. Generation covers both scenarios to ensure the component compiles correctly.
+
+## Rules (at a glance)
+<RulesAtAGlance rules={rules} sourcePath="./data/rules.json" modeLabel="State type" />
+
+## Test Cases
+
+Test cases are organized by **type complexity** - from basic primitive types to complex object and array types. All `@State` tests reside under <code>test/wdio/state</code>.
+
+export const StateCoverageSummary = () => {
+  const testCaseStatus = overlay.testCaseStatus || {};
+  const testCases = Object.values(testCaseStatus);
+  const implementedCases = testCases.filter(tc => tc.implemented).length;
+  const totalCases = testCases.length || 2; // Fallback to 2 if no testCaseStatus
+  const coveragePercentage = totalCases > 0 ? Math.round((implementedCases / totalCases) * 100) : 0;
+  const totalTests = testCases.reduce((sum, tc) => sum + (tc.testCount || 0), 0);
+  
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '32px' }}>
+      <div style={{ 
+        background: '#fff', 
+        padding: '20px', 
+        borderRadius: '8px', 
+        border: '2px solid #e5e7eb',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{ fontSize: '13px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
+          Test Cases Implemented
+        </div>
+        <div style={{ fontSize: '36px', fontWeight: '700', color: '#111827', lineHeight: '1', marginBottom: '6px' }}>
+          {implementedCases}<span style={{ color: '#d1d5db' }}>/{totalCases}</span>
+        </div>
+        <div style={{ fontSize: '13px', color: '#6b7280' }}>
+          {coveragePercentage}% complete
+        </div>
+      </div>
+      
+      <div style={{ 
+        background: '#fff', 
+        padding: '20px', 
+        borderRadius: '8px', 
+        border: '2px solid #e5e7eb',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{ fontSize: '13px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
+          Total Tests
+        </div>
+        <div style={{ fontSize: '36px', fontWeight: '700', color: '#111827', lineHeight: '1', marginBottom: '6px' }}>
+          {totalTests}
+        </div>
+        <div style={{ fontSize: '13px', color: '#6b7280', borderTop: '1px solid #e5e7eb', paddingTop: '8px', marginTop: '8px' }}>
+          📅 Last run: {overlay.lastRunFormatted || 'Never'}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+<StateCoverageSummary />
+
+export const StateTestCasesTable = () => {
+  const items = overlay.items || [];
+  const groupIn = (set) => items.filter(i => set.has(i.group));
+  const count = (arr) => ({ tested: arr.filter(i => i.tested).length, total: arr.length });
+
+  const primitiveSet = new Set(['string', 'number', 'boolean']);
+  const complexSet = new Set(['any', 'array', 'object']);
+
+  const primitive = count(groupIn(primitiveSet));
+  const complex = count(groupIn(complexSet));
+
+  const caseNosFor = (arr) => {
+    const s = new Set();
+    for (const it of arr) {
+      for (const n of (it.caseIds || [])) {
+        s.add(n);
+      }
+    }
+    return Array.from(s).sort((a, b) => a - b);
+  };
+
+  const primitiveCases = caseNosFor(groupIn(primitiveSet));
+  const complexCases = caseNosFor(groupIn(complexSet));
+
+  // Case counts are driven by caseIds, not explicit test titles
+  const primitiveImplemented = primitiveCases.length > 0;
+  const complexImplemented = complexCases.length > 0;
+
+  const rows = [
+    {
+      id: 1,
+      implemented: primitiveImplemented,
+      desc: (<>
+        Button click mutates a primitive <code>@State</code> value and updates DOM output.
+      </>),
+      types: (<>
+        type: string | number | boolean × default: true/false<br/>
+        <small>Covered: {primitive.tested}/{primitive.total}</small>
+      </>),
+      tested: primitive.tested,
+      total: primitive.total,
+      section: primitiveImplemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 2,
+      implemented: complexImplemented,
+      desc: (<>
+        Static render validation for complex types (<code>any</code>, <code>array</code>, <code>object</code>) with and without defaults.
+        <br/>
+        <small>Tests: {complexCases.length ? complex.total : 0}</small>
+      </>),
+      types: (<>
+        type: any | array | object × default: true/false<br/>
+        <small>Covered: {complex.tested}/{complex.total}</small>
+      </>),
+      tested: complex.tested,
+      total: complex.total,
+      section: complexImplemented ? 'implemented' : 'missing',
+    },
+  ];
+
+  return <TestCasesTable rows={rows} previewCount={2} />;
+};
+
+<StateTestCasesTable />
+
+## Generated Components
+
+<div>
+  <strong>Generated Components:</strong> {data.coverage.covered} of {data.coverage.total} generated (
+  <strong>{data.coverage.percent}%</strong>)
+</div>
+
+<p style={{ marginTop: 8 }}>
+  This section lists the generated components we build to stress the compiler. Each row is one component with a
+  unique combination of decorator options (<code>type</code> × <code>hasDefault</code>). If a combo fails to compile,
+  we capture that as a rule in <code>rules.json</code>, update the list, and regenerate. Use the button to expand or
+  collapse the full list.
+  <br/>
+</p>
+
+export const StateGeneratedComponents = () => {
+  const rows = useMemo(() => {
+    const items = overlay.items || [];
+    const map = new Map(items.map(i => [`${i.options?.type},${String(i.options?.hasDefault)}`, i]));
+    return (data.coveredPermutations || []).map((p, i) => {
+      const type = p.options?.[0];
+      const hasDefault = p.options?.[1];
+      const oi = map.get(`${type},${hasDefault}`) || {};
+      const caseNumbers = Array.isArray(oi.caseIds) ? [...oi.caseIds].sort((a,b) => a-b) : [];
+      return {
+        index: i,
+        type,
+        hasDefault,
+        caseNumbers,
+      };
+    });
+  }, []);
+
+  const columns = [
+    { key: 'type', label: 'Type', width: '25%' },
+    { key: 'hasDefault', label: 'Has Default Value', width: '25%' },
+    { key: 'testedBy', label: 'Tested By', width: '50%' },
+  ];
+
+  return <GeneratedComponentsTable rows={rows} columns={columns} previewCount={3} />;
+};
+
+<StateGeneratedComponents />
+
+---
+
+## Test Categories
+
+### **🟢 Basic Types (1)** — 1 test case
+Foundation patterns for primitive state types (string, number, boolean), covering reactive updates and DOM rendering.
+
+### **🟡 Complex Types (2)** — 1 test case
+Complex state types (any, array, object) with static render validation and default value handling.
+
+---
+
+export const StateTODOSection = () => {
+  const items = overlay.items || [];
+  const groupIn = (set) => items.filter(i => set.has(i.group));
+  const primitiveSet = new Set(['string', 'number', 'boolean']);
+  const complexSet = new Set(['any', 'array', 'object']);
+  const primitive = groupIn(primitiveSet);
+  const complex = groupIn(complexSet);
+  
+  const caseNosFor = (arr) => {
+    const s = new Set();
+    for (const it of arr) {
+      for (const n of (it.caseIds || [])) {
+        s.add(n);
+      }
+    }
+    return Array.from(s).sort((a, b) => a - b);
+  };
+  
+  const primitiveCases = caseNosFor(primitive);
+  const complexCases = caseNosFor(complex);
+  
+  const missingCases = [];
+  if (primitiveCases.length === 0) {
+    missingCases.push({ id: 1, desc: 'Primitive state types - reactive updates and DOM rendering' });
+  }
+  if (complexCases.length === 0) {
+    missingCases.push({ id: 2, desc: 'Complex state types - static render validation' });
+  }
+  
+  if (missingCases.length === 0) {
+    return null;
+  }
+  
+  return (
+    <div>
+      {missingCases.map(({ id, desc }) => (
+        <div key={id} style={{ marginBottom: '12px' }}>
+          <strong>Test Case #{id} TODO</strong>: {desc}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+{(() => {
+  const items = overlay.items || [];
+  const groupIn = (set) => items.filter(i => set.has(i.group));
+  const primitiveSet = new Set(['string', 'number', 'boolean']);
+  const complexSet = new Set(['any', 'array', 'object']);
+  const primitive = groupIn(primitiveSet);
+  const complex = groupIn(complexSet);
+  
+  const caseNosFor = (arr) => {
+    const s = new Set();
+    for (const it of arr) {
+      for (const n of (it.caseIds || [])) {
+        s.add(n);
+      }
+    }
+    return Array.from(s).sort((a, b) => a - b);
+  };
+  
+  const primitiveCases = caseNosFor(primitive);
+  const complexCases = caseNosFor(complex);
+  if (primitiveCases.length > 0 && complexCases.length > 0) return null;
+  return (
+    <>
+      <h2>📋 TODO - Remaining Test Cases</h2>
+      <StateTODOSection />
+    </>
+  );
+})()}
+
+---
+
+## Component Grouping
+
+Generated components are organized by state type under `test/wdio/state/components/`:
+
+- `string/` — string state values
+- `number/` — numeric state values
+- `boolean/` — boolean state values
+- `array/` — array state values
+- `object/` — object state values
+- `any/` — untyped or mixed state values
+

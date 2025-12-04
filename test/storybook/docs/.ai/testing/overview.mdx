@@ -1,0 +1,326 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Testing/Framework/Overview" tags={['pending-review']} />
+
+# Testing Framework Overview
+<div style={{display: 'inline-block', padding: '4px 12px', background: '#ffe066', color: '#7c5c00', borderRadius: '16px', fontWeight: 'bold', marginBottom: '16px'}}>⏳ Pending Review</div>
+
+# Stencil.js Testing Strategy
+
+This document outlines the comprehensive testing strategy for the Stencil.js codebase. Our approach combines two complementary methodologies: **matrix-based testing** for decorators and **scenario-based testing** for behavior patterns. Both are powered by GenAI automation to ensure comprehensive, maintainable, and scalable test coverage.
+
+## Philosophy
+
+For a foundational library like Stencil, the testing strategy must be rigorous. It should not only validate that features work as expected but also ensure they are reliable in isolation and play well with others. We follow a model inspired by the classic testing pyramid.
+
+A key aspect of our strategy is recognizing the difference between **static coverage analysis** and **runtime behavior testing**. Our coverage scripts work by statically analyzing the source code for specific patterns (e.g., the presence of a `@Prop` decorator with certain options). This is a fast and effective way to inventory our features, but it does not execute the code to verify its behavior. Therefore, our testing strategy is designed to satisfy both our static analysis tools and the need for robust, behavior-driven validation.
+
+> **Note:** For a deeper dive into how the permutation matrix is generated and used for coverage, see [Matrix Generation](?path=/docs/testing-framework-coverage-matrix-generation--docs).
+
+## Summary: The Testing Pyramid in Practice
+
+<table>
+  <thead>
+    <tr>
+      <th>Test Type</th>
+      <th>Directory</th>
+      <th>Technology</th>
+      <th>Approach</th>
+      <th>Goal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Core Tests</strong></td>
+      <td><code>src/</code></td>
+      <td>Jest</td>
+      <td>Unit Testing</td>
+      <td>Verify Stencil's internal compiler and runtime functionality</td>
+    </tr>
+    <tr>
+      <td><strong>Decorator Tests</strong></td>
+      <td><code>test/wdio/[decorator]/</code></td>
+      <td>WebdriverIO</td>
+      <td><strong>Matrix-Based</strong><br/>Systematic permutation generation</td>
+      <td>Comprehensive coverage of all decorator option combinations via generated components</td>
+    </tr>
+    <tr>
+      <td><strong>Behavior Tests</strong></td>
+      <td><code>test/wdio/ts-target/extends-*/</code></td>
+      <td>WebdriverIO</td>
+      <td><strong>Scenario-Based</strong><br/>Real-world pattern testing</td>
+      <td>Validate inheritance patterns, lifecycle chains, and reactive controllers</td>
+    </tr>
+    <tr>
+      <td><strong>E2E Tests</strong></td>
+      <td><code>test/end-to-end/</code></td>
+      <td>Puppeteer (<code>newE2EPage</code>)</td>
+      <td>Integration Testing</td>
+      <td>Cross-feature integration and browser environment validation</td>
+    </tr>
+  </tbody>
+</table>
+
+## Dual Testing Methodologies
+
+Our testing strategy employs **two complementary approaches** tailored to different testing needs:
+
+### Matrix-Based Testing (Decorators)
+Systematic **permutation matrix generation** for comprehensive decorator coverage:
+
+#### **Step 1: Rules Discovery 🔍**
+- **AI generates comprehensive matrix** of ALL possible decorator permutations
+- **Generate components** from broad initial matrix (includes invalid combinations)
+- **Compile components** to discover constraint violations through compiler errors
+- **Create/update `rules.json`** to encode discovered constraints (e.g., mutually exclusive properties)
+- **Refine matrix** based on compiler-enforced rules, eliminating invalid permutations
+
+#### **Step 2: Generate & Build 🏗️**
+- **Generate final components** from refined rules and validated matrix
+- **Build components** successfully with no compiler errors
+- **Shared infrastructure** (`_shared/generate-components-core.js`) eliminates code duplication
+- **Automated verification** via `verify-matrix-core.js` ensures 100% coverage
+
+#### **Step 3: Test & Verify ✅**
+- **Structured test cases** follow established patterns (Test Case #1, #2, etc.)
+- **Runtime verification** ensures compiled components behave correctly
+- **Coverage tracking** via `test-coverage-core.js` with JSON-driven documentation
+- **Community-friendly** patterns enable collaborative test case expansion
+
+### Scenario-Based Testing (Behavior Patterns)
+Targeted **real-world scenario testing** for inheritance and composition patterns:
+
+#### **Scenario Identification 🎯**
+- **Real-world use cases** drive test case selection (lifecycle inheritance, reactive controllers)
+- **Customer feedback** influences priority and implementation approach
+- **Pattern complexity** determines test case categorization (Basic → Standard → Advanced)
+
+#### **Implementation & Validation 🔧**
+- **Manual component creation** following established patterns (e.g., `extends-abstract`)
+- **ES2022 target** with iframe testing for robust validation
+- **Global array pattern** for reliable event tracking without render loops
+
+#### **Documentation & Expansion 📊**
+- **JSON-driven tables** maintain test case status and coverage data
+- **Complexity categories** organize tests from foundational to production-ready
+- **Systematic expansion** enables progressive enhancement
+
+### Methodology Benefits
+- **Comprehensive coverage**: Matrix approach ensures no decorator combinations are missed
+- **Real-world validation**: Scenario approach tests actual usage patterns
+- **Automatic adaptation** to framework changes through compiler-driven discovery
+- **Community scalability** via standardized patterns and AI-friendly documentation
+- **Shared infrastructure** eliminates duplication across both methodologies
+
+## Current Testing Landscape
+
+### **🏗️ Decorators (Matrix-Based) - Production Ready**
+- **6 Decorators**: `@Component`, `@State`, `@Prop`, `@Event`, `@Listen`, `@Method`
+- **289 Generated Components**: Systematic coverage across all valid permutations
+- **Shared Infrastructure**: Eliminates 80% code duplication via `_shared/` utilities
+- **100% Coverage**: All decorators have complete matrix generation and verification
+- **Structured Test Cases**: 2-8 test cases per decorator with comprehensive runtime validation
+
+### **🎯 Behavior/Extends (Scenario-Based) - Active Development**
+- **11 Test Cases Planned**: From basic inheritance to advanced reactive controllers
+- **3 Test Cases Implemented**: Lifecycle inheritance, multi-level chains, controller updates
+- **ES2022 Architecture**: Uses `ts-target` directory with iframe testing for robust validation
+- **Real-World Patterns**: Customer-driven scenarios like ClockController, FloatingUI integration
+
+## Quickstart
+For a concise, step‑by‑step path, see:
+- **Matrix Testing**: [Quickstart: Coverage → Generate → Verify](?path=/docs/testing-framework-quickstart--docs)
+- **Decorator Overview**: [All Decorator Test Matrices](?path=/docs/testing-decorators-overview--docs)
+- **Behavior Testing**: [Extends Functionality Testing](?path=/docs/testing-behavior-extends-overview--docs)
+
+## Running Scripts with package.json Shortcuts
+
+To streamline the testing workflow and avoid path resolution issues, a `package.json` file with shortcut scripts is provided in the `.ai/testing` folder. These scripts automatically `cd` into the correct directory and run the required commands, ensuring consistent execution regardless of your current working directory.
+
+See also: Example Prompts at `.ai/testing/AGENT_PROMPTS.md`.
+
+**How to use:**
+
+**All Decorators:**
+- Generate all decorator components: `npm run generate-components`
+- Query missing test cases across all decorators: `npm run query-missing-tests`
+- Build WDIO components: `npm run components-build`
+- Run all WDIO tests: `npm run tests`
+
+**Individual Decorators:**
+- `npm run [decorator]:generate-components` - Generate components (state, prop, event, method)
+- `npm run [decorator]:test-coverage` - Analyze test coverage (state, prop, event, method)
+- `npm run [decorator]:verify-matrix` - Verify matrix completeness (component, listen)
+
+**Available Decorators:**
+- `component` - Component metadata and options
+- `state` - Internal reactive state management  
+- `prop` - External component properties
+- `event` - Custom event emission
+- `listen` - Event listening and handling
+- `method` - Public component methods
+
+**Examples:**
+- `npm run state:generate-components`
+- `npm run prop:test-coverage` 
+- `npm run component:verify-matrix`
+
+**Best Practice:**
+Always use these shortcuts from the `.ai/testing` folder to avoid path issues and ensure scripts run in the correct environment. Update or add new shortcuts as needed to keep the workflow efficient and reliable.
+
+## Recording Learnings
+
+After each testing loop iteration, all learnings—including mistakes, improvements, coverage script gaps, and best practices—should be documented in the appropriate `.ai` folder file for the feature or decorator. Additionally, a summary of key learnings and process changes should be added to the audit log (`audit.mdx`) to ensure institutional knowledge is preserved and future contributors benefit from past experience.
+
+## Community-Driven Testing Ecosystem
+
+Our testing framework creates a **crowdsourceable ecosystem** where the open source community can systematically contribute to test coverage. This approach scales testing quality through collaborative effort.
+
+### Crowdsourcing Opportunities
+
+**Gap Identification Dashboard**
+- **Missing test cases** automatically identified in coverage reports
+- **Visual matrix** showing which decorator/option combinations need tests  
+- **Priority ranking** based on real-world usage patterns
+- **Test coverage JSON** provides structured data for community analysis
+
+**Community Contribution Pathways**
+- **Easy entry point**: "Add a test case for X scenario"
+- **Guided templates**: Follow existing patterns in structured test cases
+- **AI-assisted implementation**: Contributors can use AI following established conventions
+- **Model-agnostic**: Works with any AI model (proprietary or open-source)
+
+**Expandable Test Scenarios**
+Beyond current test cases, community can add:
+- **Edge case testing** (null/undefined handling, boundary conditions)
+- **Performance scenarios** (large data sets, memory usage)
+- **Integration patterns** (component composition, complex interactions)
+- **Browser compatibility** (specific browser behaviors, polyfills)
+- **Accessibility scenarios** (screen reader support, keyboard navigation)
+- **Real-world use cases** discovered in production applications
+
+### Contribution Process
+1. **Fork the repository** and identify gaps using coverage reports
+2. **Follow the 3-step loop** with your preferred AI model or manual implementation
+3. **Submit pull requests** with new test cases following established patterns
+4. **Community review** ensures quality and consistency
+5. **Automated verification** through systematic coverage tracking
+
+This dual approach enables both **systematic completeness** (matrix) and **practical validation** (scenarios), harnessing collective intelligence to build comprehensive test coverage that scales with framework complexity.
+
+### Shared Testing Infrastructure
+
+Our framework uses **shared core utilities** that eliminate code duplication and ensure consistency:
+
+**Core Generation (`_shared/generate-components-core.js`)**
+- **164 lines** handle help, setup, generation loop, and verification for ALL decorators
+- **Single source of truth** for component generation patterns
+- **Consistent behavior** across all decorator types
+- **Eliminates duplication** of identical logic across scripts
+
+**Core Coverage Analysis (`_shared/test-coverage-core.js`)**
+- **118 lines** provide configurable scanning, statistics, and output logic
+- **Dramatic code reduction**: 80% duplication eliminated across decorators
+- **Consistent output format** for all test coverage reports
+- **Easy decorator addition** via simple callback configuration
+
+**Shared UI Components (`_shared/*.jsx`)**
+- **TestCasesTable**: Collapsible tables with preview functionality
+- **GeneratedComponentsTable**: Matrix visualization with filtering
+- **RulesAtAGlance**: Rule constraint visualization
+
+### Dual Documentation Systems
+
+Our framework supports **two complementary documentation approaches**:
+
+#### **Matrix-Based Documentation (Decorators)**
+**Structured Test Cases**: Each decorator follows consistent patterns
+- **@Prop**: 5 test cases (primitive runtime, complex render, reflect behaviors, mutable)
+- **@State**: 2 test cases (primitive mutation, complex static render)
+- **@Method**: 8 test cases (promise/async patterns, argument variations)
+
+**Component Naming**: `[decorator]-[options]` convention
+```
+prop-string-reflect-true-mutable-false
+state-number-default
+method-promise-async-true-args-two
+```
+
+**Coverage Tracking**: Automated JSON reports with gap analysis
+```json
+{
+  "coverage": { "covered": 24, "total": 24, "percent": "100.00" },
+  "testCaseStatus": {
+    "1": { "implemented": true, "description": "Primitive runtime coverage" }
+  },
+  "items": [{
+    "group": "string", "options": { "type": "string", "reflect": true },
+    "tested": true, "caseIds": [1, 3, 5]
+  }]
+}
+```
+
+#### **Scenario-Based Documentation (Behavior Patterns)**
+**Real-World Test Cases**: Complexity-organized scenarios
+- **Basic Inheritance (1-5)**: Lifecycle, properties, methods, render
+- **Standard Patterns (6-11)**: Abstract classes, mixins, events, watch
+- **Advanced Controllers**: Production-ready reactive patterns
+
+**Component Organization**: Semantic naming by functionality
+```
+extends-lifecycle-basic/
+extends-lifecycle-multilevel/
+extends-controller-updates/
+```
+
+**Status Tracking**: JSON-driven tables with implementation status
+```json
+{
+  "testCaseStatus": {
+    "1": {
+      "implemented": true,
+      "description": "Lifecycle inheritance (Load, Render, Update)",
+      "specPath": "test/wdio/ts-target/extends-lifecycle-basic/cmp.test.ts"
+    }
+  }
+}
+```
+
+## Evolution and Continuous Improvement
+
+### **Framework Maturity Timeline**
+- **Phase 1 Complete**: Matrix-based decorator testing with shared infrastructure
+- **Phase 2 Active**: Scenario-based behavior testing for real-world patterns
+- **Phase 3 Planned**: Advanced reactive controllers and production edge cases
+
+### **Recent Innovations** 
+- **Shared Infrastructure**: Eliminated massive code duplication (80% reduction)
+- **Dual Methodologies**: Matrix + Scenario approaches serve different testing needs
+- **JSON-Driven Documentation**: Automated table generation from test coverage data
+- **Community Scalability**: AI-friendly patterns enable collaborative expansion
+- **ES2022 Architecture**: Modern TypeScript targets for inheritance testing
+
+### **Learning Documentation**
+This strategy is a living document. After each major testing iteration, we update:
+- **Strategy Documentation**: This overview and methodology guides
+- **Decorator-Specific Guides**: Individual decorator testing patterns and learnings
+- **Audit Log**: [Comprehensive change tracking](?path=/docs/testing-framework-audit--docs)
+- **Shared Infrastructure**: Common utilities and patterns
+
+### **Institutional Knowledge Capture**
+- **AI Learnings**: Successful patterns, common pitfalls, and correction strategies
+- **Coverage Discoveries**: Gaps identified and systematic improvements implemented  
+- **Process Evolution**: Workflow optimizations and shared utility development
+- **Community Contributions**: Patterns that enable scalable collaborative testing
+- **Technical Innovations**: Architecture decisions like ES2022, iframe testing, Global Array Pattern
+
+### **Success Metrics**
+- **289 Generated Components** systematically testing all valid decorator combinations
+- **Zero code duplication** in generation scripts via shared infrastructure
+- **13 Test Cases** covering lifecycle inheritance to production reactive controllers
+- **100% Matrix Coverage** for all 6 Stencil decorators
+- **AI-Friendly Documentation** enabling community contribution at scale
+
+By combining systematic matrix coverage with real-world scenario validation, we've built a **comprehensive, scalable testing ecosystem** that ensures Stencil remains reliable for all developers while enabling rapid framework evolution.
+
+---

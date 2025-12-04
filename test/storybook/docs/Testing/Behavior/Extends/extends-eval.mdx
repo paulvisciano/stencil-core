@@ -1,0 +1,332 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import errorImg from './extends-compiler-error.png';
+
+<Meta title="Testing/Behavior/Extends/Extends Evaluation" tags={['dev-only','pending-review']} />
+
+# Extends-Only Phase 1 Evaluation
+
+> Historical background: see [Historical @Controller Context](?path=/docs/testing-behavior-extends-historical-controller-context--docs).
+
+## References
+- PR enabling component inheritance: <a href="https://github.com/stenciljs/core/pull/6362" target="_blank" rel="noopener noreferrer">PR #6362</a>
+- Released in Stencil v4.37.0: <a href="https://github.com/stenciljs/core/releases/tag/v4.37.0" target="_blank" rel="noopener noreferrer">Stencil v4.37.0 Release</a>
+
+## Minimum Required Version
+- Stencil >= v4.37.0 for `extends` support in components and mixin composition.
+
+## Goal
+For Phase 1 we evaluate whether plain class inheritance (extends) is sufficient for the immediate needs, without introducing a `@Controller` decorator or runtime host APIs.
+
+## Focused Questions
+- Can we move shared functionality into a service (base class or plain helper)?
+- Can that service be reused across multiple components?
+- Can the shared logic tap into component lifecycle events?
+- With mixins from PR #6362, can we compose multiple behaviors into a single component (multi-behavior composition)?
+
+Definitions
+- Service (for this evaluation): A base class supplying logic + optional lifecycle hooks (`connectedCallback`, `disconnectedCallback`, `componentWillLoad`, `componentDidLoad`, `componentShouldUpdate`, `componentWillRender`, `componentDidRender`, `componentDidUpdate`, `componentDidUnload`). It may manage resources (observers, timers) and expose methods used by derived components.
+- Reuse: Two or more distinct Stencil components (different `@Component({ tag })`) extending the same service base.
+- Tap into lifecycle: Base class overrides lifecycle methods and derived components inherit that behavior (with ability to call `super` when also overriding).
+- Mixins: Multiple behavior classes composed into a single component constructor (introduced alongside inheritance in PR #6362), enabling composition beyond single inheritance.
+
+Planned Test Additions (WDIO-first)
+1. WDIO specs under `test/wdio/service-inheritance/`:
+   - Verify two distinct components (`svc-inherit-a`, `svc-inherit-b`) can extend a shared base service and call its methods.
+   - Assert lifecycle tapping by reading DOM markers emitted by base hooks (willLoad/didLoad/willUpdate/didUpdate).
+   - Assert per-instance isolation (service call counter increments only for the triggering component).
+2. WDIO specs under `test/wdio/service-mixins/` (new):
+   - Define two simple behavior mixins (e.g., `BehaviorA`, `BehaviorB`) that each add lifecycle markers and a method.
+   - Compose both into a single component; verify both sets of lifecycle markers appear and instance state isolation holds.
+   - Add a second component using only one mixin to validate selective composition and reuse.
+3. Ensure inclusion via `test/wdio/wdio.conf.ts` globs (inheritance and mixins suites).
+4. Defer compiler-unit coverage for now to stay consistent with the decorators’ WDIO-focused flow in this effort.
+
+Lifecycle Hook Coverage via Inheritance/Mixins
+- Base or mixin defines lifecycle methods. Framework calls them on the instance; override chain uses standard JS `super` semantics. For mixins, ensure method composition does not collide; where applicable, call through to previous implementation.
+- Limitation: Async pre-render gating is still out-of-scope in Phase 1.
+
+Out-of-Scope (Explicitly Ignored For Now)
+- Async pre-render gating (awaiting before first render).
+- Dynamic attachment/detachment of behaviors at runtime.
+- SSR/hydration specific ordering guarantees beyond existing inheritance/mixin behavior.
+
+Acceptance Criteria (Phase 1 extends-only + mixins)
+- A base class method is callable from two separate derived components at runtime, verified via WDIO DOM assertions.
+- Base lifecycle methods execute, verified via WDIO by reading emitted markers from the page.
+- Composition via mixins: a component can consume 2+ behaviors and receive both sets of lifecycle effects and methods without collisions, verified via WDIO.
+
+## Coverage Summary
+
+<div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+    <colgroup>
+      <col style={{ width: '18%' }} />
+      <col style={{ width: '52%' }} />
+      <col style={{ width: '15%' }} />
+      <col style={{ width: '15%' }} />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Area</th>
+        <th>Scenario</th>
+        <th>Spec</th>
+        <th style={{ textAlign: 'center' }}>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Inheritance</td>
+        <td>Shared service base reused across multiple components</td>
+        <td><code>service-inheritance/cmp.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#16a34a', color: '#fff', padding: '2px 8px', borderRadius: 12 }}>PASS</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Inheritance</td>
+        <td>Lifecycle tapping via base hooks (will/did load/update)</td>
+        <td><code>service-inheritance/cmp.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#16a34a', color: '#fff', padding: '2px 8px', borderRadius: 12 }}>PASS</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Inheritance</td>
+        <td>Runtime host state updates from base service (mouse controller example)</td>
+        <td><code>service-inheritance/cmp.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#16a34a', color: '#fff', padding: '2px 8px', borderRadius: 12 }}>PASS</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Mixins</td>
+        <td>Compose two behaviors into one component; both lifecycles/methods present</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Mixins</td>
+        <td>Selective composition (single behavior component) and reuse across components</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Mixins</td>
+        <td>Conflict scenario: same-name methods across behaviors and resolution strategy</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Mixins</td>
+        <td>Override precedence in component with super() chaining</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Mixins</td>
+        <td>Watchers/Props/State merge assertions across composed behaviors</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Mixins</td>
+        <td>Lifecycle ordering across multiple behaviors</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}>
+          <span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<small>
+Legend: <span style={{ background: '#16a34a', color: '#fff', padding: '1px 6px', borderRadius: 10 }}>PASS</span> = implemented and green in WDIO; <span style={{ background: '#f59e0b', color: '#111827', padding: '1px 6px', borderRadius: 10 }}>PENDING</span> = planned, not yet implemented.
+</small>
+
+## Checkpoint: Inheritance Support Verified (v4.37.1)
+
+Status: PASS (inheritance); PENDING (mixins suite)
+
+Evidence
+- Local branch: `feat/reactive-elements` after merging upstream `main` containing v4.37.1 (package.json now shows `4.37.1`).
+- Rebuilt compiler (`npm run build`) with no inheritance-related compile errors.
+- Ran WDIO build for `service-inheritance` suite successfully; prior compiler error ("Classes decorated with @Component can not extend from a base class") no longer emitted.
+- Confirms: base class extension is now accepted by the compiler and downstream generated output compiles/runs in WDIO environment.
+
+### WDIO Run Output (excerpt)
+```
+[chrome 140.0.7339.186 mac #0-0] service-inheritance (extends-only)
+[chrome 140.0.7339.186 mac #0-0]    ✓ reuses a shared service via base class and taps lifecycle (2.2s)
+
+Spec Files: 1 passed, 1 total (100% completed)
+```
+Timestamp: 2025-09-24T23:59:24Z (local run)  
+Result: PASS ✅
+
+Pending Follow-ups
+- Add and execute `service-mixins` WDIO suite to validate multi-behavior composition.
+- Capture lifecycle marker assertions from the inheritance test run (optional: add snippet/screenshot) once mixins results are also documented.
+- Update Go/No-Go matrix after mixins verification.
+
+## Parity with Lit Reactive Controllers (Test Plan)
+
+Reference: <a href="https://lit.dev/docs/composition/controllers/" target="_blank" rel="noopener noreferrer">Lit: Reactive Controllers</a>
+
+<div style={{ maxWidth: '100%', width: '100%', background: '#fff' }}>
+  <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+    <colgroup>
+      <col style={{ width: '24%' }} />
+      <col style={{ width: '36%' }} />
+      <col style={{ width: '20%' }} />
+      <col style={{ width: '20%' }} />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Lit Feature</th>
+        <th>Stencil Mapping (extends/mixins)</th>
+        <th>Spec Path</th>
+        <th style={{ textAlign: 'center' }}>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>External input: mousemove controller</td>
+        <td>Base service attaches window listener in <code>connectedCallback</code>, updates host <code>@State</code></td>
+        <td><code>service-inheritance/cmp.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#16a34a', color: '#fff', padding: '2px 8px', borderRadius: 12 }}>PASS</span></td>
+      </tr>
+      <tr>
+        <td>Lifecycle: setup/cleanup</td>
+        <td><code>connectedCallback</code>/<code>disconnectedCallback</code> establish and tear down listeners/observers</td>
+        <td><code>service-inheritance/cmp.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#16a34a', color: '#fff', padding: '2px 8px', borderRadius: 12 }}>PASS</span></td>
+      </tr>
+      <tr>
+        <td>Lifecycle: pre/post update hooks</td>
+        <td>Map Lit <code>hostUpdate/hostUpdated</code> to Stencil <code>componentWillRender/componentDidRender</code>; assert ordering and DOM reads</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Update scheduling (requestUpdate)</td>
+        <td>Trigger host re-render via <code>@State</code> mutations from base/mixin; coalescing by counting <code>componentWillRender</code> calls</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Multiple controllers per host</td>
+        <td>Compose multiple behaviors via mixins; both lifecycles and methods present</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Controller composition</td>
+        <td>Behavior A internally composes Behavior B (mixin chain); verify call-through</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Dynamic attach/detach</td>
+        <td>Lit <code>addController/removeController</code> dynamic behavior. Stencil: not supported in Phase 1 (static class composition).</td>
+        <td>—</td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#ef4444', color: '#fff', padding: '2px 8px', borderRadius: 12 }}>GAP</span></td>
+      </tr>
+      <tr>
+        <td>Keyboard input</td>
+        <td>Base/mixin listens to <code>keydown</code> on window; updates host state</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Resize observer</td>
+        <td>Behavior owns a ResizeObserver; exposes attach API; asserts size state updates</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Mutation observer</td>
+        <td>Behavior observes child changes; state reflects mutation count</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Async task lifecycle</td>
+        <td>Task-like behavior with states: <code>idle</code> → <code>pending</code> → <code>resolved/error</code>; triggers updates; abort on disconnect</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Cleanup on disconnect</td>
+        <td>After host removal, external events no longer mutate state; no stray timers</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Update completion signal</td>
+        <td>Lit <code>updateComplete</code> Promise. Stencil: emulate via <code>componentDidUpdate</code> markers/next frame waits</td>
+        <td><code>service-mixins/*.test.tsx</code></td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#f59e0b', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>PENDING</span></td>
+      </tr>
+      <tr>
+        <td>Directive integration</td>
+        <td>Lit directives + controllers. Stencil: N/A; pattern can be simulated with methods returning callbacks for refs.</td>
+        <td>—</td>
+        <td style={{ textAlign: 'center' }}><span style={{ background: '#9ca3af', color: '#111827', padding: '2px 8px', borderRadius: 12 }}>N/A</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<small>
+Notes: Controllers in Lit are instance-based and can be dynamically added/removed. Stencil Phase 1 focuses on static composition (extends/mixins). Where direct parity isn't possible, gaps are recorded explicitly.
+</small>
+
+## Preliminary Conclusion
+- Extends-only path appears sufficient for the three narrow questions (shared logic, reuse, lifecycle tapping). With mixins, composition of multiple behaviors is also feasible without introducing `@Controller` in Phase 1.
+- Keep this evaluation doc updated as tests land.
+
+Next Steps
+- Land and stabilize the WDIO specs under `test/wdio/service-inheritance/` and add `test/wdio/service-mixins/`.
+- Update `test/wdio/wdio.conf.ts` to include the mixins suite.
+- Revisit broader controller features only if async gating, SSR-specific ordering, or advanced ergonomics are required.
+
+## Compatibility note (older Stencil builds)
+
+If your local environment has not yet pulled the Stencil update that introduced component inheritance (PR #6362), attempting to extend from a base class will fail at compile time.
+
+Screenshot
+
+<img src={errorImg} alt="Compiler error when extending from a base class on older Stencil" style={{maxWidth: '780px', border: '1px solid #eee', borderRadius: '4px'}} />
+
+Example error output
+
+```
+[ ERROR ] service-inheritance/cmp-a.tsx:5:26
+Classes decorated with @Component can not extend from a base class.
+Stencil needs to be able to switch between different base classes in order to implement the different output targets such as: lazy and raw web components.
+
+L4: @Component({ tag: 'svc-inherit-a' })
+L5: export class SvcInheritA extends ServiceBase {
+L6:   @State() value: string = '';
+
+[ ERROR ] service-inheritance/cmp-b.tsx:5:26
+Classes decorated with @Component can not extend from a base class.
+Stencil needs to be able to switch between different base classes in order to implement the different output targets such as: lazy and raw web components.
+
+L4: @Component({ tag: 'svc-inherit-b' })
+L5: export class SvcInheritB extends ServiceBase {
+L6:   @State() value: string = '';
+```
+
+Action: pull latest `stenciljs/core` that includes PR #6362 to enable `extends` and mixins support before running these WDIO tests.

@@ -1,0 +1,184 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Testing/Framework/Coverage Matrix/Overview" tags={['pending-review']} />
+
+# Matrix Generation for Component Permutations
+<div style={{display: 'inline-block', padding: '4px 12px', background: '#ffe066', color: '#7c5c00', borderRadius: '16px', fontWeight: 'bold', marginBottom: '16px'}}>⏳ Pending Review</div>
+
+## Why Matrix-Driven Static Analysis Coverage Is Essential
+
+Traditional unit test coverage tools (like Istanbul/NYC) are effective for verifying the compiler's internal logic, but they cannot ensure that every possible decorator permutation is exercised in real-world usage. This is because, to truly flex the compiler, we must use it as an external consumer—generating components and running them through the build/test pipeline. Standard coverage tools cannot track which decorator permutations are exercised in generated code.
+
+Matrix-driven static analysis bridges this gap:
+- **Permutation Matrix:** For each decorator, all possible permutations (based on its properties/options) are enumerated in a machine-readable matrix (typically an `.mdx` file).
+- **Static Analysis:** Scripts scan the codebase to check which permutations are present in generated components and tests.
+- **Coverage Reporting:** The matrix is updated to show which permutations are covered and which are missing.
+- **Test Generation:** Missing permutations trigger new component/test generation, ensuring every case is exercised.
+- **Expansion:** While currently focused on Component Tests, this approach will expand to e2e tests, ensuring full coverage across all test types.
+
+> Note: As of Iteration X, we exclude permutations where both `shadow` and `scoped` are true. Stencil treats these as invalid (mutually exclusive), so they are not counted in total permutations.
+
+This matrix-driven strategy is essential for maintaining confidence in Stencil’s feature coverage, especially as new decorator options are added. It complements runtime tests and standard coverage tools, providing a systematic way to achieve and maintain comprehensive coverage.
+
+## Core Objective
+
+The primary goal of each `*-coverage.js` script is to determine the component permutation coverage for a specific Stencil decorator (e.g., `@Prop`, `@Listen`). It achieves this by performing two key functions:
+
+1.  **Defining the entire universe of possible feature permutations.**
+2.  **Scanning the codebase to see which of those permutations are actually implemented in dedicated test components.**
+
+The final output is a comparison between the "possible" and the "actual," resulting in a coverage percentage and a list of what's missing.
+
+## The Generation Process: A Step-by-Step Guide
+
+All coverage scripts follow a similar underlying logic, which can be broken down into the following steps:
+
+### 1. Defining the Scope
+
+-   **Component Directories:** Each script begins by defining a list of directories to scan for component files. This is typically `test/wdio` and `test/end-to-end`.
+-   **Permutation Options:** The script hardcodes the "source of truth" for a decorator's permutations. This includes all possible properties and their potential values.
+    -   **Example (`@Listen`):**
+        -   `TARGET_OPTIONS`: `['window', 'document', 'body', 'parent', 'host']`
+        -   `capture`: `[true, false]`
+
+### 2. Finding Relevant Component Files
+
+A file system utility recursively searches the specified component directories for files with a specific extension, almost always `.tsx`. This produces a list of all component files that could contain decorator implementations.
+
+### 3. Parsing Source Code to Find Decorators
+
+This is the most critical and variable step. The script reads the content of each component file and uses a specific strategy to find all instances of the target decorator.
+
+-   **Strategy A: Regex for Simple Decorators:** For decorators with a straightforward, single-line syntax like `@Listen`, a single, effective regex (`/@Listen\s*\(([^)]*)\)/g`) is used to capture all instances and their options at once. This is efficient and concise.
+
+-   **Strategy B: Line-by-Line Parsing for Complex Decorators:** For decorators like `@Prop` where the declaration can be multi-line and associated with a typed class property, a more robust line-by-line parsing approach is necessary. The script iterates through the file's lines, identifies a decorator, and then continues reading subsequent lines to piece together the full context (e.g., the property's type, name, and initializer).
+
+### 4. Extracting and Normalizing Data
+
+Once a decorator is found, its options are extracted.
+
+-   **Extraction:** Regex is used to pull out the values of specific keys (e.g., `reflect: true`, `target: 'window'`).
+-   **Defaults:** The script logic accounts for default values. For instance, in `@Listen`, if `target` is not specified, it defaults to `'host'`.
+-   **Normalization:** The extracted values are normalized into a consistent format for easy comparison. A common example is converting boolean `true`/`false` into checkmark icons (`✓`/`✗`).
+
+### 5. Calculating Coverage
+
+-   The script programmatically generates a complete list of all possible permutation keys from the hardcoded options (e.g., `"window|✓"`, `"window|✗"`).
+-   It then creates a map of all the permutations it found during the parsing step.
+-   By comparing the "found" map against the "all possible" list, it calculates the total number of covered permutations, the overall percentage, and a list of the specific permutations that are missing.
+
+### 6. Generating Output
+
+The final results are typically written to a `.json` file (e.g., `prop-coverage-data.json`). This file serves as a data source for other tools and, in many cases, is used to dynamically build and update the coverage matrix tables displayed in the `.mdx` documentation files.
+
+## Real-World Example: The `@Prop` Decorator
+
+Our application of this strategy to the `@Prop` decorator demonstrates the complete **3-step testing loop** in action and showcases the exponential value of systematic testing. For concrete examples, see [@Prop Matrix: Covered Permutations](?path=/docs/testing-decorators-prop--docs#covered-permutations).
+
+### The Complete Loop Success Story
+
+**Step 1: Rules Discovery** 🔍
+- **AI Matrix Generation**: Started with broad matrix: 6 types × 2 reflect × 2 mutable = 24 permutations
+- **Initial Component Generation**: Generated all 24 components (including invalid ones)
+- **Compiler-Driven Discovery**: Build attempts revealed constraint violations:
+  - Complex types (Array, Object, Set) cannot use `reflect: true`
+  - Compiler errors became the source of truth for valid combinations
+- **Rules Encoding**: Created `rules.json` capturing discovered constraints
+- **Matrix Refinement**: Updated matrix eliminated invalid permutations, kept 24 valid ones
+
+**Step 2: Generate & Build** 🏗️
+- **Clean Generation**: Generated 24 components from compiler-validated matrix
+- **Zero-Error Build**: All components compiled successfully
+- **Systematic Organization**: Components organized by type directories with consistent naming
+
+**Step 3: Test & Verify** ✅
+- **Structured Testing**: Implemented 5 test cases covering all behavioral scenarios
+- **Complete Coverage**: Achieved 100% coverage across all **valid** permutations
+- **Runtime Validation**: Verified functionality through WebDriver I/O tests
+
+### Key Learnings from the Rules Discovery Process
+
+1. **Compiler as Oracle**: Using build failures to discover valid decorator combinations is more reliable than manual specification
+2. **Broad-to-Narrow Approach**: Starting with all possible permutations and eliminating invalid ones ensures comprehensive coverage
+3. **Constraint Documentation**: `rules.json` becomes a living document of framework constraints discovered through systematic exploration
+4. **Iterative Refinement**: The discovery process naturally handles framework evolution - new constraints are discovered and encoded automatically
+5. **Community Scalability**: Once rules are discovered, community contributions follow validated patterns
+
+**The Revolutionary Insight**: Instead of trying to predict valid decorator combinations, let the compiler teach us what's actually possible!
+
+This validates our **Rules Discovery strategy** as a scalable, **compiler-driven** approach to maintaining comprehensive test coverage as the framework evolves.
+
+# Coverage Matrix: Community-Driven Testing Documentation
+
+This documentation serves as the source of truth for our crowdsourceable testing ecosystem. It enables both AI and human contributors to systematically identify gaps, implement tests, and verify coverage.
+
+## Test Case Documentation System
+
+Our structured approach creates comprehensive test case documentation automatically:
+
+### Coverage Reports Structure
+```json
+{
+  "coverage": {
+    "covered": 24,
+    "total": 24, 
+    "percent": "100.00"
+  },
+  "items": [
+    {
+      "group": "string",
+      "options": {
+        "type": "string",
+        "reflect": "✓",
+        "mutable": "✓"
+      },
+      "tested": true,
+      "caseIds": [1, 3, 5]
+    }
+  ]
+}
+```
+
+### Test Case Mapping
+- **Case #1**: Primitive runtime coverage
+- **Case #2**: Complex static render
+- **Case #3**: reflect=true behaviors
+- **Case #4**: reflect=false behaviors  
+- **Case #5**: mutable=true behaviors
+
+## Community Contribution Opportunities
+
+### Gap Identification
+- **Missing permutations**: Automatically identified in coverage reports
+- **Untested scenarios**: `"tested": false` entries need implementation
+- **New test cases**: Expand beyond current 5 test case types
+
+### Contribution Process
+1. **Review coverage reports** in `/test/storybook/docs/Testing/Decorators/{decorator}/data/`
+2. **Follow the 3-step loop**: Rules → Generate → Test
+3. **Implement using established patterns** and naming conventions
+4. **Submit pull requests** with documentation updates
+
+### Expandable Test Scenarios
+Beyond current coverage, community can add:
+- **Edge cases**: null/undefined handling, boundary conditions
+- **Performance scenarios**: large datasets, memory usage
+- **Integration patterns**: component composition, complex interactions
+- **Accessibility**: screen reader support, keyboard navigation
+- **Browser compatibility**: specific behaviors, polyfills
+
+- **Generation:** See `generation.mdx` for systematic component creation
+- **Verification:** See `verification.mdx` for coverage validation and quality assurance
+
+This process is inherently collaborative, enabling community-driven expansion as new decorator options and real-world use cases emerge.
+
+## Key Learnings and Implications
+
+-   **The Script is the Source of Truth for Components:** The reliability of our entire testing loop hinges on the accuracy of these coverage scripts. If a permutation option is not defined in the script, it will not be tracked, creating a blind spot (as seen with the `@Prop({ mutable: true })` case).
+-   **Parsing is Fragile:** Source code parsing, whether with regex or line-by-line analysis, can be brittle. Changes in code formatting or syntax could potentially break the scripts. They must be maintained alongside any changes to coding conventions.
+-   **Human Oversight is Essential:** The process is automated but not infallible. It's crucial for developers to periodically review these scripts to ensure they accurately reflect the full feature set of the decorators they are intended to cover. When a new option is added to a decorator, the corresponding coverage script **must** be updated.
+-   **Continuous Improvement:** After each major testing iteration, document learnings, mistakes, coverage gaps, and process optimizations in the appropriate `.ai` folder files and documentation. This ensures the methodology evolves and improves over time.
+
+## Further Reading
+
+For a high-level overview of how matrix-driven coverage fits into the overall testing strategy, see [Testing Overview](?path=/docs/testing-framework-overview--docs).

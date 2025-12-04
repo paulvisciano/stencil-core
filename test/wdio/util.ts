@@ -13,10 +13,15 @@ export declare namespace SomeTypes {
 }
 
 export async function setupIFrameTest(htmlFile: string, id?: string): Promise<HTMLElement> {
-  const oldFrame = document.querySelector('iframe');
-  if (oldFrame) {
-    document.body.removeChild(oldFrame);
-  }
+  // Remove all existing iframes to prevent resource leaks and conflicts
+  const oldFrames = document.querySelectorAll('iframe');
+  oldFrames.forEach((frame) => {
+    try {
+      document.body.removeChild(frame);
+    } catch (e) {
+      // Frame might already be removed, ignore
+    }
+  });
 
   const htmlFilePath = path.resolve(
     // @ts-ignore globalThis is a WebdriverIO global variable

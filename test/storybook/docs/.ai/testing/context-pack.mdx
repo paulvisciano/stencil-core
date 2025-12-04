@@ -1,0 +1,68 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Testing/Framework/Context Pack" tags={['dev-only', 'pending-review']} />
+
+# GenAI Testing Context Pack
+<div style={{display: 'inline-block', padding: '4px 12px', background: '#d1fae5', color: '#065f46', borderRadius: '16px', fontWeight: 'bold', marginBottom: '16px'}}>Portable, context-first workflow</div>
+
+A portable, framework-agnostic package of prompts, policies, scripts, and docs that enables a GenAI-powered testing loop in any repository. Invest in the context; generation quality follows.
+
+## What it contains
+- Strategy and audit docs: `overview.mdx`, `audit.mdx`
+- Conventions and prompts: `AGENT_KEYWORDS.md`, `AGENT_PROTOCOL.md`
+- Project glue: `project-config.mdx`, script shortcuts in `package.json`
+- Coverage matrix guides: `coverage-matrix/*`
+- Decorator playbooks (example): `decorators/component.mdx`
+
+## Why context-first
+- Matrices + scripts are the source of truth. AI enumerates missing permutations, generates components, then tests.
+- Strong context yields reliable generation as models improve (GPT-5 > GPT-4.1 results observed here).
+
+## How to import into a new repo
+1) Copy the `.ai/testing` folder into the target repo (recommended path: `test/storybook/docs/.ai/testing`, adjust paths if needed).
+2) Open `project-config.mdx` and update:
+   - Test tech (unit/component/e2e), runners, and script paths
+   - Component directory root (e.g., `test/wdio`)
+   - Coverage script/data locations
+3) Adjust `.ai/testing/package.json` shortcuts to `cd` into the correct local folders.
+4) Run coverage from `.ai/testing` to discover gaps:
+   - All decorators: `npm run refresh-coverage-matrix`
+   - Shortcut (refresh → generate → refresh): `npm run coverage-loop`
+   - Specific decorator (examples): `npm run coverage-prop`, `npm run coverage-state`, `npm run coverage-listen`, `npm run coverage-event`
+5) Verify matrices (scripted):
+   - Per-decorator: `npm run <decorator>:verify-matrix` (enforces parity, grouping, exclusivity; writes overlays)
+6) Build and run:
+   - Build components: `npm run build-wdio-components`
+   - Run tests: `npm run run-component-tests`
+   - Targeted run (spec/glob): `npm run run-component-tests:spec -- ./state/**/*.test.tsx`
+
+## Minimal prompt template
+> Using the Context Pack and `project-config.mdx`, read the coverage data, list `missingPermutations`, generate exactly one component per missing key following naming/location rules, rebuild, and rerun coverage. Then generate WDIO tests for the new components following the documented patterns.
+
+## Validation checklist
+- One style prop max per component: exactly one of `styleUrl | styleUrls | styles` (or none)
+- Filename matches tag; tag rendered in component; location under the correct matrix folder
+- After each batch:
+  - `coverage.covered` increases by the number of new files
+  - `.tsx` file count under the decorator folder equals `covered`
+- Verification is scripted: run `npm run <decorator>:verify-matrix` to enforce parity/grouping/exclusivity and write overlays; manual spot checks are optional
+
+## Crowdsourcing workflow
+- Contributors run the loop, add missing permutations/tests, and open PRs
+- Keep changes minimal and convention-aligned; document additions in `audit.mdx`
+
+## Versioning and drift
+- Keep a `Context Pack` version header here; bump when changing conventions or scripts
+- Document repo-specific overrides in `project-config.mdx`
+
+## Model policy
+- Generation: GPT-5 (Preview)
+- Documentation: GPT-4.1
+
+## Related docs
+- [Overview](?path=/docs/testing-framework-overview--docs)
+- [Audit](?path=/docs/testing-framework-audit--docs)
+- [Coverage Matrix: Overview](?path=/docs/testing-framework-coverage-matrix-overview--docs)
+- [Quickstart: Coverage → Generate → Verify](?path=/docs/testing-framework-quickstart--docs)
+- [@Component Strategy](?path=/docs/testing-decorators-component--docs)
+- Example Prompts: `.ai/testing/AGENT_PROMPTS.md`

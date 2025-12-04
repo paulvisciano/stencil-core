@@ -1,0 +1,203 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Testing/Behavior/Extends/Historical Controller Context" tags={['dev-only' ,'pending-review']} />
+
+## References
+
+> Current evaluation summary: see [Extends / Mixins Evaluation](./extends-eval.mdx).
+
+- [GitHub issue #3162](https://github.com/stenciljs/core/issues/3162)
+- [Lit implementation (reactive-controller.ts)](https://github.com/lit/lit/blob/f8ee010bc515e4bb319e98408d38ef3d971cc08b/packages/reactive-element/src/reactive-controller.ts#L11)
+- [Sample implementation gist](https://gist.github.com/WickyNilliams/79ee85ea370506ac6b16de1920f48e5e)
+
+## Current Direction (Extends + Mixins – No Decorator Needed)
+
+Initial exploration proposed a `@Controller` decorator to enable reusable behavior objects with lifecycle participation. Since then, compiler support for direct component inheritance and mixin composition (implemented by @johnjenkins and released in >= v4.37.0) provides the required capabilities out of the box:
+
+- Shared logic via a base class (service-style) using `extends`.
+- Multiple behavior composition via `Mixin(FooFactory, BarFactory, ...)` without extra runtime APIs.
+- Lifecycle tapping by simply implementing lifecycle methods in the base class or mixin factories (standard JS `super` chaining / method composition handled by emitted class structure).
+
+As a result, adding a new `@Controller` decorator and transform layer is no longer necessary for Phase 1 goals. The historical proposal below is retained only for context. Current effort shifts to hardening the inheritance + mixin path with comprehensive tests.
+
+### Test Focus (Planned / In-Progress)
+
+- Inheritance basics: base lifecycle hook invocation (`willLoad`, `didLoad`, `willUpdate`, `didUpdate`).
+- Multiple components reusing the same base ensuring per-instance state isolation.
+- Mixins: combining 2+ behavior factories; verifying merged props, states, methods, watchers (where applicable) without collisions.
+- Override precedence: derived component overrides calling `super` (when present) – ensure no double invocation or loss of base logic.
+- Conflict detection: intentional same-name method in two mixins (document expected last-in-wins behavior or mitigation strategy).
+- Watchers/Methods/Props/State propagation from mixins into the final component metadata (compiler merge correctness).
+- Lifecycle ordering snapshot (base before derived render side-effects) – doc evidence.
+- Edge: absence of async pre-render gating (explicitly documented limitation vs original controller concept).
+- Regression: ensure older compiler error (pre-4.37.0 "@Component can not extend") no longer surfaces.
+
+If later requirements emerge (dynamic attach/detach of behaviors, async gating before first render, SSR ordering guarantees) we can re-evaluate a decorator or runtime hook abstraction. For now: decorator deferred.
+
+## Original Description / Context (Historical @Controller Proposal)
+
+> Historical context: see [Extends / Mixins Evaluation](./extends-eval.mdx).
+
+### Issue
+
+[Issue #3162](https://github.com/stenciljs/core/issues/3162)
+
+### Description
+
+Attaching controllers to Stencil components allows extracting logic out of the component and making code shareable across multiple components. A controller implements [lifecycle](https://stenciljs.com/docs/component-lifecycle) methods of a Stencil component and contains its own scope to store data as well as provide functions that can be accessed from within the component. Real world examples:
+
+- A `MouseController` that registers mouse event handlers, observes the mouse position, and changes state when the mouse is close to the component's rendered position.
+- A `ResizeController` that changes the structure of the component to improve responsive rendering.
+
+The referenced issue contains various suggestions on how this could look from the user POV. Suggested (historic) shape:
+
+```tsx
+import { Component, Fragment, Controller, h } from '@stencil/core';
+
+import MouseController from '../controller/mouse.js';
+import ResizeController from '../controllers/resize.js';
+
+@Component({
+  tag: 'my-component',
+})
+export class MyComponent {
+  @Controller()
+  someController = new MouseController();
+
+  @Controller()
+  someOtherController = new ResizeController();
+
+  render() {
+    // access controller from within the component
+    this.someController.action();
+    this.someOtherController.action();
+
+    return (
+      <>
+        <div>...</div>
+        <div>...</div>
+        <div>...</div>
+      </>
+    );
+  }
+}
+```
+
+Introducing a `@Controller` decorator would align with current design patterns and allow for future extensibility, e.g. behavioral attributes:
+
+```tsx
+@Controller({
+  // restrict access to `componentWillLoad` only
+  lifecycles: ['componentWillLoad'],
+  // execute before user code
+  order: 'pre',
+})
+someOtherController = new ResizeController();
+```
+
+### Implementation Sketch (Historic)
+
+Decorators in Stencil are compile-time only. A transformed artifact for a `dist-custom-element` build could look like:
+
+```js
+import { p as proxyCustomElement, H, h } from './p-BCkgn2oy.js';
+
+const MyComponent$1 = /*@__PURE__*/ proxyCustomElement(class MyComponent extends H {
+  constructor() {
+    super();
+    this.__registerHost();
+
+    // register controllers
+    this.someController = new MouseController(this);
+    this.someOtherController = new ResizeController(this);
+  }
+
+  componentWillLoad() {
+    this.someController.componentWillLoad();
+    this.someOtherController.componentWillLoad();
+    // continue with user code...
+  }
+
+  // ... potentially other lifecycle hooks
+
+  render() {
+    return (
+      h(h.Fragment, null,
+        h('div', { key: 'a' }, '...'),
+        h('div', { key: 'b' }, '...'),
+        h('div', { key: 'c' }, '...'),
+      )
+    );
+  }
+}, [0, 'my-component']);
+function defineCustomElement$1() {
+  if (typeof customElements === 'undefined') {
+    return;
+  }
+  const components = ['my-component'];
+  components.forEach(tagName => {
+    switch (tagName) {
+      case 'my-component':
+        if (!customElements.get(tagName)) {
+          customElements.define(tagName, MyComponent$1);
+        }
+        break;
+    }
+  });
+}
+defineCustomElement$1();
+
+const MyComponent = MyComponent$1;
+const defineCustomElement = defineCustomElement$1;
+
+export { MyComponent, defineCustomElement };
+```
+
+#### Controller Base Class Draft
+
+```ts
+import type { ComponentInterface } from '@stencil/core';
+
+export abstract class StencilController<T extends ComponentInterface = ComponentInterface> {
+  protected host: T;
+
+  constructor(host: T) {
+    this.host = host;
+  }
+
+  componentWillLoad?(): void | Promise<void>;
+  componentDidLoad?(): void | Promise<void>;
+  componentWillRender?(): void | Promise<void>;
+  componentDidRender?(): void;
+  componentWillUpdate?(): void | Promise<void>;
+  componentDidUpdate?(): void;
+  disconnectedCallback?(): void;
+}
+```
+
+Example usage:
+
+```ts
+import { StencilController } from './stencil-controller';
+
+export default class MouseController extends StencilController {
+  position = { x: 0, y: 0 };
+
+  componentWillLoad() {
+    console.log('MouseController initialized for', this.host);
+  }
+
+  action() {
+    return this.position;
+  }
+}
+```
+
+## Questions (Historic Evaluation Prompts)
+
+- What would be the scope of that feature on Stencil based on their ask, our understanding, and Christian's analysis?
+- Ballpark estimate for someone with little to no experience in the project?
+
+---
+
+Note: This document is preserved for historical context. Current Phase 1 evaluation focuses on class inheritance and mixins instead of introducing `@Controller`.

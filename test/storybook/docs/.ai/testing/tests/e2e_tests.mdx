@@ -1,0 +1,31 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Testing/Framework/Tests/E2E Tests" tags={['pending-review']} />
+
+# E2E Tests
+<div style={{display: 'inline-block', padding: '4px 12px', background: '#ffe066', color: '#7c5c00', borderRadius: '16px', fontWeight: 'bold', marginBottom: '16px'}}>⏳ Pending Review</div>
+
+This document covers all **end-to-end (E2E)** tests for Stencil, which are located under the `test` folder. These tests validate Stencil from the outside by importing it as a dependency, simulating real-world usage, and testing E2E scenarios and feature behaviors. They are loosely coupled and focus on user-facing features, build outputs, and application-level scenarios.
+
+## End-to-End Tests (`test/end-to-end`)
+
+-   **Purpose:** To test the integration of multiple features and components working together. These tests simulate more complex, real-world scenarios.
+-   **Technology:** Stencil's built-in `newE2EPage()` test utility, which leverages Puppeteer to control a headless browser for simulating user interactions.
+-   **Scope:**
+    -   Test how different features interact.
+    -   Simulate user flows and interactions between components.
+    -   Verify that features that work in isolation do not have negative side effects when combined.
+-   **Benefits:**
+    -   **Confidence:** Ensures that the framework is stable when used in complex applications.
+    -   **Real-World Validation:** Tests scenarios that are closer to how developers will actually use Stencil.
+
+## Other Test Groupings
+
+- **Feature/Functionality-Specific Tests:** Focused on specific Stencil features or outputs (e.g., `docs-json`, `docs-readme`, `copy-task`, `style-modes`).
+- **Sample Apps & Demos:** Example Stencil apps and usage demos (e.g., `hello-world`, `todo-app`, `ionic-app`).
+- **Infrastructure & Utilities:** Test/build support scripts and runners (e.g., `.scripts`, `jest-spec-runner`).
+
+## Running Tests
+
+-   **End-to-End:** To run all E2E tests, use `npm test -- --e2e`. To run a specific file, use `npm test -- --e2e path/to/your/test.e2e.ts`.
+-   **Feature/Performance:** Refer to the respective folder's README or config files for instructions.

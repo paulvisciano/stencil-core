@@ -1,0 +1,306 @@
+import rules from './data/rules.json';
+import { Meta } from '@storybook/addon-docs/blocks';
+import data from './data/components.json';
+import overlay from './data/test-coverage.json';
+import React, { useMemo, useState } from 'react';
+import RulesAtAGlance from '../_shared/RulesAtAGlance.jsx';
+import TestCasesTable from '../_shared/TestCasesTable.jsx';
+import GeneratedComponentsTable from '../_shared/GeneratedComponentsTable.jsx';
+
+<Meta title="Testing/Decorators/@Prop"/>
+
+# @Prop Decorator
+
+The `@Prop` decorator exposes public properties on components. This page documents the test coverage, patterns, generated components, and implementation status.
+
+## Decorator Properties
+
+- Type: `@Prop` supports common types, including `string`, `number`, `boolean`, `Array`, `Object`, and `Set`.
+- reflect: when true, reflects the value to a corresponding attribute.
+- mutable: when true, allows internal mutation of the prop.
+
+## Rules (at a glance)
+<RulesAtAGlance rules={rules} sourcePath="./data/rules.json" modeLabel="Prop type" />
+
+## Test Cases
+
+Test cases are organized by **type and behavior** - from basic primitive types to complex reflection and mutability patterns. All `@Prop` tests reside under <code>test/wdio/prop</code>.
+
+export const PropCoverageSummary = () => {
+  const testCaseStatus = overlay.testCaseStatus || {};
+  const testCases = Object.values(testCaseStatus);
+  const implementedCases = testCases.filter(tc => tc.implemented).length;
+  const totalCases = testCases.length;
+  const coveragePercentage = totalCases > 0 ? Math.round((implementedCases / totalCases) * 100) : 0;
+  const totalTests = testCases.reduce((sum, tc) => sum + (tc.testCount || 0), 0);
+  
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '32px' }}>
+      <div style={{ 
+        background: '#fff', 
+        padding: '20px', 
+        borderRadius: '8px', 
+        border: '2px solid #e5e7eb',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{ fontSize: '13px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
+          Test Cases Implemented
+        </div>
+        <div style={{ fontSize: '36px', fontWeight: '700', color: '#111827', lineHeight: '1', marginBottom: '6px' }}>
+          {implementedCases}<span style={{ color: '#d1d5db' }}>/{totalCases}</span>
+        </div>
+        <div style={{ fontSize: '13px', color: '#6b7280' }}>
+          {coveragePercentage}% complete
+        </div>
+      </div>
+      
+      <div style={{ 
+        background: '#fff', 
+        padding: '20px', 
+        borderRadius: '8px', 
+        border: '2px solid #e5e7eb',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{ fontSize: '13px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
+          Total Tests
+        </div>
+        <div style={{ fontSize: '36px', fontWeight: '700', color: '#111827', lineHeight: '1', marginBottom: '6px' }}>
+          {totalTests}
+        </div>
+        <div style={{ fontSize: '13px', color: '#6b7280', borderTop: '1px solid #e5e7eb', paddingTop: '8px', marginTop: '8px' }}>
+          📅 Last run: {overlay.lastRunFormatted || 'Never'}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+<PropCoverageSummary />
+
+export const PropTestCasesTable = () => {
+  // ✨ SIMPLIFIED: Pre-calculated test case status from JSON
+  const testCaseStatus = overlay.testCaseStatus || {};
+  
+  // Simple lookups - no complex filtering needed!
+  const case1Implemented = testCaseStatus[1]?.implemented || false;
+  const case2Implemented = testCaseStatus[2]?.implemented || false; 
+  const case3Implemented = testCaseStatus[3]?.implemented || false;
+  const case4Implemented = testCaseStatus[4]?.implemented || false;
+  const mutableTrueImplemented = testCaseStatus[5]?.implemented || false;
+  const mutableFalseImplemented = testCaseStatus[6]?.implemented || false;
+
+  // Component counts directly from pre-calculated data
+  const primitiveTestsCount = testCaseStatus[1]?.componentCount || 0;
+  const complexTestsCount = testCaseStatus[2]?.componentCount || 0;
+  const reflectTrueTestsCount = testCaseStatus[3]?.componentCount || 0;
+  const reflectFalseTestsCount = testCaseStatus[4]?.componentCount || 0;
+  const mutableTrueTestsCount = testCaseStatus[5]?.componentCount || 0;
+  const mutableFalseTestsCount = testCaseStatus[6]?.componentCount || 0;
+
+  // Legacy stats calculation (still needed for overall coverage display)
+  const items = overlay.items || [];
+  const groupIn = (set) => items.filter(i => set.has(i.group));
+  const count = (arr) => ({ tested: arr.filter(i => i.tested).length, total: arr.length });
+  const primitiveSet = new Set(['string', 'number', 'boolean']);
+  const complexSet = new Set(['Array', 'Object', 'Set']);
+  const primitive = count(groupIn(primitiveSet));
+  const complex = count(groupIn(complexSet));
+
+  
+
+  const allRows = [
+    {
+      id: 1,
+      implemented: case1Implemented,
+      desc: 'Runtime coverage for primitive prop types. Validate render, reflect, and mutability combinations.',
+      types: (
+        <>
+          type: string | number | boolean × reflect: true/false × mutable: true/false<br/>
+          <small>Covered: {primitive.tested}/{primitive.total}</small>
+        </>
+      ),
+      tested: primitive.tested,
+      total: primitive.total,
+      section: case1Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 2,
+      implemented: case2Implemented,
+      desc: (
+        <>
+          Static render and reflection behavior for complex prop types (<code>Array</code>, <code>Object</code>, <code>Set</code>).<br/>
+          <small>Components: {complexTestsCount}</small>
+        </>
+      ),
+      types: (
+        <>
+          type: Array | Object | Set × reflect: true/false × mutable: true/false<br/>
+          <small>Covered: {complex.tested}/{complex.total}</small>
+        </>
+      ),
+      tested: complex.tested,
+      total: complex.total,
+      section: case2Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 3,
+      implemented: case3Implemented,
+      desc: 'Reflect=true behavior for primitives: attribute presence/value matches prop updates.',
+      types: (
+        <>
+          string | number | boolean × reflect: true<br/>
+          <small>Components: {reflectTrueTestsCount}</small>
+        </>
+      ),
+      tested: reflectTrueTestsCount,
+      total: reflectTrueTestsCount,
+      section: case3Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 4,
+      implemented: case4Implemented,
+      desc: 'Reflect=false behavior for primitives: no attribute is reflected when prop updates.',
+      types: (
+        <>
+          string | number | boolean × reflect: false<br/>
+          <small>Components: {reflectFalseTestsCount}</small>
+        </>
+      ),
+      tested: reflectFalseTestsCount,
+      total: reflectFalseTestsCount,
+      section: case4Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 5,
+      implemented: mutableTrueImplemented,
+      desc: 'Mutable=true behavior for primitives: component can mutate its own prop without errors; verify DOM and attribute state.',
+      types: (
+        <>
+          string | number | boolean × mutable: true<br/>
+          <small>Components: {mutableTrueTestsCount}</small>
+        </>
+      ),
+      tested: mutableTrueTestsCount,
+      total: mutableTrueTestsCount,
+      section: mutableTrueImplemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 6,
+      implemented: mutableFalseImplemented,
+      desc: 'Mutable=false behavior for primitives: component-internal attempts to mutate are ignored; DOM and attribute remain stable.',
+      types: (
+        <>
+          string | number | boolean × mutable: false<br/>
+          <small>Components: {mutableFalseTestsCount}</small>
+        </>
+      ),
+      tested: mutableFalseTestsCount,
+      total: mutableFalseTestsCount,
+      section: mutableFalseImplemented ? 'implemented' : 'missing',
+    },
+  ];
+
+  return <TestCasesTable rows={allRows} previewCount={3} />;
+};
+
+<PropTestCasesTable />
+
+## Generated Components
+
+<div>
+  <strong>Generated Components:</strong> {data.coverage.covered} of {data.coverage.total} generated (
+  <strong>{data.coverage.percent}%</strong>)
+</div>
+
+<p style={{ marginTop: 8 }}>
+  This section lists the generated components we build to stress the compiler. Each row is one component with a
+  unique combination of decorator options (<code>type</code> × <code>reflect</code> × <code>mutable</code>). If a combo fails to compile,
+  we capture that as a rule in <code>rules.json</code>, update the list, and regenerate. The “Tested By” column reflects which
+  high‑level test cases cover each component.
+</p>
+
+export const PropGeneratedComponents = () => {
+  const rows = useMemo(() => {
+    const items = overlay.items || [];
+    const map = new Map(items.map(i => [i.optionsKey, i]));
+    return (data.coveredPermutations || []).map((p, i) => {
+      const [type, reflect, mutable] = p.options || [];
+      const key = (p.options || []).join('|');
+      const oi = map.get(key) || {};
+      const caseNumbers = Array.isArray(oi.caseIds) ? [...oi.caseIds].sort((a,b) => a-b) : [];
+      return {
+        index: i,
+        type,
+        reflect,
+        mutable,
+        caseNumbers,
+      };
+    });
+  }, []);
+  return <GeneratedComponentsTable rows={rows} previewCount={3} />;
+};
+
+<PropGeneratedComponents />
+
+---
+
+## Test Categories
+
+### **🟢 Basic Types (1-2)** — 2 test cases
+Foundation patterns for primitive and complex prop types, covering render behavior and basic functionality.
+
+### **🟡 Reflection Patterns (3-4)** — 2 test cases
+Attribute reflection behavior for primitives, testing both reflect=true and reflect=false scenarios.
+
+### **🟡 Mutability Patterns (5-6)** — 2 test cases
+Internal prop mutation behavior, covering both mutable=true and mutable=false scenarios.
+
+---
+
+export const PropTODOSection = () => {
+  const testCaseStatus = overlay.testCaseStatus || {};
+  const missingCases = Object.entries(testCaseStatus)
+    .filter(([_, tc]) => !tc.implemented)
+    .map(([id, tc]) => ({ id, desc: tc.description || `Test Case #${id}` }));
+  
+  if (missingCases.length === 0) {
+    return null;
+  }
+  
+  return (
+    <div>
+      {missingCases.map(({ id, desc }) => (
+        <div key={id} style={{ marginBottom: '12px' }}>
+          <strong>Test Case #{id} TODO</strong>: {desc}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+{(() => {
+  const testCaseStatus = overlay.testCaseStatus || {};
+  const missingCases = Object.entries(testCaseStatus)
+    .filter(([_, tc]) => !tc.implemented);
+  if (missingCases.length === 0) return null;
+  return (
+    <>
+      <h2>📋 TODO - Remaining Test Cases</h2>
+      <PropTODOSection />
+    </>
+  );
+})()}
+
+---
+
+## Component Grouping
+
+Generated components are organized by prop type under `test/wdio/prop/components/`:
+
+- `string/` — string props
+- `number/` — numeric props
+- `boolean/` — boolean props
+- `Array/` — array props
+- `Object/` — object props
+- `Set/` — set props
+

@@ -1,0 +1,654 @@
+{
+  "extends": "Stencil component inheritance and composition testing",
+  "description": "Comprehensive testing framework for Stencil extends functionality covering lifecycle, decorators, controllers, and edge cases",
+  "version": "2025-12-04",
+  "summary": {
+    "totalTests": 194,
+    "implementedTestCases": 18,
+    "totalTestCases": 18,
+    "componentsBuilt": 18,
+    "componentsTested": 18,
+    "testBreakdown": {
+      "lifecycle": 13,
+      "standardPatterns": 151,
+      "reactiveControllers": 30
+    },
+    "note": "Last updated: December 4, 2025 at 2:05 AM PST"
+  },
+  "testCaseStatus": {
+    "1": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 6,
+      "description": "Lifecycle Inheritance - Component lifecycle events inherited from base class",
+      "specPath": "test/wdio/ts-target/extends-lifecycle-basic/cmp.test.ts",
+      "testBreakdown": {
+        "dist": 5,
+        "customElements": 1
+      },
+      "lifecycleEvents": [
+        {
+          "category": "Load Lifecycle",
+          "events": [
+            "componentWillLoad",
+            "componentDidLoad"
+          ],
+          "purpose": "Test load lifecycle inheritance with base class event propagation"
+        },
+        {
+          "category": "Render Lifecycle",
+          "events": [
+            "componentWillRender",
+            "componentDidRender"
+          ],
+          "purpose": "Test render lifecycle inheritance with base class event propagation"
+        },
+        {
+          "category": "Update Lifecycle",
+          "events": [
+            "componentWillUpdate",
+            "componentDidUpdate"
+          ],
+          "purpose": "Test update lifecycle inheritance with super() call chains"
+        }
+      ]
+    },
+    "2": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 7,
+      "description": "Multi-Level Lifecycle Inheritance - Lifecycle events through multi-level inheritance chains",
+      "specPath": "test/wdio/ts-target/extends-lifecycle-multilevel/cmp.test.ts",
+      "testBreakdown": {
+        "dist": 6,
+        "customElements": 1
+      },
+      "lifecycleEvents": [
+        {
+          "category": "Load Lifecycle",
+          "events": [
+            "componentWillLoad",
+            "componentDidLoad"
+          ],
+          "purpose": "Test load lifecycle inheritance with multi-level inheritance chains and super() calls"
+        },
+        {
+          "category": "Render Lifecycle",
+          "events": [
+            "componentWillRender",
+            "componentDidRender"
+          ],
+          "purpose": "Test render lifecycle inheritance with multi-level inheritance chains and super() calls"
+        },
+        {
+          "category": "Update Lifecycle",
+          "events": [
+            "componentWillUpdate",
+            "componentDidUpdate"
+          ],
+          "purpose": "Test update lifecycle inheritance with super() call chains"
+        }
+      ]
+    },
+    "3": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "Property & State Inheritance Basics - Basic @Prop and @State inheritance without conflicts",
+      "specPath": "test/wdio/ts-target/extends-props-state/cmp.test.ts",
+      "basicFeatures": [
+        {
+          "feature": "@Prop Inheritance",
+          "description": "Base class @Prop properties inherited by component - basic property passing and rendering"
+        },
+        {
+          "feature": "@State Inheritance",
+          "description": "Base class @State properties inherited by component - basic reactive state management"
+        },
+        {
+          "feature": "Additional Properties",
+          "description": "Component defines additional @Prop and @State alongside inherited ones - no conflicts"
+        },
+        {
+          "feature": "Property Reactivity",
+          "description": "Inherited properties trigger re-renders correctly in component hierarchy"
+        }
+      ],
+      "testCount": 15,
+      "testBreakdown": {
+        "dist": 12,
+        "customElements": 3
+      }
+    },
+    "4": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "Method Inheritance Basics - Basic @Method inheritance and super() calls",
+      "specPath": "test/wdio/ts-target/extends-methods/cmp.test.ts",
+      "basicFeatures": [
+        {
+          "feature": "@Method Inheritance",
+          "description": "Base class @Method decorators inherited by component - basic method exposure"
+        },
+        {
+          "feature": "Super() Calls",
+          "description": "Component methods call super() to invoke parent method logic before/after extension"
+        },
+        {
+          "feature": "Method Override",
+          "description": "Component overrides base class methods while maintaining @Method decorator behavior"
+        },
+        {
+          "feature": "Method Composition",
+          "description": "Component combines base class method logic with its own implementation"
+        }
+      ],
+      "testCount": 13,
+      "testBreakdown": {
+        "dist": 9,
+        "customElements": 4
+      }
+    },
+    "5": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "Render Method Inheritance - Basic render() inheritance and template composition",
+      "specPath": "test/wdio/ts-target/extends-render/cmp.test.ts",
+      "basicFeatures": [
+        {
+          "feature": "Render Inheritance",
+          "description": "Component render() method calls super.render() to include parent template"
+        },
+        {
+          "feature": "Template Composition",
+          "description": "Component composes parent template with additional content and structure"
+        },
+        {
+          "feature": "Slot Integration",
+          "description": "Parent template slots work correctly when inherited and extended"
+        },
+        {
+          "feature": "CSS Class Inheritance",
+          "description": "CSS classes from parent template maintained in component extension"
+        }
+      ],
+      "testCount": 9,
+      "testBreakdown": {
+        "dist": 6,
+        "customElements": 2
+      }
+    },
+    "6": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 12,
+      "description": "Abstract Base Class Inheritance - Components extending Stencil-decorated abstract classes",
+      "specPath": "test/wdio/ts-target/extends-abstract/cmp.test.ts",
+      "testBreakdown": {
+        "dist": 5,
+        "customElements": 5,
+        "hydrate": 2
+      }
+    },
+    "7": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 12,
+      "description": "Component-to-Component Inheritance - Components extending other component classes",
+      "specPath": "test/wdio/ts-target/extends-cmp/cmp.test.ts",
+      "testBreakdown": {
+        "dist": 5,
+        "customElements": 5,
+        "hydrate": 2
+      }
+    },
+    "8": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 12,
+      "description": "External Library Inheritance - Components extending classes from external Stencil libraries",
+      "specPath": "test/wdio/ts-target/extends-external/cmp.test.ts",
+      "testBreakdown": {
+        "dist": 5,
+        "customElements": 5,
+        "hydrate": 2
+      }
+    },
+    "9": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 12,
+      "description": "Mixin Composition - Components extending via Stencil Mixin function for behavior composition",
+      "specPath": "test/wdio/ts-target/extends-mixin/cmp.test.ts",
+      "testBreakdown": {
+        "dist": 5,
+        "customElements": 5,
+        "hydrate": 2
+      }
+    },
+    "10": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "Event Handling Inheritance - @Listen decorators and event propagation through inheritance chains",
+      "specPath": "test/wdio/ts-target/extends-events/cmp.test.ts",
+      "eventFeatures": [
+        {
+          "feature": "@Listen Decorator Inheritance",
+          "description": "Multiple @Listen decorators at different inheritance levels - event handling order and precedence"
+        },
+        {
+          "feature": "Event Bubbling & Propagation",
+          "description": "How custom events bubble through inheritance chains and component hierarchies"
+        },
+        {
+          "feature": "Global vs Local Listeners",
+          "description": "Document and window listeners in base classes vs component-specific listeners"
+        },
+        {
+          "feature": "Event Handler Override",
+          "description": "When base class and component define same event handler - which executes and in what order"
+        }
+      ],
+      "testCount": 11,
+      "testBreakdown": {
+        "dist": 9,
+        "customElements": 2
+      }
+    },
+    "11": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "Watch Decorator Inheritance - @Watch behavior through inheritance chains and reactive patterns",
+      "specPath": "test/wdio/ts-target/extends-watch/cmp.test.ts",
+      "watchFeatures": [
+        {
+          "feature": "@Watch Decorator Inheritance",
+          "description": "Multiple @Watch decorators for same property at different inheritance levels"
+        },
+        {
+          "feature": "Watch Execution Order",
+          "description": "Order of watch handler execution: base class first, component second, or override behavior"
+        },
+        {
+          "feature": "Reactive Property Chains",
+          "description": "Watch handlers triggering other property changes through inheritance hierarchy"
+        },
+        {
+          "feature": "Watch Handler Override",
+          "description": "When base class and component both watch same property - execution behavior and conflicts"
+        }
+      ],
+      "testCount": 16,
+      "testBreakdown": {
+        "dist": 13,
+        "customElements": 3
+      }
+    },
+    "12": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 5,
+      "description": "Controller-Initiated Updates - Base class triggering host component updates (ClockController pattern)",
+      "specPath": "test/wdio/ts-target/extends-controller-updates/cmp.test.ts",
+      "testBreakdown": {
+        "dist": 4,
+        "customElements": 1
+      },
+      "controllerFeatures": [
+        {
+          "feature": "requestUpdate Pattern",
+          "description": "Base class calls abstract requestUpdate() method - simulates Lit's this.host.requestUpdate()"
+        },
+        {
+          "feature": "Component-Owned State",
+          "description": "@State lives on component, not controller - component controls its own state updates"
+        },
+        {
+          "feature": "Explicit Update Requests",
+          "description": "Controller requests updates, doesn't force them - component decides how to respond"
+        }
+      ]
+    },
+    "13": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 19,
+      "description": "Decorator Conflicts - Duplicate decorator names of the same type in inheritance chains",
+      "specPath": "test/wdio/ts-target/extends-conflicts/cmp.test.ts",
+      "testBreakdown": {
+        "dist": 15,
+        "customElements": 4
+      },
+      "conflictScenarios": [
+        {
+          "scenario": "Duplicate @Prop Names",
+          "description": "Same prop name defined in base class and component - compiler precedence rules"
+        },
+        {
+          "scenario": "Duplicate @State Names",
+          "description": "Same state name defined in base class and component - runtime behavior and conflicts"
+        },
+        {
+          "scenario": "Duplicate @Method Names",
+          "description": "Same method name defined in base class and component - override behavior"
+        },
+        {
+          "scenario": "Compiler Precedence Rules",
+          "description": "Verify compiler precedence rules when duplicate names exist"
+        }
+      ]
+    },
+    "14": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 5,
+      "description": "ReactiveControllerHost Pattern - Composition-based controllers with automatic lifecycle hooking",
+      "specPath": "test/wdio/ts-target/extends-via-host/cmp.test.ts",
+      "testBreakdown": {
+        "dist": 4,
+        "customElements": 1
+      },
+      "note": "All tests passing. Demonstrates composition over inheritance pattern with automatic lifecycle hooking",
+      "controllerFeatures": [
+        {
+          "feature": "Automatic Lifecycle Hooking",
+          "description": "Controllers are automatically called during lifecycle events - no manual super() calls needed for controllers"
+        },
+        {
+          "feature": "Separation of Concerns",
+          "description": "Controllers are encapsulated and independent - changes to controller don't directly impact component"
+        },
+        {
+          "feature": "Composition Pattern",
+          "description": "Uses 'has-a' relationship (composition) rather than 'is-a' relationship (inheritance) for domain logic"
+        },
+        {
+          "feature": "ReactiveController Interface",
+          "description": "Implements ReactiveController interface similar to Lit, but with automatic lifecycle integration"
+        }
+      ]
+    },
+    "15": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 7,
+      "description": "Inheritance-Based Scaling - Demonstrates how inheritance scales with 3 components and 2 controllers (ValidationController, FocusController)",
+      "specPath": "test/wdio/ts-target/extends-inheritance-scaling/cmp.test.ts",
+      "testBreakdown": {
+        "dist": 7
+      },
+      "note": "Scaling demonstration: 3 components (TextInput, RadioGroup, CheckboxGroup) using 2 controllers via inheritance pattern",
+      "controllerFeatures": [
+        {
+          "feature": "Multiple Components",
+          "description": "3 components sharing the same base class with ValidationController and FocusController"
+        },
+        {
+          "feature": "Inheritance Pattern",
+          "description": "Components extend FormFieldBase which extends ValidationControllerBase and composes FocusControllerBase"
+        },
+        {
+          "feature": "Lifecycle Integration",
+          "description": "Both components and controllers tap into lifecycle events (componentDidLoad, disconnectedCallback)"
+        },
+        {
+          "feature": "requestUpdate Pattern",
+          "description": "Uses requestUpdate() pattern to trigger re-renders by updating @State properties"
+        }
+      ]
+    },
+    "16": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 8,
+      "description": "Composition-Based Scaling - Demonstrates how composition scales with 3 components and 2 controllers (ValidationController, FocusController)",
+      "specPath": "test/wdio/ts-target/extends-composition-scaling/cmp.test.ts",
+      "testBreakdown": {
+        "dist": 8
+      },
+      "note": "Scaling demonstration: 3 components (TextInput, RadioGroup, CheckboxGroup) using 2 controllers via composition pattern",
+      "controllerFeatures": [
+        {
+          "feature": "Multiple Components",
+          "description": "3 components sharing the same controllers via composition"
+        },
+        {
+          "feature": "Composition Pattern",
+          "description": "Components extend ReactiveControllerHost and compose ValidationController and FocusController"
+        },
+        {
+          "feature": "Automatic Lifecycle",
+          "description": "Controllers' lifecycle methods are called automatically via ReactiveControllerHost - no manual super() calls needed"
+        },
+        {
+          "feature": "Encapsulation",
+          "description": "Controllers are accessed via properties (this.validation, this.focus) providing better encapsulation"
+        }
+      ]
+    },
+    "18": {
+      "implemented": true,
+      "componentCount": 1,
+      "description": "Mixed Decorator Types - Same name used as different decorator types in inheritance chains",
+      "specPath": "test/wdio/ts-target/extends-mixed-decorators/cmp.test.ts",
+      "mixedDecoratorScenarios": [
+        {
+          "scenario": "@Prop in Base, @State in Component",
+          "description": "Same name used as @Prop in base class and @State in component - compiler error handling"
+        },
+        {
+          "scenario": "@State in Base, @Prop in Component",
+          "description": "Same name used as @State in base class and @Prop in component - compiler error handling"
+        },
+        {
+          "scenario": "@Method in Base, @Prop in Component",
+          "description": "Same name used as @Method in base class and @Prop in component - compiler error handling"
+        },
+        {
+          "scenario": "Compiler Error Handling",
+          "description": "Verify appropriate compiler errors for mixed decorator types"
+        }
+      ],
+      "testCount": 20,
+      "testBreakdown": {
+        "dist": 16,
+        "customElements": 4
+      }
+    },
+    "12a": {
+      "implemented": true,
+      "componentCount": 1,
+      "testCount": 5,
+      "description": "Direct State Management - Simplified pattern where base class owns @State directly (superior to Lit)",
+      "specPath": "test/wdio/ts-target/extends-direct-state/cmp.test.ts",
+      "testBreakdown": {
+        "dist": 4,
+        "customElements": 1
+      },
+      "note": "All tests passing. Demonstrates superiority of Stencil's direct state inheritance over Lit's ReactiveController pattern",
+      "controllerFeatures": [
+        {
+          "feature": "Direct State Ownership",
+          "description": "Base class owns @State directly - no controller.value needed like in Lit"
+        },
+        {
+          "feature": "Automatic Re-renders",
+          "description": "State changes automatically trigger re-renders - no host.requestUpdate() needed"
+        },
+        {
+          "feature": "No ReactiveController Interface",
+          "description": "No interface implementation or host reference needed - just extend the base class"
+        },
+        {
+          "feature": "Simpler Than Lit",
+          "description": "Demonstrates Stencil's superior extends functionality compared to Lit's ReactiveController pattern"
+        }
+      ]
+    }
+  },
+  "items": [
+    {
+      "index": 1,
+      "group": "lifecycle",
+      "tested": true,
+      "tag": "extends-lifecycle-basic",
+      "caseNumbers": [
+        1
+      ]
+    },
+    {
+      "index": 2,
+      "group": "multilevel",
+      "tested": true,
+      "tag": "extends-lifecycle-multilevel",
+      "caseNumbers": [
+        2
+      ]
+    },
+    {
+      "index": 3,
+      "group": "props-state",
+      "tested": false,
+      "tag": "extends-props-state",
+      "caseNumbers": [
+        3
+      ]
+    },
+    {
+      "index": 4,
+      "group": "methods",
+      "tested": false,
+      "tag": "extends-methods",
+      "caseNumbers": [
+        4
+      ]
+    },
+    {
+      "index": 5,
+      "group": "render",
+      "tested": false,
+      "tag": "extends-render",
+      "caseNumbers": [
+        5
+      ]
+    },
+    {
+      "index": 6,
+      "group": "abstract",
+      "tested": true,
+      "tag": "extends-abstract",
+      "caseNumbers": [
+        6
+      ]
+    },
+    {
+      "index": 7,
+      "group": "component",
+      "tested": true,
+      "tag": "extends-cmp",
+      "caseNumbers": [
+        7
+      ]
+    },
+    {
+      "index": 8,
+      "group": "external",
+      "tested": true,
+      "tag": "extends-external",
+      "caseNumbers": [
+        8
+      ]
+    },
+    {
+      "index": 9,
+      "group": "mixin",
+      "tested": true,
+      "tag": "extends-mixin",
+      "caseNumbers": [
+        9
+      ]
+    },
+    {
+      "index": 10,
+      "group": "events",
+      "tested": false,
+      "tag": "extends-events",
+      "caseNumbers": [
+        10
+      ]
+    },
+    {
+      "index": 11,
+      "group": "watch",
+      "tested": false,
+      "tag": "extends-watch",
+      "caseNumbers": [
+        11
+      ]
+    },
+    {
+      "index": 12,
+      "group": "controller",
+      "tested": true,
+      "tag": "extends-controller-updates",
+      "caseNumbers": [
+        12
+      ]
+    },
+    {
+      "index": 12.5,
+      "group": "direct-state",
+      "tested": false,
+      "tag": "extends-direct-state",
+      "caseNumbers": [
+        "12a"
+      ]
+    },
+    {
+      "index": 13,
+      "group": "conflicts",
+      "tested": true,
+      "tag": "extends-conflicts",
+      "caseNumbers": [
+        13
+      ]
+    },
+    {
+      "index": 14,
+      "group": "via-host",
+      "tested": true,
+      "tag": "extends-via-host",
+      "caseNumbers": [
+        14
+      ]
+    },
+    {
+      "index": 15,
+      "group": "scaling",
+      "tested": false,
+      "tag": "extends-inheritance-scaling",
+      "caseNumbers": [
+        15
+      ]
+    },
+    {
+      "index": 16,
+      "group": "scaling",
+      "tested": false,
+      "tag": "extends-composition-scaling",
+      "caseNumbers": [
+        16
+      ]
+    },
+    {
+      "index": 18,
+      "group": "mixed-decorators",
+      "tested": false,
+      "tag": "extends-mixed-decorators",
+      "caseNumbers": [
+        18
+      ]
+    }
+  ],
+  "lastRun": "2025-12-04T10:05:47.043Z",
+  "lastRunFormatted": "Dec 4, 2025, 2:05 AM PST"
+}

@@ -1,0 +1,182 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Testing/Framework/Tests/Component Tests" tags={['pending-review']} />
+
+# Component Tests
+<div style={{display: 'inline-block', padding: '4px 12px', background: '#ffe066', color: '#7c5c00', borderRadius: '16px', fontWeight: 'bold', marginBottom: '16px'}}>⏳ Pending Review</div>
+
+# Component-Level Tests (`test/wdio`)
+
+-   **Purpose:** To test the functionality of individual components or features in perfect isolation. These are our "unit tests" for component behavior.
+-   **Technology:** WebdriverIO (WDIO) is the primary framework, utilizing the `@wdio/browser-runner/stencil` for efficient in-browser component rendering and interaction.
+-   **Scope:**
+    -   Focus on a single feature or permutation at a time. For example, when testing `@Prop({ reflect: true })`, there should be separate, isolated tests for `boolean`, `number`, `string`, `Array`, `Object`, and `Set` types.
+    -   Each test should use its own dedicated component to ensure no interference from other properties or features. This is critical for compatibility with our static analysis tools, which rely on finding these features in isolation.
+-   **Benefits:**
+    -   **Precision:** Tests are clear, targeted, and unambiguous.
+    -   **Debugging:** Failures are easy to pinpoint to a specific feature.
+    -   **Robustness:** Guarantees that each feature works correctly on its own, forming a reliable foundation.
+    -   **Tooling Compatibility:** This approach works well with static analysis-based coverage tools.
+
+## File Naming and Location Conventions
+
+-   **Test Directory:** All component-level tests are located in the `test/wdio` directory. Do not place these tests in the `src/components` directory.
+-   **Component Suffix:** Test components must have a `-cmp` suffix in their filename (e.g., `my-feature-cmp.tsx`).
+-   **Test File:** The test file for a component or a group of related components should be named `cmp.test.tsx`.
+
+## Writing and Running Component Tests
+
+Prerequisites:
+- Coverage at 100% for the target decorator(s) using `npm run refresh-coverage-matrix`.
+- WDIO build succeeds with no compiler errors using `npm run build-wdio-components`.
+
+This guide outlines the complete workflow for creating and executing component-level tests in the `test/wdio` directory. Following these steps will help you contribute effectively to the project's test suite.
+
+### Step 1: Establish a Baseline with the Coverage Script
+
+Before writing any new tests, it's important to understand the current test coverage. The coverage script helps you determine if components exist for all required permutations. For more details, refer to the matrix Generation documentation.
+
+To run the coverage script for all decorators, use the following command:
+
+```bash
+npm run refresh-coverage-matrix
+```
+
+This command (run from `.ai/testing`) will analyze the existing test suite and generate a report, giving you a clear picture of where new test components are needed for full permutation coverage.
+
+### Step 2: Generate Test Components
+
+Once you've identified the missing test cases, the next step is to create the necessary test components. These components should be placed in the `test/wdio` directory and follow the established naming conventions.
+
+### Step 3: Build the Test Components
+
+After creating or modifying your test components, you need to build them. Run the build command from `.ai/testing`:
+
+```bash
+npm run build-wdio-components
+```
+
+### Step 4: Write the Tests
+
+With the components built, you can now write the tests. These tests should also be located in the `test/wdio` directory and should be written to verify the functionality of the components you've just created.
+
+### Step 5: Run the Tests
+
+To run the tests and ensure they pass, follow these steps:
+
+1.  **Update the test configuration**: Open the `wdio.conf.ts` file and modify the `specs` array to point to your test file(s).
+    
+    For running a single test:
+    ```typescript
+    // ...
+    specs: [['./state/**/*.test.tsx']],
+    // ...
+    ```
+    
+    For running a full suite of tests (e.g., all tests for a decorator), you can use a glob pattern:
+    ```typescript
+    // ...
+    specs: [['./**/*.test.tsx']],
+    // ...
+    ```
+
+2.  **Run the tests from `.ai/testing`**:
+    ```bash
+    npm run run-component-tests
+    ```
+
+This will execute your tests and provide feedback on whether they pass or fail.
+
+### Step 6: Document Learnings
+
+After achieving 100% coverage for a feature, the final step is to document the key learnings from the iteration. This is a crucial part of our self-improving testing loop. For a complete guide on what to document and where, please refer to the "Continuous Improvement" section of the main [Testing Strategy](./testing_strategy.md) document.
+
+## Using AI to Generate Component Tests
+
+During the August 2025 iteration, we leveraged Copilot GPT-4.1 to automate the generation of component-level tests. To maximize AI effectiveness and ensure alignment with project standards:
+
+- **Import the `.ai` folder for context:** Always provide the AI assistant with the contents of the `.ai` folder so it understands coding standards, domain knowledge, and testing strategy.
+- **Prompt Example:**
+  > Utilizing the testing strategy covered in the .ai folder, let's get the @Method matrix up to 100%, follow the instructions under component_tests Writing and Running Component Tests
+- **Workflow:**
+  1. Run the coverage script to identify missing permutations.
+  2. Use the AI assistant to generate missing test components and WDIO tests, following the patterns and conventions documented in this file.
+  3. Build the components and run the tests as described above.
+  4. Document learnings and update the audit log after each coverage push.
+
+This approach enables rapid, standards-compliant test generation and ensures continuous improvement through human-AI collaboration.
+
+## Best Practices
+
+### Testing State Mutations
+
+When testing how a component's state changes (e.g., when a `@Prop({ mutable: true })` is modified), it's crucial to verify the component's behavior before and after the change. A reliable pattern for this is:
+
+1.  **Initial State Assertion:** Verify the initial state of the component's property.
+2.  **User-like Interaction:** Trigger an action that should cause the state to change. This is typically a click on a button or another user-driven event.
+3.  **Final State Assertion:** Verify that the property has been updated to the new, expected value.
+
+This "before and after" approach ensures that the mutation is a direct result of the interaction and that the component behaves as expected.
+
+### Testing Event Emissions
+
+When testing `@Event` decorators, the most reliable and direct pattern is to use an in-component `@Listen` decorator to verify that the event was emitted. This avoids the complexities and potential flakiness of trying to intercept events from outside the component.
+
+**Example:**
+
+A component that emits a `testEvent` can have a simple counter that is incremented by a `@Listen('testEvent')` handler. The test then only needs to check if the counter's value has been updated.
+
+**Component (`event-basic-cmp.tsx`):**
+
+```tsx
+import { Component, Event, EventEmitter, h, Listen, State } from '@stencil/core';
+
+@Component({ tag: 'event-basic' })
+export class EventBasic {
+  @Event() testEvent: EventEmitter;
+  @State() counter = 0;
+
+  @Listen('testEvent')
+  testEventHandler() {
+    this.counter++;
+  }
+
+  render() {
+    return (
+      <button onClick={() => this.testEvent.emit()}>Emit Event</button>
+      <p>Emission count: <span id="counter">{this.counter}</span></p>
+    );
+  }
+}
+```
+
+**Test (`cmp.test.tsx`):**
+
+```tsx
+import { h } from '@stencil/core';
+import { render } from '@wdio/browser-runner/stencil';
+
+describe('event-basic', () => {
+  beforeEach(async () => {
+    render({
+      template: () => <event-basic></event-basic>,
+    });
+  });
+
+  it('should increment counter when event is emitted', async () => {
+    await expect($('#counter')).toHaveText('0');
+    await $('button').click();
+    await expect($('#counter')).toHaveText('1');
+  });
+});
+```
+
+This pattern is simple, robust, and aligns with Stencil's architecture, making it the preferred method for testing event emissions.
+
+## Important Notes for Future Iterations
+
+- **Stencil @Method Decorator:** Only async methods (returning a Promise) are valid. Always review framework constraints and update the coverage matrix and test generation logic to exclude unsupported permutations.
+- **Matrix Validity:** Before generating tests, manually review the coverage matrix to ensure it matches the actual feature set supported by the framework. Coverage metrics are only meaningful if the matrix is correct.
+- **Consistent Test Patterns:** For WDIO component tests, use a consistent pattern (e.g., DOM update via button click) to ensure reliable automation and coverage.
+- **Build/Test Workflow:** Always follow the documented build and test workflow (`npm run build-wdio-components`, then `npm run run-component-tests`). Update documentation if the process changes.
+- **Document Learnings:** After each coverage push, document key learnings and process changes in the audit log. This ensures continuous improvement and helps future contributors avoid past mistakes.

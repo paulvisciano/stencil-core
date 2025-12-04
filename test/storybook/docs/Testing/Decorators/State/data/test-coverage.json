@@ -1,0 +1,324 @@
+{
+  "coverage": {
+    "covered": 12,
+    "total": 12,
+    "percent": "100.00"
+  },
+  "stats": {
+    "totalPermutations": 12,
+    "testedPermutations": 12,
+    "percentTested": "100.00"
+  },
+  "testCaseStatus": {
+    "1": {
+      "implemented": true,
+      "componentCount": 6,
+      "testCount": 6,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "state-string-no-default",
+          "group": "string",
+          "optionsKey": "string|false"
+        },
+        {
+          "tag": "state-string-default",
+          "group": "string",
+          "optionsKey": "string|true"
+        },
+        {
+          "tag": "state-number-no-default",
+          "group": "number",
+          "optionsKey": "number|false"
+        },
+        {
+          "tag": "state-number-default",
+          "group": "number",
+          "optionsKey": "number|true"
+        },
+        {
+          "tag": "state-boolean-no-default",
+          "group": "boolean",
+          "optionsKey": "boolean|false"
+        },
+        {
+          "tag": "state-boolean-default",
+          "group": "boolean",
+          "optionsKey": "boolean|true"
+        }
+      ]
+    },
+    "2": {
+      "implemented": true,
+      "componentCount": 6,
+      "testCount": 6,
+      "hasComponents": true,
+      "hasWdioTest": true,
+      "components": [
+        {
+          "tag": "state-object-no-default",
+          "group": "object",
+          "optionsKey": "object|false"
+        },
+        {
+          "tag": "state-object-default",
+          "group": "object",
+          "optionsKey": "object|true"
+        },
+        {
+          "tag": "state-array-no-default",
+          "group": "array",
+          "optionsKey": "array|false"
+        },
+        {
+          "tag": "state-array-default",
+          "group": "array",
+          "optionsKey": "array|true"
+        },
+        {
+          "tag": "state-any-no-default",
+          "group": "any",
+          "optionsKey": "any|false"
+        },
+        {
+          "tag": "state-any-default",
+          "group": "any",
+          "optionsKey": "any|true"
+        }
+      ]
+    }
+  },
+  "items": [
+    {
+      "group": "string",
+      "options": {
+        "type": "string",
+        "hasDefault": false
+      },
+      "optionsKey": "string|false",
+      "files": [
+        "string/state-string-no-default.tsx"
+      ],
+      "tag": "state-string-no-default",
+      "tested": true,
+      "caseIds": [
+        1
+      ],
+      "testedBy": [
+        "Test Case #1"
+      ]
+    },
+    {
+      "group": "string",
+      "options": {
+        "type": "string",
+        "hasDefault": true
+      },
+      "optionsKey": "string|true",
+      "files": [
+        "string/state-string-default.tsx"
+      ],
+      "tag": "state-string-default",
+      "tested": true,
+      "caseIds": [
+        1
+      ],
+      "testedBy": [
+        "Test Case #1"
+      ]
+    },
+    {
+      "group": "object",
+      "options": {
+        "type": "object",
+        "hasDefault": false
+      },
+      "optionsKey": "object|false",
+      "files": [
+        "object/state-object-no-default.tsx"
+      ],
+      "tag": "state-object-no-default",
+      "tested": true,
+      "caseIds": [
+        2
+      ],
+      "testedBy": [
+        "Test Case #2"
+      ]
+    },
+    {
+      "group": "object",
+      "options": {
+        "type": "object",
+        "hasDefault": true
+      },
+      "optionsKey": "object|true",
+      "files": [
+        "object/state-object-default.tsx"
+      ],
+      "tag": "state-object-default",
+      "tested": true,
+      "caseIds": [
+        2
+      ],
+      "testedBy": [
+        "Test Case #2"
+      ]
+    },
+    {
+      "group": "number",
+      "options": {
+        "type": "number",
+        "hasDefault": false
+      },
+      "optionsKey": "number|false",
+      "files": [
+        "number/state-number-no-default.tsx"
+      ],
+      "tag": "state-number-no-default",
+      "tested": true,
+      "caseIds": [
+        1
+      ],
+      "testedBy": [
+        "Test Case #1"
+      ]
+    },
+    {
+      "group": "number",
+      "options": {
+        "type": "number",
+        "hasDefault": true
+      },
+      "optionsKey": "number|true",
+      "files": [
+        "number/state-number-default.tsx"
+      ],
+      "tag": "state-number-default",
+      "tested": true,
+      "caseIds": [
+        1
+      ],
+      "testedBy": [
+        "Test Case #1"
+      ]
+    },
+    {
+      "group": "boolean",
+      "options": {
+        "type": "boolean",
+        "hasDefault": false
+      },
+      "optionsKey": "boolean|false",
+      "files": [
+        "boolean/state-boolean-no-default.tsx"
+      ],
+      "tag": "state-boolean-no-default",
+      "tested": true,
+      "caseIds": [
+        1
+      ],
+      "testedBy": [
+        "Test Case #1"
+      ]
+    },
+    {
+      "group": "boolean",
+      "options": {
+        "type": "boolean",
+        "hasDefault": true
+      },
+      "optionsKey": "boolean|true",
+      "files": [
+        "boolean/state-boolean-default.tsx"
+      ],
+      "tag": "state-boolean-default",
+      "tested": true,
+      "caseIds": [
+        1
+      ],
+      "testedBy": [
+        "Test Case #1"
+      ]
+    },
+    {
+      "group": "array",
+      "options": {
+        "type": "array",
+        "hasDefault": false
+      },
+      "optionsKey": "array|false",
+      "files": [
+        "array/state-array-no-default.tsx"
+      ],
+      "tag": "state-array-no-default",
+      "tested": true,
+      "caseIds": [
+        2
+      ],
+      "testedBy": [
+        "Test Case #2"
+      ]
+    },
+    {
+      "group": "array",
+      "options": {
+        "type": "array",
+        "hasDefault": true
+      },
+      "optionsKey": "array|true",
+      "files": [
+        "array/state-array-default.tsx"
+      ],
+      "tag": "state-array-default",
+      "tested": true,
+      "caseIds": [
+        2
+      ],
+      "testedBy": [
+        "Test Case #2"
+      ]
+    },
+    {
+      "group": "any",
+      "options": {
+        "type": "any",
+        "hasDefault": false
+      },
+      "optionsKey": "any|false",
+      "files": [
+        "any/state-any-no-default.tsx"
+      ],
+      "tag": "state-any-no-default",
+      "tested": true,
+      "caseIds": [
+        2
+      ],
+      "testedBy": [
+        "Test Case #2"
+      ]
+    },
+    {
+      "group": "any",
+      "options": {
+        "type": "any",
+        "hasDefault": true
+      },
+      "optionsKey": "any|true",
+      "files": [
+        "any/state-any-default.tsx"
+      ],
+      "tag": "state-any-default",
+      "tested": true,
+      "caseIds": [
+        2
+      ],
+      "testedBy": [
+        "Test Case #2"
+      ]
+    }
+  ],
+  "lastRun": "2025-12-04T10:05:46.103Z",
+  "lastRunFormatted": "Dec 4, 2025, 2:05 AM PST"
+}

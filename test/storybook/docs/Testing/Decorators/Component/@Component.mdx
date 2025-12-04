@@ -1,0 +1,281 @@
+import rules from './data/rules.json';
+import { Meta } from '@storybook/addon-docs/blocks';
+import data from './data/components.json';
+import overlay from './data/test-coverage.json';
+import React, { useMemo, useState } from 'react';
+import RulesAtAGlance from '../_shared/RulesAtAGlance.jsx';
+import TestCasesTable from '../_shared/TestCasesTable.jsx';
+import GeneratedComponentsTable from '../_shared/GeneratedComponentsTable.jsx';
+
+<Meta title="Testing/Decorators/@Component"/>
+
+# @Component Decorator
+
+The `@Component` decorator is used to define a Stencil custom element, specifying its tag name, style, encapsulation, shadow DOM options, and other metadata. It is the entry point for all Stencil components and controls how they are registered and rendered.
+
+## Decorator Properties
+
+The `@Component` decorator accepts an object with the following properties:
+
+-   **`shadow`** (`boolean`): When `true`, the component will use native Shadow DOM encapsulation. This provides style isolation and prevents styles from leaking in or out of the component. Defaults to `false`.
+-   **`scoped`** (`boolean`): When `true`, the component's styles will be scoped to the component. This is a lighter form of style encapsulation than shadow DOM and is useful when shadow DOM is not desired. Defaults to `false`.
+-   **`assetsDirs`** (`string[]`): An array of strings specifying directories that contain assets, such as images or fonts, that should be copied to the output directory.
+-   **`formAssociated`** (`boolean`): When `true`, the component can be associated with a form, allowing it to participate in form submission and validation.
+-   **`styleUrl`** (`string`): The URL of a single stylesheet to be applied to the component. This is mutually exclusive with `styleUrls` and `styles`.
+-   **`styleUrls`** (`string[]`): An array of URLs for multiple stylesheets to be applied to the component. This is mutually exclusive with `styleUrl` and `styles`.
+-   **`styles`** (`string`): A string containing the CSS text to be applied directly to the component. This is mutually exclusive with `styleUrl` and `styleUrls`.
+
+## Rules (at a glance)
+<RulesAtAGlance rules={rules} sourcePath="./data/rules.json" />
+
+## Test Cases
+
+Test cases are organized by **encapsulation mode** - shadow DOM, scoped styles, and light DOM. All `@Component` tests reside under <code>test/wdio/component-decorator</code>.
+
+export const ComponentCoverageSummary = () => {
+  const testCaseStatus = overlay.testCaseStatus || {};
+  const testCases = Object.values(testCaseStatus);
+  const implementedCases = testCases.filter(tc => tc.implemented).length;
+  const totalCases = testCases.length;
+  const coveragePercentage = totalCases > 0 ? Math.round((implementedCases / totalCases) * 100) : 0;
+  const totalTests = testCases.reduce((sum, tc) => sum + (tc.testCount || 0), 0);
+  
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '32px' }}>
+      <div style={{ 
+        background: '#fff', 
+        padding: '20px', 
+        borderRadius: '8px', 
+        border: '2px solid #e5e7eb',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{ fontSize: '13px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
+          Test Cases Implemented
+        </div>
+        <div style={{ fontSize: '36px', fontWeight: '700', color: '#111827', lineHeight: '1', marginBottom: '6px' }}>
+          {implementedCases}<span style={{ color: '#d1d5db' }}>/{totalCases}</span>
+        </div>
+        <div style={{ fontSize: '13px', color: '#6b7280' }}>
+          {coveragePercentage}% complete
+        </div>
+      </div>
+      
+      <div style={{ 
+        background: '#fff', 
+        padding: '20px', 
+        borderRadius: '8px', 
+        border: '2px solid #e5e7eb',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{ fontSize: '13px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
+          Total Tests
+        </div>
+        <div style={{ fontSize: '36px', fontWeight: '700', color: '#111827', lineHeight: '1', marginBottom: '6px' }}>
+          {totalTests}
+        </div>
+        <div style={{ fontSize: '13px', color: '#6b7280', borderTop: '1px solid #e5e7eb', paddingTop: '8px', marginTop: '8px' }}>
+          📅 Last run: {overlay.lastRunFormatted || 'Never'}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+<ComponentCoverageSummary />
+
+export const ComponentTestCasesTable = () => {
+  const testCaseStatus = overlay.testCaseStatus || {};
+  
+  const case1Implemented = testCaseStatus[1]?.implemented || false;
+  const case2Implemented = testCaseStatus[2]?.implemented || false;
+  const case3Implemented = testCaseStatus[3]?.implemented || false;
+  const case4Implemented = testCaseStatus[4]?.implemented || false;
+
+  const shadowTestsCount = testCaseStatus[1]?.componentCount || 0;
+  const scopedTestsCount = testCaseStatus[2]?.componentCount || 0;
+  const lightTestsCount = testCaseStatus[3]?.componentCount || 0;
+  const styleIsolationTestsCount = testCaseStatus[4]?.componentCount || 0;
+
+  const allRows = [
+    {
+      id: 1,
+      implemented: case1Implemented,
+      desc: 'Shadow DOM mode: Validate native Shadow DOM encapsulation, style isolation, and slot behavior.',
+      types: (
+        <>
+          shadow: true<br/>
+          <small>Components: {shadowTestsCount}</small>
+        </>
+      ),
+      tested: shadowTestsCount,
+      total: shadowTestsCount,
+      section: case1Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 2,
+      implemented: case2Implemented,
+      desc: 'Scoped mode: Validate scoped style encapsulation, selector rewriting, and light DOM rendering.',
+      types: (
+        <>
+          scoped: true, shadow: false<br/>
+          <small>Components: {scopedTestsCount}</small>
+        </>
+      ),
+      tested: scopedTestsCount,
+      total: scopedTestsCount,
+      section: case2Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 3,
+      implemented: case3Implemented,
+      desc: 'Light DOM mode: Validate plain light DOM rendering with no encapsulation. Note: :host selector does not work in light DOM mode.',
+      types: (
+        <>
+          shadow: false, scoped: false<br/>
+          <small>Components: {lightTestsCount}</small>
+        </>
+      ),
+      tested: lightTestsCount,
+      total: lightTestsCount,
+      section: case3Implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 4,
+      implemented: case4Implemented,
+      desc: 'Style isolation: Validate that styles are properly isolated in shadow and scoped modes, preventing style leakage between components.',
+      types: (
+        <>
+          shadow: true with styles<br/>
+          scoped: true with styles<br/>
+          <small>Components: {styleIsolationTestsCount}</small>
+        </>
+      ),
+      tested: styleIsolationTestsCount,
+      total: styleIsolationTestsCount,
+      section: case4Implemented ? 'implemented' : 'missing',
+    },
+  ];
+
+  return <TestCasesTable rows={allRows} previewCount={4} />;
+};
+
+<ComponentTestCasesTable />
+
+## Generated Components
+
+<div>
+  <strong>Generated Components:</strong> {data.coverage.covered} of {data.coverage.total} generated (
+  <strong>{data.coverage.percent}%</strong>)
+</div>
+
+<p style={{ marginTop: 8 }}>
+  This section lists the generated components we build to stress the compiler. Each row is one component with a
+  unique combination of decorator options. If a combo fails to compile, we capture that as a rule in
+  <code>data/rules.json</code>, update the list, and regenerate. The "Tested By" column reflects which
+  high‑level test cases cover each component.
+</p>
+
+export const ComponentGeneratedComponents = () => {
+  const rows = useMemo(() => {
+    const items = overlay.items || [];
+    const map = new Map(items.map(i => [i.optionsKey, i]));
+    return (data.coveredPermutations || []).map((p, i) => {
+      const [shadow, scoped, assetsDirs, formAssociated, styleUrl, styleUrls, styles] = p.options || [];
+      const key = (p.options || []).join('|');
+      const oi = map.get(key) || {};
+      const caseNumbers = Array.isArray(oi.caseIds) ? [...oi.caseIds].sort((a,b) => a-b) : [];
+      return {
+        index: i,
+        shadow,
+        scoped,
+        assetsDirs,
+        formAssociated,
+        styleUrl,
+        styleUrls,
+        styles,
+        caseNumbers,
+      };
+    });
+  }, []);
+  
+  const componentColumns = [
+    { key: 'shadow', label: 'shadow', width: '10%' },
+    { key: 'scoped', label: 'scoped', width: '10%' },
+    { key: 'assetsDirs', label: 'assetsDirs', width: '10%' },
+    { key: 'formAssociated', label: 'formAssociated', width: '10%' },
+    { key: 'styleUrl', label: 'styleUrl', width: '10%' },
+    { key: 'styleUrls', label: 'styleUrls', width: '10%' },
+    { key: 'styles', label: 'styles', width: '10%' },
+    { key: 'testedBy', label: 'Tested By', width: '20%' },
+  ];
+  
+  return <GeneratedComponentsTable rows={rows} previewCount={3} columns={componentColumns} />;
+};
+
+<ComponentGeneratedComponents />
+
+---
+
+## Test Categories
+
+### **🟢 Encapsulation Modes (1-3)** — 3 test cases
+Foundation patterns for component encapsulation, covering shadow DOM, scoped styles, and light DOM rendering.
+
+### **🟢 Style Isolation (4)** — 1 test case
+Validates that styles are properly isolated in shadow and scoped modes, preventing style leakage between components and ensuring external styles don't affect encapsulated components.
+
+---
+
+export const ComponentTODOSection = () => {
+  const testCaseStatus = overlay.testCaseStatus || {};
+  const missingCases = Object.entries(testCaseStatus)
+    .filter(([_, tc]) => !tc.implemented)
+    .map(([id, tc]) => ({ id, desc: tc.description || `Test Case #${id}` }));
+  
+  if (missingCases.length === 0) {
+    return null;
+  }
+  
+  return (
+    <div>
+      {missingCases.map(({ id, desc }) => (
+        <div key={id} style={{ marginBottom: '12px' }}>
+          <strong>Test Case #{id} TODO</strong>: {desc}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+{(() => {
+  const testCaseStatus = overlay.testCaseStatus || {};
+  const missingCases = Object.entries(testCaseStatus)
+    .filter(([_, tc]) => !tc.implemented);
+  if (missingCases.length === 0) return null;
+  return (
+    <>
+      <h2>📋 TODO - Remaining Test Cases</h2>
+      <ComponentTODOSection />
+    </>
+  );
+})()}
+
+---
+
+## Component Grouping
+
+Components are grouped one level deep by render mode under `test/wdio/component-decorator/components/`:
+
+- `shadow/` (shadow: true)
+  - Uses native Shadow DOM for real DOM and CSS encapsulation
+  - Slots work natively; :host and :host-context apply inside the shadow root
+  - External page CSS does not leak in (CSS variables still pass through)
+- `scoped/` (scoped: true, shadow: false)
+  - Renders in light DOM; Stencil rewrites selectors to emulate encapsulation
+  - Easier theming from outside; some global CSS may still affect layout
+- `light/` (shadow: false, scoped: false)
+  - Plain light DOM with no encapsulation
+  - Fastest and simplest; external styles fully apply
+  - **Note:** The `:host` CSS selector does not work in light DOM mode since there is no shadow root. Styles using `:host` will be loaded but won't apply to the component element. Use element selectors or classes instead when styling light DOM components.
+
+All component files, including `cmp-base.tsx`, `matrix-gen.css`, and `matrix-alt.css`, are in the `components/` folder.

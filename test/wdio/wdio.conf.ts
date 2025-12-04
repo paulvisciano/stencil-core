@@ -1,6 +1,13 @@
 /// <reference types="@wdio/browser-runner" />
 
 import path from 'node:path';
+import { EventEmitter } from 'node:events';
+
+// Increase max listeners to prevent warnings when WebdriverIO spawns multiple workers
+// Even with maxInstances: 5, WebdriverIO creates one worker per test file (11 workers for extends tests)
+// Each worker adds SIGTERM listeners, so we need to increase the limit
+EventEmitter.defaultMaxListeners = 15;
+process.setMaxListeners(15);
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const isCI = Boolean(process.env.CI);
@@ -67,7 +74,7 @@ export const config: WebdriverIO.Config = {
   // The path of the spec files will be resolved relative from the directory of
   // of the config file unless it's absolute.
   //
-  specs: [['./**/*.test.tsx', './**/*.test.ts']],
+  specs: [['./**/*.test.ts', './**/*.test.tsx', './**/tests.tsx']],
   // Patterns to exclude.
   exclude: ['./node_modules/**'],
   //
@@ -86,7 +93,9 @@ export const config: WebdriverIO.Config = {
   // and 30 processes will get spawned. The property handles how many capabilities
   // from the same test should run tests.
   //
-  maxInstances: 10,
+  // Reduced from 10 to 5 to prevent resource contention when running all extends tests
+  // All test cases pass individually, but fail when running 11 test files in parallel
+  maxInstances: 5,
   //
   // we set this to an empty array here and programmatically add configuration below
   //

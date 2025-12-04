@@ -1,0 +1,98 @@
+{
+  "coverage": {
+    "covered": 8,
+    "total": 8,
+    "percent": "100.0"
+  },
+  "coveredPermutations": [
+    {
+      "options": [
+        "void",
+        "✓",
+        "none"
+      ],
+      "count": 1,
+      "files": [
+        "void/method-void-async-true-args-none.tsx"
+      ]
+    },
+    {
+      "options": [
+        "void",
+        "✓",
+        "one"
+      ],
+      "count": 1,
+      "files": [
+        "void/method-void-async-true-args-one.tsx"
+      ]
+    },
+    {
+      "options": [
+        "value",
+        "✓",
+        "none"
+      ],
+      "count": 1,
+      "files": [
+        "value/method-value-async-true-args-none.tsx"
+      ]
+    },
+    {
+      "options": [
+        "value",
+        "✓",
+        "one"
+      ],
+      "count": 1,
+      "files": [
+        "value/method-value-async-true-args-one.tsx"
+      ]
+    },
+    {
+      "options": [
+        "promise",
+        "✗",
+        "none"
+      ],
+      "count": 1,
+      "files": [
+        "promise/method-promise-async-false-args-none.tsx"
+      ]
+    },
+    {
+      "options": [
+        "promise",
+        "✗",
+        "one"
+      ],
+      "count": 1,
+      "files": [
+        "promise/method-promise-async-false-args-one.tsx"
+      ]
+    },
+    {
+      "options": [
+        "promise",
+        "✓",
+        "none"
+      ],
+      "count": 1,
+      "files": [
+        "promise/method-promise-async-true-args-none.tsx"
+      ]
+    },
+    {
+      "options": [
+        "promise",
+        "✓",
+        "one"
+      ],
+      "count": 1,
+      "files": [
+        "promise/method-promise-async-true-args-one.tsx"
+      ]
+    }
+  ],
+  "missingPermutations": []
+}

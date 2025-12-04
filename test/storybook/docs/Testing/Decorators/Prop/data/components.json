@@ -1,0 +1,274 @@
+{
+  "coverage": {
+    "covered": 24,
+    "total": 24,
+    "percent": "100.00"
+  },
+  "coveredPermutations": [
+    {
+      "options": [
+        "Array",
+        "✗",
+        "✗"
+      ],
+      "count": 1,
+      "files": [
+        "Array/prop-array-reflect-false-mutable-false.tsx"
+      ]
+    },
+    {
+      "options": [
+        "Array",
+        "✗",
+        "✓"
+      ],
+      "count": 1,
+      "files": [
+        "Array/prop-array-reflect-false-mutable.tsx"
+      ]
+    },
+    {
+      "options": [
+        "Array",
+        "✓",
+        "✗"
+      ],
+      "count": 1,
+      "files": [
+        "Array/prop-array-reflect-mutable-false.tsx"
+      ]
+    },
+    {
+      "options": [
+        "Array",
+        "✓",
+        "✓"
+      ],
+      "count": 1,
+      "files": [
+        "Array/prop-array-reflect-mutable.tsx"
+      ]
+    },
+    {
+      "options": [
+        "Object",
+        "✗",
+        "✗"
+      ],
+      "count": 1,
+      "files": [
+        "Object/prop-object-reflect-false-mutable-false.tsx"
+      ]
+    },
+    {
+      "options": [
+        "Object",
+        "✗",
+        "✓"
+      ],
+      "count": 1,
+      "files": [
+        "Object/prop-object-reflect-false-mutable.tsx"
+      ]
+    },
+    {
+      "options": [
+        "Object",
+        "✓",
+        "✗"
+      ],
+      "count": 1,
+      "files": [
+        "Object/prop-object-reflect-mutable-false.tsx"
+      ]
+    },
+    {
+      "options": [
+        "Object",
+        "✓",
+        "✓"
+      ],
+      "count": 1,
+      "files": [
+        "Object/prop-object-reflect-mutable.tsx"
+      ]
+    },
+    {
+      "options": [
+        "Set",
+        "✗",
+        "✗"
+      ],
+      "count": 1,
+      "files": [
+        "Set/prop-set-reflect-false-mutable-false.tsx"
+      ]
+    },
+    {
+      "options": [
+        "Set",
+        "✗",
+        "✓"
+      ],
+      "count": 1,
+      "files": [
+        "Set/prop-set-reflect-false-mutable.tsx"
+      ]
+    },
+    {
+      "options": [
+        "Set",
+        "✓",
+        "✗"
+      ],
+      "count": 1,
+      "files": [
+        "Set/prop-set-reflect-mutable-false.tsx"
+      ]
+    },
+    {
+      "options": [
+        "Set",
+        "✓",
+        "✓"
+      ],
+      "count": 1,
+      "files": [
+        "Set/prop-set-reflect-mutable.tsx"
+      ]
+    },
+    {
+      "options": [
+        "boolean",
+        "✗",
+        "✗"
+      ],
+      "count": 1,
+      "files": [
+        "boolean/prop-boolean-reflect-false-mutable-false.tsx"
+      ]
+    },
+    {
+      "options": [
+        "boolean",
+        "✗",
+        "✓"
+      ],
+      "count": 1,
+      "files": [
+        "boolean/prop-boolean-reflect-false-mutable.tsx"
+      ]
+    },
+    {
+      "options": [
+        "boolean",
+        "✓",
+        "✗"
+      ],
+      "count": 1,
+      "files": [
+        "boolean/prop-boolean-reflect-mutable-false.tsx"
+      ]
+    },
+    {
+      "options": [
+        "boolean",
+        "✓",
+        "✓"
+      ],
+      "count": 1,
+      "files": [
+        "boolean/prop-boolean-reflect-mutable.tsx"
+      ]
+    },
+    {
+      "options": [
+        "number",
+        "✗",
+        "✗"
+      ],
+      "count": 1,
+      "files": [
+        "number/prop-number-reflect-false-mutable-false.tsx"
+      ]
+    },
+    {
+      "options": [
+        "number",
+        "✗",
+        "✓"
+      ],
+      "count": 1,
+      "files": [
+        "number/prop-number-reflect-false-mutable.tsx"
+      ]
+    },
+    {
+      "options": [
+        "number",
+        "✓",
+        "✗"
+      ],
+      "count": 1,
+      "files": [
+        "number/prop-number-reflect-mutable-false.tsx"
+      ]
+    },
+    {
+      "options": [
+        "number",
+        "✓",
+        "✓"
+      ],
+      "count": 1,
+      "files": [
+        "number/prop-number-reflect-mutable.tsx"
+      ]
+    },
+    {
+      "options": [
+        "string",
+        "✗",
+        "✗"
+      ],
+      "count": 1,
+      "files": [
+        "string/prop-string-reflect-false-mutable-false.tsx"
+      ]
+    },
+    {
+      "options": [
+        "string",
+        "✗",
+        "✓"
+      ],
+      "count": 1,
+      "files": [
+        "string/prop-string-reflect-false-mutable.tsx"
+      ]
+    },
+    {
+      "options": [
+        "string",
+        "✓",
+        "✗"
+      ],
+      "count": 1,
+      "files": [
+        "string/prop-string-reflect-mutable-false.tsx"
+      ]
+    },
+    {
+      "options": [
+        "string",
+        "✓",
+        "✓"
+      ],
+      "count": 1,
+      "files": [
+        "string/prop-string-reflect-mutable.tsx"
+      ]
+    }
+  ],
+  "missingPermutations": []
+}

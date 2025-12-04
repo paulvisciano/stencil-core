@@ -1,0 +1,114 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Testing/Behavior/Extends/Extends vs @Controller"/>
+
+# Why Extends Over @Controller Decorator
+
+## Technical Decision Summary
+
+The extends approach was chosen over a @Controller decorator based on technical merit and Stencil's architectural principles. This provides the foundation for Reactive Controllers without framework bloat, better performance, and maximum flexibility for implementation teams.
+
+### Key Technical Reasons:
+
+1. **@Controller Would Be Technical Overkill**
+   - Stencil decorators are for compile-time metadata (@Prop, @State, @Method)
+   - Reactive Controllers are pure runtime behavior patterns
+   - Adding a decorator would ship unnecessary code to users who don't need it
+
+2. **Extends Leverages Existing Stencil Strengths**
+   - Uses proven inheritance patterns already in Stencil
+   - Automatic constructor handling with super() calls
+   - Built-in lifecycle management
+   - Promise awaiting handled under-the-hood
+
+3. **Performance & Bundle Size**
+   - Zero additional runtime overhead
+   - No framework bloat for unused features
+   - Smaller bundle sizes for production applications
+
+4. **Developer Experience Benefits**
+   - Just JavaScript - easy to understand and debug
+   - No vendor lock-in to proprietary Stencil APIs
+   - Full flexibility to implement exactly what teams need
+   - Future-proof approach that won't break with framework updates
+
+### The Perfect Timing Discovery
+John Jenkins had recently implemented extends functionality for general inheritance patterns. When we discussed the functional requirements for Reactive Controllers, he immediately recognized that **the extends feature provides the necessary foundation for Reactive Controllers**.
+
+**John's Assessment**: *"Stencil should get out of the way; let people write and run their own javascript. The extends functionality I built provides the foundation for Reactive Controllers - the testing will validate it works for real-world implementation scenarios."*
+
+## Implementation Approach
+
+The extends approach provides a clean, lightweight solution that aligns perfectly with Stencil's architectural philosophy:
+
+### **What This Means in Practice**
+
+**Reactive Controller Base Class:**
+```javascript
+export class ValidationController {
+  constructor() {
+    this.errors = [];
+  }
+  
+  componentDidLoad() {
+    this.setupValidation();
+  }
+  
+  validateField(value) {
+    // Validation logic here
+    return this.errors;
+  }
+}
+```
+
+**Component Implementation:**
+```javascript
+@Component({
+  tag: 'my-form-field'
+})
+export class MyFormField extends ValidationController {
+  @State() fieldValue: string = '';
+  
+  render() {
+    const errors = this.validateField(this.fieldValue);
+    return (
+      <div>
+        <input 
+          value={this.fieldValue}
+          onInput={(e) => this.fieldValue = e.target.value}
+        />
+        {errors.map(error => <span class="error">{error}</span>)}
+      </div>
+    );
+  }
+}
+```
+
+### **Key Benefits Realized**
+
+1. **Simplicity**: Just JavaScript inheritance - no new APIs to learn
+2. **Performance**: Zero framework overhead, optimal bundle sizes  
+3. **Flexibility**: Teams can implement exactly what they need
+4. **Maintainability**: Standard patterns that any developer can understand
+5. **Future-Proof**: Won't break with framework updates
+
+## Validation & Testing
+
+Our systematic testing approach validates this decision through real-world scenarios:
+
+- **Foundation Solid**: Core extends functionality proven through existing test cases
+- **Comprehensive Coverage**: Testing patterns from Lit's reactive controllers and real implementation requirements  
+- **Browser Validation**: WebDriverIO testing ensures cross-browser compatibility
+- **Progressive Enhancement**: 3 of 11 planned test scenarios complete with 18+ passing tests
+
+For detailed testing progress, implementation status, and comprehensive test case coverage, see: [Extends Functionality Testing Overview](?path=/docs/testing-behavior-extends-overview--docs)
+
+## Conclusion
+
+The extends approach represents the best of both worlds: **powerful composition patterns** without **framework complexity**. By leveraging existing Stencil capabilities rather than adding new decorators, we provide teams with a solution that's performant, flexible, and maintainable.
+
+This decision exemplifies Stencil's core philosophy: *"Get out of the way; let people write and run their own JavaScript."* The result is reactive controllers that feel natural to implement and debug, while providing all the code reuse and standardization benefits teams need.
+
+---
+
+*This technical decision was validated through collaboration with John Jenkins (extends functionality implementer) on functional requirements and comprehensive testing of real-world usage patterns.*

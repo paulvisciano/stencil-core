@@ -1,0 +1,490 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import overlay from './data/test-coverage.json';
+import React from 'react';
+import TestCasesTable from '../../Decorators/_shared/TestCasesTable.jsx';
+
+<Meta title="Testing/Behavior/Extends/Overview"/>
+
+# Extends Functionality Testing
+
+The `extends` functionality enables component inheritance and composition patterns in Stencil. This page documents the test coverage, patterns, generated components, and implementation status.
+
+## Inheritance Patterns
+
+- **Direct**: Component extends base class (`class Child extends Base`)
+- **Multi-level**: Component -> Base -> GrandparentBase inheritance chains  
+- **Abstract**: Component extends abstract base class with Stencil decorators
+- **Mixin**: Component composes multiple behaviors via mixin functions
+
+## Test Cases
+
+Test cases are organized by **complexity** - from basic inheritance patterns to advanced real-world reactive controllers. All `extends` tests reside under <code>test/wdio/ts-target/extends-*</code>.
+
+export const ExtendsCoverageSummary = () => {
+  const testCases = Object.values(overlay.testCaseStatus || {});
+  const implementedCases = testCases.filter(tc => tc.implemented).length;
+  const totalCases = testCases.length;
+  const coveragePercentage = totalCases > 0 ? Math.round((implementedCases / totalCases) * 100) : 0;
+  const totalTests = testCases.reduce((sum, tc) => sum + (tc.testCount || 0), 0);
+  
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px', marginBottom: '32px' }}>
+      <div style={{ 
+        background: '#fff', 
+        padding: '20px', 
+        borderRadius: '8px', 
+        border: '2px solid #e5e7eb',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{ fontSize: '13px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
+          Test Cases Implemented
+        </div>
+        <div style={{ fontSize: '36px', fontWeight: '700', color: '#111827', lineHeight: '1', marginBottom: '6px' }}>
+          {implementedCases}<span style={{ color: '#d1d5db' }}>/{totalCases}</span>
+        </div>
+        <div style={{ fontSize: '13px', color: '#6b7280' }}>
+          {coveragePercentage}% complete
+        </div>
+      </div>
+      
+      <div style={{ 
+        background: '#fff', 
+        padding: '20px', 
+        borderRadius: '8px', 
+        border: '2px solid #e5e7eb',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{ fontSize: '13px', fontWeight: '600', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
+          Total Tests
+        </div>
+        <div style={{ fontSize: '36px', fontWeight: '700', color: '#111827', lineHeight: '1', marginBottom: '6px' }}>
+          {totalTests}
+        </div>
+        <div style={{ fontSize: '13px', color: '#6b7280', borderTop: '1px solid #e5e7eb', paddingTop: '8px', marginTop: '8px' }}>
+          📅 Last run: Dec 4, 2025, 2:05 AM PST</div>
+      </div>
+    </div>
+  );
+};
+
+<ExtendsCoverageSummary />
+
+export const ExtendsTestCasesTable = () => {
+  // Pre-calculated test case status from JSON
+  const testCaseStatus = overlay.testCaseStatus || {};
+  const items = overlay.items || [];
+  
+  // Helper function to get stats for a group
+  const getGroupStats = (groupName) => {
+    const groupItems = items.filter(i => i.group === groupName);
+    return {
+      tested: groupItems.filter(i => i.tested).length,
+      total: groupItems.length
+    };
+  };
+  
+  // Helper function to format test count display
+  const formatTestCount = (testCase) => {
+    if (!testCase?.testCount) return '';
+    const breakdown = testCase.testBreakdown;
+    if (!breakdown) return `${testCase.testCount} tests`;
+    
+    const parts = [];
+    if (breakdown.dist) parts.push(`${breakdown.dist} dist`);
+    if (breakdown.customElements) parts.push(`${breakdown.customElements} CE`);
+    if (breakdown.hydrate) parts.push(`${breakdown.hydrate} hydrate`);
+    
+    return `${testCase.testCount} tests (${parts.join(' + ')})`;
+  };
+
+  const allRows = [
+    // 🟢 Basic Inheritance (1-2)
+    {
+      id: 1,
+      implemented: testCaseStatus[1]?.implemented || false,
+      desc: testCaseStatus[1]?.description || '',
+      types: (
+        <>
+          <strong>🟢 Basic:</strong> Foundation lifecycle inheritance pattern<br/>
+          <strong>Coverage:</strong> componentWillLoad, componentDidLoad, componentWillRender, componentDidRender, componentWillUpdate, componentDidUpdate<br/>
+          <small>Uses Global Array Pattern | ES2022 Build Target | {formatTestCount(testCaseStatus[1])}</small>
+        </>
+      ),
+      tested: getGroupStats('lifecycle').tested,
+      total: getGroupStats('lifecycle').total,
+      testCount: testCaseStatus[1]?.testCount || 0,
+      section: testCaseStatus[1]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 2,
+      implemented: testCaseStatus[2]?.implemented || false,
+      desc: testCaseStatus[2]?.description || '',
+      types: (
+        <>
+          <strong>🟢 Basic:</strong> Multi-level inheritance chains (Component → ParentBase → GrandparentBase)<br/>
+          <strong>Advanced Features:</strong> super() call chains, event ordering, inheritance chain integrity<br/>
+          <small>Uses Global Array Pattern | ES2022 Build Target | {formatTestCount(testCaseStatus[2])}</small>
+        </>
+      ),
+      tested: getGroupStats('multilevel').tested,
+      total: getGroupStats('multilevel').total,
+      testCount: testCaseStatus[2]?.testCount || 0,
+      section: testCaseStatus[2]?.implemented ? 'implemented' : 'missing',
+    },
+    // 🟡 Standard Patterns (6-9)
+    {
+      id: 6,
+      implemented: testCaseStatus[6]?.implemented || false,
+      desc: testCaseStatus[6]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Components extend Stencil-decorated abstract base classes<br/>
+          <strong>Property Inheritance:</strong> @Prop, @State, @Method inheritance<br/>
+          <small>Comprehensive tests across all output targets | {formatTestCount(testCaseStatus[6])}</small>
+        </>
+      ),
+      tested: getGroupStats('abstract').tested,
+      total: getGroupStats('abstract').total,
+      testCount: testCaseStatus[6]?.testCount || 0,
+      section: testCaseStatus[6]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 7,
+      implemented: testCaseStatus[7]?.implemented || false,
+      desc: testCaseStatus[7]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Components extend other component classes<br/>
+          <strong>Property Inheritance:</strong> @Prop, @State, @Method inheritance<br/>
+          <small>Comprehensive tests across all output targets | {formatTestCount(testCaseStatus[7])}</small>
+        </>
+      ),
+      tested: getGroupStats('component').tested,
+      total: getGroupStats('component').total,
+      testCount: testCaseStatus[7]?.testCount || 0,
+      section: testCaseStatus[7]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 8,
+      implemented: testCaseStatus[8]?.implemented || false,
+      desc: testCaseStatus[8]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Components extend classes from external Stencil projects<br/>
+          <strong>Cross-Package Inheritance:</strong> test-sibling library integration<br/>
+          <small>Comprehensive tests across all output targets | {formatTestCount(testCaseStatus[8])}</small>
+        </>
+      ),
+      tested: getGroupStats('external').tested,
+      total: getGroupStats('external').total,
+      testCount: testCaseStatus[8]?.testCount || 0,
+      section: testCaseStatus[8]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 9,
+      implemented: testCaseStatus[9]?.implemented || false,
+      desc: testCaseStatus[9]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Components extend via Stencil Mixin function<br/>
+          <strong>Behavior Composition:</strong> Multiple behaviors composed into single component<br/>
+          <small>Comprehensive tests across all output targets | {formatTestCount(testCaseStatus[9])}</small>
+        </>
+      ),
+      tested: getGroupStats('mixin').tested,
+      total: getGroupStats('mixin').total,
+      testCount: testCaseStatus[9]?.testCount || 0,
+      section: testCaseStatus[9]?.implemented ? 'implemented' : 'missing',
+    },
+    // 🔵 Advanced Reactive Controllers (12-12a)
+    {
+      id: 12,
+      implemented: testCaseStatus[12]?.implemented || false,
+      desc: testCaseStatus[12]?.description || '',
+      types: (
+        <>
+          <strong>🔵 Advanced:</strong> Controller-initiated updates (ClockController pattern from Lit)<br/>
+          <strong>Reactive Controller:</strong> Base class triggers host updates via requestUpdate pattern<br/>
+          <small>Simulates Lit's ReactiveController interface | {formatTestCount(testCaseStatus[12])}</small>
+        </>
+      ),
+      tested: getGroupStats('controller').tested,
+      total: getGroupStats('controller').total,
+      testCount: testCaseStatus[12]?.testCount || 0,
+      section: testCaseStatus[12]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: '12a',
+      implemented: testCaseStatus['12a']?.implemented || false,
+      desc: testCaseStatus['12a']?.description || '',
+      types: (
+        <>
+          <strong>🔵 Advanced:</strong> Direct State Management (Stencil's superior approach vs Lit)<br/>
+          <strong>Simplified Pattern:</strong> Base class owns @State directly - no controller complexity needed<br/>
+          <small>Demonstrates Stencil advantages over Lit | {formatTestCount(testCaseStatus['12a'])}</small>
+        </>
+      ),
+      tested: getGroupStats('direct-state').tested,
+      total: getGroupStats('direct-state').total,
+      testCount: testCaseStatus['12a']?.testCount || 0,
+      section: testCaseStatus['12a']?.implemented ? 'implemented' : 'missing',
+    },
+    // 🟢 Basic Inheritance (3-5) - TODO
+    {
+      id: 3,
+      implemented: testCaseStatus[3]?.implemented || false,
+      desc: testCaseStatus[3]?.description || '',
+      types: (
+        <>
+          <strong>🟢 Basic:</strong> Property & State inheritance basics - @Prop and @State without conflicts<br/>
+          <strong>Foundation Features:</strong> @Prop inheritance, @State inheritance, additional properties, property reactivity<br/>
+          <small>Basic property passing and rendering | No conflicts | Foundation for complex scenarios</small>
+        </>
+      ),
+      tested: getGroupStats('props-state').tested,
+      total: getGroupStats('props-state').total,
+      testCount: testCaseStatus[3]?.testCount || 0,
+      section: testCaseStatus[3]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 4,
+      implemented: testCaseStatus[4]?.implemented || false,
+      desc: testCaseStatus[4]?.description || '',
+      types: (
+        <>
+          <strong>🟢 Basic:</strong> Method inheritance basics - @Method inheritance and super() calls<br/>
+          <strong>Foundation Features:</strong> @Method inheritance, super() calls, method override, method composition<br/>
+          <small>Basic method exposure | Parent method invocation | Foundation for complex methods</small>
+        </>
+      ),
+      tested: getGroupStats('methods').tested,
+      total: getGroupStats('methods').total,
+      testCount: testCaseStatus[4]?.testCount || 0,
+      section: testCaseStatus[4]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 5,
+      implemented: testCaseStatus[5]?.implemented || false,
+      desc: testCaseStatus[5]?.description || '',
+      types: (
+        <>
+          <strong>🟢 Basic:</strong> Render method inheritance - Basic render() inheritance and template composition<br/>
+          <strong>Foundation Features:</strong> Render inheritance, template composition, slot integration, CSS class inheritance<br/>
+          <small>Parent template inclusion | Template composition | Foundation for complex rendering</small>
+        </>
+      ),
+      tested: getGroupStats('render').tested,
+      total: getGroupStats('render').total,
+      testCount: testCaseStatus[5]?.testCount || 0,
+      section: testCaseStatus[5]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 10,
+      implemented: testCaseStatus[10]?.implemented || false,
+      desc: testCaseStatus[10]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Event handling inheritance - @Listen decorators and event propagation<br/>
+          <strong>Event Features:</strong> Multiple @Listen decorators, event bubbling, global vs local listeners, handler override<br/>
+          <small>Core interactive functionality | Event handling order and precedence | Component event behavior</small>
+        </>
+      ),
+      tested: getGroupStats('events').tested,
+      total: getGroupStats('events').total,
+      testCount: testCaseStatus[10]?.testCount || 0,
+      section: testCaseStatus[10]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 11,
+      implemented: testCaseStatus[11]?.implemented || false,
+      desc: testCaseStatus[11]?.description || '',
+      types: (
+        <>
+          <strong>🟡 Standard:</strong> Watch decorator inheritance - @Watch behavior through inheritance chains<br/>
+          <strong>Reactive Features:</strong> Multiple @Watch decorators, execution order, reactive property chains, handler override<br/>
+          <small>Core reactive functionality | Property watching behavior | Reactive pattern inheritance</small>
+        </>
+      ),
+      tested: getGroupStats('watch').tested,
+      total: getGroupStats('watch').total,
+      testCount: testCaseStatus[11]?.testCount || 0,
+      section: testCaseStatus[11]?.implemented ? 'implemented' : 'missing',
+    },
+    // 🔴 Robustness & Production (13)
+    {
+      id: 13,
+      implemented: testCaseStatus[13]?.implemented || false,
+      desc: testCaseStatus[13]?.description || '',
+      types: (
+        <>
+          <strong>🔴 Robustness:</strong> Decorator Conflicts - Duplicate decorator names of the same type<br/>
+          <strong>Conflict Scenarios:</strong> Duplicate @Prop names, duplicate @State names, duplicate @Method names<br/>
+          <small>Ensures reliability | Compiler precedence rules | Override behavior | Developer experience</small>
+        </>
+      ),
+      tested: getGroupStats('conflicts').tested,
+      total: getGroupStats('conflicts').total,
+      testCount: testCaseStatus[13]?.testCount || 0,
+      section: testCaseStatus[13]?.implemented ? 'implemented' : 'missing',
+    },
+    // 🔵 Advanced Composition Pattern (14)
+    {
+      id: 14,
+      implemented: testCaseStatus[14]?.implemented || false,
+      desc: testCaseStatus[14]?.description || '',
+      types: (
+        <>
+          <strong>🔵 Advanced:</strong> ReactiveControllerHost Pattern (Composition-based controllers)<br/>
+          <strong>Composition Pattern:</strong> Components extend ReactiveControllerHost, compose ReactiveController instances<br/>
+          <small>Automatic lifecycle hooking with composition over inheritance | {formatTestCount(testCaseStatus[14])}</small>
+        </>
+      ),
+      tested: getGroupStats('via-host').tested,
+      total: getGroupStats('via-host').total,
+      testCount: testCaseStatus[14]?.testCount || 0,
+      section: testCaseStatus[14]?.implemented ? 'implemented' : 'missing',
+    },
+    // 🔵 Advanced Scaling Demonstrations (15-16)
+    {
+      id: 15,
+      implemented: testCaseStatus[15]?.implemented || false,
+      desc: testCaseStatus[15]?.description || '',
+      types: (
+        <>
+          <strong>🔵 Advanced:</strong> Inheritance-Based Scaling (3 components, 2 controllers)<br/>
+          <strong>Scaling Pattern:</strong> Demonstrates how inheritance scales with multiple components and controllers<br/>
+          <small>3 components (TextInput, RadioGroup, CheckboxGroup) using 2 controllers (ValidationController, FocusController) via inheritance | {formatTestCount(testCaseStatus[15])}</small>
+        </>
+      ),
+      tested: getGroupStats('inheritance-scaling').tested,
+      total: getGroupStats('inheritance-scaling').total,
+      testCount: testCaseStatus[15]?.testCount || 0,
+      section: testCaseStatus[15]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 16,
+      implemented: testCaseStatus[16]?.implemented || false,
+      desc: testCaseStatus[16]?.description || '',
+      types: (
+        <>
+          <strong>🔵 Advanced:</strong> Composition-Based Scaling (3 components, 2 controllers)<br/>
+          <strong>Scaling Pattern:</strong> Demonstrates how composition scales with multiple components and controllers<br/>
+          <small>3 components (TextInput, RadioGroup, CheckboxGroup) using 2 controllers (ValidationController, FocusController) via composition | {formatTestCount(testCaseStatus[16])}</small>
+        </>
+      ),
+      tested: getGroupStats('composition-scaling').tested,
+      total: getGroupStats('composition-scaling').total,
+      testCount: testCaseStatus[16]?.testCount || 0,
+      section: testCaseStatus[16]?.implemented ? 'implemented' : 'missing',
+    },
+    {
+      id: 18,
+      implemented: testCaseStatus[18]?.implemented || false,
+      desc: testCaseStatus[18]?.description || '',
+      types: (
+        <>
+          <strong>🔴 Robustness:</strong> Mixed Decorator Types - Same name used as different decorator types<br/>
+          <strong>Mixed Scenarios:</strong> @Prop in base/@State in component, @State in base/@Prop in component, @Method in base/@Prop in component<br/>
+          <small>Ensures reliability | Compiler error handling | Type conflict resolution | Developer experience</small>
+        </>
+      ),
+      tested: getGroupStats('mixed-decorators').tested,
+      total: getGroupStats('mixed-decorators').total,
+      testCount: testCaseStatus[18]?.testCount || 0,
+      section: testCaseStatus[18]?.implemented ? 'implemented' : 'missing',
+    }
+  ];
+
+  return <TestCasesTable rows={allRows} previewCount={3} />;
+};
+
+<ExtendsTestCasesTable />
+
+---
+
+## Test Categories
+
+### **🟢 Basic Inheritance (1-5)** — 5 test cases
+Foundation patterns for lifecycle inheritance, property/state basics, method inheritance, and render composition.
+
+### **🟡 Standard Patterns (6-11)** — 6 test cases
+Common inheritance scenarios including abstract classes, component-to-component, external libraries, mixins, event handling, and watch decorators.
+
+### **🔵 Advanced Real-World (12, 12a, 14-16)** — 5 test cases
+Real-world reactive controller patterns comparing Stencil's extends capabilities with other frameworks like Lit, demonstrating practical use cases including composition-based ReactiveControllerHost pattern and scaling demonstrations for both inheritance and composition approaches.
+
+### **🔴 Robustness & Production (13, 18)** — 2 test cases
+Edge cases, decorator conflicts, mixed decorator types, and production-ready scenarios to ensure extends works reliably in all environments.
+
+---
+
+export const ExtendsTODOSection = () => {
+  const testCaseStatus = overlay.testCaseStatus || {};
+  
+  // Define categories (avoid duplicates - each test case belongs to one category)
+  const categories = {
+    '🟡 Standard Patterns': [6, 7, 8, 9, 10, 11],
+    '🔵 Advanced Real-World': [12, '12a', 14, 15, 16],
+    '🔴 Robustness & Production': [13, 18],
+  };
+  
+  // Track which test cases we've already included to avoid duplicates
+  const includedIds = new Set();
+  
+  // Get missing test cases by category
+  const getMissingByCategory = (categoryName, testCaseIds) => {
+    return testCaseIds
+      .map(id => {
+        // Skip if already included in another category
+        if (includedIds.has(String(id))) return null;
+        
+        const tc = testCaseStatus[id];
+        if (!tc || tc.implemented) return null;
+        
+        includedIds.add(String(id));
+        return { id, description: tc.description || `Test Case #${id}` };
+      })
+      .filter(Boolean);
+  };
+  
+  // Build category sections
+  const categorySections = Object.entries(categories).map(([categoryName, testCaseIds]) => {
+    const missing = getMissingByCategory(categoryName, testCaseIds);
+    if (missing.length === 0) return null;
+    
+    return {
+      name: categoryName,
+      missing,
+      total: testCaseIds.length,
+      remaining: missing.length,
+    };
+  }).filter(Boolean);
+  
+  if (categorySections.length === 0) {
+    return null;
+  }
+  
+  return (
+    <div>
+      <h2>📋 TODO - Remaining Test Cases</h2>
+      {categorySections.map(({ name, missing, total, remaining }) => (
+        <div key={name} style={{ marginBottom: '24px' }}>
+          <h3>{name} ({remaining}/{total} remaining)</h3>
+          {missing.map(({ id, description }) => (
+            <div key={id} style={{ marginBottom: '12px', marginLeft: '20px' }}>
+              <strong>Test Case #{id} TODO</strong>: {description}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+{(() => {
+  const testCaseStatus = overlay.testCaseStatus || {};
+  const missingCases = Object.entries(testCaseStatus)
+    .filter(([_, tc]) => !tc.implemented);
+  if (missingCases.length === 0) return null;
+  return <ExtendsTODOSection />;
+})()}

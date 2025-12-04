@@ -1,0 +1,1334 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Testing/Framework/Audit" tags={['dev-only', 'phase-1-complete']} />
+
+# Testing Strategy Audit Log
+<div style={{display: 'inline-block', padding: '4px 12px', background: '#d3f9d8', color: '#2b8a3e', borderRadius: '16px', fontWeight: 'bold', marginBottom: '16px'}}>✅ Phase 1 Complete</div>
+
+This document tracks the progress and effectiveness of the GenAI-powered testing strategy over time. Each entry represents a significant iteration or application of the strategy to a specific feature set.
+
+
+
+---
+
+
+## Iteration 1: `@Prop` Decorator
+
+**Date:** August 19, 2025
+
+### Phase 1: Initial Coverage Push
+
+-   **Target Feature:** `@Prop` decorator.
+-   **Initial Focus:** Permutations of the `type` and `reflect` properties.
+-   **Action:** Utilized the GenAI-powered loop to generate component-level tests (`test/wdio`) for all identified permutations.
+-   **Outcome:** The coverage script reported **100% coverage** for the known permutations. The testing strategy appeared to be a complete success.
+
+### Phase 2: Discovery of a Blind Spot
+
+-   **Action:** A manual review of the `@Prop` feature set revealed that the `mutable` property was not included in our permutation matrix or the coverage analysis script.
+-   **Impact:** The initial 100% coverage metric was misleading. It only reflected the permutations we were aware of, not the complete feature set.
+-   **Outcome:** The `prop-coverage.js` script was updated to recognize the `mutable` property. This immediately doubled the total number of permutations, causing the coverage metric to plummet from **100% to 62.5%**.
+
+### Phase 3: Addressing the Coverage Gap
+
+-   **Action:** Re-engaged the GenAI-powered testing loop with the updated and more accurate permutation matrix. The AI assistant generated a new suite of tests specifically targeting the `mutable` permutations.
+-   **Outcome:** The new tests successfully covered the missing permutations, bringing the total coverage for the `@Prop` decorator back to **100%**.
+
+### Key Learnings:
+
+-   The testing loop proved to be self-correcting. When a blind spot was identified and the "source of truth" (the coverage script) was updated, the strategy seamlessly guided the process of filling the gap.
+-   Static analysis is a powerful but imperfect tool. It is only as good as the patterns it's configured to find, highlighting the need for periodic human review to identify what might be missing.
+-   The exponential cost of comprehensive testing was validated. Adding a single boolean property doubled the testing matrix, reinforcing the need for an efficient and scalable strategy.
+-   **Human-AI Collaboration is Key**: This entire process was a partnership. The AI was a powerful engine for generating code and executing the testing loop, but human insight was required to identify the initial blind spot (`mutable`) and refine the strategy. The most effective approach is one that leverages AI for speed and scale while relying on human expertise for critical thinking and direction.
+
+---
+
+## Iteration 2: Refining `@Prop` Mutation Tests
+
+**Date:** August 19, 2025
+
+### Phase 1: Addressing Mutation Test Failures
+
+-   **Target Feature:** `@Prop` decorator with `mutable: true` and `reflect: true`.
+-   **Initial State:** While coverage was at 100%, it was discovered that tests for complex types (`Array`, `Object`) were not passing as expected after a mutation.
+-   **Action:**
+    1.  Investigated the Stencil runtime to identify the root cause of the reflection issue.
+    2.  Temporarily modified the tests to expect the buggy behavior, allowing the build to pass while documenting the issue.
+    3.  Updated the Storybook documentation to include a "Known Bugs" section, making the issues transparent.
+-   **Outcome:** A reliable pattern for testing mutations was established:
+    -   Render a component with an initial state.
+    -   Verify the initial state and attribute reflection (or lack thereof for known bugs).
+    -   Trigger a mutation (e.g., by clicking a button).
+    -   Verify the component's state and attribute reflection after the mutation.
+
+### Phase 2: Improving Static Analysis and Documentation
+
+-   **Action:**
+    1.  Refined the permutation matrix generation to more accurately capture all `@Prop` variations.
+    2.  Discovered that the static analysis script was not correctly identifying all `@Prop` decorators, leading to an inaccurate coverage report.
+    3.  Improved the testing strategy documentation to be more modular and easier to navigate.
+-   **Outcome:** The static analysis tools and documentation were made more robust, ensuring a more accurate and maintainable testing framework.
+
+### Key Learnings:
+
+-   **Mutation Testing Pattern:** A standardized, reliable pattern for testing mutations was developed and validated.
+-   **Static Analysis Refinement:** The process revealed weaknesses in the static analysis script, which were subsequently improved.
+-   **Iterative Documentation:** The testing strategy documentation itself is part of the iterative loop and should be updated with new learnings as they emerge.
+
+---
+
+## Iteration 3: `@State` Decorator
+
+**Date:** August 21, 2025
+
+### Phase 1: Initial Test Generation
+
+-   **Target Feature:** `@State` decorator.
+-   **Initial Focus:** All permutations of type (`string`, `number`, `boolean`, `array`, `object`, `any`) and default value presence (`true`, `false`).
+-   **Action:** Applied the GenAI-powered testing loop to generate component-level tests in `test/wdio/state/tests` for all 12 identified permutations.
+-   **Outcome:** Successfully generated 10 component files and corresponding tests. All tests passed on first execution.
+
+### Phase 2: Coverage Script Issues
+
+-   **Challenge:** Despite generating all necessary components, the coverage script initially reported only 75% coverage, missing 3 permutations:
+    - `boolean` with default value (`true`)
+    - `object` with default value (`true`) 
+    - `object` without default value (`false`)
+-   **Root Cause:** The regex pattern in `state-coverage.js` was overly greedy (`[\s\S]*?;`) which caused incorrect parsing of initializers, especially in multi-statement contexts.
+-   **Action:** Updated the regex from `/@State\(\)\s+([\w\d_]+)(?::\s*([\w\d\[\]<>{}|.'"]+))?(\s*=\s*[\s\S]*?;)?/g` to `/@State\(\)\s+([\w\d_]+)(?::\s*([\w\d\[\]<>{}|.'"]+))?(\s*=\s*[^;]*;)?/g` to be non-greedy and more precise.
+-   **Outcome:** After the regex fix, coverage improved to 91.67% with only the `boolean` with default value still missing.
+
+### Phase 3: Final Coverage Resolution
+
+-   **Challenge:** The script still failed to identify two permutations: `object` without a default value and `any` with a default value.
+-   **Root Cause:**
+    1.  The test component for `object` without a default value (`state-object-no-default-cmp.tsx`) had an incorrect type annotation (`any` instead of `object`).
+    2.  The test component for `any` with a default value (`state-any-default-cmp.tsx`) was missing a type annotation, causing the script to infer the type as `string` from the default value.
+-   **Action:**
+    1.  Corrected the type annotation in `state-object-no-default-cmp.tsx` to `object`.
+    2.  Added the `: any` type annotation to `state-any-default-cmp.tsx`.
+-   **Outcome:** After these corrections, the coverage script successfully ran and reported **100% coverage**. All 12 permutations for the `@State` decorator are now fully tested.
+
+### Key Learnings:
+
+-   **Test Generation Success:** The AI successfully generated all required test components and tests on the first attempt, showing improvement in the testing loop efficiency.
+-   **Coverage Script Vulnerabilities:** Regex patterns in coverage scripts need careful crafting to avoid false negatives. Greedy patterns can cause incorrect parsing in complex code contexts.
+-   **File Placement Accuracy:** All components were correctly placed under `test/wdio/state/matrix/**` (grouped by type), and tests live in `test/wdio/state/tests`.
+-   **Documentation Workflow Improvements:** The testing workflow documentation was refined to reflect the correct single-step build process (`cd test/wdio && npm run build`) rather than the initially documented two-step process.
+-   **Testing Strategy Evolution:** Added the crucial sixth step to the testing loop: "Document Learnings" to ensure continuous improvement between iterations.
+
+---
+
+## Iteration 4: `@Event` Decorator
+
+**Date:** August 26, 2025
+
+### Phase 1: Initial Misdirection
+
+-   **Target Feature:** `@Event` decorator.
+-   **Initial Action:** The AI assistant was tasked with bringing `@Event` decorator coverage to 100%. However, it immediately went down the wrong path by attempting to generate E2E tests instead of component tests, and placing them in the incorrect directory (`test/end-to-end/` instead of `test/wdio/`).
+-   **Correction:** Human intervention was required to redirect the AI, pointing it to the correct `wdio` directory and the `@State` decorator tests as a pattern to follow.
+
+### Phase 2: Test Implementation Failures
+
+-   **Challenge:** The AI struggled to adopt the correct testing pattern. Its first attempt at creating the test file (`cmp.test.tsx`) used `newSpecPage` from Stencil's unit testing framework, which was incorrect for component tests.
+-   **Correction:** The user again corrected the AI, pointing out the convention mismatch.
+-   **Second Failure:** The AI's next attempt was also flawed. It used a non-existent `browser.spyOn` method, which caused the tests to fail. This led to a frustrating loop where the AI was unable to correct its own mistake.
+
+### Phase 3: File System and Pattern Discovery Issues
+
+-   **Challenge:** The AI entered a persistent failure loop where it was unable to successfully write to the test file (`cmp.test.tsx`). The file repeatedly appeared as empty or corrupted, requiring the user to manually revert changes and suggest workarounds, such as using a temporary file name.
+-   **A Better Pattern Revealed:** The most significant issue was the AI's failure to recognize the simplest existing testing pattern. While the AI was attempting a complex and incorrect solution using `browser.execute`, the user pointed out that existing tests (like `event-basic`) used a much cleaner in-component `@Listen` decorator to verify the event emission.
+-   **Outcome:** This insight was critical. It rendered the AI's complex solution obsolete and highlighted a major blind spot in its ability to learn from the most relevant examples in the codebase.
+
+### Phase 4: Final Refactoring and Success
+
+-   **Action:** Following the user's guidance, the AI refactored all the newly generated components to use the `@Listen` pattern. The test file (`cmp-tests.tsx`) was simplified to check a counter, aligning with the established, simpler convention.
+-   **Outcome:** After adopting the correct pattern as identified by the user, the tests were simplified, and the process was successfully completed.
+
+### Key Learnings:
+
+-   **Pattern Blindness:** This iteration revealed a critical failure in the AI's ability to identify and adopt the best and simplest existing patterns, even when provided with examples. It defaulted to a more complex, generic, and ultimately incorrect solution.
+-   **Tool-Level Instability:** The AI exhibited significant instability with basic file operations, leading to a frustrating user experience and requiring manual workarounds. This points to a need for more robust error handling and self-correction in the AI's tool usage.
+-   **Over-Reliance on Correction:** The AI was entirely dependent on the user for course correction at every major step. The human's role shifted from supervisor to constant troubleshooter and pattern-matcher.
+-   **The Cost of "Almost Right":** The AI's ability to generate code that was syntactically correct but functionally wrong (e.g., using `browser.spyOn`) proved to be a significant time sink, demonstrating that superficial correctness is not a substitute for understanding context and convention.
+
+---
+
+## Iteration 5: `@Method` Decorator (Async Only)
+
+**Date:** August 27, 2025
+
+### Phase 1: Matrix Correction and Coverage Alignment
+- **Target Feature:** Stencil `@Method` decorator (async-only).
+- **Initial State:** Coverage script and test components included invalid permutations (non-async methods), leading to misleading coverage metrics and test failures.
+- **Action:**
+    - Manually audited and removed all non-async permutations from the coverage script and test components.
+    - Updated the coverage script to only generate and track valid async permutations (args/no args, return/no return).
+    - Regenerated all test components to use `@Method() async ...(): Promise<...>` signatures.
+    - Ensured each component updated the DOM for reliable WDIO verification.
+- **Outcome:** Coverage script now accurately reflects only valid async permutations. All test components conform to Stencil requirements.
+
+### Phase 2: Test Implementation and Build Process
+- **Action:**
+    - Generated missing async test components for all valid permutations.
+    - Updated WDIO tests to cover each permutation, using DOM-based assertions.
+    - Documented and followed the correct build process (`cd test/wdio && npm run build`).
+    - Ran WDIO tests and confirmed all pass.
+    - Reran the coverage script, confirming 100% coverage for the async-only matrix.
+- **Outcome:** All async method permutations are covered by both tests and static analysis. No missing cases remain.
+
+### AI-Assisted Test Generation (Copilot GPT-4.1)
+
+During this iteration, we used Copilot GPT-4.1 to automate the generation of component-level tests for the Stencil `@Method` decorator. Key steps and best practices:
+
+- **Context Setup:** Imported the `.ai` folder to provide Copilot with project standards, domain knowledge, and the testing strategy.
+- **Prompt Used:**
+  > Utilizing the testing strategy covered in the .ai folder, let's get the @Method matrix up to 100%, follow the instructions under component_tests Writing and Running Component Tests
+- **Process:**
+  1. Ran the coverage script to identify missing permutations.
+  2. Used Copilot GPT-4.1 to generate missing async test components and WDIO tests, following the documented patterns.
+  3. Built the components and ran the tests to confirm coverage and correctness.
+  4. Documented learnings and process improvements in both the audit log and component test guide.
+
+**Takeaway:**
+AI can rapidly generate standards-compliant tests when provided with clear context and instructions. Always combine AI automation with human review and documentation for best results.
+
+### Key Learnings:
+- **Matrix Validity is Critical:** Coverage metrics are only meaningful if the matrix reflects what is actually supported by the framework. Manual review is essential when framework constraints change.
+- **Build and Test Workflow:** The correct build/test workflow is crucial for reliable results. Documentation should always reflect the latest process.
+- **Pattern Consistency:** All test components should follow a consistent pattern (DOM update via button click) for reliable WDIO verification.
+- **Human-AI Collaboration:** Human review was required to identify invalid permutations and guide the AI to correct the matrix and test suite. The AI efficiently generated and updated code once the correct strategy was established.
+- **Documentation Loop:** Each iteration should end with documentation of learnings and process improvements to ensure future accuracy and efficiency.
+
+### Process Improvements Made:
+1. **Coverage Matrix Correction:** Updated coverage scripts to only include valid permutations.
+2. **Test Component Consistency:** Standardized async method test component patterns for WDIO reliability.
+3. **Build Process Documentation:** Ensured documentation matches the actual build/test workflow.
+4. **Final Coverage Validation:** Confirmed 100% coverage and passing tests for all valid async permutations.
+
+---
+
+## Iteration 6: `@Listen` Decorator (Host Target Tag Name Consistency)
+
+**Date:** September 5, 2025
+
+### Phase 1: Host Target Tag Name Mismatch
+- **Issue:** Automated generation of Stencil components and WDIO tests for `@Listen` permutations resulted in a tag name mismatch for host-targeted components and their tests. Components used the tag `listen-host-click-capture-nopassive`, while tests used `cmp-host-click-capture-nopassive`.
+- **Impact:** Host tests failed because the rendered element did not match the tag name expected by the test, causing the host element not to be found or events not to fire.
+
+### Phase 2: Diagnosis and Correction
+- **Action:** Identified the mismatch by comparing the component's `@Component({ tag })` property and the test's render/selector usage.
+- **Correction:** Updated all host WDIO tests to use the correct tag name as defined in the component, ensuring both render and event dispatch target `listen-host-click-capture-nopassive`.
+- **Outcome:** Host tests now pass as expected, confirming correct event handling and coverage.
+
+### Key Learnings:
+- **Naming Consistency:** Automated test and component generation must derive tag names from the component's `@Component({ tag })` property to ensure consistency.
+- **Validation Step:** Add a validation step to the automation pipeline to check that all tests reference the correct tag name for their component.
+- **Source of Truth:** Use the component's tag property as the single source of truth for naming in both code and tests.
+- **Human-AI Collaboration:** Human review remains essential for catching subtle mismatches that static analysis may miss.
+
+### Process Improvements Made:
+1. **Automation Update:** Update generation scripts to always use the component's tag property for test rendering and selectors.
+2. **Validation Script:** Add a script to audit test/component tag name consistency across the codebase.
+3. **Documentation:** Record this learning in the audit log and update the component test guide to emphasize tag name consistency.
+
+---
+
+## Iteration 7: Input Event WDIO Test Pattern
+
+**Date:** September 5, 2025
+
+- Issue: WDIO `setValue('test')` on an input triggers the `input` event for each character, incrementing the counter multiple times.
+- Solution: For robust Stencil `@Listen('input')` tests, always render the input in the component, select it by id, and use `setValue('t')` for a single event or `setValue('test')` for multiple events. Match the assertion to the expected event count.
+- Pattern applied to all input event tests for reliable coverage.
+- Example:
+  - Component renders `<input id="test-input" />` and output div.
+  - Test waits for input, sets value, and asserts correct count.
+- Result: All input event WDIO tests now pass and coverage is complete.
+
+---
+
+## Iteration 8: Stencil Target Property Update
+
+**Date:** September 5, 2025
+
+The `parent` target is no longer supported for the `@Listen` decorator in Stencil 2. All documentation, coverage matrices, and generated components/tests should exclude this target going forward.
+
+---
+
+## Iteration 9: Script Path Management and Automation
+
+**Date:** September 8, 2025
+
+- **Issue:** Frequent errors and confusion occurred when running coverage, build, and test scripts from the wrong working directory, due to different terminal root folders and relative path mismatches.
+- **Solution:** Added a `package.json` file with shortcut scripts to `.ai/testing` that automatically `cd` into the correct directory before running the actual script. This ensures all commands are executed from a consistent location and paths are resolved correctly.
+- **Best Practice:** Always run scripts using the shortcuts in `.ai/testing/package.json` to avoid path issues. Update the overview and documentation to reflect this workflow improvement.
+- **Learning:** Automation and documentation must account for environment and path context. Centralizing script execution via shortcut scripts greatly reduces errors and improves developer experience.
+
+---
+
+## Iteration 10: `@Component` Decorator Permutation Coverage
+
+**Date:** September 8, 2025
+
+### Goals
+- Reach 100% coverage for all valid `@Component` decorator permutations defined by the coverage script.
+- Enforce strict mutual exclusivity: only one of `styleUrl`, `styleUrls`, or `styles` per component.
+- Maintain a one-to-one mapping: exactly one `.tsx` component per unique permutation.
+- Keep file count under `test/wdio/component-decorator/**` equal to the “covered” count in `Component/coverage-data.json` after each run.
+
+### Actions Taken
+- Audited and removed invalid components that set multiple style properties; created canonical `matrix/` for valid permutations.
+- Implemented naming and placement conventions under `test/wdio/component-decorator/matrix/` (descriptive filenames; tag matches filename).
+- Generated batches of valid permutations with exclusivity:
+  - Initial 15 baseline components (shadow/scoped/assetsDirs/formAssociated with single style key when present).
+  - +1 additional specific permutation.
+  - +10 permutations for `shadow: true, scoped: false` across `formAssociated` and style variants.
+  - +20 permutations spanning:
+    - `shadow: true` with assetsDirs/formAssociated combos and style variants
+    - `shadow: false, scoped: true` with assetsDirs/formAssociated and styles
+    - styles-only for `shadow: true, scoped: false`
+  - +20 permutations for `shadow: false, scoped: true` plus `scoped: false` assetsDirs/formAssociated combos.
+- Used the repo’s `.ai` testing scripts to regenerate coverage after each batch.
+
+### Coverage Progress
+- Baseline: 82/216 (38.0%).
+- After batch 1: 102/216 (47.2%).
+- After batch 2: 122/216 (56.5%).
+- Verified file count matches coverage: 122 `.tsx` files under `test/wdio/component-decorator/**` equals `covered = 122`.
+
+### Rules & Conventions
+- Mutual exclusivity is enforced by the coverage script; any component with more than one style property is skipped.
+- Options order for permutation keys: `[shadow, scoped, assetsDirs, formAssociated, styleUrl, styleUrls, styles]` with values `✓ | ✗ | -`.
+- Valid style states: `[✓,-,-]`, `[-,✓,-]`, `[-,-,✓]`, or `[-,-,-]`.
+- Location: `test/wdio/component-decorator/matrix/` only for new permutations.
+- Naming: `component-<shadow|shadow-false>-<scoped|scoped-false>-<assetsdirs?>-<formassociated|formassociated-false?>-<styleurl|styleurls|styles?>.tsx` (omit segments that are `-`).
+- Tag equals filename (without extension). Render includes a `Permutation: ...` string matching the seven-field key to aid audits.
+
+### Model Usage
+- Use GPT-5 (Preview) for code generation of components.
+- Use GPT-4.1 for documentation authoring and maintenance.
+
+### Next Steps
+- Accept newly created files in the UI.
+- Continue generating the next batches by reading `missingPermutations` from `Testing/Decorators/Component/coverage-data.json` and creating exactly one component per missing key.
+- Re-run coverage after each batch and ensure file count equals `covered`.
+- Update this audit and the `@Component` decorator docs as the workflow evolves.
+
+---
+
+## Iteration 11: Context-First Strategy, GPT-5 Results, and Portability Vision
+
+**Date:** September 8, 2025
+
+### Summary
+- Hypothesis validated: investing in the .ai context (standards, coverage scripts, docs, prompts) yields outsized returns versus hand-writing components/tests. As models improve, high-fidelity code and docs follow naturally from a strong context.
+- GPT-5 (Preview) materially outperforms GPT-4.1 on this repo:
+  - Accurately scanned the .ai folder, updated the correct `audit.mdx`, and authored a high-quality `decorators/component.mdx` with minimal prompting.
+  - Generated components from the coverage matrix more reliably and with better adherence to conventions.
+  - Produced stronger documentation with simpler prompts.
+
+### Why this matters
+- The testing loop hinges on a trustworthy coverage matrix. AI uses the matrix to: (1) enumerate missing permutations, (2) generate components, and next (3) generate tests. When the sample set fully represents all permutations, test coverage meaningfully guards compiler/runtime changes.
+- This enables crowdsourcing: contributors can ask AI to add the next missing permutations/tests and submit PRs—guided by the shared context.
+
+### Portability: the .ai Context Pack
+- Goal: make `.ai` a portable, framework-agnostic "Context Pack" others can import into any repo.
+- Adaptation model:
+  1) Drop the `.ai` folder into a target repo.
+  2) Update `project-config.mdx` to align with local tech (unit/component/e2e frameworks, runners, scripts).
+  3) Use `.ai/testing/package.json` script shortcuts to normalize paths and execution.
+  4) Run coverage to discover missing permutations; generate components/tests accordingly.
+- Always reference `AGENT_KEYWORDS.md` for standardized agent keywords and prompt conventions.
+
+### Concrete outcomes observed today
+- GPT-5 authored a high-signal audit entry and created `decorators/component.mdx` that formalizes the `@Component` permutation strategy (naming, exclusivity, workflow).
+- Component generation quality improved and aligned with the matrix rules, enabling the next step (test generation) with confidence.
+
+### Vision: Universal, framework-agnostic GenAI testing
+- Maintain source-of-truth coverage scripts and matrices in `.ai`.
+- Make context-first workflows portable via `project-config.mdx` and script shortcuts.
+- Encourage contributors to use GPT-5 with these artifacts to iteratively close coverage gaps and add tests.
+
+### Risks and mitigations
+- Risk: context drift between repos. Mitigation: version the Context Pack, document required local overrides in `project-config.mdx`, and run a quick "context sanity" script before generation.
+- Risk: false confidence from incomplete matrices. Mitigation: manual verification steps and regular audits (see Manual Verification of Coverage Matrix above).
+
+### Next actions
+- Add a dedicated "Context Pack" guide with import/setup steps (created in `.ai/testing/context-pack.mdx`).
+- Cross-link the guide from `overview.mdx` and `project-config.mdx` in a future pass.
+- Prefer GPT-5 (Preview) for generation; GPT-4.1 for documentation, as currently noted in `decorators/component.mdx`.
+
+---
+
+
+## Iteration 12: `@Component` — Rule‑driven matrix, generator, and verify guard
+
+**Date:** September 14, 2025
+
+### Summary
+This iteration went well beyond expectations. GPT‑5 proposed and implemented a rule‑driven approach that materially improved speed and reliability:
+- Authored a dedicated generator script for matrix components (10x+ faster end‑to‑end loop).
+- Extracted human‑readable rules into a JSON file as the single source of truth.
+- Added a verify guard script to enforce parity, grouping, and exclusivity, with a probe to validate rule‑driven growth.
+
+### Key Changes
+- Rules as source of truth
+  - `Component/rules.json`: options schema, exclusivity groups, modes (grouping), emit naming/assets.
+- Coverage refactor
+  - `Component/coverage.js`: builds permutation space from rules (cartesian + exclusivity), validates covered permutations via rules, records relative file paths; supports env override `COMPONENT_RULES_PATH` for probes.
+- Generator integration
+  - `Component/generate-components.js`: derives names from `rules.emit.naming`, groups files via `rules.modes` (shadow/scoped/light), emits exactly one style prop per file from `rules.emit.assets`.
+- Verify guard
+  - `verify-matrix.js`: re‑runs coverage; asserts covered === total; asserts `.tsx` parity under `test/wdio/component-decorator/**`; validates exclusivity/groups using recorded files; optional probe removing the “encapsulation” group to confirm total permutations increase; portable (no shell dependency, direct Node invocation).
+- Scripts/docs
+  - `.ai/testing/package.json`: added `component:*` and `state:*` shortcuts, including `component:verify-matrix` and `state:verify-matrix`.
+  - Quickstart updated to verify before build and document the recovery loop (tweak rules → coverage‑loop → verify → build → tests).
+  - Storybook nav updated to surface Quickstart.
+
+### Impact
+- Speed: Loop execution improved by an estimated 10x+ due to automated generation and a clean verify step.
+- Reliability: Exclusivity and grouping are now enforced automatically; parity guard prevents drift; probe confirms rules genuinely drive permutation space.
+
+### Metrics
+- Coverage: 192/192 (100.0%).
+- Probe: Removing the “encapsulation” exclusivity increased total permutations from 192 → 216 (as expected), without generating files.
+- Parity: `.tsx` count under `test/wdio/component-decorator/**` equals the covered permutations (192) recorded in `Testing/Decorators/Component/coverage-data.json`.
+
+### Workflow Update
+- Recommended order: coverage‑loop → verify‑matrix → build → tests.
+- On compiler errors after generation: tweak rules → re‑run coverage‑loop → verify‑matrix → build → tests.
+
+### Lessons Learned
+- Centralizing rules enables both humans and automation to reason about validity and growth.
+- Recording file paths in coverage enables downstream structural checks (grouping by render mode).
+- Avoid shell dependencies for portability; prefer `execFileSync(process.execPath, ...)`.
+- A small, deterministic verify guard prevents slow drift and keeps contributors aligned.
+
+---
+
+## Iteration 13: Decorator Folder Convention and No‑Drift Workflow
+
+**Date:** October 9, 2025
+
+### Summary
+We standardized a per‑decorator folder convention under `Testing/Decorators/<Decorator>/` and aligned docs, generation, and verification to eliminate drift and make the workflow portable across all decorators.
+
+### Convention (applies to every decorator)
+Each decorator now has a dedicated subfolder with the same files/scripts:
+- `@<Decorator>.mdx` — Storybook docs page
+- `rules.json` — single source of truth for valid options, exclusivity, grouping (modes), naming
+- `generate-components.js` — emits one component per valid permutation under the WDIO matrix folder
+- `coverage.js` — computes Phase 1 compile coverage and writes `coverage-data.json`
+- `coverage-data.json` — compile coverage summary and file lists consumed by docs/verify
+- `coverage-overlay.json` — Phase 2 test overlay (tested/testedBy/group), built by `verify-matrix`
+
+### Docs integration
+- `RulesAtAGlance` renders `rules.json` directly to prevent drift (with `modeLabel` support for non‑Component decorators).
+- Section order standardized: 1) Decorator Properties, 2) Rules (at a glance), 3) Generated Components, 4) Component Grouping, 5) Test Cases.
+- Terminology standardized: “Generated Components” replaces “matrix”.
+- Phase 1 note (“compile‑only”) included; Phase 2 columns are placeholders until tests are propagated.
+
+### Verify pipeline
+- `verify-matrix.js` re‑runs coverage, checks parity (covered === total and `.tsx` count), validates grouping from `rules.modes`, enforces exclusivity, and builds the per‑decorator `coverage-overlay.json`.
+- `run-all-coverage.js` refreshes coverage for all decorators.
+
+### Status
+- Adopted for: `@Component`, `@State`.
+- Cleanup: removed `State/compare-legacy.js` (migration helper no longer needed).
+- Next: align `@Prop`, `@Event`, `@Listen`, `@Method` to this convention; add optional CI rule to validate schema and prevent drift.
+
+### Why this matters
+- Predictable structure enables automation (generation, verification, documentation) per decorator.
+- Rendering rules from `rules.json` removes manual duplication and drift.
+- Makes the `.ai` Context Pack portable; contributors can follow the same pattern for new decorators/features.
+
+---
+
+## Milestone: Phase 1 Component Generation Complete
+
+**Date:** October 10, 2025
+
+### Summary
+Phase 1 (compile-only) is complete for all decorators with a no-drift, rule-driven workflow:
+- Unified per-decorator folders: `@Decorator.mdx`, `rules.json`, `coverage.js`, `generate-components.js`, `coverage-data.json`, `coverage-overlay.json`.
+- Shared docs UX via `RulesAtAGlance.jsx` (supports `modeLabel` and conditional bullets).
+- Single generate flow (coverage → generate → coverage) with verify guard to enforce parity, grouping, and exclusivity.
+- Storybook Overview imports updated to read per-decorator `coverage-data.json`.
+
+### Decorators migrated
+- Component, State, Prop, Event, Listen, Method
+
+### Coverage status (compile-only)
+- Component: 192/192 (100%)
+- Prop: 24/24 (100%)
+- Event: 8/8 (100%)
+- Listen: 44/44 (100%)
+- Method: 8/8 (100%, constrained to Promise-returning/async variants)
+- State: 12/12 (100%)
+- Total generated components: 288
+
+### Verify guard and overlays
+- `verify-matrix.js` now supports `--decorator=component|state|prop|event|listen|method`.
+- Validates: coverage parity, `.tsx` file count alignment, grouping by modes, and optional exclusivity checks.
+- Builds `coverage-overlay.json` for each decorator by scanning WDIO tests to surface `tested`/`testedBy` in docs.
+- Listen coverage scan is scoped to `test/wdio/listen/matrix/**` to avoid legacy noise; DATA_PATH fixed.
+- Method overlay/groups align with returns-based grouping; generator cleans invalid non-async void/value files.
+
+### Scripts and workflow
+- `.ai/testing/package.json` adds: `component:*`, `state:*`, `prop:*`, `event:*`, `listen:*`, `method:*` generate and verify shortcuts.
+- Aggregate: `generate-components` runs all decorator loops; `refresh-coverage-matrix` invokes all coverage scripts.
+- `run-all-coverage.js` includes Component, Prop, Event, Listen, Method, State.
+
+### Docs updates
+- Standardized sections per decorator (Decorator Properties, Rules, Generated Components, Grouping, Test Cases).
+- `@State.mdx` cleanups and labels; `@Prop.mdx`, `@Event.mdx`, `@Listen.mdx`, `@Method.mdx` aligned to shared UX.
+
+### Notable fixes
+- Event: regenerated matrix under `test/wdio/event/matrix/<bubbles|no-bubbles>/` with WDIO test asserting in-component counter.
+- Listen: generated full matrix grouped by `target`; overlay built; compile coverage at 100%.
+- Method: constrained to allowed permutations (async or explicit Promise); cleaned invalid files; grouping by `returns`.
+
+### Next (Phase 2: behavioral tests)
+- Reuse WDIO tests across generated components for Listen and Method; mark tested status in overlays.
+- Optionally add JSON Schema validation for `rules.json` and CI automation to enforce no-drift (refresh + verify-all).
+
+---
+
+## Manual Verification of Coverage Matrix
+
+A key step in the testing loop is manual verification of the coverage matrix. After generating components and tests for all decorator permutations, manually change some decorator options (e.g., target, capture) in component files and re-run the coverage script. Confirm that the coverage report updates to reflect these changes. This ensures the coverage script accurately detects permutations and the matrix is reliable.
+
+**Best Practice:**
+- Always perform manual verification after reaching 100% coverage.
+- Document any issues or false positives found during this step.
+- Update the audit log and documentation to reflect improvements.
+
+---
+
+## Iteration 14: Per‑Decorator Verifiers, Shared Core, and Overlay Parity
+
+**Date:** October 15, 2025
+
+### Summary
+We split the monolithic verify step into per‑decorator verifiers, extracted a shared verification core, and tightened overlay/build parity. Each decorator now validates its own coverage and builds its own Phase 2 overlay without triggering global coverage refreshes.
+
+### Key Changes
+- Shared core
+  - Moved verification utilities to `Testing/Decorators/_shared/verify-matrix-core.js` (I/O helpers, coverage refresh, `.tsx` parity guard, grouping/exclusivity validation, test tag manifest, and a `runVerifier` harness).
+  - Core accepts an optional `coverageRunner` so each decorator can refresh only its own coverage.
+- Per‑decorator verify scripts
+  - `Testing/Decorators/{Component,Prop,Event,Listen,Method,State}/verify-matrix.js` now import the shared core and pass a local `coverageRunner` that invokes that decorator’s `coverage.js` only.
+  - Each script builds its own `coverage-overlay.json`, marking tested permutations and recording `testedBy` from WDIO test tags.
+- Component parity fix
+  - Updated `.tsx` file‑count parity to exclude `cmp-base.tsx` under `test/wdio/component-decorator/matrix/`, resolving the previous 193 vs 192 drift.
+- Scripts and workflow
+  - `.ai/testing/package.json` scripts invoke per‑decorator verifiers directly (e.g., `method:verify-matrix`, `component:verify-matrix`) instead of a global switch.
+  - A thin dispatcher remains at `Testing/Decorators/verify-matrix.js` for `--decorator=` forwarding, but shortcuts prefer direct per‑decorator runs.
+
+### Outcomes and Checks
+- `@Method` verifier run
+  - Coverage OK: 8/8
+  - File count OK: 8
+  - Grouping/exclusivity OK
+  - Overlay written: `Testing/Decorators/Method/coverage-overlay.json`
+- `@Component`
+  - Parity logic updated to ignore `cmp-base.tsx`; drift accounted for by the guard. Re‑run in the next batch will confirm, but the logic fix addresses the root cause.
+
+### Why this matters
+- Speed: Per‑decorator coverage refresh avoids unnecessary global work and shortens the loop.
+- Reliability: Parity guard and grouping/exclusivity checks now run locally per decorator, preventing subtle drift.
+- Clarity: Overlays reflect only the tests for that decorator, improving docs fidelity and reviewability.
+
+### How to run
+- Use the `.ai/testing` scripts to run verifiers locally per decorator, for example:
+  - `npm run method:verify-matrix`
+  - `npm run component:verify-matrix`
+  - Similar scripts exist for State, Prop, Event, and Listen.
+
+---
+
+## Iteration 15: `@State` Simplified Flow — data/, merged generate, overlay-only coverage
+
+**Date:** October 16, 2025
+
+### Summary
+We simplified the `@State` decorator workflow to remove confusing "matrix" terminology and split responsibilities cleanly:
+- Components index lives in a `data/` folder alongside rules.
+- Generation and verification happen in one script.
+- The Phase 2 overlay is an overlay-only step that does not trigger coverage refresh.
+- Docs now cross-reference components and tests via stable case numbers instead of test titles.
+
+### Key Changes
+- Per-decorator artifacts relocated
+  - `Testing/Decorators/State/data/` now contains:
+    - `rules.json` (source of truth for options/grouping)
+    - `components.json` (compile index; previously coverage-data)
+    - `test-coverage.json` (overlay; previously coverage-overlay)
+- Merged generation + verification
+  - `State/generate-components.js` now writes `data/components.json` and invokes the shared verifier inline with a local coverage runner (State-only).
+- Overlay-only coverage builder
+  - `State/test-coverage.js` reads `data/components.json` and builds `data/test-coverage.json` without refreshing coverage.
+  - Detection simplified to JSX template scanning (drops parsing of `it()` bodies/selectors).
+  - Stores only `tested` and `caseIds` (no `testedBy` titles). Stable case mapping:
+    - Case #1: primitive mutation (string, number, boolean)
+    - Case #2: complex static render (any, array, object)
+- Shared core cleanup
+  - Removed `quiet` and `skipVerify` flags from `Testing/Decorators/_shared/verify-matrix-core.js` and standardized logs (no "matrix" wording).
+  - Retained the `.tsx` parity adjustment for `@Component` to exclude `cmp-base.tsx`.
+- Scripts update
+  - `.ai/testing/package.json` now exposes `state:generate-components` (merged) and `state:test-coverage` (overlay-only). The obsolete State `verify-matrix`/`coverage.js` scripts were removed from the State flow.
+- Legacy file cleanup
+  - Deleted or stop-writing legacy `coverage-data.json` and `coverage-overlay.json` under State.
+
+### Docs UX updates (`@State.mdx`)
+- Avoids "matrix"; uses "Generated Components" and "Test Cases".
+- Combines "Tested" + "Test Cases" into a single "Tested By" column showing `#1`, `#2`, or `1 & 2` per row.
+- Reorders the Test Cases table columns: "Test Case #" first, "Status" last.
+- Moves the Test Cases section directly under Rules for faster context.
+
+### Outcomes and Checks
+- Ran `npm run state:test-coverage`; wrote `Testing/Decorators/State/data/test-coverage.json` successfully.
+- Static checks on modified files passed; no type/lint errors reported.
+
+### Why this matters
+- Clearer separation of concerns and fewer moving parts.
+- Overlay reflects real behavioral coverage with stable case numbers (no reliance on brittle test titles).
+- Faster local iteration: run generation once, then update overlay as tests evolve.
+
+### Next Steps
+- Propagate this pattern to other decorators (Prop, Event, Listen, Method, Component):
+  - Move artifacts into `data/`, merge generate+verify as applicable, and make overlay builders refresh-free.
+  - Update docs to adopt case-based cross-referencing and section order.
+  - Remove obsolete legacy scripts and terms.
+
+---
+
+## Iteration 16: State path alignment and immutable audit policy
+
+**Date:** October 16, 2025
+
+### Summary
+We finalized the State decorator migration by aligning WDIO component paths to the new `components/` folder and verified the merged generate+verify flow plus overlay-only test coverage produce consistent results. We also codified the policy that historic audit entries remain immutable and reflect the repo state at the time they were authored.
+
+### Key Changes
+- Path alignment
+  - Generator emits to `test/wdio/state/components/**` (grouped by type), replacing legacy references to `state/matrix` in new docs only.
+  - WDIO tests remain under `test/wdio/state/tests` with JSX-based tag rendering for coverage detection.
+- Validation runs
+  - Ran `State/generate-components.js`: coverage parity OK (12/12), file count OK (12), grouping/exclusivity OK.
+  - Ran `State/test-coverage.js`: overlay written to `Testing/Decorators/State/data/test-coverage.json`; stats show percentTested = 100% via JSX tag scan.
+- Immutable audit policy
+  - Reaffirmed that older audit entries are historical records and must not be edited to reflect new paths or terms. New terminology appears only in subsequent entries.
+
+### Outcomes
+- `Testing/Decorators/State/data/components.json` and `test-coverage.json` are in sync and stable.
+- State WDIO tests cover all 12 permutations; overlay confirms 100% tested permutations.
+- Historical entries retain prior `state/matrix` wording where applicable; new entries and docs use `state/components`.
+
+### Why this matters
+- Prevents confusion from path drift during the rename by separating historical record from current state.
+- Confirms the simplified State workflow is repeatable: generate+verify once, re-run overlay as tests evolve, no hidden refreshes.
+
+### Next Steps
+- Roll the same path alignment and overlay-only model across other decorators while leaving old audit entries untouched:
+  - Keep artifacts in `data/`, ensure per-decorator generator verifies parity, and build overlays from JSX tags.
+  - Update forward-looking docs and scripts to avoid "matrix" terminology while preserving history in the audit log.
+
+---
+
+## Iteration 17: Shared Test Infrastructure and Script Modernization
+
+**Date:** October 22-24, 2025
+
+### Summary
+We refactored test-coverage infrastructure to be shared across all decorators and modernized component generation scripts, setting the foundation for extending the testing strategy to new feature areas like component inheritance (`extends`).
+
+### Key Changes
+- Shared infrastructure
+  - Created shared test-coverage infrastructure that can be reused across decorators and new testing domains (e.g., Extends functionality).
+  - Modernized generate-components scripts to use shared patterns and utilities.
+  - Enhanced test coverage architecture with better planning and tracking systems.
+- Script improvements
+  - Added force flags to all generation scripts for easier iteration.
+  - Removed user-specific filepath comments from generated components for cleaner code.
+  - Improved memory and documentation for AI-assisted workflows.
+- Documentation
+  - Updated workflow documentation to reflect latest steps and best practices.
+  - Added comprehensive planning documentation for new test areas.
+
+### Why this matters
+- Reusable infrastructure enables rapid expansion to new testing domains (decorators, behaviors, patterns).
+- Consistent patterns across scripts reduce cognitive load and improve maintainability.
+- Better planning systems help identify coverage gaps and prioritize work.
+
+### Outcomes
+- All decorator generation scripts now use shared utilities.
+- Foundation in place for testing component inheritance patterns (extends).
+- Improved developer experience with cleaner, more consistent tooling.
+
+---
+
+## Iteration 18: Extends Functionality — Initial Implementation and Documentation
+
+**Date:** October 27-28, 2025
+
+### Summary
+Organized and documented existing extends tests into a comprehensive testing framework, establishing coverage tracking and documentation for Stencil's `extends` functionality. This represents a new testing domain beyond decorators, covering how components can extend base classes, abstract classes, and other components.
+
+### Phase 1: Foundation and Structure (Oct 27)
+- Documentation structure
+  - Created `Testing/Behavior/Extends/` subfolder following decorator pattern.
+  - Added `Overview.mdx` with coverage summary and test case matrix.
+  - Established test case numbering system (1-17 planned cases).
+  - Created `README.md` with workflow documentation.
+- Test infrastructure
+  - Moved existing extends tests to `test/wdio/ts-target/extends-*/` following ES2022 target pattern.
+  - Created automated test-coverage tracking script (`test-coverage.js`).
+  - Established HTML test pages for dist and custom-elements outputs.
+
+### Phase 2: Existing Test Cases Organized (Oct 27-28)
+**Note**: These test cases existed before Iteration 18 and were organized/ingested into the framework:
+- Test Case #1: Lifecycle Inheritance (Basic)
+  - Component extends base class with lifecycle methods.
+  - Tests: componentWillLoad, componentDidLoad, componentWillRender, componentDidRender, componentWillUpdate, componentDidUpdate.
+  - 6 tests passing (5 dist, 1 custom-elements).
+- Test Case #2: Multi-Level Lifecycle Inheritance
+  - Component → Base → GrandparentBase inheritance chain.
+  - Tests multi-level super() call chains and event ordering.
+  - 7 tests passing (6 dist, 1 custom-elements).
+- Test Case #6: Abstract base class inheritance (12 tests).
+- Test Case #7: Component-to-component inheritance (12 tests).
+- Test Case #8: External library inheritance (12 tests).
+- Test Case #9: Mixin composition (12 tests).
+- Test Case #12: Controller-initiated updates (5 tests).
+- Test Case #12a: Direct state management (5 tests).
+
+**Existing Test Baseline**: 8 test cases, 71 tests passing (all existed prior to Iteration 18)
+
+### Phase 3: Examples and Patterns (Oct 27-28)
+- Implemented Lit's ClockController example using Stencil extends
+  - Demonstrates reactive controller pattern from Lit translated to Stencil.
+  - Shows both controller-initiated updates and direct state management.
+  - Validates that Stencil's extends is simpler and more powerful than Lit's approach.
+- Added collapsible code examples with syntax highlighting.
+- Documented real-world use cases and patterns.
+
+### Coverage at End of Phase
+- 8/17 test cases implemented (47%)
+- 71 tests passing
+- Breakdown: 13 lifecycle, 48 standard patterns, 10 reactive controllers
+
+### Key Learnings
+- Extends functionality requires different testing patterns than decorators
+  - Focus on inheritance chains, super() calls, and property/method propagation.
+  - Need to test across multiple output targets (dist, custom-elements, hydrate).
+- ES2022 target required
+  - Component classes can only extend when targeting ES2022+.
+  - Build warnings surface when targeting older JavaScript versions.
+- Documentation strategy
+  - Test case matrix approach from decorators works well for extends.
+  - Visual coverage summary helps track progress toward 100%.
+- Real-world validation
+  - Comparing with Lit's patterns validates Stencil's approach.
+  - Examples from other frameworks (Lit) help identify missing test cases.
+
+### Next Steps
+- Implement remaining 9 test cases:
+  - #3: Property & State inheritance
+  - #4: Method inheritance
+  - #5: Render method inheritance
+  - #10-11: Event handling and Watch decorators
+  - #13-14: Real-world controllers (FloatingUI, Validation)
+  - #15-16: Edge cases and SSR
+
+---
+
+## Iteration 19: Strategic Decision — Extends vs @Controller
+
+**Date:** October 30, 2025
+
+### Summary
+Documented the strategic decision to move forward with `extends` functionality over implementing a new `@Controller` decorator, providing clarity on architectural direction and rationale.
+
+### Key Points
+- Extends provides more idiomatic JavaScript inheritance patterns
+- No new decorators needed — uses standard ES6+ class syntax
+- More flexible and powerful than controller-specific decorator
+- Better alignment with web standards and framework-agnostic patterns
+- Simpler mental model for developers familiar with OOP
+
+### Documentation
+- Added comprehensive analysis document explaining the decision.
+- Included comparison with other frameworks (Lit, Angular).
+- Provided migration guidance for patterns that might use @Controller.
+
+### Why this matters
+- Clarifies long-term architectural direction for component composition.
+- Helps contributors understand design philosophy.
+- Guides future feature prioritization and testing strategy.
+
+---
+
+## Iteration 20: Extends Automation, Test Case #3, and Documentation Improvements
+
+**Date:** November 10, 2025
+
+### Summary
+Major automation improvements for extends testing, implementation of Test Case #3 for property/state inheritance, and comprehensive documentation enhancements. This iteration brought extends coverage above 50% (9/17 cases) and demonstrated the maturity of the testing infrastructure.
+
+### Phase 1: Test Coverage Automation
+- Automated coverage tracking
+  - Created `test-coverage.js` script that auto-scans extends test directories.
+  - Detects test counts per component by parsing `it()` blocks.
+  - Identifies output target breakdowns (dist, customElements, hydrate) from `describe` blocks.
+  - Updates `test-coverage.json` with current stats and timestamps.
+- Integration with test workflow
+  - Added `postextends:test` hook to auto-update coverage after test runs.
+  - Created shortcut scripts in `.ai/testing/package.json`:
+    - `extends:test` — runs all extends tests
+    - `extends:test-coverage` — manually updates coverage data
+    - `query-missing-tests` — shows missing test cases across all decorators AND extends
+- Query utility enhancement
+  - Extended `query-missing-tests.js` to include extends functionality alongside decorators.
+  - Output format: `⚠️ Extends: X/17 implemented, missing #Y, #Z... (N tests passing)`
+
+### Phase 2: Test Case #3 Implementation
+- Target: Property & State Inheritance Basics
+- Files created
+  - `test/wdio/ts-target/extends-props-state/props-state-base.ts` — base class with @Prop and @State
+  - `test/wdio/ts-target/extends-props-state/cmp.tsx` — component extending base
+  - `test/wdio/ts-target/extends-props-state/cmp.test.ts` — 15 comprehensive tests
+  - HTML test pages for dist and custom-elements outputs
+- Test coverage (15 tests)
+  - @Prop inheritance: default values, attribute updates, property updates
+  - @State inheritance: default values, method updates, reactivity
+  - No conflicts: component-specific props/state alongside inherited ones
+  - Property reactivity: inherited properties trigger re-renders correctly
+  - Output targets: 12 dist tests, 3 custom-elements tests
+- All tests passing on first run
+
+### Phase 3: Documentation and UX Improvements
+- Overview documentation
+  - Removed redundant status card (showing "✓ Good" at 50%+ coverage).
+  - Simplified to 2-card layout: Test Cases Implemented + Total Tests Passing.
+  - Updated timestamp tracking to show last test run.
+- AI prompt improvements
+  - Updated `ai-prompt-shortcuts.md` to handle "what test cases are missing" queries automatically.
+  - Added explicit instruction: "When asked about missing test cases, ALWAYS run the query script first."
+  - Listed all common variations of the query ("show missing tests", "query missing tests", etc.).
+  - Added memory to prevent asking for clarification in future sessions.
+- Test suite organization
+  - Standardized test naming: "Test Case #N – Feature Description"
+  - Consistent describe block structure for output targets
+  - DOM-based assertions for reliable WDIO verification
+
+### Coverage Metrics
+- Before: 8/17 test cases (47%), 71 tests passing
+- After: 9/17 test cases (53%), 86 tests passing
+- New tests added: 15 (all for Test Case #3)
+- Test breakdown: 13 lifecycle, 63 standard patterns, 10 reactive controllers
+
+### Key Learnings
+- **Mature AI-Assisted Workflow Achievement**
+  - Complete end-to-end implementation with zero human intervention required:
+    - Created base class with @Prop and @State decorators
+    - Created component extending the base class
+    - Wrote 15 comprehensive WDIO tests
+    - Built components successfully
+    - Ran all tests - all passing on first attempt
+  - Stark contrast to earlier iterations (see Iteration 4: @Event decorator struggles with pattern blindness, tool instability, constant corrections).
+  - Success factors: strong context from .ai folder, clear patterns from existing tests, automated workflows, memory of common patterns.
+- Test-first infrastructure
+  - Automated coverage tracking saves time and reduces manual errors.
+  - Integration with test workflow (postextends:test hook) ensures stats stay current.
+  - Query utility provides instant visibility into missing coverage across entire testing framework.
+- AI collaboration patterns
+  - Clear documentation of common queries ("what test cases are missing") enables better AI assistance.
+  - Memory system prevents repeated clarification loops.
+  - Pattern recognition from existing tests (lifecycle, abstract) accelerates new test creation.
+  - Investment in .ai context (from Iteration 11) continues to pay dividends.
+- Property/State inheritance testing
+  - Need to test both inherited and component-specific properties to ensure no conflicts.
+  - Reactivity must work for both base class and component state changes.
+  - Multiple output targets (dist, custom-elements) required for comprehensive coverage.
+- Documentation evolution
+  - Less is more: removed status card that provided redundant information.
+  - Timestamp tracking helps teams coordinate and understand freshness of data.
+
+### Process Improvements Made
+1. **Automation First**: Coverage tracking now happens automatically after every test run.
+2. **Query Integration**: Missing test case queries work across decorators AND extends functionality.
+3. **Pattern Library**: Test Case #3 establishes patterns for property/state inheritance that can guide Cases #4 and #5.
+4. **Documentation Standards**: Consistent test naming and structure across all extends tests.
+
+### Next Steps (8 test cases remaining)
+- #4: Method Inheritance Basics (@Method inheritance, super() calls)
+- #5: Render Method Inheritance (template composition, slots)
+- #10: Event Handling Inheritance (@Listen decorators)
+- #11: Watch Decorator Inheritance (@Watch behavior)
+- #13: FloatingUI Controller (real-world Popper.js integration)
+- #14: ValidationController (real-world form validation)
+- #15: Decorator Conflicts & Edge Cases
+- #16: SSR & Hydration
+
+---
+
+## Milestone: Autonomous AI Test Implementation — Original Goal Achieved
+
+**Date:** November 10, 2025
+
+### Summary
+**Test Case #3 implementation represents a watershed moment**: AI delivered a complete, production-ready feature (base class, component, 15 tests, build, verification) with zero human intervention. This validates the original vision and demonstrates that the testing infrastructure has reached maturity.
+
+### Original Goal (from project inception)
+> Enable anyone with minimal knowledge about the system to easily add missing test cases with confidence.
+
+### Achievement Validated
+The complete autonomous implementation of Test Case #3 proves this goal is now reality:
+- **Minimal Knowledge Required**: AI identified missing test case via query script, understood requirements from existing patterns.
+- **Easy to Add**: Single conversation from "what test cases are missing" → fully implemented and verified.
+- **High Confidence**: All 15 tests passed on first run; coverage updated automatically; no debugging or iteration needed.
+
+### The Journey (Contrast)
+This milestone is particularly significant when compared to the journey documented in this audit:
+
+**Early Struggles (Iterations 1-6, Aug-Sep 2025)**
+- Constant course correction and pattern blindness
+- Manual intervention at every step
+- Tool instability and error loops
+- Success dependent on human expertise guiding each decision
+
+**Iteration 4 Low Point (@Event decorator)**
+- Wrong directory, wrong testing framework, wrong patterns
+- File system failures requiring manual recovery
+- AI unable to self-correct without detailed guidance
+- Human shifted from supervisor to constant troubleshooter
+
+**The Turning Point (Iteration 11, Sep 8 2025)**
+- Context-First Strategy hypothesis: invest in .ai infrastructure → better AI outcomes
+- Bet on future model improvements benefiting from strong context
+- Portability vision: enable crowdsourcing via shared Context Pack
+
+**Today's Validation (Iteration 20)**
+- Zero intervention from start to finish
+- Pattern recognition and autonomous decision-making
+- Proper tool usage and self-verification
+- Professional-grade output quality
+
+### Second Major Breakthrough
+This represents the **second major breakthrough** in the project's evolution:
+1. **First Breakthrough** (Sep 8, Iteration 12): GPT-4.1 → GPT-5.0 model improvement materially changed code generation quality
+2. **Second Breakthrough** (Nov 10, Today): Original goal achieved + framework adaptability/portability validated
+
+### Framework Validations Achieved
+This milestone validates **three critical assumptions** about the framework architecture:
+
+**#1: Pattern Flexibility — AI Generation Instead of Scripts**
+- **Pivot Validated**: Switched from decorator focus (script-generated components) to extends functionality (AI-generated components)
+- **Workflow Preserved**: Coverage tracking, verification, documentation still worked perfectly despite different generation approach
+- **Architecture Win**: Framework is pattern-agnostic, not tied to specific generation method
+- **Implication**: Can test any Stencil feature (decorators, behaviors, patterns) using the same infrastructure
+
+**#2: Workflow Reusability Across Domains**
+- **Coverage System Universal**: Same `test-coverage.js` approach works for decorators and extends
+- **Query Integration**: Single `query-missing-tests.js` shows gaps across all domains
+- **Scale Proven**: Extends now has most test cases of any tested area:
+  - 17 total test cases planned
+  - 9 implemented (53%)
+  - 86 tests passing
+  - More than any individual decorator (@Component: 192 components but fewer behavioral tests)
+- **Documentation Patterns**: Overview.mdx structure works across testing domains
+
+**#3: Ingestion Process — Organizing Existing Tests**
+- **Critical Validation**: Successfully ingested existing extends tests into test case framework
+- **Pattern Proven**: Framework can organize/track existing tests, not just generate new ones
+- **Future Unlocked**: Can now ingest all existing tests under `test/wdio/` into systematic coverage tracking
+- **Strategic Win**: This was a planned future feature (from roadmap) that got validated early during extends work
+
+### Why This Matters for the Project
+1. **Crowdsourcing Enabled**: Contributors can now ask AI "implement Test Case #X" and submit PRs guided by shared context.
+2. **Velocity Multiplier**: What took days of back-and-forth in August now happens in one conversation.
+3. **Framework Portability**: Not tied to decorators or script generation - works for any testing domain with any generation approach.
+4. **Backward Compatibility**: Can ingest existing tests into framework, not just generate new ones from scratch.
+5. **Strategic Flexibility**: Can pivot priorities (decorators → extends) without rebuilding infrastructure.
+
+### What Changed (Technical)
+The infrastructure that enabled this milestone:
+- **Coverage Scripts**: Automated discovery of missing permutations/test cases
+- **Query Utilities**: Instant visibility across decorators + extends
+- **Shared Patterns**: Reusable test patterns in existing code
+- **Documentation**: Clear workflows and examples in .ai folder
+- **Automation**: Integrated build, test, coverage update pipelines
+- **Memory**: AI learns from past patterns and mistakes
+
+### Model Evolution Context
+This milestone also coincides with access to more capable models (GPT-4.1, GPT-5 Preview). The combination of:
+1. Strong context infrastructure (.ai folder)
+2. Improved model capabilities
+3. Learned patterns and memory
+
+...creates a multiplier effect that exceeds the sum of parts.
+
+### The Virtuous Cycle
+We've achieved a self-reinforcing system:
+1. Strong context → Better AI performance
+2. Better AI performance → More tests/docs added
+3. More tests/docs → Stronger context
+4. Loop continues with decreasing human intervention
+
+### Implications for Future Work
+- **Remaining 8 Extends Test Cases**: Can likely be implemented with similar autonomy
+- **New Testing Domains**: Pattern can extend beyond decorators and extends (e.g., build conditionals, styling, output targets)
+- **Existing Test Ingestion**: Can now systematically organize all existing `test/wdio/` tests into coverage framework
+- **Hybrid Approaches**: Proven ability to mix script-generated (decorators) and AI-generated (extends) tests in same framework
+- **Contributor Onboarding**: New contributors can be productive immediately via AI assistance
+- **Maintenance**: Coverage gaps can be filled rapidly as framework evolves
+- **Cross-Framework Portability**: Architecture validated as framework-agnostic, ready for export as Context Pack
+
+### A Note on Human-AI Collaboration
+This milestone doesn't diminish the human role—it elevates it:
+- Humans set direction, identify blind spots, make strategic decisions (like Extends vs @Controller)
+- AI handles implementation, pattern application, repetitive work
+- The audit itself is a human-curated record that guides both humans and AI
+
+This is the future of software development: humans as architects and reviewers, AI as tireless implementers, both guided by shared, versioned context.
+
+### The Complete Picture: What We Built
+Stepping back, this milestone validates we've built something unique:
+- **Not just a test suite**, but a self-documenting, AI-navigable testing framework
+- **Not just for decorators**, but for any Stencil feature or pattern
+- **Not just for new tests**, but can organize and track existing tests
+- **Not just for one generation approach**, but flexible to scripts or AI as appropriate
+- **Not just for this project**, but portable as a Context Pack to other repos
+
+The original goal was to make test coverage accessible to anyone. We achieved that and discovered the framework has properties we didn't initially expect: adaptability, portability, and the ability to grow organically with the codebase.
+
+### Expanding Vision: Beyond Stencil Core
+The successful ingestion of existing extends tests unlocks two major opportunities:
+
+**1. Complete Stencil Core Coverage**
+- **Existing tests under `test/wdio/`**: Hundreds of tests that predate this framework
+- **Now provably ingestible**: Same pattern used for extends can organize all wdio tests
+- **Systematic coverage tracking**: Can map every existing test to features/patterns
+- **AI-navigable**: Once ingested, AI can understand what's tested and what's missing
+- **Timeline**: With proven ingestion pattern, likely achievable in days/weeks vs months
+
+**2. Real-World Validation: Ionic Components as Test Cases**
+- **The Vision**: Integrate Ionic's production Stencil components into Stencil Core testing framework
+- **Why this matters**: Ionic = real-world, complex Stencil components in production
+- **The approach**:
+  - AI analyzes Ionic's Stencil components (complex, production patterns)
+  - AI ports/adapts components and their tests into Stencil Core test suite
+  - Framework ingests them as test cases validating real-world usage
+  - Stencil Core CI now catches changes that would break Ionic
+- **Strategic value**:
+  - **Regression protection**: Changes that break Ionic get caught before merge
+  - **Pattern validation**: Ensures Stencil supports real-world complexity
+  - **Documentation**: Ionic patterns become examples of correct usage
+  - **Continuous validation**: As Ionic evolves, Stencil tests evolve with it
+- **Why now**: 
+  - Ingestion patterns proven (extends work showed we can organize existing code)
+  - AI can understand Ionic patterns and adapt them for Stencil Core tests
+  - Framework can track coverage of real-world patterns
+
+### The Multiplier Effect
+```
+Framework Capabilities:
+├── Generate (scripts)      ✅ Decorators: 288 components
+├── Generate (AI)           ✅ Extends: 86 tests
+├── Ingest (existing)       ✅ Extends tests organized
+├── Scale (full codebase)   → All wdio tests: ~hundreds more
+├── Import (real-world)     → Ionic components as test cases
+└── Validate (production)   → Stencil Core CI catches Ionic breaks
+
+Each capability multiplies the others:
+- Ingestion makes existing code AI-navigable
+- AI can import real-world components
+- Framework validates production patterns
+- Coverage system tracks real-world usage
+- Strong context ensures nothing breaks
+```
+
+### The Ionic Integration Use Case
+This is potentially the most strategically valuable application:
+
+**The Problem:**
+- Ionic (major Stencil user) has complex, production components
+- Stencil Core changes could break Ionic in subtle ways
+- No automated way to validate Stencil changes against Ionic patterns
+- Manual testing = slow feedback, missed edge cases
+
+**The Solution (AI-Assisted Integration):**
+```
+1. AI reads Ionic component source (already Stencil!)
+2. AI adapts component for Stencil Core test suite
+3. AI ports/adapts Ionic tests to framework patterns
+4. Framework ingests as real-world test cases
+5. Stencil Core CI now runs Ionic patterns
+6. Any breaking change caught before merge
+
+Timeline: Import components systematically vs manual selection
+Human role: Choose which Ionic patterns to import, validate
+```
+
+**Strategic Value:**
+- **Ionic's confidence**: Stencil changes validated against their codebase
+- **Stencil's coverage**: Real-world patterns tested, not just synthetic examples  
+- **Faster iteration**: Breaking changes caught in CI, not production
+- **Pattern library**: Ionic's components become reference implementations
+- **Continuous validation**: As Ionic evolves, patterns stay current
+
+**Why This Works:**
+- **Same framework**: Ionic components are already Stencil (no translation needed)
+- **Proven ingestion**: Pattern validated with extends tests
+- **AI adaptation**: Can modify Ionic components for test suite context
+- **Framework validation**: Coverage system ensures completeness
+
+### Confidence Gained
+The extends work proved the framework can:
+- Pivot priorities without rebuilding (decorators → extends)
+- Organize chaos into systematic coverage (existing extends tests → test cases)
+- Scale beyond initial scope (now eyeing all wdio tests + Ionic migration)
+
+This isn't just confidence in the framework—it's confidence in the **approach**. The Context-First Strategy (Iteration 11) bet is paying exponential dividends.
+
+### From Testing Framework to Production Validator
+The realization that AI can integrate **real-world production components** into the test framework represents a paradigm shift:
+
+**What started as:** "Let's make it easy to add test coverage"
+
+**What it became:** "An AI-navigable framework for validating framework changes against real-world production code"
+
+**Applications now visible:**
+1. Generate new tests (decorators, extends)
+2. Organize existing tests (wdio ingestion)
+3. **Import production components (Ionic) as validation suite**
+4. Prevent regressions in downstream projects (Ionic)
+5. Fill gaps with AI-identified missing coverage
+
+**The Ionic Integration Unlock:**
+- Ionic represents **years of production Stencil usage**
+- Complex components exercising edge cases and advanced patterns
+- By integrating Ionic components into Stencil Core tests:
+  - Stencil Core is validated against its largest consumer
+  - Ionic gains confidence that Stencil changes won't break them
+  - Community benefits from real-world pattern validation
+
+This transforms the testing framework from "unit tests for Stencil" to "production validation for the Stencil ecosystem."
+
+---
+
+## Iteration 21: Cursor Plans Workflow — Structured Test Case Implementation
+
+**Date:** November 20-30, 2025
+
+### Summary
+Adopted Cursor plans as the standard workflow for implementing test cases, creating structured planning documents that guide AI-assisted implementation and serve as documentation for future reference.
+
+### Key Changes
+- **Cursor Plans Directory**
+  - Established `.cursor/plans/` directory for test case implementation plans
+  - Each plan follows a consistent structure: Overview, Files to Create, Implementation Details, Testing Strategy, Implementation Steps, Results
+  - Plans serve dual purpose: AI guidance during implementation and historical documentation
+- **Plan Structure Standardization**
+  - Overview section describes the test case purpose and scope
+  - Files to Create section lists all components, tests, and HTML pages needed
+  - Implementation Details section includes patterns to follow and key implementation notes
+  - Results section captures outcomes and learnings
+  - Reference Files section links to similar implementations and related documentation
+- **Workflow Integration**
+  - Plans are created before implementation begins
+  - Plans reference existing test cases as patterns to follow
+  - Plans document common issues and solutions encountered
+  - Plans capture key learnings for future test cases
+
+### Why This Matters
+- **Consistency**: Standardized plan structure ensures all test cases follow the same implementation approach
+- **Documentation**: Plans serve as living documentation of how each test case was implemented
+- **AI Guidance**: Structured plans provide clear context for AI assistants, reducing back-and-forth
+- **Knowledge Transfer**: Plans capture implementation patterns and solutions for future reference
+- **Traceability**: Each test case has a corresponding plan documenting its creation
+
+### Outcomes
+- Plans created for Test Cases #11, #15, and #20 (Mixed Decorator Types)
+- Consistent structure across all plans enables rapid onboarding
+- Plans reference each other, creating a knowledge graph of implementation patterns
+- Plans document not just what was implemented, but why and how
+
+### Key Learnings
+- **Planning Before Implementation**: Creating plans first reduces implementation time and errors
+- **Pattern Reuse**: Plans explicitly reference similar test cases, enabling pattern recognition
+- **Issue Documentation**: Capturing common issues and solutions in plans prevents repeated mistakes
+- **Results Tracking**: Plans document expected vs actual results, enabling continuous improvement
+
+---
+
+## Iteration 22: Completion of Remaining Extends Test Cases — #11, #15, #18
+
+**Date:** November 25 - December 2, 2025
+
+### Summary
+Completed implementation of the remaining extends test cases using the Cursor plans workflow, bringing extends functionality to 100% coverage with all tests passing on first run.
+
+### Phase 1: Test Case #11 — Watch Decorator Inheritance (November 25, 2025)
+- **Target**: @Watch decorator behavior through inheritance chains
+- **Implementation**
+  - Created `watch-base.ts` with @Watch decorators on @Prop and @State properties
+  - Implemented watch handler tracking via arrays (similar to EventBase pattern)
+  - Created component extending WatchBase with additional @Watch decorators
+  - Implemented watch handler override behavior
+- **Test Coverage**: 16 tests (13 dist + 3 custom-elements)
+- **Key Features Tested**
+  - @Watch decorator inheritance from base class
+  - Watch execution order (base vs component handlers)
+  - Reactive property chains (watch handlers triggering other changes)
+  - Watch handler override behavior when both base and component watch same property
+- **Results**: All 16 tests passing on first run
+- **Coverage Impact**: 16/21 test cases implemented (76%), 155 total tests
+
+### Phase 2: Test Case #15 — Decorator Conflicts (November 28, 2025)
+- **Target**: Duplicate decorator names of the same type in inheritance chains
+- **Implementation**
+  - Created `conflicts-base.ts` with @Prop, @State, and @Method decorators
+  - Component defines duplicate decorators with same names but different values/behavior
+  - Tests verify component decorators override base decorators (compiler precedence rules)
+- **Test Coverage**: 19 tests (15 dist + 4 custom-elements)
+- **Key Features Tested**
+  - Duplicate @Prop names: Component @Prop overrides base @Prop
+  - Duplicate @State names: Component @State overrides base @State
+  - Duplicate @Method names: Component @Method overrides base @Method
+  - Compiler precedence rules: Component decorators take precedence
+- **Results**: All 19 tests passing on first run
+- **Coverage Impact**: 17/19 test cases implemented (89%), 174 total tests
+- **Key Learning**: Component decorators always override base decorators — confirmed behavior via compiler's `deDupeMembers` logic
+
+### Phase 3: Test Case #18 — Mixed Decorator Types (December 2, 2025)
+- **Target**: Same name used as different decorator types in inheritance chains
+- **Implementation**
+  - Created `mixed-decorators-base.ts` with @Prop, @State, and @Method decorators
+  - Component defines conflicting decorators with same names but different types:
+    - @State in component conflicts with base @Prop
+    - @Prop in component conflicts with base @State
+    - @Prop in component conflicts with base @Method
+- **Test Coverage**: 20 tests (16 dist + 4 custom-elements)
+- **Key Features Tested**
+  - @Prop in Base, @State in Component: Component @State overrides base @Prop
+  - @State in Base, @Prop in Component: Component @Prop initial values work but updates may conflict
+  - @Method in Base, @Prop in Component: Base @Method makes component @Prop read-only
+  - Runtime behavior documentation for future compiler validation improvements
+- **Results**: All 20 tests passing on first run
+- **Coverage Impact**: 18/18 test cases implemented (100%), 194 total tests
+- **Key Learning**: Runtime conflicts documented for future compiler validation improvements
+
+### Coverage Metrics
+- **Baseline (Iteration 18)**: 8 test cases existed, 71 tests passing
+  - Test Cases #1, #2, #6, #7, #8, #9, #12, #12a (all existed before framework organization)
+- **After Iteration 20**: 9/17 test cases (53%), 86 tests passing (+1 test case, +15 tests)
+- **After Iteration 22**: 18/18 test cases (100%), 194 tests passing
+- **New Tests Added Since Iteration 18**: 123 tests across 10 test cases
+  - Test Case #3: +15 tests (Iteration 20)
+  - Test Cases #4, #5, #10, #11, #13, #14, #15, #16, #18: +108 tests (Iteration 22)
+- **Test Breakdown**: 13 lifecycle, 151 standard patterns, 30 reactive controllers
+
+### Key Learnings
+- **Cursor Plans Workflow Success**: Structured plans enabled rapid, reliable implementation
+- **Pattern Recognition**: Reusing patterns from existing test cases (EventBase → WatchBase) accelerated development
+- **First-Run Success**: All tests passed on first run, demonstrating framework maturity
+- **Compiler Behavior Documentation**: Test Case #18 documented runtime behavior that can inform future compiler improvements
+- **Framework Reliability**: Zero debugging or iteration needed — framework produces production-ready tests
+
+### Process Improvements Made
+1. **Structured Planning**: Cursor plans workflow standardized implementation approach
+2. **Pattern Library**: Each test case builds on patterns from previous cases
+3. **Issue Documentation**: Plans capture common issues and solutions for future reference
+4. **Results Tracking**: Plans document expected vs actual results, enabling continuous improvement
+
+---
+
+## Milestone: 100% Extends Coverage Achieved — Framework Reliability Validated
+
+**Date:** December 3, 2025
+
+### Summary
+**All 18 extends test cases are now implemented with 194 tests passing.** This milestone validates that the testing framework has reached production-grade reliability, consistently producing tests that pass on first run without debugging or iteration.
+
+### Achievement Metrics
+- **Test Cases**: 18/18 implemented (100%)
+- **Total Tests**: 194 tests passing
+- **Test Breakdown**:
+  - 13 lifecycle tests
+  - 151 standard pattern tests
+  - 30 reactive controller tests
+- **Output Targets**: Tests cover dist, custom-elements, and hydrate outputs
+- **Reliability**: All tests passing on first run — zero debugging required
+
+### Framework Reliability Indicators
+1. **First-Run Success Rate**: 100% — every test case implementation produced passing tests immediately
+2. **Zero Debugging Loops**: No test failures requiring investigation or fixes
+3. **Consistent Patterns**: Reusable patterns across test cases (lifecycle, events, watch, conflicts)
+4. **Automated Coverage**: Coverage tracking updates automatically after each test run
+5. **Documentation Quality**: Plans and tests serve as comprehensive documentation
+
+### The Journey to 100%
+- **Baseline (Before Iteration 18)**: 8 existing test cases, 71 tests (organized/ingested)
+- **Iteration 18** (Oct 27-28): Framework organization — ingested 8 existing test cases into coverage system
+- **Iteration 20** (Nov 10): Test Case #3 added (+15 tests) → 9/17 test cases (53%), 86 tests
+- **Iteration 22** (Nov 25 - Dec 2): 9 new test cases added (+108 tests) → 18/18 test cases (100%), 194 tests
+- **Total New Implementation Time**: ~5 weeks from framework organization to 100% coverage
+- **AI-Assisted Efficiency**: Average ~2 test cases per week with minimal human intervention
+- **Existing vs New**: 8 test cases existed before framework, 10 test cases added via framework
+
+### What This Validates
+1. **Framework Maturity**: The testing infrastructure produces reliable, production-ready tests
+2. **AI Collaboration**: AI-assisted implementation delivers consistent, high-quality results
+3. **Pattern Reusability**: Established patterns accelerate new test case implementation
+4. **Workflow Effectiveness**: Cursor plans workflow provides structure without overhead
+5. **Coverage Completeness**: All planned test cases implemented, no gaps identified
+
+### Comparison to Early Iterations
+**Early Struggles (Iterations 1-6, Aug-Sep 2025)**
+- Constant course correction and pattern blindness
+- Manual intervention at every step
+- Tool instability and error loops
+- Success dependent on human expertise
+
+**Today's Reality (December 2025)**
+- Zero intervention from start to finish
+- Pattern recognition and autonomous decision-making
+- Proper tool usage and self-verification
+- Professional-grade output quality
+
+### Framework Evolution Summary
+The extends functionality testing represents the **third major validation** of the framework:
+1. **First Validation** (Iteration 12, Sep 8): GPT-5 model improvement → better code generation
+2. **Second Validation** (Iteration 20, Nov 10): Autonomous test implementation → original goal achieved
+3. **Third Validation** (Today, Dec 3): 100% coverage with first-run success → framework reliability proven
+
+### Strategic Implications
+- **Crowdsourcing Ready**: Contributors can implement test cases with AI assistance using established patterns
+- **Maintenance Confidence**: Framework changes can be validated against comprehensive test suite
+- **Pattern Library**: 18 test cases serve as reference implementations for real-world usage
+- **Documentation Quality**: Plans and tests provide comprehensive documentation of extends functionality
+- **Future Expansion**: Framework proven adaptable to new testing domains beyond decorators and extends
+
+### The Complete Picture
+What started as a testing strategy for decorators has evolved into:
+- **288 decorator components** (100% compile coverage)
+- **18 extends test cases** (100% behavioral coverage)
+- **194 extends tests** (all passing)
+- **Automated coverage tracking** across all domains
+- **AI-navigable framework** with structured plans and documentation
+- **Production-ready infrastructure** validated by first-run success
+
+### Next Steps
+With extends functionality at 100% coverage:
+- **Maintenance Mode**: Tests serve as regression suite for framework changes
+- **Documentation**: Plans and tests provide comprehensive reference for extends usage
+- **Pattern Library**: Test cases serve as examples for real-world component inheritance
+- **Future Domains**: Framework ready for expansion to new testing areas (build conditionals, styling, output targets)
+
+This milestone represents not just completion of extends testing, but validation that the framework has achieved its original goal: **enabling anyone with minimal knowledge to easily add test cases with confidence.**
+
+---

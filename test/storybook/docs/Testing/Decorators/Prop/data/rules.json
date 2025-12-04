@@ -1,0 +1,23 @@
+{
+  "decorator": "@Prop",
+  "options": {
+    "type": ["string", "number", "boolean", "Array", "Object", "Set"],
+    "reflect": ["✓", "✗"],
+    "mutable": ["✓", "✗"]
+  },
+  "exclusiveGroups": [],
+  "modes": [
+    { "name": "string",  "when": { "type": "string" } },
+    { "name": "number",  "when": { "type": "number" } },
+    { "name": "boolean", "when": { "type": "boolean" } },
+    { "name": "Array",   "when": { "type": "Array" } },
+    { "name": "Object",  "when": { "type": "Object" } },
+    { "name": "Set",     "when": { "type": "Set" } }
+  ],
+  "emit": {
+    "naming": {
+      "prefix": "prop",
+      "includeOptions": ["type", "reflect", "mutable"]
+    }
+  }
+}
