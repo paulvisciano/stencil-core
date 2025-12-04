@@ -124,6 +124,11 @@ export const enum CMP_FLAGS {
    * Determines if a component has a render function.
    */
   hasRenderFn = 1 << 8,
+
+  /**
+   * Determines if a component uses modern class property declarations.
+   */
+  hasModernPropertyDecls = 1 << 9,
 }
 
 /**
@@ -282,6 +287,7 @@ export enum PrimitiveType {
 /**
  * Represents a non-primitive type.
  * Described in https://w3c.github.io/webdriver-bidi/#type-script-RemoteValue.
+ * @deprecated will be removed in v5. Use `@AttrDeserialize()` / `@PropDeserialize()` decorators instead.
  */
 export enum NonPrimitiveType {
   Array = 'array',
@@ -294,6 +300,9 @@ export enum NonPrimitiveType {
   Symbol = 'symbol',
 }
 
+/**  @deprecated will be removed in v5. Use `@AttrDeserialize()` / `@PropDeserialize()` decorators instead. */
 export const TYPE_CONSTANT = 'type';
+/**  @deprecated will be removed in v5. Use `@AttrDeserialize()` / `@PropDeserialize()` decorators instead. */
 export const VALUE_CONSTANT = 'value';
+/**  @deprecated will be removed in v5. Use `@AttrDeserialize()` / `@PropDeserialize()` decorators instead. */
 export const SERIALIZED_PREFIX = 'serialized:';

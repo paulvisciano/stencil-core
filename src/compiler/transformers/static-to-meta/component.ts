@@ -65,13 +65,18 @@ export const parseStaticComponentMeta = (
     return cmpNode;
   }
 
-  const { doesExtend, properties, states, methods, listeners, events, watchers, classMethods } = mergeExtendedClassMeta(
-    compilerCtx,
-    typeChecker,
-    buildCtx,
-    cmpNode,
-    staticMembers,
-  );
+  const {
+    doesExtend,
+    properties,
+    states,
+    methods,
+    listeners,
+    events,
+    watchers,
+    classMethods,
+    serializers,
+    deserializers,
+  } = mergeExtendedClassMeta(compilerCtx, typeChecker, buildCtx, cmpNode, staticMembers, moduleFile);
   const symbol = typeChecker ? typeChecker.getSymbolAtLocation(cmpNode.name) : undefined;
   const docs = serializeSymbol(typeChecker, symbol);
   const isCollectionDependency = moduleFile.isCollectionDependency;
@@ -102,6 +107,8 @@ export const parseStaticComponentMeta = (
     jsFilePath: moduleFile.jsFilePath,
     sourceFilePath: moduleFile.sourceFilePath,
     sourceMapPath: moduleFile.sourceMapPath,
+    serializers,
+    deserializers,
 
     hasAttributeChangedCallbackFn: false,
     hasComponentWillLoadFn: false,
@@ -112,6 +119,7 @@ export const parseStaticComponentMeta = (
     hasComponentWillRenderFn: false,
     hasComponentDidRenderFn: false,
     hasConnectedCallbackFn: false,
+    hasDeserializer: false,
     hasDisconnectedCallbackFn: false,
     hasElement: false,
     hasEvent: false,
@@ -134,6 +142,7 @@ export const parseStaticComponentMeta = (
     hasPropMutable: false,
     hasReflect: false,
     hasRenderFn: false,
+    hasSerializer: false,
     hasState: false,
     hasStyle: false,
     hasVdomAttribute: false,
@@ -173,9 +182,8 @@ export const parseStaticComponentMeta = (
   };
   visitComponentChildNode(cmpNode, buildCtx);
   parseClassMethods(classMethods, cmp);
-  const hasModernPropertyDecls = detectModernPropDeclarations(cmpNode);
-  cmp.hasModernPropertyDecls = hasModernPropertyDecls;
 
+  cmp.hasModernPropertyDecls = detectModernPropDeclarations(cmpNode) || doesExtend;
   cmp.htmlAttrNames = unique(cmp.htmlAttrNames);
   cmp.htmlTagNames = unique(cmp.htmlTagNames);
   cmp.potentialCmpRefs = unique(cmp.potentialCmpRefs);

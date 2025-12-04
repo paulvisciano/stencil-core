@@ -1,6 +1,6 @@
 import ts from 'typescript';
 import { augmentDiagnosticWithNode, buildWarn } from '@utils';
-import { tsResolveModuleName } from '../../sys/typescript/typescript-resolve-module';
+import { tsResolveModuleName, tsGetSourceFile } from '../../sys/typescript/typescript-resolve-module';
 import { isStaticGetter } from '../transform-utils';
 import { parseStaticEvents } from './events';
 import { parseStaticListeners } from './listeners';
@@ -8,6 +8,7 @@ import { parseStaticMethods } from './methods';
 import { parseStaticProps } from './props';
 import { parseStaticStates } from './states';
 import { parseStaticWatchers } from './watchers';
+import { parseStaticSerializers } from './serializers';
 
 import type * as d from '../../../declarations';
 import { detectModernPropDeclarations } from '../detect-modern-prop-decls';
@@ -18,7 +19,7 @@ type DeDupeMember =
   | d.ComponentCompilerMethod
   | d.ComponentCompilerListener
   | d.ComponentCompilerEvent
-  | d.ComponentCompilerWatch;
+  | d.ComponentCompilerChangeHandler;
 
 /**
  * Given two arrays of static members, return a new array containing only the
@@ -33,7 +34,7 @@ const deDupeMembers = <T extends DeDupeMember>(dedupeMembers: T[], staticMembers
   return dedupeMembers.filter(
     (s) =>
       !staticMembers.some((d) => {
-        if ((d as d.ComponentCompilerWatch).methodName) {
+        if ((d as d.ComponentCompilerChangeHandler).methodName) {
           return (d as any).methodName === (s as any).methodName;
         }
         return (d as any).name === (s as any).name;
@@ -101,14 +102,17 @@ function matchesNamedDeclaration(name: string) {
  * @param classDeclaration a class declaration to analyze
  * @param dependentClasses a flat array tree of classes that extend from each other
  * @param typeChecker the TypeScript type checker
+ * @param buildCtx the current build context
+ * @param ogModule the original module file of the class declaration
  * @returns a flat array of classes that extend from each other, including the current class
  */
 function buildExtendsTree(
   compilerCtx: d.CompilerCtx,
   classDeclaration: ts.ClassDeclaration,
-  dependentClasses: { classNode: ts.ClassDeclaration; fileName: string }[],
+  dependentClasses: { classNode: ts.ClassDeclaration; sourceFile: ts.SourceFile; fileName: string }[],
   typeChecker: ts.TypeChecker,
   buildCtx: d.BuildCtx,
+  ogModule: d.Module,
 ) {
   const hasHeritageClauses = classDeclaration.heritageClauses;
   if (!hasHeritageClauses?.length) return dependentClasses;
@@ -160,22 +164,36 @@ function buildExtendsTree(
           const sourceClass = findClassWalk(source, foundClassDeclaration.name?.getText());
 
           if (sourceClass) {
-            dependentClasses.push({ classNode: sourceClass, fileName: source.fileName });
+            dependentClasses.push({ classNode: sourceClass, sourceFile: source, fileName: source.fileName });
             if (keepLooking) {
-              buildExtendsTree(compilerCtx, foundClassDeclaration, dependentClasses, typeChecker, buildCtx);
+              buildExtendsTree(compilerCtx, foundClassDeclaration, dependentClasses, typeChecker, buildCtx, ogModule);
             }
           }
         }
       }
     } catch (_e) {
-      // sad path (normally >1 levels removed): the extends type does not resolve so let's find it manually:
+      // sad path (>1 levels removed or node_modules): the extends type does not resolve so let's find it manually:
 
-      const currentSource = classDeclaration.getSourceFile();
-      if (!currentSource) return;
+      let currentSource: ts.SourceFile = classDeclaration.getSourceFile();
+      let matchedStatement: ts.ClassDeclaration | ts.FunctionDeclaration | ts.VariableStatement;
 
-      // let's see if we can find the class in the current source file first
-      const matchedStatement = currentSource.statements.find(matchesNamedDeclaration(extendee.getText()));
+      if (!currentSource) {
+        // fallback for jest tests where getSourceFile() is undefined - use the original classNode's source file
+        currentSource = ogModule?.staticSourceFile;
+        matchedStatement = findClassWalk(currentSource, extendee.getText());
+      } else {
+        matchedStatement = currentSource.statements.find(matchesNamedDeclaration(extendee.getText()));
+      }
 
+      if (!currentSource) {
+        // no source file :(
+        const err = buildWarn(buildCtx.diagnostics);
+        err.messageText = `Unable to find source file for class "${classDeclaration.name?.getText()}"`;
+        if (!buildCtx.config._isTesting) augmentDiagnosticWithNode(err, classDeclaration);
+        return;
+      }
+
+      // try to see if we can find the class in the current source file first
       if (matchedStatement && ts.isClassDeclaration(matchedStatement)) {
         foundClassDeclaration = matchedStatement;
       } else if (matchedStatement) {
@@ -187,9 +205,13 @@ function buildExtendsTree(
 
       if (foundClassDeclaration && !dependentClasses.some((dc) => dc.classNode === foundClassDeclaration)) {
         // we found the class declaration in the current module
-        dependentClasses.push({ classNode: foundClassDeclaration, fileName: currentSource.fileName });
+        dependentClasses.push({
+          classNode: foundClassDeclaration,
+          sourceFile: currentSource,
+          fileName: currentSource.fileName,
+        });
         if (keepLooking) {
-          buildExtendsTree(compilerCtx, foundClassDeclaration, dependentClasses, typeChecker, buildCtx);
+          buildExtendsTree(compilerCtx, foundClassDeclaration, dependentClasses, typeChecker, buildCtx, ogModule);
         }
         return;
       }
@@ -214,12 +236,36 @@ function buildExtendsTree(
 
               if (foundFile?.resolvedModule && className) {
                 // 4) resolve the module name to a file
-                const foundModule = compilerCtx.moduleMap.get(foundFile.resolvedModule.resolvedFileName);
+                let foundSource: ts.SourceFile = compilerCtx.moduleMap.get(
+                  foundFile.resolvedModule.resolvedFileName,
+                )?.staticSourceFile;
 
-                // 5) look for the corresponding resolved statement
-                const matchedStatement = (foundModule?.staticSourceFile as ts.SourceFile).statements.find(
-                  matchesNamedDeclaration(className),
-                );
+                if (!foundSource) {
+                  // Stencil only loads full-fledged component modules from node_modules collections,
+                  // so if we didn't find the source file in the module map,
+                  // let's create a temporary program and get the source file from there
+                  foundSource = tsGetSourceFile(buildCtx.config, foundFile);
+
+                  if (!foundSource) {
+                    // ts could not resolve the module. Likely because `allowJs` is not set to `true`
+                    const err = buildWarn(buildCtx.diagnostics);
+                    err.messageText = `Unable to resolve import "${statement.moduleSpecifier.getText()}" from "${currentSource.fileName}". 
+                    This can happen when trying to resolve .js files and "allowJs" is not set to "true" in your tsconfig.json.`;
+                    if (!buildCtx.config._isTesting) augmentDiagnosticWithNode(err, classDeclaration);
+                    return;
+                  }
+                }
+
+                const matchedStatement = foundSource.statements.find(matchesNamedDeclaration(className));
+                if (!matchedStatement) {
+                  // we couldn't find the imported declaration as an exported statement in the module
+                  const err = buildWarn(buildCtx.diagnostics);
+                  err.messageText = `Unable to find "${className}" in the imported module "${statement.moduleSpecifier.getText()}". 
+                  Please import class / mixin-factory declarations directly and not via barrel files.`;
+                  if (!buildCtx.config._isTesting) augmentDiagnosticWithNode(err, classDeclaration);
+                  return;
+                }
+
                 foundClassDeclaration = matchedStatement
                   ? ts.isClassDeclaration(matchedStatement)
                     ? matchedStatement
@@ -235,9 +281,21 @@ function buildExtendsTree(
 
                 if (foundClassDeclaration && !dependentClasses.some((dc) => dc.classNode === foundClassDeclaration)) {
                   // 6) if we found the class declaration, push it and check if it itself extends from another class
-                  dependentClasses.push({ classNode: foundClassDeclaration, fileName: currentSource.fileName });
+                  dependentClasses.push({
+                    classNode: foundClassDeclaration,
+                    sourceFile: foundSource,
+                    fileName: currentSource.fileName,
+                  });
+
                   if (keepLooking) {
-                    buildExtendsTree(compilerCtx, foundClassDeclaration, dependentClasses, typeChecker, buildCtx);
+                    buildExtendsTree(
+                      compilerCtx,
+                      foundClassDeclaration,
+                      dependentClasses,
+                      typeChecker,
+                      buildCtx,
+                      ogModule,
+                    );
                   }
                   return;
                 }
@@ -260,8 +318,9 @@ function buildExtendsTree(
  * @param compilerCtx
  * @param typeChecker
  * @param buildCtx
- * @param cmpNode
- * @param staticMembers
+ * @param cmpNode the extending class declaration
+ * @param staticMembers the static members of the extending class to merge with the extended class members
+ * @param moduleFile the module file of the extending class
  * @returns an object containing merged metadata from extended classes
  */
 export function mergeExtendedClassMeta(
@@ -270,8 +329,9 @@ export function mergeExtendedClassMeta(
   buildCtx: d.BuildCtx,
   cmpNode: ts.ClassDeclaration,
   staticMembers: ts.ClassElement[],
+  moduleFile: d.Module,
 ) {
-  const tree = buildExtendsTree(compilerCtx, cmpNode, [], typeChecker, buildCtx);
+  const tree = buildExtendsTree(compilerCtx, cmpNode, [], typeChecker, buildCtx, moduleFile);
   let hasMixin = false;
   let doesExtend = false;
   let properties = parseStaticProps(staticMembers);
@@ -281,13 +341,17 @@ export function mergeExtendedClassMeta(
   let events = parseStaticEvents(staticMembers);
   let watchers = parseStaticWatchers(staticMembers);
   let classMethods = cmpNode.members.filter(ts.isMethodDeclaration);
+  let serializers = parseStaticSerializers(staticMembers, 'serializers');
+  let deserializers = parseStaticSerializers(staticMembers, 'deserializers');
 
   tree.forEach((extendedClass) => {
     const extendedStaticMembers = extendedClass.classNode.members.filter(isStaticGetter);
     const mixinProps = parseStaticProps(extendedStaticMembers) ?? [];
     const mixinStates = parseStaticStates(extendedStaticMembers) ?? [];
     const mixinMethods = parseStaticMethods(extendedStaticMembers) ?? [];
-    const isMixin = mixinProps.length > 0 || mixinStates.length > 0;
+    const mixinEvents = parseStaticEvents(extendedStaticMembers) ?? [];
+    const isMixin =
+      mixinProps.length > 0 || mixinStates.length > 0 || mixinMethods.length > 0 || mixinEvents.length > 0;
     const module = compilerCtx.moduleMap.get(extendedClass.fileName);
     if (!module) return;
 
@@ -295,7 +359,10 @@ export function mergeExtendedClassMeta(
     module.isExtended = true;
     doesExtend = true;
 
-    if (isMixin && !detectModernPropDeclarations(extendedClass.classNode)) {
+    if (
+      (mixinProps.length > 0 || mixinStates.length > 0) &&
+      !detectModernPropDeclarations(extendedClass.classNode, extendedClass.sourceFile)
+    ) {
       const err = buildWarn(buildCtx.diagnostics);
       const target = buildCtx.config.tsCompilerOptions?.target;
       err.messageText = `Component classes can only extend from other Stencil decorated base classes when targetting more modern JavaScript (ES2022 and above).
@@ -306,13 +373,33 @@ export function mergeExtendedClassMeta(
     properties = [...deDupeMembers(mixinProps, properties), ...properties];
     states = [...deDupeMembers(mixinStates, states), ...states];
     methods = [...deDupeMembers(mixinMethods, methods), ...methods];
+    events = [...deDupeMembers(mixinEvents, events), ...events];
     listeners = [...deDupeMembers(parseStaticListeners(extendedStaticMembers) ?? [], listeners), ...listeners];
-    events = [...deDupeMembers(parseStaticEvents(extendedStaticMembers) ?? [], events), ...events];
     watchers = [...deDupeMembers(parseStaticWatchers(extendedStaticMembers) ?? [], watchers), ...watchers];
+    serializers = [
+      ...deDupeMembers(parseStaticSerializers(extendedStaticMembers, 'serializers') ?? [], serializers),
+      ...serializers,
+    ];
+    deserializers = [
+      ...deDupeMembers(parseStaticSerializers(extendedStaticMembers, 'deserializers') ?? [], deserializers),
+      ...deserializers,
+    ];
     classMethods = [...classMethods, ...(extendedClass.classNode.members.filter(ts.isMethodDeclaration) ?? [])];
 
     if (isMixin) hasMixin = true;
   });
 
-  return { hasMixin, doesExtend, properties, states, methods, listeners, events, watchers, classMethods };
+  return {
+    hasMixin,
+    doesExtend,
+    properties,
+    states,
+    methods,
+    listeners,
+    events,
+    watchers,
+    classMethods,
+    serializers,
+    deserializers,
+  };
 }

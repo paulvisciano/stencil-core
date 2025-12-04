@@ -1,3 +1,58 @@
+## 😋 [4.38.3](https://github.com/stenciljs/core/compare/v4.38.2...v4.38.3) (2025-11-05)
+
+
+### Bug Fixes
+
+* **runtime:** modern class props detected in collections ([#6431](https://github.com/stenciljs/core/issues/6431)) ([e790c24](https://github.com/stenciljs/core/commit/e790c24f2205677f1f0cd8251110a608c864c5bb))
+* **ts:** moduleResolution can now be `bundler`. Configurable module / noEmitOnError ([#6433](https://github.com/stenciljs/core/issues/6433)) ([5018e1e](https://github.com/stenciljs/core/commit/5018e1e3ebf03a4b560bba89a3642698ca3f2d9f))
+* **types:** revert autocorrect omission ([#6441](https://github.com/stenciljs/core/issues/6441)) ([4719427](https://github.com/stenciljs/core/commit/47194274cb4d68adb1acb8a37984e9119c78859c))
+
+
+
+## 🐎 [4.38.2](https://github.com/stenciljs/core/compare/v4.38.1...v4.38.2) (2025-10-17)
+
+
+### Bug Fixes
+
+* **build:** absolute to relative path conversion: greedy extension replacement ([#6421](https://github.com/stenciljs/core/issues/6421)) ([5341bf4](https://github.com/stenciljs/core/commit/5341bf4109391a98282f96479f6a7c3ab0a9ee8c))
+* **mock-doc:** implement `part` API ([#6423](https://github.com/stenciljs/core/issues/6423)) ([a85d031](https://github.com/stenciljs/core/commit/a85d0312d6f199023e35c08bddea5a2da0c9f989))
+* **types:** new `MixedInCtor` type to make `Mixin` components type-safe ([#6422](https://github.com/stenciljs/core/issues/6422)) ([b191267](https://github.com/stenciljs/core/commit/b191267afca98b033c8f7eda4f348a908814055b))
+* **types:** temporary `autocorrect` fix ([#6426](https://github.com/stenciljs/core/issues/6426)) ([7044550](https://github.com/stenciljs/core/commit/70445506ed4e721db64b7e813fd9b8433c5ea957))
+
+
+
+## 🚎 [4.38.1](https://github.com/stenciljs/core/compare/v4.38.0...v4.38.1) (2025-10-10)
+
+
+### Bug Fixes
+
+* **build:** add extended class source in collection dependencies ([#6412](https://github.com/stenciljs/core/issues/6412)) ([40516ea](https://github.com/stenciljs/core/commit/40516ea2b75b24471bd8fc8f37e47f0945be4a0f))
+* **runtime:** better boolean attribute handling ([#6413](https://github.com/stenciljs/core/issues/6413)) ([06a2375](https://github.com/stenciljs/core/commit/06a2375f80f53d03c12859ef29ce27d40d8fec6b))
+
+
+### Features
+
+* **Test** Export internal `mockComponentMeta` object making writing custom output-target tests easier ([ef05b45](https://github.com/stenciljs/core/commit/ef05b4505a9313280bca5712dedcbc0444fa37a5))
+
+
+# 🎿 [4.38.0](https://github.com/stenciljs/core/compare/v4.37.1...v4.38.0) (2025-10-02)
+
+
+### Bug Fixes
+
+* local (same-file) class inheritance search ([#6403](https://github.com/stenciljs/core/issues/6403)) ([695b1ac](https://github.com/stenciljs/core/commit/695b1acabd401bd0f7b6c945be3225e7896bbc14))
+* **runtime:** stop immediate re-renders for reflected props when null !== undefined ([#6404](https://github.com/stenciljs/core/issues/6404)) ([680b12e](https://github.com/stenciljs/core/commit/680b12ec7302f169e5d251066e522b81071f8c4e))
+* **test:** stop duplicate super calls in Jest ([#6401](https://github.com/stenciljs/core/issues/6401)) ([32160ad](https://github.com/stenciljs/core/commit/32160ad13beb1891f2cefbcf946f17fdb41aacf5))
+* **test:** trigger @Watch decorators on inherited classes in jest env ([#6402](https://github.com/stenciljs/core/issues/6402)) ([f277068](https://github.com/stenciljs/core/commit/f2770687f592782ce2ff234da933f603ca9e31bb))
+
+
+### Features
+
+* **config:** allow suppressing reserved public name warning ([#6389](https://github.com/stenciljs/core/issues/6389)) ([341fec4](https://github.com/stenciljs/core/commit/341fec4ed01662126fbe0d1dfc3b230612b57bba))
+* new core decorators `@PropSerialize` & `@AttrDeserialize` ([#6387](https://github.com/stenciljs/core/issues/6387)) ([967c234](https://github.com/stenciljs/core/commit/967c2346e9e736eabd16ed42495293b048b29431))
+
+
+
 ## 🏰 [4.37.1](https://github.com/stenciljs/core/compare/v4.37.0...v4.37.1) (2025-09-19)
 
 
